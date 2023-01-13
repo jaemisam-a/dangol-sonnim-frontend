@@ -5,38 +5,29 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 type BannerProps = {
   images: { src: string; alt: string }[];
-  height: string;
 };
-
-type ImageWrapperProps = {
-  height: string;
-};
-
-const ImageWrapper = styled.div<ImageWrapperProps>`
-  height: ${({ height }) => height};
-  position: relative;
-`;
 
 const SlickImage = styled(Image)`
-  object-fit: cover;
+  object-fit: contain;
+  position: static !important;
 `;
 
-const Banner = ({ images, height }: BannerProps) => {
+const Banner = ({ images }: BannerProps) => {
   if (images?.length > 1) {
     return (
       <Carousel autoPlay={true} infiniteLoop={true} showStatus={false} showThumbs={false}>
         {images?.map((image) => (
-          <ImageWrapper height={height} key={image.src}>
+          <div key={image.src}>
             <SlickImage src={image.src} alt={image.alt} fill={true} unoptimized={true} />
-          </ImageWrapper>
+          </div>
         ))}
       </Carousel>
     );
   } else if (images?.length === 1) {
     return (
-      <ImageWrapper height={height}>
+      <div>
         <SlickImage src={images[0].src} alt={images[0].alt} fill={true} unoptimized={true} />
-      </ImageWrapper>
+      </div>
     );
   } else {
     return null;

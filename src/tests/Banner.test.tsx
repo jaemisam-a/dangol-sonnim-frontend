@@ -9,15 +9,12 @@ describe("Banner", () => {
         images={[
           { src: "https://aware.brownbag.one/images/aware/aware-logo.png", alt: "aware-logo" },
         ]}
-        height={"200px"}
       />
     );
 
     const image = document.querySelector("img") as HTMLImageElement;
 
     expect(image.alt).toBe("aware-logo");
-    expect(image.src).toContain(
-      "https%3A%2F%2Faware.brownbag.one%2Fimages%2Faware%2Faware-logo.png"
-    );
+    expect(image.src).toContain("https://aware.brownbag.one/images/aware/aware-logo.png");
   });
 });

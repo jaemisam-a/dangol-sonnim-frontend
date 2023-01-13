@@ -1,6 +1,6 @@
 import Banner from "components/Banner";
 
-const Abc = () => {
+const Test = () => {
   return (
     <>
       <Banner
@@ -8,10 +8,9 @@ const Abc = () => {
           { src: "https://aware.brownbag.one/images/aware/aware-logo.png", alt: "어웨어" },
           { src: "https://aware.brownbag.one/images/aware/aware-logo.png", alt: "어웨어" },
         ]}
-        height={"200px"}
       />
     </>
   );
 };
 
-export default Abc;
+export default Test;
