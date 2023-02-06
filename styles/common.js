@@ -139,6 +139,50 @@ export const Texts = {
     letterSpacing: "-0.3px",
   }),
 
+  /** Subtitle */
+  S1_16_R: css({
+    fontSize: "1rem",
+    fontWeight: "400",
+    lineHeight: "24px",
+    letterSpacing: "-0.6px",
+  }),
+  S1_16_M: css({
+    fontSize: "1rem",
+    fontWeight: "500",
+    lineHeight: "24px",
+    letterSpacing: "-0.6px",
+  }),
+  S1_16_B: css({
+    fontSize: "1rem",
+    fontWeight: "700",
+    lineHeight: "24px",
+    letterSpacing: "-0.6px",
+  }),
+  S2_17_M: css({
+    fontSize: "1.063rem",
+    fontWeight: "400",
+    lineHeight: "24px",
+    letterSpacing: "-0.6px",
+  }),
+  S3_18_R: css({
+    fontSize: "1.125rem",
+    fontWeight: "400",
+    lineHeight: "26px",
+    letterSpacing: "-0.6px",
+  }),
+  S3_18_M: css({
+    fontSize: "1.125rem",
+    fontWeight: "500",
+    lineHeight: "26px",
+    letterSpacing: "-0.5px",
+  }),
+  S3_18_B: css({
+    fontSize: "1.125rem",
+    fontWeight: "700",
+    lineHeight: "26px",
+    letterSpacing: "-0.4px",
+  }),
+
   /** Headline */
   H1_20_B: css({
     fontSize: "1.25rem",
