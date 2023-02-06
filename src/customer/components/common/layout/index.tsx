@@ -2,7 +2,9 @@ import React, { ReactNode } from "react";
 import Head from "next/head";
 import styled from "@emotion/styled";
 
-type LayoutProps = { children: ReactNode; title: string };
+import Header from "customer/components/common/layout/Header";
+
+type LayoutProps = { children: ReactNode; title: string; subTitle?: string };
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -11,13 +13,16 @@ const Wrapper = styled.div`
   box-shadow: rgb(130 130 130 / 15%) 0px 0px 20px;
 `;
 
-const Layout = ({ children, title }: LayoutProps) => {
+const Layout = ({ children, title, subTitle }: LayoutProps) => {
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      <Wrapper>{children}</Wrapper>
+      <Wrapper>
+        <Header subTitle={subTitle} />
+        {children}
+      </Wrapper>
     </>
   );
 };
