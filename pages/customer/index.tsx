@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-import Layout from "Customer/components/Common/Layout";
+import Layout from "customer/components/common/layout";
 
 const Wrapper = styled.div`
   background-color: white;

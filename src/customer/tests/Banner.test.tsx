@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import Banner from "Customer/components/Banner";
+import Banner from "customer/components/Banner";
 
 describe("Banner", () => {
   it("renders a banner", () => {
