@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Banner from "customer/components/Banner";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
+import MainCoupon from "customer/components/coupon/main";
 import { Texts, Colors } from "styles/common";
 
 const Test = () => {
@@ -31,6 +32,14 @@ const Test = () => {
         isXButton={true}
         height="300px"
         component={<div>바텀시트 테스트</div>}
+      />
+      <MainCoupon
+        couponName="아메리카노 주문 시 사이즈업"
+        qrImage="/images/Mob-QR.png"
+        storeLocation="구로구 구로동"
+        storeName="메이비카페"
+        useCount="4/5"
+        validDate="2023.01.20~2023.02.20"
       />
     </Layout>
   );
