@@ -100,7 +100,7 @@ const Header = (props: HeaderProps) => {
               width="28"
               height="28"
             />
-            <h1 css={pageTitle}>{props.subTitle}</h1>
+            <span css={pageTitle}>{props.subTitle}</span>
             {pathname.includes("store") ? (
               <Image
                 css={pointerButton}
