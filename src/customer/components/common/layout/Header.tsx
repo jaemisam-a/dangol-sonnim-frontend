@@ -18,7 +18,7 @@ const Wrapper = styled.header<WrapperProps>`
   top: 0;
   height: 3.25rem;
   background-color: ${Colors.white};
-  border: ${(props) => props.pathname !== "/customer" && `1px solid ${Colors.neutral20} `};
+  border: ${(props) => props.pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
 `;
 
 const InnerWrapper = styled.div<WrapperProps>`
@@ -101,7 +101,7 @@ const Header = (props: HeaderProps) => {
                 src="/images/Right_Accessory.png"
                 alt="right_accessory"
                 width="28"
-                height="24"
+                height="28"
               />
             ) : (
               <HiddenItem />
