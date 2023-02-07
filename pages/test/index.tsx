@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 
+import { Texts, Colors } from "styles/common";
 import Banner from "customer/components/Banner";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
 import MainCoupon from "customer/components/coupon/main";
-import { Texts, Colors } from "styles/common";
+import StoreThumbnail from "customer/components/StoreThumbnail";
 
 const Test = () => {
   const TestDiv = styled.div`
@@ -17,6 +18,9 @@ const Test = () => {
 
   return (
     <Layout title="테스트 페이지">
+      <br />
+      <StoreThumbnail />
+      <br />
       <TestDiv onClick={() => setOpen(true)}>안녕하세요</TestDiv>
       <Banner
         images={[
