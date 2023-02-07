@@ -1,11 +1,17 @@
 * {
   font-family: "pretendard";
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  border: 0;
+  outline: 0;
 }
 
 @font-face {
