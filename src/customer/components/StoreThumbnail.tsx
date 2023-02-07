@@ -6,28 +6,30 @@ import { Colors, Texts } from "styles/common";
 import Tag from "customer/components/common/Tag";
 import Pick from "public/icons/Pick";
 
-const StoreThumbnail = () => {
-  const [isPick, setIsPick] = useState(false);
+interface ThumbnailProps {
+  content: {
+    id: string;
+    store: string;
+    category: string;
+    tags: string[];
+    location: string;
+    img: string;
+  };
+}
 
-  const dummy = [
-    {
-      id: 1,
-      store: "더본즈피자",
-      category: "양식",
-      tags: ["사이드 디쉬 추가", "사이즈업"],
-      location: "구로구 가리봉동",
-      img: "/images/dummy/pizza.png",
-    },
-  ];
+const StoreThumbnail = ({ content }: ThumbnailProps) => {
+  const [isPick, setIsPick] = useState(false);
 
   const IMG_SIZE = 152;
 
   const thumbnailStyle = css`
     cursor: pointer;
+    width: fit-content;
   `;
 
   const imgWrapper = css`
     position: relative;
+    margin-bottom: 6px;
     width: ${IMG_SIZE}px;
     height: ${IMG_SIZE}px;
   `;
@@ -58,6 +60,7 @@ const StoreThumbnail = () => {
     ${Texts.C2_12_R}
     color: ${Colors.neutral70};
   `;
+
   const tagStyle = css`
     display: flex;
     gap: 4px;
@@ -69,11 +72,11 @@ const StoreThumbnail = () => {
   };
   return (
     <>
-      <div key={dummy[0].id} css={thumbnailStyle}>
+      <div css={thumbnailStyle}>
         <div css={imgWrapper}>
           <Image
-            src={dummy[0].img}
-            alt={dummy[0].store}
+            src={content.img}
+            alt={content.store}
             width={IMG_SIZE}
             height={IMG_SIZE}
             css={imgStyle}
@@ -83,15 +86,15 @@ const StoreThumbnail = () => {
           </button>
         </div>
         <div>
-          <span css={storeStyle}>{dummy[0].store}</span>
-          <span css={categoryStyle}>{dummy[0].category}</span>
+          <span css={storeStyle}>{content.store}</span>
+          <span css={categoryStyle}>{content.category}</span>
         </div>
         <div css={tagStyle}>
-          {dummy[0].tags.map((tag) => (
+          {content.tags.map((tag) => (
             <Tag text={tag} key={tag} />
           ))}
         </div>
-        <span css={locationStyle}>{dummy[0].location}</span>
+        <span css={locationStyle}>{content.location}</span>
       </div>
     </>
   );

@@ -9,6 +9,15 @@ import MainCoupon from "customer/components/coupon/main";
 import StoreThumbnail from "customer/components/StoreThumbnail";
 
 const Test = () => {
+  const dummy = {
+    id: "abc",
+    store: "더본즈피자",
+    category: "양식",
+    tags: ["사이드 디쉬 추가", "사이즈업"],
+    location: "구로구 가리봉동",
+    img: "/images/dummy/pizza.png",
+  };
+
   const TestDiv = styled.div`
     ${Texts.B2_14_R_line}
     color: ${Colors.amber50};
@@ -19,7 +28,7 @@ const Test = () => {
   return (
     <Layout title="테스트 페이지">
       <br />
-      <StoreThumbnail />
+      <StoreThumbnail content={dummy} />
       <br />
       <TestDiv onClick={() => setOpen(true)}>안녕하세요</TestDiv>
       <Banner
