@@ -26,8 +26,6 @@ const QRWrapper = styled.div`
   flex-direction: column;
 `;
 
-const QRImage = styled(Image)``;
-
 const QRButton = styled.button`
   border: 1px solid ${Colors.neutral30};
   border-radius: 0.25rem;
@@ -46,6 +44,9 @@ const QRButtonText = styled.span`
 
 const ContentsWrapper = styled.div`
   margin-left: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 `;
 
 const StoreName = styled.div`
@@ -57,7 +58,6 @@ const StoreName = styled.div`
 const StoreLocation = styled.div`
   ${Texts.C2_12_R};
   color: ${Colors.neutral60};
-  margin-bottom: 0.25rem;
 `;
 
 const CouponName = styled.div`
@@ -71,7 +71,7 @@ const UseCount = styled.div`
   display: flex;
   align-items: center;
   width: fit-content;
-  padding: 0.063rem 0.375rem;
+  padding: 0 0.375rem;
 `;
 
 const UseCountText = styled.span`
@@ -89,15 +89,17 @@ const MainCoupon = (props: MainCouponProps) => {
     <>
       <Wrapper>
         <QRWrapper>
-          <QRImage src={props.qrImage} alt="qr" width="74" height="74" />
+          <Image src={props.qrImage} alt="qr" width="74" height="74" />
           <QRButton>
             <Image src="/images/Enlarge.png" alt="enlargement" width="14" height="14" />
             <QRButtonText>QR 확대</QRButtonText>
           </QRButton>
         </QRWrapper>
         <ContentsWrapper>
-          <StoreName>{props.storeName}</StoreName>
-          <StoreLocation>{props.storeLocation}</StoreLocation>
+          <div>
+            <StoreName>{props.storeName}</StoreName>
+            <StoreLocation>{props.storeLocation}</StoreLocation>
+          </div>
           <CouponName>{props.couponName}</CouponName>
           <UseCount>
             <Image src="/images/Check.png" alt="check" width="16" height="16" />
