@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
@@ -9,32 +9,28 @@ type HeaderProps = {
   subTitle?: string;
 };
 
-type WrapperProps = {
-  pathname: string;
-};
-
-const Wrapper = styled.header<WrapperProps>`
+const wrapper = (pathname: string) => css`
   position: sticky;
   top: 0;
   height: 3.25rem;
   background-color: ${Colors.white};
-  border: ${(props) => props.pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
+  border: ${pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
 `;
 
-const InnerWrapper = styled.div<WrapperProps>`
-  padding: ${(props) => (props.pathname === "/customer" ? "0.5rem" : "0.75rem")} 1.25rem;
+const innerWrapper = (pathname: string) => css`
+  padding: ${pathname === "/customer" ? "0.5rem" : "0.75rem"} 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const Buttons = styled.div`
+const buttons = css`
   display: flex;
   gap: 0.25rem;
   color: ${Colors.neutral90};
 `;
 
-const PointerButton = styled(Image)`
+const pointerButton = css`
   background: none;
   border: none;
   padding: 0;
@@ -42,7 +38,7 @@ const PointerButton = styled(Image)`
   cursor: pointer;
 `;
 
-const TextButton = styled.button`
+const textButton = css`
   background: none;
   border: none;
   padding: 0;
@@ -50,17 +46,17 @@ const TextButton = styled.button`
   ${Texts.B2_14_R_line}
 `;
 
-const ButtonDot = styled.span`
+const buttonDot = css`
   ${Texts.B2_14_R1}
 `;
 
-const HiddenItem = styled.div`
+const hiddenItem = css`
   visibility: hidden;
   width: 28px;
   height: 28px;
 `;
 
-const PageTitle = styled.div`
+const pageTitle = css`
   ${Texts.S1_16_R}
 `;
 
@@ -70,46 +66,56 @@ const Header = (props: HeaderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <Wrapper pathname={pathname}>
-      <InnerWrapper pathname={pathname}>
+    <header css={wrapper(pathname)}>
+      <div css={innerWrapper(pathname)}>
         {pathname === "/customer" ? (
           <>
-            <PointerButton src="/images/Logo.png" alt="logo" width="27" height="36" />
-            <Buttons>
+            <Image css={pointerButton} src="/images/Logo.png" alt="logo" width="27" height="36" />
+            <div css={buttons}>
               {isLoggedIn ? (
-                <PointerButton src="/images/Profile.png" alt="profile" width="34" height="34" />
+                <Image
+                  css={pointerButton}
+                  src="/images/Profile.png"
+                  alt="profile"
+                  width="34"
+                  height="34"
+                />
               ) : (
                 <>
-                  <TextButton>사장님 페이지</TextButton>
-                  <ButtonDot>•</ButtonDot>
-                  <TextButton onClick={() => setIsLoggedIn(true)}>로그인/회원가입</TextButton>
+                  <span css={textButton}>사장님 페이지</span>
+                  <span css={buttonDot}>•</span>
+                  <span css={textButton} onClick={() => setIsLoggedIn(true)}>
+                    로그인/회원가입
+                  </span>
                 </>
               )}
-            </Buttons>
+            </div>
           </>
         ) : (
           <>
-            <PointerButton
+            <Image
+              css={pointerButton}
               src="/images/Arrow_Left_MD.png"
               alt="arrow_left"
               width="28"
               height="28"
             />
-            <PageTitle>{props.subTitle}</PageTitle>
+            <span css={pageTitle}>{props.subTitle}</span>
             {pathname.includes("store") ? (
-              <PointerButton
+              <Image
+                css={pointerButton}
                 src="/images/Right_Accessory.png"
                 alt="right_accessory"
                 width="28"
                 height="28"
               />
             ) : (
-              <HiddenItem />
+              <div css={hiddenItem} />
             )}
           </>
         )}
-      </InnerWrapper>
-    </Wrapper>
+      </div>
+    </header>
   );
 };
 

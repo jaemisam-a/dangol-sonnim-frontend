@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
-import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import Header from "customer/components/common/layout/Header";
 
 type LayoutProps = { children: ReactNode; title: string; subTitle?: string };
 
-const Wrapper = styled.div`
+const wrapper = css`
   width: 100vw;
   max-width: 480px;
   margin: auto;
@@ -19,10 +19,10 @@ const Layout = ({ children, title, subTitle }: LayoutProps) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <Wrapper>
+      <div css={wrapper}>
         <Header subTitle={subTitle} />
         {children}
-      </Wrapper>
+      </div>
     </>
   );
 };

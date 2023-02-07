@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
@@ -13,7 +13,7 @@ type MainCouponProps = {
   validDate: string;
 };
 
-const Wrapper = styled.div`
+const wrapper = css`
   box-shadow: 2px 3px 8px #f1ebe2;
   border-radius: 0.5rem;
   display: flex;
@@ -21,12 +21,12 @@ const Wrapper = styled.div`
   padding: 0.75rem;
 `;
 
-const QRWrapper = styled.div`
+const qrWrapper = css`
   display: flex;
   flex-direction: column;
 `;
 
-const QRButton = styled.button`
+const qrButton = css`
   border: 1px solid ${Colors.neutral30};
   border-radius: 0.25rem;
   padding: 0.313rem 0.5rem;
@@ -37,35 +37,35 @@ const QRButton = styled.button`
   cursor: pointer;
 `;
 
-const QRButtonText = styled.span`
+const qrButtonText = css`
   ${Texts.B1_13_M2};
   color: ${Colors.neutral80};
 `;
 
-const ContentsWrapper = styled.div`
+const contentsWrapper = css`
   margin-left: 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 `;
 
-const StoreName = styled.div`
+const storeName = css`
   ${Texts.B3_15_M1};
   color: #191919;
   width: 190px;
 `;
 
-const StoreLocation = styled.div`
+const storeLocation = css`
   ${Texts.C2_12_R};
   color: ${Colors.neutral60};
 `;
 
-const CouponName = styled.div`
+const couponName = css`
   ${Texts.B3_15_B}
   color: ${Colors.black};
 `;
 
-const UseCount = styled.div`
+const useCount = css`
   border: 1px solid ${Colors.amber50};
   border-radius: 7.5rem;
   display: flex;
@@ -74,12 +74,12 @@ const UseCount = styled.div`
   padding: 0 0.375rem;
 `;
 
-const UseCountText = styled.span`
+const useCountText = css`
   ${Texts.C2_12_M};
   color: ${Colors.amber50};
 `;
 
-const ValidDate = styled.div`
+const validDate = css`
   ${Texts.B1_13_R2};
   color: ${Colors.neutral70};
 `;
@@ -87,27 +87,27 @@ const ValidDate = styled.div`
 const MainCoupon = (props: MainCouponProps) => {
   return (
     <>
-      <Wrapper>
-        <QRWrapper>
+      <div css={wrapper}>
+        <div css={qrWrapper}>
           <Image src={props.qrImage} alt="qr" width="74" height="74" />
-          <QRButton>
+          <button css={qrButton}>
             <Image src="/images/Enlarge.png" alt="enlargement" width="14" height="14" />
-            <QRButtonText>QR 확대</QRButtonText>
-          </QRButton>
-        </QRWrapper>
-        <ContentsWrapper>
+            <span css={qrButtonText}>QR 확대</span>
+          </button>
+        </div>
+        <div css={contentsWrapper}>
           <div>
-            <StoreName>{props.storeName}</StoreName>
-            <StoreLocation>{props.storeLocation}</StoreLocation>
+            <span css={storeName}>{props.storeName}</span>
+            <span css={storeLocation}>{props.storeLocation}</span>
           </div>
-          <CouponName>{props.couponName}</CouponName>
-          <UseCount>
+          <div css={couponName}>{props.couponName}</div>
+          <div css={useCount}>
             <Image src="/images/Check.png" alt="check" width="16" height="16" />
-            <UseCountText>{props.useCount}회 사용</UseCountText>
-          </UseCount>
-          <ValidDate>{props.validDate}</ValidDate>
-        </ContentsWrapper>
-      </Wrapper>
+            <span css={useCountText}>{props.useCount}회 사용</span>
+          </div>
+          <div css={validDate}>{props.validDate}</div>
+        </div>
+      </div>
     </>
   );
 };
