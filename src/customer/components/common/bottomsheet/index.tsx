@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import Image from "next/image";
-import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
@@ -14,15 +14,7 @@ type BottomSheetProps = {
   component: JSX.Element;
 };
 
-type WrapperProps = {
-  height: string;
-};
-
-type PointerButtonProps = {
-  isVisible: boolean;
-};
-
-const OuterArea = styled.div`
+const outerArea = css`
   position: absolute;
   top: 0;
   height: 100%;
@@ -32,18 +24,18 @@ const OuterArea = styled.div`
   z-index: 3;
 `;
 
-const Wrapper = styled.div<WrapperProps>`
+const wrapper = (height: string) => css`
   position: absolute;
   bottom: 0;
   z-index: 4;
   width: 100%;
   max-width: 480px;
-  height: ${(props) => props.height};
+  height: ${height};
   background-color: ${Colors.white};
   border-radius: 10px 10px 0 0;
 `;
 
-const TitleSection = styled.div`
+const titleSection = css`
   height: 3.25rem;
   border-bottom: 1px solid ${Colors.neutral20};
   display: flex;
@@ -52,17 +44,17 @@ const TitleSection = styled.div`
   padding: 0 1.25rem;
 `;
 
-const TitleText = styled.div`
+const titleText = css`
   ${Texts.S1_16_M}
 `;
 
-const PointerButton = styled(Image)<PointerButtonProps>`
+const pointerButton = (isVisible: boolean) => css`
   background: none;
   border: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
-  visibility: ${(props) => !props.isVisible && "hidden"};
+  visibility: ${isVisible && "hidden"};
 `;
 
 const BottomSheet = (props: BottomSheetProps) => {
@@ -73,29 +65,29 @@ const BottomSheet = (props: BottomSheetProps) => {
   if (props.open)
     return (
       <>
-        <OuterArea onClick={offBottomSheet} />
-        <Wrapper height={props.height}>
-          <TitleSection>
-            <PointerButton
+        <div css={outerArea} onClick={offBottomSheet} />
+        <div css={wrapper(props.height)}>
+          <div css={titleSection}>
+            <Image
+              css={pointerButton(props.isBackButton)}
               onClick={offBottomSheet}
               src="/images/Arrow_Left_MD.png"
               alt="arrow-left"
               width="28"
               height="28"
-              isVisible={props.isBackButton}
             />
-            <TitleText>{props.title}</TitleText>
-            <PointerButton
+            <h2 css={titleText}>{props.title}</h2>
+            <Image
+              css={pointerButton(props.isXButton)}
               onClick={offBottomSheet}
               src="/images/X-Icon.png"
               alt="x-icon"
               width="28"
               height="28"
-              isVisible={props.isXButton}
             />
-          </TitleSection>
+          </div>
           {props.component}
-        </Wrapper>
+        </div>
       </>
     );
 
