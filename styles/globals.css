@@ -1,12 +1,33 @@
+* {
+  font-family: "pretendard";
+}
+
 body {
   margin: 0;
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
-    "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+@font-face {
+  font-family: "pretendard";
+  src: url("/font/Pretendard-Regular.subset.woff2") format("woff2"),
+    url("/font/Pretendard-Regular.subset.woff") format("woff");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "pretendard";
+  src: url("/font/Pretendard-Medium.subset.woff2") format("woff2"),
+    url("/font/Pretendard-Medium.subset.woff") format("woff");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "pretendard";
+  src: url("/font/Pretendard-Bold.subset.woff2") format("woff2"),
+    url("/font/Pretendard-Bold.subset.woff") format("woff");
+  font-weight: 700;
+  font-display: swap;
 }
