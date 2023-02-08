@@ -54,7 +54,7 @@ const pointerButton = (isVisible: boolean) => css`
   padding: 0;
   margin: 0;
   cursor: pointer;
-  visibility: ${isVisible && "hidden"};
+  visibility: ${!isVisible && "hidden"};
 `;
 
 const BottomSheet = (props: BottomSheetProps) => {

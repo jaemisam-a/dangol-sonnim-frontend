@@ -49,6 +49,11 @@ const contentsWrapper = css`
   gap: 0.25rem;
 `;
 
+const storeWrapper = css`
+  display: flex;
+  flex-direction: column;
+`;
+
 const storeName = css`
   ${Texts.B3_15_M1};
   color: #191919;
@@ -96,7 +101,7 @@ const MainCoupon = (props: MainCouponProps) => {
           </button>
         </div>
         <div css={contentsWrapper}>
-          <div>
+          <div css={storeWrapper}>
             <span css={storeName}>{props.storeName}</span>
             <span css={storeLocation}>{props.storeLocation}</span>
           </div>
