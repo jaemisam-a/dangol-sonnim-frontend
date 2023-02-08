@@ -6,7 +6,7 @@ import { Colors, Texts } from "styles/common";
 import Tag from "customer/components/common/Tag";
 import Pick from "public/icons/Pick";
 
-interface ThumbnailProps {
+type ThumbnailProps = {
   content: {
     id: string;
     store: string;
@@ -15,7 +15,7 @@ interface ThumbnailProps {
     location: string;
     img: string;
   };
-}
+};
 
 const StoreThumbnail = ({ content }: ThumbnailProps) => {
   const [isPick, setIsPick] = useState(false);
