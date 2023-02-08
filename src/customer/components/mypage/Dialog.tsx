@@ -9,6 +9,8 @@ type DialogProps = {
     additionalText?: JSX.Element;
     buttonText: { left: string; right: string };
   };
+  onConfirm: () => void;
+  onCancel: () => void;
 };
 
 const wrapper = css`
@@ -50,7 +52,7 @@ const buttonWrapper = css`
   }
 `;
 
-const Dialog = ({ content }: DialogProps) => {
+const Dialog = ({ content, onConfirm, onCancel }: DialogProps) => {
   return (
     <div css={wrapper}>
       <div css={headingWrapper}>
@@ -62,8 +64,12 @@ const Dialog = ({ content }: DialogProps) => {
         {content.additionalText ?? null}
       </div>
       <div css={buttonWrapper}>
-        <button className="leftBtn">{content.buttonText.left}</button>
-        <button className="rightBtn">{content.buttonText.right}</button>
+        <button className="leftBtn" onClick={onConfirm}>
+          {content.buttonText.left}
+        </button>
+        <button className="rightBtn" onClick={onCancel}>
+          {content.buttonText.right}
+        </button>
       </div>
     </div>
   );

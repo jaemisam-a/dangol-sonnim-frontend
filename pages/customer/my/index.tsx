@@ -37,13 +37,15 @@ const dialogContent = [
   },
 ];
 const My = () => {
+  const onConfirm = () => {};
+  const onCancel = () => {};
   return (
     <>
       <Layout title="마이페이지" subTitle="마이페이지">
         <div css={test}>
-          <Dialog content={dialogContent[0]} />
+          <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
           <br />
-          <Dialog content={dialogContent[1]} />
+          <Dialog content={dialogContent[1]} onConfirm={onConfirm} onCancel={onCancel} />
         </div>
       </Layout>
     </>
