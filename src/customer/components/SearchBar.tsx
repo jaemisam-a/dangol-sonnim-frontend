@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, KeyboardEvent } from "react";
 import { css } from "@emotion/react";
 
 import { Colors } from "styles/common";
@@ -40,7 +40,7 @@ const searchIcon = css`
 
 const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       // Todo : 검색
     }
