@@ -1,11 +1,13 @@
-import { css } from "@emotion/react";
 import React from "react";
+import { css } from "@emotion/react";
+
 import { Colors, Texts } from "styles/common";
 
 type DialogProps = {
   content: {
     usage: "withdrawal" | "unsubscribe";
     id: string;
+    name: string;
     additionalText?: JSX.Element;
     buttonText: { left: string; right: string };
   };
@@ -44,10 +46,10 @@ const buttonWrapper = css`
     ${Texts.B3_15_M2}
   }
 
-  & button.leftBtn {
+  & button.confirmBtn {
     background-color: ${Colors.neutral50};
   }
-  & button.rightBtn {
+  & button.cancelBtn {
     background-color: ${Colors.amber50};
   }
 `;
@@ -58,16 +60,16 @@ const Dialog = ({ content, onConfirm, onCancel }: DialogProps) => {
       <div css={headingWrapper}>
         <h1 css={heading}>
           {content.usage === "withdrawal"
-            ? `${content.id}님,\n 정말 회원 탈퇴하시겠습니까?`
-            : `${content.id}, \n 구독 해지하겠습니까?`}
+            ? `${content.name}님,\n정말 회원 탈퇴하시겠습니까?`
+            : `${content.name}, \n구독 해지하겠습니까?`}
         </h1>
         {content.additionalText ?? null}
       </div>
       <div css={buttonWrapper}>
-        <button className="leftBtn" onClick={onConfirm}>
+        <button className="confirmBtn" onClick={onConfirm}>
           {content.buttonText.left}
         </button>
-        <button className="rightBtn" onClick={onCancel}>
+        <button className="cancelBtn" onClick={onCancel}>
           {content.buttonText.right}
         </button>
       </div>

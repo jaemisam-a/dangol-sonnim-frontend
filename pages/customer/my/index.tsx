@@ -22,7 +22,8 @@ const test = css`
 const dialogContent = [
   {
     usage: "withdrawal" as const,
-    id: "물고기1234",
+    id: "aaa1234",
+    name: "물고기1234",
     additionalText: (
       <div css={addText}>
         단골손님에서 <span css={highlight}>더 많은 혜택</span>들이 기다리고 있어요!
@@ -32,7 +33,8 @@ const dialogContent = [
   },
   {
     usage: "unsubscribe" as const,
-    id: "물고기1234",
+    id: "aaa1234",
+    name: "물고기1234",
     buttonText: { left: "구독 해지하기", right: "구독 유지하기" },
   },
 ];
