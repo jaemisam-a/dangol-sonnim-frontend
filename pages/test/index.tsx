@@ -7,6 +7,7 @@ import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
 import MainCoupon from "customer/components/coupon/main";
 import StoreThumbnail from "customer/components/StoreThumbnail";
+import SearchBar from "customer/components/SearchBar";
 
 const Test = () => {
   const dummy = {
@@ -27,6 +28,8 @@ const Test = () => {
 
   return (
     <Layout title="테스트 페이지">
+      <br />
+      <SearchBar />
       <br />
       <StoreThumbnail content={dummy} />
       <br />
