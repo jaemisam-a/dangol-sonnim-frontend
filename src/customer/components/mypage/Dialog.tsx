@@ -9,7 +9,7 @@ type DialogProps = {
     id: string;
     name: string;
     additionalText?: JSX.Element;
-    buttonText: { left: string; right: string };
+    buttonText: { confirm: string; cancel: string };
   };
   onConfirm: () => void;
   onCancel: () => void;
@@ -61,16 +61,16 @@ const Dialog = ({ content, onConfirm, onCancel }: DialogProps) => {
         <h1 css={heading}>
           {content.usage === "withdrawal"
             ? `${content.name}님,\n정말 회원 탈퇴하시겠습니까?`
-            : `${content.name}, \n구독 해지하겠습니까?`}
+            : `${content.name},\n구독 해지하겠습니까?`}
         </h1>
-        {content.additionalText ?? null}
+        {content.additionalText}
       </div>
       <div css={buttonWrapper}>
         <button className="confirmBtn" onClick={onConfirm}>
-          {content.buttonText.left}
+          {content.buttonText.confirm}
         </button>
         <button className="cancelBtn" onClick={onCancel}>
-          {content.buttonText.right}
+          {content.buttonText.cancel}
         </button>
       </div>
     </div>

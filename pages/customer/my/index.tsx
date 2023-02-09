@@ -9,11 +9,12 @@ const highlight = css`
   color: ${Colors.amber50};
   ${Texts.B3_15_B}
 `;
+
 const addText = css`
   ${Texts.B3_15_R2}
 `;
 
-// Review용 (Modal 완성되면 삭제정예정)
+// FIXME: Review용 (Modal 완성되면 삭제정예정)
 const test = css`
   background-color: grey;
   padding: 2rem;
@@ -29,13 +30,13 @@ const dialogContent = [
         단골손님에서 <span css={highlight}>더 많은 혜택</span>들이 기다리고 있어요!
       </div>
     ),
-    buttonText: { left: "탈퇴하기", right: "혜택 계속 사용하기" },
+    buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
   },
   {
     usage: "unsubscribe" as const,
     id: "aaa1234",
     name: "물고기1234",
-    buttonText: { left: "구독 해지하기", right: "구독 유지하기" },
+    buttonText: { confirm: "구독 해지하기", cancel: "구독 유지하기" },
   },
 ];
 const My = () => {
