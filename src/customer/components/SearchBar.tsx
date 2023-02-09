@@ -42,7 +42,7 @@ const SearchBar = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      // Todo : 검색
+      // TODO: 검색
     }
   };
 
