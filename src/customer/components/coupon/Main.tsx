@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
+import CountTag from "customer/components/common/CountTag";
 import { Colors, Texts } from "styles/common";
 
 type MainCouponProps = {
@@ -70,20 +71,6 @@ const couponName = css`
   color: ${Colors.black};
 `;
 
-const useCount = css`
-  border: 1px solid ${Colors.amber50};
-  border-radius: 7.5rem;
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  padding: 0 0.375rem;
-`;
-
-const useCountText = css`
-  ${Texts.C2_12_M};
-  color: ${Colors.amber50};
-`;
-
 const validDate = css`
   ${Texts.B1_13_R2};
   color: ${Colors.neutral70};
@@ -106,10 +93,7 @@ const MainCoupon = (props: MainCouponProps) => {
             <span css={storeLocation}>{props.storeLocation}</span>
           </div>
           <div css={couponName}>{props.couponName}</div>
-          <div css={useCount}>
-            <Image src="/images/Check.png" alt="check" width="16" height="16" />
-            <span css={useCountText}>{props.useCount}회 사용</span>
-          </div>
+          <CountTag useCount={props.useCount} />
           <div css={validDate}>{props.validDate}</div>
         </div>
       </div>
