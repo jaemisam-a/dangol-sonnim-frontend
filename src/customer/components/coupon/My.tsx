@@ -11,6 +11,7 @@ type MyCouponProps = {
   couponName: string;
   useCount: string;
   couponDescription: string;
+  isDetail: boolean;
 };
 
 const wrapper = css`
@@ -66,10 +67,12 @@ const MyCoupon = (props: MyCouponProps) => {
       <div css={wrapper}>
         <div css={titleWrapper}>
           <span css={storeName}>{props.storeName}</span>
-          <span css={paymentBtn}>
-            <span>결제내역</span>
-            <RightIcon width="14" height="14" stroke={Colors.amber50} />
-          </span>
+          {props.isDetail && (
+            <span css={paymentBtn}>
+              <span>결제내역</span>
+              <RightIcon width="14" height="14" stroke={Colors.amber50} />
+            </span>
+          )}
         </div>
         <div css={couponPrice}>월 {props.couponPrice.toLocaleString("ko-KR")}원</div>
         <div css={couponExplainWrapper}>

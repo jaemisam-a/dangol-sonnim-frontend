@@ -65,6 +65,7 @@ const Test = () => {
         couponName="모든 메뉴 사이즈업(5회권)"
         useCount="4/5"
         couponDescription="쿠폰 소지 시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번 당 최대 1번 가능"
+        isDetail={true}
       />
     </Layout>
   );
