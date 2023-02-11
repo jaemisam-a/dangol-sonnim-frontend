@@ -50,6 +50,7 @@ const My = () => {
             <Dialog content={dialogContent[1]} onConfirm={onConfirm} onCancel={onCancel} />
           </Modal>
         </div>
+        <div>My</div>
       </Layout>
     </>
   );
