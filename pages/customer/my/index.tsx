@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import Layout from "customer/components/common/layout";
 import Dialog from "customer/components/mypage/Dialog";
+import Tab from "customer/components/mypage/Tab";
 
 const highlight = css`
   color: ${Colors.amber50};
@@ -45,6 +46,7 @@ const My = () => {
   return (
     <>
       <Layout title="마이페이지" subTitle="마이페이지">
+        <Tab />
         <div css={test}>
           <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
           <br />
