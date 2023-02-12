@@ -1,19 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import { Colors, Texts } from "styles/common";
 import Layout from "customer/components/common/layout";
 import Dialog from "customer/components/mypage/Dialog";
 import Tab from "customer/components/mypage/Tab";
-
-const highlight = css`
-  color: ${Colors.amber50};
-  ${Texts.B3_15_B}
-`;
-
-const addText = css`
-  ${Texts.B3_15_R2}
-`;
+import Modal from "customer/components/common/Modal";
 
 // FIXME: Review용 (Modal 완성되면 삭제정예정)
 const test = css`
@@ -26,31 +17,41 @@ const dialogContent = [
     usage: "withdrawal" as const,
     id: "aaa1234",
     name: "물고기1234",
-    additionalText: (
-      <div css={addText}>
-        단골손님에서 <span css={highlight}>더 많은 혜택</span>들이 기다리고 있어요!
-      </div>
-    ),
     buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
   },
   {
     usage: "unsubscribe" as const,
-    id: "aaa1234",
-    name: "물고기1234",
+    id: "aaa4567",
+    name: "정갈한솔 모든 메뉴 사이즈업",
+    subscribeDate: "3월 2일",
     buttonText: { confirm: "구독 해지하기", cancel: "구독 유지하기" },
   },
 ];
 const My = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const onConfirm = () => {};
   const onCancel = () => {};
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
   return (
     <>
       <Layout title="마이페이지" subTitle="마이페이지">
         <Tab />
-        <div css={test}>
-          <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
-          <br />
-          <Dialog content={dialogContent[1]} onConfirm={onConfirm} onCancel={onCancel} />
+
+        <div
+          css={css`
+            display: flex;
+            gap: 1rem;
+          `}
+        >
+          <button onClick={openModal}>Open modal-탈퇴 </button>
+          <Modal open={isOpen} onClose={closeModal}>
+            <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
+          </Modal>
+          <button onClick={openModal}>Open modal-구독해지</button>
+          <Modal open={isOpen} onClose={closeModal}>
+            <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
+          </Modal>
         </div>
       </Layout>
     </>
