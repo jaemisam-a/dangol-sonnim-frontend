@@ -28,7 +28,7 @@ const storeName = css`
   ${Texts.B1_13_R2}
 `;
 
-const paymentBtn = css`
+const paymentHistory = css`
   display: flex;
   align-items: center;
   gap: 0.125rem;
@@ -68,7 +68,7 @@ const MyCoupon = (props: MyCouponProps) => {
         <div css={titleWrapper}>
           <span css={storeName}>{props.storeName}</span>
           {props.isDetail && (
-            <span css={paymentBtn}>
+            <span css={paymentHistory}>
               <span>결제내역</span>
               <RightIcon width="14" height="14" stroke={Colors.amber50} />
             </span>
