@@ -52,13 +52,13 @@ const Login = () => {
           </div>
         </div>
         <div css={buttonWrapper}>
-          {socialArr.map((content, idx) => (
+          {socialArr.map((content) => (
             <SocialButton
               bgColor={content.bgColor}
               color={content.color}
               image={content.image}
               name={content.name}
-              key={idx}
+              key={content.name}
             />
           ))}
         </div>
