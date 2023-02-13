@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import AddPlusCircle from "public/icons/AddPlusCircle.svg";
 import { Colors, Texts } from "styles/common";
+import TextInput from "customer/components/common/input/Text";
 
 const wrapper = css`
   display: flex;
@@ -17,6 +18,10 @@ const profileWrapper = css`
   justify-content: center;
   padding-top: 2.25rem;
   padding-bottom: 1rem;
+`;
+
+const profileImageWrapper = css`
+  position: relative;
 `;
 
 const inputLabel = css`
@@ -41,13 +46,6 @@ const addImage = css`
   position: absolute;
   right: -0.438rem;
   bottom: 0.375rem;
-`;
-
-const input = css`
-  ${Texts.B3_15_R1}
-  padding: 0.688rem 0.75rem;
-  border: 1px solid ${Colors.neutral40};
-  border-radius: 0.25rem;
 `;
 
 const inputWrapper = css`
@@ -86,11 +84,7 @@ const EditProfile = () => {
     <>
       <div css={wrapper}>
         <div css={profileWrapper}>
-          <div
-            css={css`
-              position: relative;
-            `}
-          >
+          <div css={profileImageWrapper}>
             <Image src="/images/Profile.png" alt="이미지 변경" width="80" height="80" />
             <AddPlusCircle css={addImage} />
           </div>
@@ -99,14 +93,14 @@ const EditProfile = () => {
           <div css={inputWrapper}>
             <div css={inputLabel}>닉네임</div>
             <div css={inputBtnWrapper}>
-              <input css={input} />
+              <TextInput />
               <button css={inputBtn}>중복확인</button>
             </div>
           </div>
           <div css={inputWrapper}>
             <div css={inputLabel}>휴대폰 번호</div>
             <div css={inputBtnWrapper}>
-              <input css={input} />
+              <TextInput />
               <button css={inputBtn}>다시 본인인증</button>
             </div>
           </div>
