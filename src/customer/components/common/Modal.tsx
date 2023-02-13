@@ -10,21 +10,23 @@ type ModalProps = {
 };
 
 const fadeIn = keyframes`
-from {
-  opacity: 0;
-}
-to {
-  opacity: 0.6;
-}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.6;
+  }
 `;
 
 const fadeOut = keyframes`
-from {
-    opacity: 0.6;
-}
-to {
-    opacity: 0;
+  from {
+      opacity: 0.6;
   }
+  
+  to {
+      opacity: 0;
+    }
 `;
 
 const background = (open: boolean) => css`

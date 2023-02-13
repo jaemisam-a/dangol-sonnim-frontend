@@ -28,11 +28,14 @@ const dialogContent = [
   },
 ];
 const My = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isWithdrawalOpen, setIsWithdrawalOpen] = useState(false);
+  const [isUnsubcribeOpen, setIsUnsubscribeOpen] = useState(false);
   const onConfirm = () => {};
   const onCancel = () => {};
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openWithdrawalModal = () => setIsWithdrawalOpen(true);
+  const openUnsubscribeModal = () => setIsUnsubscribeOpen(true);
+  const closeWithdrawalModal = () => setIsWithdrawalOpen(false);
+  const closeUnsubscribeModal = () => setIsUnsubscribeOpen(false);
   return (
     <>
       <Layout title="마이페이지" subTitle="마이페이지">
@@ -44,13 +47,13 @@ const My = () => {
             gap: 1rem;
           `}
         >
-          <button onClick={openModal}>Open modal-탈퇴 </button>
-          <Modal open={isOpen} onClose={closeModal}>
+          <button onClick={openWithdrawalModal}>Open modal-탈퇴 </button>
+          <Modal open={isWithdrawalOpen} onClose={closeWithdrawalModal}>
             <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
           </Modal>
-          <button onClick={openModal}>Open modal-구독해지</button>
-          <Modal open={isOpen} onClose={closeModal}>
-            <Dialog content={dialogContent[0]} onConfirm={onConfirm} onCancel={onCancel} />
+          <button onClick={openUnsubscribeModal}>Open modal-구독해지</button>
+          <Modal open={isUnsubcribeOpen} onClose={closeUnsubscribeModal}>
+            <Dialog content={dialogContent[1]} onConfirm={onConfirm} onCancel={onCancel} />
           </Modal>
         </div>
       </Layout>
