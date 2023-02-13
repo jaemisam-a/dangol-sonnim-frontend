@@ -27,7 +27,7 @@ const Tab = () => {
     <>
       <div css={wrapper}>
         {tabArr.map((tab, idx) => (
-          <div key={idx} css={tabBtn(selectedTab === idx)} onClick={() => setSelectedTab(idx)}>
+          <div key={tab} css={tabBtn(selectedTab === idx)} onClick={() => setSelectedTab(idx)}>
             {tab}
           </div>
         ))}
