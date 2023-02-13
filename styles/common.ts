@@ -122,7 +122,7 @@ export const Texts = {
   }),
   B3_15_M1: css({
     fontSize: "0.938rem",
-    fontWeight: "400",
+    fontWeight: "500",
     lineHeight: "22px",
     letterSpacing: "-0.8px",
   }),

@@ -5,9 +5,10 @@ import { Texts, Colors } from "styles/common";
 import Banner from "customer/components/Banner";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
-import MainCoupon from "customer/components/coupon/main";
+import MainCoupon from "customer/components/coupon/Main";
 import StoreThumbnail from "customer/components/StoreThumbnail";
 import SearchBar from "customer/components/SearchBar";
+import MyCoupon from "customer/components/coupon/My";
 
 const Test = () => {
   const dummy = {
@@ -56,6 +57,15 @@ const Test = () => {
         storeName="메이비카페"
         useCount="4/5"
         validDate="2023.01.20~2023.02.20"
+      />
+      <br />
+      <MyCoupon
+        storeName="정갈한솥"
+        couponPrice={3500}
+        couponName="모든 메뉴 사이즈업(5회권)"
+        useCount="4/5"
+        couponDescription="쿠폰 소지 시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번 당 최대 1번 가능"
+        isDetail={true}
       />
     </Layout>
   );
