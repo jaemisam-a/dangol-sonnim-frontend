@@ -6,12 +6,6 @@ import Dialog from "customer/components/mypage/Dialog";
 import Tab from "customer/components/mypage/Tab";
 import Modal from "customer/components/common/Modal";
 
-// FIXME: Review용 (Modal 완성되면 삭제정예정)
-const test = css`
-  background-color: grey;
-  padding: 2rem;
-`;
-
 const dialogContent = [
   {
     usage: "withdrawal" as const,
