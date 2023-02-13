@@ -19,7 +19,7 @@ const wrapper = css`
   background-color: ${Colors.white};
   color: ${Colors.black};
   width: 20rem;
-  padding: 2rem 1.25rem;
+  padding: 1.5rem 1.25rem;
   border-radius: 0.625rem;
   text-align: center;
 `;
@@ -31,10 +31,12 @@ const headingWrapper = css`
 const heading = css`
   ${Texts.S3_18_B}
   white-space: pre;
+  margin: 0 0 1rem;
 `;
 
 const infoText = css`
   ${Texts.B3_15_R2}
+  line-height: 1.25rem;
 
   & span {
     color: ${Colors.amber50};
