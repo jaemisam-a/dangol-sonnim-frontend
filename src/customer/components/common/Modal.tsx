@@ -21,11 +21,11 @@ const fadeIn = keyframes`
 
 const fadeOut = keyframes`
   from {
-      opacity: 0.6;
+    opacity: 0.6;
   }
   
   to {
-      opacity: 0;
+    opacity: 0;
     }
 `;
 
