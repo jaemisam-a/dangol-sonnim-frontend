@@ -85,7 +85,7 @@ const SearchList = (props: SearchListProps) => {
         <ul>
           {props.queries.map((query) => (
             <li key={query} css={[queryList, recentQueries]}>
-              <Link css={link} href={{ pathname: "/customer/search", query: { query } }}>
+              <Link css={link} href={{ pathname: "/customer/stores", query: { query } }}>
                 {query}
               </Link>
               <button onClick={deleteRecentQuery}>
