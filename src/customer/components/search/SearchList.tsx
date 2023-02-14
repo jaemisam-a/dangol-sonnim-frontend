@@ -6,7 +6,7 @@ import { Colors, Texts } from "styles/common";
 import Close from "public/icons/Close.svg";
 
 const wrapper = css`
-  padding: 0.625rem 1rem 0;
+  padding: 0 1rem;
 `;
 
 const subjectWrapper = css`
@@ -23,6 +23,7 @@ const subjectWrapper = css`
 const subject = css`
   ${Texts.B2_14_R2}
   color:${Colors.neutral70};
+  padding: 0.625rem 0 0.5rem;
 `;
 
 const queryList = css`
@@ -37,6 +38,10 @@ const recentQueries = css`
   & button {
     background-color: transparent;
   }
+`;
+
+const link = css`
+  width: 100%;
 `;
 
 const margin = css`
@@ -74,13 +79,15 @@ const SearchList = (props: SearchListProps) => {
     <>
       <section css={wrapper}>
         <div css={[subject, subjectWrapper]}>
-          <span>최근 검색어</span>
+          <div>최근 검색어</div>
           <button onClick={deleteAll}>전체삭제</button>
         </div>
         <ul>
           {props.queries.map((query) => (
             <li key={query} css={[queryList, recentQueries]}>
-              <Link href={{ pathname: "/customer/search", query: { query } }}>{query}</Link>
+              <Link css={link} href={{ pathname: "/customer/search", query: { query } }}>
+                {query}
+              </Link>
               <button onClick={deleteRecentQuery}>
                 <Close />
               </button>
@@ -95,11 +102,13 @@ const SearchList = (props: SearchListProps) => {
   ) : (
     <>
       <section css={wrapper}>
-        <span css={subject}>추천 검색어</span>
+        <div css={subject}>추천 검색어</div>
         <ul>
           {props.queries.map((query) => (
             <li key={query} css={queryList}>
-              <Link href={{ pathname: "/customer/stores", query: { query } }}>{query}</Link>
+              <Link css={link} href={{ pathname: "/customer/stores", query: { query } }}>
+                {query}
+              </Link>
             </li>
           ))}
         </ul>
