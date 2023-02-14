@@ -34,6 +34,7 @@ const btnWrapper = css`
   margin-top: 0.75rem;
   color: ${Colors.neutral60};
   cursor: pointer;
+  width: fit-content;
   ${Texts.B1_13_R2};
 `;
 
@@ -93,14 +94,14 @@ const EditProfile = () => {
           <div css={inputWrapper}>
             <div css={inputLabel}>닉네임</div>
             <div css={inputBtnWrapper}>
-              <TextInput />
+              <TextInput width="12.5rem" />
               <button css={inputBtn}>중복확인</button>
             </div>
           </div>
           <div css={inputWrapper}>
             <div css={inputLabel}>휴대폰 번호</div>
             <div css={inputBtnWrapper}>
-              <TextInput />
+              <TextInput width="12.5rem" />
               <button css={inputBtn}>다시 본인인증</button>
             </div>
           </div>

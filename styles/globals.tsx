@@ -4,17 +4,6 @@ import { css, Global } from "@emotion/react";
 import { Colors } from "styles/common";
 
 const global = css`
-  box-sizing: border-box;
-  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
-    "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-
-  body {
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
   @font-face {
     font-family: "pretendard";
     src: url("/font/Pretendard-Regular.subset.woff2") format("woff2"),
@@ -37,6 +26,19 @@ const global = css`
       url("/font/Pretendard-Bold.subset.woff") format("woff");
     font-weight: 700;
     font-display: auto;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
+      "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  }
+
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   input {
