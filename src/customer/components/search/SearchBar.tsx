@@ -1,8 +1,9 @@
-import React, { useRef, KeyboardEvent } from "react";
+import React from "react";
 import { css } from "@emotion/react";
 
 import { Colors } from "styles/common";
 import Search from "public/icons/Search.svg";
+import { useRouter } from "next/router";
 
 const inputWrapper = css`
   position: relative;
@@ -26,11 +27,10 @@ const searchIcon = css`
 `;
 
 const SearchBar = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      // TODO: 검색
-    }
+  const router = useRouter();
+
+  const goToSearch = () => {
+    router.push("/customer/search");
   };
 
   return (
@@ -38,9 +38,8 @@ const SearchBar = () => {
       <input
         type="search"
         placeholder="음식 이름, 구독권 이름 검색"
-        ref={inputRef}
         css={input}
-        onKeyDown={onKeyDown}
+        onFocus={goToSearch}
       />
       <Search css={searchIcon} />
     </div>
