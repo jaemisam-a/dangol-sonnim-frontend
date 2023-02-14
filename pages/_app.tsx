@@ -1,6 +1,7 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+
+import GlobalStyle from "styles/globals";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -8,6 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="shortcut icon" href="/logo.ico" />
       </Head>
+      <GlobalStyle />
       <Component {...pageProps} />
     </>
   );

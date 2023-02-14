@@ -16,19 +16,6 @@ const input = css`
   height: 2.5rem;
   padding: 0.5rem 3.25rem 0.5rem 0.75rem;
   border: 0;
-  caret-color: ${Colors.amber50};
-
-  &:focus {
-    outline: solid 2px ${Colors.amber50};
-  }
-
-  &::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: url("icons/Close.svg") center center no-repeat;
-    cursor: pointer;
-  }
 `;
 
 const searchIcon = css`
