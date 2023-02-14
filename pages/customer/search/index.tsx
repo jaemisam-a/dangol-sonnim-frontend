@@ -22,10 +22,9 @@ const Search = () => {
   }, [isLoggedIn]);
 
   return (
-    <Layout title="검색창">
+    <Layout title="검색창" isNoHeader={true}>
       <SearchInput />
       <SearchList isLoggedIn={isLoggedIn} queries={queries} />
-
       <button onClick={() => setIsLoggedIn((prev) => !prev)}>로그인 상태 변경</button>
     </Layout>
   );

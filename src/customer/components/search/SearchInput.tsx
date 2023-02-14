@@ -1,5 +1,6 @@
 import React, { useRef, KeyboardEvent } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
 import ArrowLeft from "public/icons/ArrowLeft.svg";
@@ -25,6 +26,7 @@ const inputWrapper = css`
 
   & input {
     border: none;
+    outline: none;
     padding: 0.5rem 0.75rem;
     width: 100%;
     height: 2.5rem;
@@ -40,6 +42,7 @@ const arrowLeft = css`
 
 const SearchInput = () => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -56,12 +59,12 @@ const SearchInput = () => {
   };
 
   const onSearch = (value: string) => {
-    //TODO: 검색기능
+    router.push(`/customer/stores?query=${value}`);
   };
 
   return (
     <header css={searchBox}>
-      <button css={arrowLeft} onClick={() => history.back()}>
+      <button css={arrowLeft} onClick={() => router.back()}>
         <ArrowLeft />
       </button>
       <div css={inputWrapper}>

@@ -62,6 +62,20 @@ const global = css`
     outline: 0;
     cursor: pointer;
   }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const GlobalStyle = () => {

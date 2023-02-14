@@ -99,7 +99,7 @@ const SearchList = (props: SearchListProps) => {
         <ul>
           {props.queries.map((query) => (
             <li key={query} css={queryList}>
-              <Link href={{ pathname: "/customer/search", query: { query } }}>{query}</Link>
+              <Link href={{ pathname: "/customer/stores", query: { query } }}>{query}</Link>
             </li>
           ))}
         </ul>
