@@ -5,13 +5,14 @@ import { Colors, Texts } from "styles/common";
 
 const wrapper = css`
   margin: 1rem 0 0.75rem;
+  display: flex;
+  gap: 0.75rem;
 `;
 
 const categoryBtn = (id: number, selected: number) => css`
   ${Texts.B3_15_R1}
   background-color: transparent;
   padding: 0;
-  margin-right: 0.75rem;
   color: ${id === selected ? Colors.black : Colors.neutral60};
   font-weight: ${id === selected ? 500 : 400};
 `;
