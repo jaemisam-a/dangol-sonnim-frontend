@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "customer/components/common/layout";
-import Dialog from "customer/components/mypage/Dialog";
-import Tab from "customer/components/mypage/Tab";
+import Dialog from "customer/components/my/Dialog";
+import Tab from "customer/components/my/Tab";
 import Modal from "customer/components/common/Modal";
 import Profile from "customer/components/my/Profile";
 
