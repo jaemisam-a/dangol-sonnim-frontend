@@ -5,6 +5,7 @@ import Layout from "customer/components/common/layout";
 import Dialog from "customer/components/mypage/Dialog";
 import Tab from "customer/components/mypage/Tab";
 import Modal from "customer/components/common/Modal";
+import Profile from "customer/components/my/Profile";
 
 const dialogContent = [
   {
@@ -51,6 +52,7 @@ const My = () => {
           </Modal>
         </div>
         <div>My</div>
+        <Profile />
       </Layout>
     </>
   );
