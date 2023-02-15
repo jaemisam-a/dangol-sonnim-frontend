@@ -29,10 +29,15 @@ const contentWrapper = css`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 const contentText = css`
   ${Texts.B3_15_M2}
+  cursor: pointer;
 `;
 
 const Radio = (props: RadioProps) => {
