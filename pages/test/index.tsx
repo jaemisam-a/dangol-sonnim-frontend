@@ -7,8 +7,8 @@ import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
 import MainCoupon from "customer/components/coupon/Main";
 import StoreThumbnail from "customer/components/StoreThumbnail";
-import SearchBar from "customer/components/SearchBar";
 import MyCoupon from "customer/components/coupon/My";
+import SearchBar from "customer/components/search/SearchBar";
 
 const Test = () => {
   const dummy = {
