@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import BottomSheet from "customer/components/common/bottomsheet";
 import EditProfile from "customer/components/my/EditProfile";
-import Info from "./Info";
+import Info from "customer/components/my/Info";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
