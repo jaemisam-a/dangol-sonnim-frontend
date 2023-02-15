@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import Checkbox from "customer/components/common/input/Checkbox";
 
 type StoreCouponProps = {
   name: string;
@@ -18,27 +19,6 @@ const wrapper = css`
   padding: 0.375rem 0.75rem;
   gap: 0.5rem;
   align-items: center;
-`;
-
-const inputWrapper = css`
-  & input {
-    display: none;
-  }
-
-  & label {
-    width: 1.25rem;
-    height: 1.25rem;
-    cursor: pointer;
-    display: inline-block;
-    border-radius: 2px;
-    border: 1px solid ${Colors.neutral60};
-    background: url("/icons/CheckGrey.svg") center center no-repeat;
-  }
-
-  & input:checked + label {
-    border: none;
-    background: url("/icons/Check.svg") center center no-repeat ${Colors.amber50};
-  }
 `;
 
 const contentsWrapper = css`
@@ -77,13 +57,12 @@ const price = css`
 `;
 
 const StoreCoupon = (props: StoreCouponProps) => {
+  const [, setIsChecked] = useState(false);
+
   return (
     <>
       <div css={wrapper}>
-        <div css={inputWrapper}>
-          <input type="checkbox" id={props.name} />
-          <label htmlFor={props.name} />
-        </div>
+        <Checkbox setIsChecked={setIsChecked} />
         <div css={contentsWrapper}>
           <div css={contentsTopWrapper}>
             <div css={storeName}>{props.storeName}</div>
