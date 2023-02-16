@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
@@ -14,6 +14,30 @@ type BottomSheetProps = {
   component: JSX.Element;
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.6;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 0.6;
+  }
+  
+  to {
+    opacity: 0;
+  }
+`;
+
+const wrapper = (open: boolean) => css`
+  animation: ${open ? fadeIn : fadeOut} 0.3s ease;
+`;
+
 const outerArea = css`
   position: absolute;
   top: 0;
@@ -24,7 +48,7 @@ const outerArea = css`
   z-index: 3;
 `;
 
-const wrapper = (height: string) => css`
+const bottomSheetWrapper = (height: string) => css`
   position: absolute;
   bottom: 0;
   z-index: 4;
@@ -58,15 +82,23 @@ const pointerButton = (isVisible: boolean) => css`
 `;
 
 const BottomSheet = (props: BottomSheetProps) => {
+  const [isVisible, setIsVisible] = useState(props.open);
+
   const offBottomSheet = () => {
     props.setOpen(false);
   };
 
-  if (props.open)
-    return (
-      <>
+  useEffect(() => {
+    !props.open ? setTimeout(() => setIsVisible(false), 300) : setIsVisible(true);
+  }, [props.open]);
+
+  if (!isVisible) return null;
+
+  return (
+    <>
+      <div css={wrapper(props.open)}>
         <div css={outerArea} onClick={offBottomSheet} />
-        <div css={wrapper(props.height)}>
+        <div css={bottomSheetWrapper(props.height)}>
           <div css={titleSection}>
             <Image
               css={pointerButton(props.isBackButton)}
@@ -88,10 +120,9 @@ const BottomSheet = (props: BottomSheetProps) => {
           </div>
           {props.component}
         </div>
-      </>
-    );
-
-  return null;
+      </div>
+    </>
+  );
 };
 
 export default BottomSheet;
