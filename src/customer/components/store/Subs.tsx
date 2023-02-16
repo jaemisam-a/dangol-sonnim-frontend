@@ -44,7 +44,7 @@ const Subs = (props: SubsProps) => {
 
   return (
     <>
-      <StoreSection sectionTitle="구독권">
+      <StoreSection sectionTitle="구독권" fold={false}>
         <div css={subsWrapper}>
           {subsArr.map((el) => (
             <StoreCoupon

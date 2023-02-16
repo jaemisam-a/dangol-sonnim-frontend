@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import ArrowDown from "public/icons/Arrow-Down.svg";
+import ArrowDown from "public/icons/ArrowDown.svg";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Radio from "customer/components/main/Radio";
 import { Texts } from "styles/common";
