@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
 import React from "react";
-import { Colors, Texts } from "styles/common";
+import { css } from "@emotion/react";
 
+import { Colors, Texts } from "styles/common";
 import TextInput from "customer/components/common/input/Text";
 
 type InputSectionProps = {
@@ -9,7 +9,7 @@ type InputSectionProps = {
   placeholder?: string;
   btn: string;
   isBottom: boolean;
-  isNecessary?: boolean;
+  isRequired?: boolean;
   state?: "error" | "success" | "";
   action?: () => void;
   message?: { error?: string; success: string };
@@ -53,7 +53,7 @@ const InputSection = (props: InputSectionProps) => {
       <div css={inputWrapper}>
         <div css={inputLabel(props.isBottom)}>
           {props.label}
-          <span>{props.isNecessary && "*"}</span>
+          <span>{props.isRequired && "*"}</span>
         </div>
         <div css={inputBtnWrapper}>
           <TextInput

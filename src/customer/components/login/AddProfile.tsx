@@ -17,8 +17,8 @@ const inputList = css`
   flex-direction: column;
   gap: 1.5rem;
   border-bottom: 1px solid ${Colors.neutral20};
-  margin-top: 2.25rem;
   padding-bottom: 1rem;
+  margin-top: 2.25rem;
   margin-bottom: 1rem;
 `;
 
@@ -72,7 +72,7 @@ const AddProfile = () => {
       label: "닉네임",
       placeholder: "닉네임 입력",
       btn: "중복확인",
-      isNecessary: true,
+      isRequired: true,
       btnFnc: checkValid,
       message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
     },
@@ -80,7 +80,7 @@ const AddProfile = () => {
       label: "휴대폰 번호",
       placeholder: "휴대폰 번호 입력('-'제외)",
       btn: "인증요청",
-      isNecessary: true,
+      isRequired: true,
       btnFnc: requestAuth,
       message: { success: "인증되었습니다." },
     },
@@ -102,7 +102,7 @@ const AddProfile = () => {
               btn={el.btn}
               isBottom={false}
               key={el.label}
-              isNecessary={el.isNecessary}
+              isRequired={el.isRequired}
               state={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
