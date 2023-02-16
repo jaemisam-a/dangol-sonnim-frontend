@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import Image from "next/image";
 
 import { Colors, Texts } from "styles/common";
-import RightIcon from "public/icons/RightIcon.svg";
+import RightIcon from "public/icons/Right.svg";
 
 type InfoProps = {
   user: {

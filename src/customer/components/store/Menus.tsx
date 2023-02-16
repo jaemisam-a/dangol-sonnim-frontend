@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import RightIcon from "public/icons/RightIcon.svg";
+import RightIcon from "public/icons/Right.svg";
 import { Colors, Texts } from "styles/common";
 import StoreSection from "customer/components/store/Section";
 import Menu from "customer/components/Menu";
