@@ -31,7 +31,7 @@ const fadeOut = keyframes`
   
   to {
     opacity: 0;
-    }
+  }
 `;
 
 const wrapper = (open: boolean) => css`
@@ -48,7 +48,7 @@ const outerArea = css`
   z-index: 3;
 `;
 
-const bottomsheetWrapper = (height: string) => css`
+const bottomSheetWrapper = (height: string) => css`
   position: absolute;
   bottom: 0;
   z-index: 4;
@@ -98,7 +98,7 @@ const BottomSheet = (props: BottomSheetProps) => {
     <>
       <div css={wrapper(props.open)}>
         <div css={outerArea} onClick={offBottomSheet} />
-        <div css={bottomsheetWrapper(props.height)}>
+        <div css={bottomSheetWrapper(props.height)}>
           <div css={titleSection}>
             <Image
               css={pointerButton(props.isBackButton)}
