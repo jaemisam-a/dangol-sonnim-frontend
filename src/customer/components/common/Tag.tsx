@@ -3,11 +3,11 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
-const Tag = ({ text }: { text: string }) => {
+const Tag = ({ text, bgColor, bold }: { text: string; bgColor?: string; bold?: boolean }) => {
   const tagStyle = css`
-    background-color: ${Colors.amber50};
+    background-color: ${bgColor ?? Colors.amber50};
     color: ${Colors.white};
-    ${Texts.C1_11_M}
+    ${bold ? Texts.C1_11_B : Texts.C1_11_M}
     padding: 1px 4px;
     width: fit-content;
     text-align: center;
