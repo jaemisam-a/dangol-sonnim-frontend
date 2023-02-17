@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { Colors, Texts } from "styles/common";
 import Tag from "customer/components/common/Tag";
-import Pick from "/public/icons/Pick.svg";
+import Pick from "public/icons/Pick.svg";
 
 type InfoProps = {
   infoContent: {
@@ -21,6 +21,12 @@ type InfoProps = {
 const imagesWrapper = css`
   overflow-x: auto;
   margin-bottom: 0.983rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const imagesStyle = css`
