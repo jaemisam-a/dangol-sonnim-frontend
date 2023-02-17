@@ -63,7 +63,8 @@ const global = css`
     cursor: pointer;
   }
 
-  ul {
+  ul,
+  p {
     padding: 0;
     margin: 0;
   }
