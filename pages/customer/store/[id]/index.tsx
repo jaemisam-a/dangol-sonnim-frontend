@@ -9,7 +9,7 @@ const Store = () => {
   const storeName = "정갈한솥";
   const dummyLocation = {
     address: "서울 구로구 디지털로26길 111 지하 1층 002호",
-    exitInfo: "서울대입구역 6번 출구에서 50m",
+    detail: "서울대입구역 6번 출구에서 50m",
     openHour: "10시에 영업시작",
   };
 
@@ -18,10 +18,9 @@ const Store = () => {
       <Layout title="가게이름">
         <Location
           address={dummyLocation.address}
-          exitInfo={dummyLocation.exitInfo}
+          detail={dummyLocation.detail}
           openHour={dummyLocation.openHour}
         />
-
         <Menus />
         <Subs storeName={storeName} />
       </Layout>

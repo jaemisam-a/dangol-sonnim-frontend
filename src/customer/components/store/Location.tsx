@@ -9,7 +9,7 @@ import StoreSection from "customer/components/store/Section";
 
 type LocationProps = {
   address: string;
-  exitInfo: string;
+  detail: string;
   openHour: string;
 };
 
@@ -50,7 +50,7 @@ const openHourStyle = css`
   color:${Colors.neutral90};
 `;
 
-const Location = ({ address, exitInfo, openHour }: LocationProps) => {
+const Location = ({ address, detail, openHour }: LocationProps) => {
   return (
     <>
       <StoreSection sectionTitle="위치" fold={true}>
@@ -59,7 +59,7 @@ const Location = ({ address, exitInfo, openHour }: LocationProps) => {
             <MapPin />
             {address}
           </p>
-          <p css={exitInfoStyle}>{exitInfo}</p>
+          <p css={exitInfoStyle}>{detail}</p>
         </div>
         <div css={mapStyle}>
           <KakaoMap address={address} />
