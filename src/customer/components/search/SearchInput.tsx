@@ -65,7 +65,7 @@ const SearchInput = () => {
   return (
     <header css={searchBox}>
       <button css={arrowLeft} onClick={() => router.back()}>
-        <ArrowLeft />
+        <ArrowLeft stroke={Colors.neutral70} />
       </button>
       <div css={inputWrapper}>
         <input

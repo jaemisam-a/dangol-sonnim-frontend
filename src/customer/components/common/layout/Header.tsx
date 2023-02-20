@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import Share from "public/icons/Share.svg";
+import ArrowLeft from "public/icons/ArrowLeft.svg";
 
 type HeaderProps = {
   subTitle?: string;
@@ -93,22 +95,14 @@ const Header = (props: HeaderProps) => {
           </>
         ) : (
           <>
-            <Image
-              css={pointerButton}
-              src="/images/Arrow_Left_MD.png"
-              alt="arrow_left"
-              width="28"
-              height="28"
-            />
+            <div css={pointerButton}>
+              <ArrowLeft stroke={Colors.amber50} />
+            </div>
             <span css={pageTitle}>{props.subTitle}</span>
             {pathname.includes("store") ? (
-              <Image
-                css={pointerButton}
-                src="/images/Right_Accessory.png"
-                alt="right_accessory"
-                width="28"
-                height="28"
-              />
+              <div css={pointerButton}>
+                <Share />
+              </div>
             ) : (
               <div css={hiddenItem} />
             )}
