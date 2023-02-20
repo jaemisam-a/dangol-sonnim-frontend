@@ -33,8 +33,9 @@ const background = (open: boolean) => css`
   background-color: ${Colors.black};
   opacity: 60%;
   height: 100vh;
-  width: 30rem;
+  width: 100%;
   top: 0;
+  left: 0;
   position: absolute;
   animation: ${open ? fadeIn : fadeOut} 0.3s ease;
 `;

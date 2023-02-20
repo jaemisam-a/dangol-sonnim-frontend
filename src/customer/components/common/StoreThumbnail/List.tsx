@@ -1,8 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import { ThumbnailData } from "customer/components/storeThumbnail";
-import StoreThumbnail from "customer/components/storeThumbnail";
+import StoreThumbnail, { ThumbnailData } from "customer/components/common/StoreThumbnail";
 
 type StoreThumbnailListProps = {
   contents: ThumbnailData[];
@@ -20,7 +19,7 @@ const StoreThumbnailList = (props: StoreThumbnailListProps) => {
   return (
     <div css={wrapper}>
       {props.contents.map((content) => (
-        <StoreThumbnail content={content} key={content.id} />
+        <StoreThumbnail content={content} isLarge={true} key={content.id} />
       ))}
     </div>
   );

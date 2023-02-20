@@ -61,6 +61,7 @@ const global = css`
     border: 0;
     outline: 0;
     cursor: pointer;
+    padding: 0;
   }
 
   ul,

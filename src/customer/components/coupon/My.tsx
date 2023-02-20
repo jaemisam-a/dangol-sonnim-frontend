@@ -1,8 +1,9 @@
 import React from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import CountTag from "customer/components/common/CountTag";
-import RightIcon from "public/icons/RightIcon.svg";
+import RightIcon from "public/icons/Right.svg";
 import { Colors, Texts } from "styles/common";
 
 type MyCouponProps = {
@@ -17,7 +18,6 @@ type MyCouponProps = {
 const wrapper = css`
   box-shadow: 2px 3px 8px #f1ebe2;
   border-radius: 0.5rem;
-  width: 20rem;
   display: flex;
   flex-direction: column;
   padding: 0.75rem;
@@ -32,8 +32,8 @@ const paymentHistory = css`
   display: flex;
   align-items: center;
   gap: 0.125rem;
-  cursor: pointer;
   color: ${Colors.amber50};
+  background-color: transparent;
   ${Texts.B1_13_M1}
 `;
 
@@ -62,16 +62,18 @@ const titleWrapper = css`
 `;
 
 const MyCoupon = (props: MyCouponProps) => {
+  const router = useRouter();
+
   return (
     <>
       <div css={wrapper}>
         <div css={titleWrapper}>
           <span css={storeName}>{props.storeName}</span>
           {props.isDetail && (
-            <span css={paymentHistory}>
+            <button css={paymentHistory} onClick={() => router.push("/customer/my/payment")}>
               <span>결제내역</span>
               <RightIcon width="14" height="14" stroke={Colors.amber50} />
-            </span>
+            </button>
           )}
         </div>
         <div css={couponPrice}>월 {props.couponPrice.toLocaleString("ko-KR")}원</div>
