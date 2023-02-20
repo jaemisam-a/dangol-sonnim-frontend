@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Layout from "customer/components/common/layout";
-import Thumbnail from "customer/components/Thumbnail";
+import StoreThumbnail from "customer/components/common/StoreThumbnail";
 import MyCoupon from "customer/components/coupon/My";
 import History from "customer/components/payment/History";
 
@@ -76,7 +76,7 @@ const Payment = () => {
   return (
     <Layout title="결제내역" subTitle="결제내역">
       <section css={thumbnailSection}>
-        <Thumbnail content={dummyStoreInfo} isLarge={false} />
+        <StoreThumbnail content={dummyStoreInfo} isLarge={false} />
       </section>
       <section css={couponSection}>
         <h2 css={title}>구독 쿠폰 정보</h2>

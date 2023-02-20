@@ -6,7 +6,7 @@ import Banner from "customer/components/Banner";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
 import MainCoupon from "customer/components/coupon/Main";
-import Thumbnail from "customer/components/Thumbnail";
+import StoreThumbnail from "customer/components/common/StoreThumbnail";
 import MyCoupon from "customer/components/coupon/My";
 import SearchBar from "customer/components/search/SearchBar";
 
@@ -32,8 +32,8 @@ const Test = () => {
       <br />
       <SearchBar />
       <br />
-      <Thumbnail content={dummy} isLarge={true} />
-      <Thumbnail content={dummy} isLarge={false} />
+      <StoreThumbnail content={dummy} isLarge={true} />
+      <StoreThumbnail content={dummy} isLarge={false} />
       <br />
       <TestDiv onClick={() => setOpen(true)}>안녕하세요</TestDiv>
       <Banner

@@ -6,7 +6,7 @@ import Location from "customer/components/main/Location";
 import Sort from "customer/components/main/Sort";
 import Category from "customer/components/main/Category";
 import SearchBar from "customer/components/search/SearchBar";
-import StoreThumbnailList from "customer/components/storeThumbnail/list";
+import StoreThumbnailList from "customer/components/common/StoreThumbnail/List";
 
 const MOCK_STORE = [
   {
