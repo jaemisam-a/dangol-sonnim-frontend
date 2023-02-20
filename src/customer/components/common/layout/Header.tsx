@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import Share from "public/icons/Share.svg";
 import ArrowLeft from "public/icons/ArrowLeft.svg";
+import Kebab from "public/icons/Kebab.svg";
 
 type HeaderProps = {
   subTitle?: string;
@@ -52,12 +53,6 @@ const buttonDot = css`
   ${Texts.B2_14_R1}
 `;
 
-const hiddenItem = css`
-  visibility: hidden;
-  width: 28px;
-  height: 28px;
-`;
-
 const pageTitle = css`
   ${Texts.S1_16_R}
 `;
@@ -99,13 +94,7 @@ const Header = (props: HeaderProps) => {
               <ArrowLeft stroke={Colors.amber50} />
             </div>
             <span css={pageTitle}>{props.subTitle}</span>
-            {pathname.includes("store") ? (
-              <div css={pointerButton}>
-                <Share />
-              </div>
-            ) : (
-              <div css={hiddenItem} />
-            )}
+            <div css={pointerButton}>{pathname.includes("store") ? <Share /> : <Kebab />}</div>
           </>
         )}
       </div>
