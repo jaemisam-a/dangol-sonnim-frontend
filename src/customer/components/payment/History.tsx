@@ -7,6 +7,7 @@ import Modal from "customer/components/common/Modal";
 import Dialog from "customer/components/my/Dialog";
 
 type paymentData = { price: number; date: string; frequency: number };
+
 type HistoryProps = {
   storeName: string;
   prevPayment: paymentData[];
