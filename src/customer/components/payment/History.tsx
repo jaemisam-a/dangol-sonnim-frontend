@@ -6,18 +6,11 @@ import RightIcon from "public/icons/Right.svg";
 import Modal from "customer/components/common/Modal";
 import Dialog from "customer/components/my/Dialog";
 
+type paymentData = { price: number; date: string; frequency: number };
 type HistoryProps = {
   storeName: string;
-  prevPayment: {
-    price: number;
-    date: string;
-    frequency: number;
-  }[];
-  nextPayment: {
-    price: number;
-    date: string;
-    frequency: number;
-  };
+  prevPayment: paymentData[];
+  nextPayment: paymentData;
 };
 
 const detail = css`
@@ -36,6 +29,7 @@ const priceStyle = css`
 
 const rightTextWrapper = (isComplete: boolean) => css`
   ${Texts.B2_14_R1}
+  width: 6rem;
 
   & > p:first-child {
     color: ${isComplete ? Colors.green50 : Colors.neutral70};

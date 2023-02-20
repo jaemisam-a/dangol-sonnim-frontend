@@ -79,7 +79,7 @@ const Payment = () => {
         <Thumbnail content={dummyStoreInfo} isLarge={false} />
       </section>
       <section css={couponSection}>
-        <p css={title}>구독 쿠폰 정보</p>
+        <h2 css={title}>구독 쿠폰 정보</h2>
         <div css={couponWrapper}>
           <MyCoupon
             storeName={dummyCouponInfo.storeName}
@@ -92,7 +92,7 @@ const Payment = () => {
         </div>
       </section>
       <section css={historySection}>
-        <p css={title}>결제 내역</p>
+        <h2 css={title}>결제 내역</h2>
         <History
           storeName={dummyHistory.storeName}
           prevPayment={dummyHistory.prevPayment}
