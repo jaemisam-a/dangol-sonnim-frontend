@@ -18,6 +18,7 @@ const wrapper = (pathname: string) => css`
   height: 3.25rem;
   background-color: ${Colors.white};
   border: ${pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
+  z-index: 1;
 `;
 
 const innerWrapper = (pathname: string) => css`

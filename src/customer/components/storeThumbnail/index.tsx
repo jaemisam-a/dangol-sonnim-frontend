@@ -6,15 +6,17 @@ import { Colors, Texts } from "styles/common";
 import Tag from "customer/components/common/Tag";
 import Pick from "public/icons/Pick";
 
+export type ThumbnailData = {
+  id: string;
+  store: string;
+  category: string;
+  tags: string[];
+  location: string;
+  img: string;
+};
+
 type ThumbnailProps = {
-  content: {
-    id: string;
-    store: string;
-    category: string;
-    tags: string[];
-    location: string;
-    img: string;
-  };
+  content: ThumbnailData;
 };
 
 const StoreThumbnail = ({ content }: ThumbnailProps) => {
@@ -68,7 +70,7 @@ const StoreThumbnail = ({ content }: ThumbnailProps) => {
 
   const onPickClick = () => {
     setIsPick((prev) => !prev);
-    // Todo : 찜한 가게 저장
+    // TODO : 찜한 가게 저장
   };
   return (
     <>

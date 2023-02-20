@@ -6,7 +6,7 @@ import Banner from "customer/components/Banner";
 import BottomSheet from "customer/components/common/bottomsheet";
 import Layout from "customer/components/common/layout";
 import MainCoupon from "customer/components/coupon/Main";
-import StoreThumbnail from "customer/components/StoreThumbnail";
+import StoreThumbnail from "customer/components/storeThumbnail";
 import MyCoupon from "customer/components/coupon/My";
 import SearchBar from "customer/components/search/SearchBar";
 

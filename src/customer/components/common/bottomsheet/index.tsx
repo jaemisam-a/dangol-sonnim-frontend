@@ -17,25 +17,47 @@ type BottomSheetProps = {
 const fadeIn = keyframes`
   from {
     opacity: 0;
+    z-index: 0;
   }
 
   to {
     opacity: 0.6;
+    z-index: 2;
   }
 `;
 
 const fadeOut = keyframes`
   from {
     opacity: 0.6;
+    z-index: 2;
   }
   
   to {
     opacity: 0;
+    z-index: 0;
   }
 `;
 
-const wrapper = (open: boolean) => css`
+const outerWrapper = (open: boolean) => css`
   animation: ${open ? fadeIn : fadeOut} 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const wrapper = css`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  z-index: 2;
 `;
 
 const outerArea = css`
@@ -95,8 +117,8 @@ const BottomSheet = (props: BottomSheetProps) => {
   if (!isVisible) return null;
 
   return (
-    <>
-      <div css={wrapper(props.open)}>
+    <div css={outerWrapper(props.open)}>
+      <div css={wrapper}>
         <div css={outerArea} onClick={offBottomSheet} />
         <div css={bottomSheetWrapper(props.height)}>
           <div css={titleSection}>
@@ -121,7 +143,7 @@ const BottomSheet = (props: BottomSheetProps) => {
           {props.component}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -7,13 +7,13 @@ import { useRouter } from "next/router";
 
 const inputWrapper = css`
   position: relative;
-  width: fit-content;
+  width: 100%;
 `;
 
 const input = css`
   background-color: ${Colors.neutral20};
   border-radius: 4px;
-  width: 20rem;
+  width: 100%;
   height: 2.5rem;
   padding: 0.5rem 3.25rem 0.5rem 0.75rem;
   border: 0;
