@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import Share from "public/icons/Share.svg";
+import ArrowLeft from "public/icons/ArrowLeft.svg";
+import Kebab from "public/icons/Kebab.svg";
 
 type HeaderProps = {
   subTitle?: string;
@@ -50,12 +53,6 @@ const buttonDot = css`
   ${Texts.B2_14_R1}
 `;
 
-const hiddenItem = css`
-  visibility: hidden;
-  width: 28px;
-  height: 28px;
-`;
-
 const pageTitle = css`
   ${Texts.S1_16_R}
 `;
@@ -93,25 +90,11 @@ const Header = (props: HeaderProps) => {
           </>
         ) : (
           <>
-            <Image
-              css={pointerButton}
-              src="/images/Arrow_Left_MD.png"
-              alt="arrow_left"
-              width="28"
-              height="28"
-            />
+            <div css={pointerButton}>
+              <ArrowLeft stroke={Colors.amber50} />
+            </div>
             <span css={pageTitle}>{props.subTitle}</span>
-            {pathname.includes("store") ? (
-              <Image
-                css={pointerButton}
-                src="/images/Right_Accessory.png"
-                alt="right_accessory"
-                width="28"
-                height="28"
-              />
-            ) : (
-              <div css={hiddenItem} />
-            )}
+            <div css={pointerButton}>{pathname.includes("store") ? <Share /> : <Kebab />}</div>
           </>
         )}
       </div>
