@@ -36,17 +36,14 @@ const ImageList = ({ images }: ImageListProps) => {
   };
 
   const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDrag) {
-      return;
-    } else {
-      const { scrollWidth, clientWidth, scrollLeft } = imageContainer;
-      imageContainer.scrollLeft = startX - e.pageX;
+    if (!isDrag) return;
+    const { scrollWidth, clientWidth, scrollLeft } = imageContainer;
+    imageContainer.scrollLeft = startX - e.pageX;
 
-      if (scrollLeft === 0) {
-        setStartX(e.pageX);
-      } else if (scrollWidth <= clientWidth + scrollLeft) {
-        setStartX(e.pageX + scrollLeft);
-      }
+    if (scrollLeft === 0) {
+      setStartX(e.pageX);
+    } else if (scrollWidth <= clientWidth + scrollLeft) {
+      setStartX(e.pageX + scrollLeft);
     }
   };
 
