@@ -2,12 +2,7 @@ import React, { useRef } from "react";
 import Script from "next/script";
 import { css } from "@emotion/react";
 
-declare global {
-  // eslint-disable-next-line no-unused-vars
-  interface Window {
-    kakao: any;
-  }
-}
+declare const window: typeof globalThis & { kakao: any };
 
 type KakaoMapProp = {
   address: string;
