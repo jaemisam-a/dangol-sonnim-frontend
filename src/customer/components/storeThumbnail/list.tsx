@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import { ThumbnailData } from "customer/components/StoreThumbnail";
-import StoreThumbnail from "customer/components/StoreThumbnail";
+import { ThumbnailData } from "customer/components/storeThumbnail";
+import StoreThumbnail from "customer/components/storeThumbnail";
 
 type StoreThumbnailListProps = {
   contents: ThumbnailData[];
