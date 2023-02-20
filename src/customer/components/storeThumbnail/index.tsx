@@ -70,7 +70,7 @@ const StoreThumbnail = ({ content }: ThumbnailProps) => {
 
   const onPickClick = () => {
     setIsPick((prev) => !prev);
-    // Todo : 찜한 가게 저장
+    // TODO : 찜한 가게 저장
   };
   return (
     <>
