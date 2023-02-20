@@ -34,12 +34,12 @@ const Store = () => {
   return (
     <>
       <Layout title="가게이름">
+        <Info infoContent={dummyStore} onPick={pickStore} />
         <Location
           address={dummyLocation.address}
           detail={dummyLocation.detail}
           openHour={dummyLocation.openHour}
         />
-        <Info infoContent={dummyStore} onPick={pickStore} />
         <Menus />
         <Subs storeName={dummyStore.storeName} />
       </Layout>
