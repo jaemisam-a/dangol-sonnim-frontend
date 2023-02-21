@@ -17,10 +17,11 @@
     "types": ["@emotion/react/types/css-prop"],
     "baseUrl": "./",
     "paths": {
-      "customer/*": ["src/customer/*"],
+      "common/*": ["src/components/common/*"],
+      "customer/*": ["src/components/customer/*"],
+      "owner/*": ["src/components/owner/*"],
       "styles/*": ["styles/*"]
-    },
-    "types": ["@emotion/react/types/css-prop"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

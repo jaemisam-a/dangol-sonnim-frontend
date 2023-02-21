@@ -6,24 +6,24 @@ import { Colors } from "styles/common";
 const global = css`
   @font-face {
     font-family: "pretendard";
-    src: url("/font/Pretendard-Regular.subset.woff2") format("woff2"),
-      url("/font/Pretendard-Regular.subset.woff") format("woff");
+    src: url("/fonts/Pretendard-Regular.subset.woff2") format("woff2"),
+      url("/fonts/Pretendard-Regular.subset.woff") format("woff");
     font-weight: 400;
     font-display: auto;
   }
 
   @font-face {
     font-family: "pretendard";
-    src: url("/font/Pretendard-Medium.subset.woff2") format("woff2"),
-      url("/font/Pretendard-Medium.subset.woff") format("woff");
+    src: url("/fonts/Pretendard-Medium.subset.woff2") format("woff2"),
+      url("/fonts/Pretendard-Medium.subset.woff") format("woff");
     font-weight: 500;
     font-display: auto;
   }
 
   @font-face {
     font-family: "pretendard";
-    src: url("/font/Pretendard-Bold.subset.woff2") format("woff2"),
-      url("/font/Pretendard-Bold.subset.woff") format("woff");
+    src: url("/fonts/Pretendard-Bold.subset.woff2") format("woff2"),
+      url("/fonts/Pretendard-Bold.subset.woff") format("woff");
     font-weight: 700;
     font-display: auto;
   }

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import Layout from "customer/components/common/layout";
-import SearchInput from "customer/components/search/SearchInput";
-import SearchList from "customer/components/search/SearchList";
+import Layout from "common/layout";
+import SearchInput from "customer/search/SearchInput";
+import SearchList from "customer/search/SearchList";
 
 const SUGGESTED_QUERIES = ["사이드 디쉬", "카페", "사이즈업", "한식", "할인"];
 const RECENT_QUERIES = ["사이드 디쉬", "파스타", "김밥"];
