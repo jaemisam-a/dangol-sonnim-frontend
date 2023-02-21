@@ -1,5 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import StoreCoupon from "common/coupon/Store";
 import StoreSection from "customer/store/Section";
@@ -42,6 +43,8 @@ const Subs = (props: SubsProps) => {
     },
   ];
 
+  const router = useRouter();
+
   return (
     <>
       <StoreSection sectionTitle="구독권" fold={false}>
@@ -57,7 +60,9 @@ const Subs = (props: SubsProps) => {
             />
           ))}
         </div>
-        <button css={buyButton}>구독권 구매하기</button>
+        <button onClick={() => router.push(`${router.asPath}/payment`)} css={buyButton}>
+          구독권 구매하기
+        </button>
       </StoreSection>
     </>
   );
