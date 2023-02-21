@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import Layout from "customer/components/common/layout";
 import StoreCoupon from "customer/components/coupon/Store";
-import PaymentInfo from "customer/components/store/payment/info";
+import PaymentInfo from "customer/components/store/payment/Info";
 import PaymentMethod from "customer/components/store/payment/Method";
 import PaymentConsent from "customer/components/store/payment/Consent";
 import { Colors, Texts } from "styles/common";
