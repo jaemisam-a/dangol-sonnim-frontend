@@ -75,7 +75,7 @@ const SearchInput = () => {
           onKeyDown={onKeyDown}
         />
         <button onClick={onClick}>
-          <SearchIcon />
+          <SearchIcon width={24} height={24} stroke={Colors.amber50} />
         </button>
       </div>
     </header>

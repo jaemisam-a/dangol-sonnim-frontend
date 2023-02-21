@@ -7,7 +7,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href="/logo.ico" />
+        <link rel="shortcut icon" href="/images/logo/logo.ico" />
       </Head>
       <GlobalStyle />
       <Component {...pageProps} />

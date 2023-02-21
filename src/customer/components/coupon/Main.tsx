@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 
 import CountTag from "customer/components/common/CountTag";
 import { Colors, Texts } from "styles/common";
+import Search from "public/icons/Search.svg";
 
 type MainCouponProps = {
   qrImage: string;
@@ -83,7 +84,7 @@ const MainCoupon = (props: MainCouponProps) => {
         <div css={qrWrapper}>
           <Image src={props.qrImage} alt="qr" width="74" height="74" />
           <button css={qrButton}>
-            <Image src="/images/Enlarge.png" alt="enlargement" width="14" height="14" />
+            <Search stroke={Colors.neutral90} width={14} height={14} />
             <span css={qrButtonText}>QR 확대</span>
           </button>
         </div>

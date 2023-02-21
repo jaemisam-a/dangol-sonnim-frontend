@@ -68,7 +68,13 @@ const Header = (props: HeaderProps) => {
       <div css={innerWrapper(pathname)}>
         {pathname === "/customer" ? (
           <>
-            <Image css={pointerButton} src="/images/Logo.png" alt="logo" width="27" height="36" />
+            <Image
+              css={pointerButton}
+              src="/images/logo/Logo.png"
+              alt="logo"
+              width="27"
+              height="36"
+            />
             <div css={buttons}>
               {isLoggedIn ? (
                 <Image
