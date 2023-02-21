@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Check from "/public/icons/Check.svg";
+import Check from "public/icons/Check.svg";
 
 const useCount = css`
   border: 1px solid ${Colors.amber50};

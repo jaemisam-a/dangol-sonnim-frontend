@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { css, keyframes } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import ArrowLeft from "/public/icons/ArrowLeft.svg";
-import Close from "/public/icons/Close.svg";
+import ArrowLeft from "public/icons/ArrowLeft.svg";
+import Close from "public/icons/Close.svg";
 
 type BottomSheetProps = {
   open: boolean;
