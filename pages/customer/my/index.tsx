@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import Layout from "customer/components/common/layout";
-import Dialog from "customer/components/my/Dialog";
-import Tab from "customer/components/my/Tab";
-import Modal from "customer/components/common/Modal";
-import Profile from "customer/components/my/Profile";
+import Layout from "common/layout";
+import Modal from "common/Modal";
+import Dialog from "customer/my/Dialog";
+import Tab from "customer/my/Tab";
+import Profile from "customer/my/Profile";
 
 const dialogContent = [
   {

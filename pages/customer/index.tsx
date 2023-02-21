@@ -1,12 +1,12 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import Layout from "customer/components/common/layout";
-import Location from "customer/components/main/Location";
-import Sort from "customer/components/main/Sort";
-import Category from "customer/components/main/Category";
-import SearchBar from "customer/components/search/SearchBar";
-import StoreThumbnailList from "customer/components/common/StoreThumbnail/List";
+import Layout from "common/layout";
+import StoreThumbnailList from "common/storeThumbnail/List";
+import Location from "customer/main/Location";
+import Sort from "customer/main/Sort";
+import Category from "customer/main/Category";
+import SearchBar from "customer/main/SearchBar";
 
 const MOCK_STORE = [
   {

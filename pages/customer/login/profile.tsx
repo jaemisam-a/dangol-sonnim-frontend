@@ -1,7 +1,7 @@
 import React from "react";
 
-import Layout from "customer/components/common/layout";
-import AddProfile from "customer/components/login/AddProfile";
+import Layout from "src/components/common/layout";
+import AddProfile from "src/components/customer/login/AddProfile";
 
 const Profile = () => {
   return (

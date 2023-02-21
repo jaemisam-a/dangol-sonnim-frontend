@@ -1,10 +1,10 @@
 import React from "react";
 
-import Layout from "customer/components/common/layout";
-import Subs from "customer/components/store/Subs";
-import Menus from "customer/components/store/Menus";
-import Location from "customer/components/store/Location";
-import Info from "customer/components/store/Info";
+import Layout from "common/layout";
+import Subs from "customer/store/Subs";
+import Menus from "customer/store/menu/Menus";
+import Location from "customer/store/Location";
+import Info from "customer/store/Info";
 
 const Store = () => {
   const dummyLocation = {

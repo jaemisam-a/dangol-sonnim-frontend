@@ -2,13 +2,13 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import { Texts, Colors } from "styles/common";
-import Banner from "customer/components/Banner";
-import BottomSheet from "customer/components/common/bottomsheet";
-import Layout from "customer/components/common/layout";
-import MainCoupon from "customer/components/coupon/Main";
-import StoreThumbnail from "customer/components/common/StoreThumbnail";
-import MyCoupon from "customer/components/coupon/My";
-import SearchBar from "customer/components/search/SearchBar";
+import Banner from "customer/Banner";
+import BottomSheet from "common/BottomSheet";
+import Layout from "common/layout";
+import MyCouponWithQR from "customer/main/MyCouponWithQR";
+import StoreThumbnail from "common/storeThumbnail";
+import MyCoupon from "common/coupon/My";
+import SearchBar from "customer/main/SearchBar";
 
 const Test = () => {
   const dummy = {
@@ -51,7 +51,7 @@ const Test = () => {
         height="300px"
         component={<div>바텀시트 테스트</div>}
       />
-      <MainCoupon
+      <MyCouponWithQR
         couponName="아메리카노 주문 시 사이즈업"
         qrImage="/images/dummy/Mob-QR.png"
         storeLocation="구로구 구로동"

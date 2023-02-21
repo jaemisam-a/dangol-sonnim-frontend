@@ -2,10 +2,10 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Layout from "customer/components/common/layout";
-import StoreThumbnail from "customer/components/common/StoreThumbnail";
-import MyCoupon from "customer/components/coupon/My";
-import History from "customer/components/payment/History";
+import Layout from "common/layout";
+import StoreThumbnail from "common/storeThumbnail";
+import MyCoupon from "common/coupon/My";
+import PayHistory from "customer/my/PayHistory";
 
 const thumbnailSection = css`
   padding: 1.5rem 0 1.25rem 1.25rem;
@@ -93,7 +93,7 @@ const Payment = () => {
       </section>
       <section css={historySection}>
         <h2 css={title}>결제 내역</h2>
-        <History
+        <PayHistory
           storeName={dummyHistory.storeName}
           prevPayment={dummyHistory.prevPayment}
           nextPayment={dummyHistory.nextPayment}

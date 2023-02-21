@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-import Layout from "customer/components/common/layout";
-import SocialButton from "customer/components/login/SocialButton";
+import Layout from "common/layout";
+import SocialButton from "customer/login/SocialButton";
 import { Colors, Texts } from "styles/common";
 
 const logoWrapper = css`
