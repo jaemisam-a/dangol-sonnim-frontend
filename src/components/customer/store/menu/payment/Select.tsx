@@ -21,6 +21,7 @@ const select = (isOpen: boolean) => css`
   width: 100%;
   height: 3rem;
   border: 1px solid ${Colors.neutral30};
+  border-radius: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

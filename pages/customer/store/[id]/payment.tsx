@@ -13,7 +13,7 @@ export type selectedType = {
   name: string;
 };
 
-export type cashReceiptsType = null | { isPersonal: boolean; data: string; isUse: boolean };
+export type cashReceiptsType = { isPersonal: boolean; data: string; isUse: boolean };
 
 const DUMMY_PAYMENT = {
   storeName: "정갈한솥",
@@ -43,7 +43,11 @@ const buyButton = css`
 
 const StorePayment = () => {
   const [selectMethod, setSelectMethod] = useState(1);
-  const [cashReceipts, SetCashReceipts] = useState<cashReceiptsType>(null);
+  const [cashReceipts, SetCashReceipts] = useState<cashReceiptsType>({
+    isPersonal: true,
+    data: "",
+    isUse: false,
+  });
   const [selectedCard, setSelectedCard] = useState({ id: "", name: "" });
   const [selectedBank, setSelectedBank] = useState({ id: "", name: "" });
   const [isConsent, setIsConsent] = useState(false);
@@ -57,6 +61,8 @@ const StorePayment = () => {
           name={DUMMY_PAYMENT.name}
           price={DUMMY_PAYMENT.price}
           storeName={DUMMY_PAYMENT.storeName}
+          checked={true}
+          disable={true}
         />
       </div>
       <PaymentInfo />

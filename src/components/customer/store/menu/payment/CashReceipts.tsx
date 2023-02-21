@@ -41,6 +41,9 @@ const radio = css`
   :checked {
     background: url("/icons/CheckedRadio.svg") center center no-repeat;
   }
+  :focus {
+    outline: none;
+  }
 `;
 
 const phoneLabel = css`
@@ -70,6 +73,7 @@ const CashReceipts = (props: CashReceiptsType) => {
                 type="radio"
                 id="personal"
                 name="method"
+                defaultChecked={true}
                 onClick={() =>
                   props.setCashReceipts((prev: any) => {
                     return { ...prev, isPersonal: true };

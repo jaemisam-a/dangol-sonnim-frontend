@@ -58,6 +58,12 @@ const pageTitle = css`
   ${Texts.S1_16_R}
 `;
 
+const hiddenItem = css`
+  visibility: hidden;
+  width: 28px;
+  height: 28px;
+`;
+
 const Header = (props: HeaderProps) => {
   const { pathname } = useRouter();
 
@@ -101,7 +107,15 @@ const Header = (props: HeaderProps) => {
               <ArrowLeft stroke={Colors.amber50} />
             </div>
             <span css={pageTitle}>{props.subTitle}</span>
-            <div css={pointerButton}>{pathname.includes("store") ? <Share /> : <Kebab />}</div>
+            <div css={pointerButton}>
+              {pathname === "/customer/my" ? (
+                <Kebab />
+              ) : pathname === "/customer/store/[id]" ? (
+                <Share />
+              ) : (
+                <div css={hiddenItem} />
+              )}
+            </div>
           </>
         )}
       </div>

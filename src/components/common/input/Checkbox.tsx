@@ -8,9 +8,10 @@ type CheckboxProps = {
   isChecked?: any | boolean;
   objectKey?: string;
   extraFnc?: (isChecked: boolean) => void;
+  disable?: boolean;
 };
 
-const inputWrapper = css`
+const inputWrapper = (disable: boolean) => css`
   height: 1.25rem;
 
   & input {
@@ -29,7 +30,8 @@ const inputWrapper = css`
 
   & input:checked + label {
     border: none;
-    background: url("/icons/CheckWhite.svg") center center no-repeat ${Colors.amber50};
+    background: url(${disable ? "/icons/CheckedGrey.svg" : "/icons/CheckWhite.svg"}) center center
+      no-repeat ${disable ? "transparent" : Colors.amber50};
   }
 `;
 
@@ -49,11 +51,12 @@ const Checkbox = (props: CheckboxProps) => {
 
   return (
     <>
-      <div css={inputWrapper}>
+      <div css={inputWrapper(props.disable || false)}>
         <input
           type="checkbox"
           id={id}
           onChange={handleCheck}
+          disabled={props.disable}
           checked={props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked}
         />
         <label htmlFor={id} />

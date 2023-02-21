@@ -11,6 +11,7 @@ type MethodButtonListProps = {
 
 const wrapper = css`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.625rem;
 `;

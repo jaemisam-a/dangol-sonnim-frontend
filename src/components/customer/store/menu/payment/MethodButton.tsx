@@ -15,7 +15,7 @@ const methodBtn = (isSelected: boolean) => css`
   height: 2rem;
   border: ${isSelected ? "none" : `1px solid ${Colors.neutral30}`};
   border-radius: 0.25rem;
-  background-color: ${isSelected ? Colors.amber50 : "white"};
+  background-color: ${isSelected ? Colors.amber50 : Colors.white};
   color: ${isSelected ? Colors.white : Colors.neutral80};
   ${Texts.B2_14_M}
 `;
