@@ -60,8 +60,8 @@ const pageTitle = css`
 
 const hiddenItem = css`
   visibility: hidden;
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
 `;
 
 const Header = (props: HeaderProps) => {
@@ -107,15 +107,17 @@ const Header = (props: HeaderProps) => {
               <ArrowLeft stroke={Colors.amber50} />
             </div>
             <span css={pageTitle}>{props.subTitle}</span>
-            <div css={pointerButton}>
-              {pathname === "/customer/my" ? (
+            {pathname === "/customer/my" ? (
+              <div css={pointerButton}>
                 <Kebab />
-              ) : pathname === "/customer/store/[id]" ? (
+              </div>
+            ) : pathname === "/customer/store/[id]" ? (
+              <div css={pointerButton}>
                 <Share />
-              ) : (
-                <div css={hiddenItem} />
-              )}
-            </div>
+              </div>
+            ) : (
+              <div css={hiddenItem} />
+            )}
           </>
         )}
       </div>
