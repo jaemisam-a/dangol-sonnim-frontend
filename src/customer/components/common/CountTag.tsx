@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "@emotion/react";
-import Image from "next/image";
 
 import { Colors, Texts } from "styles/common";
+import Check from "/public/icons/Check.svg";
 
 const useCount = css`
   border: 1px solid ${Colors.amber50};
@@ -22,7 +22,7 @@ const CountTag = (props: { useCount: string }) => {
   return (
     <>
       <div css={useCount}>
-        <Image src="/images/Check.png" alt="check" width="16" height="16" />
+        <Check width="12" height="12" fill={Colors.amber50} />
         <span css={useCountText}>{props.useCount}회 사용</span>
       </div>
     </>

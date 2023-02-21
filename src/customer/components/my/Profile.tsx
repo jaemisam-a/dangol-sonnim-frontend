@@ -14,7 +14,7 @@ const Profile = () => {
     },
     {
       nickname: "치타짱",
-      loginInfo: "google",
+      loginInfo: "apple",
       avatar: "/images/dummy/cheetah.jpg",
     },
   ];

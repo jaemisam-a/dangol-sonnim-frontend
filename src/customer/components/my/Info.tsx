@@ -22,10 +22,10 @@ type StateTypes = {
 
 // FIXME: apple의 경우 img가 흰색이라 imgSrc 변경 필요
 const LOGIN_TYPE: readonly StateTypes[] = [
-  { type: "kakao", socialName: "카카오", imgSrc: "/icons/Kakao.png" },
-  { type: "google", socialName: "구글", imgSrc: "/icons/Google.png" },
-  { type: "apple", socialName: "Apple", imgSrc: "/icons/Apple.png" },
-  { type: "naver", socialName: "네이버", imgSrc: "/icons/Naver.png" },
+  { type: "kakao", socialName: "카카오", imgSrc: "/images/loginMethod/Kakao.png" },
+  { type: "google", socialName: "구글", imgSrc: "/images/loginMethod/Google.png" },
+  { type: "apple", socialName: "Apple", imgSrc: "/images/loginMethod/AppleBlack.png" },
+  { type: "naver", socialName: "네이버", imgSrc: "/images/loginMethod/Naver.png" },
 ];
 
 const wrapper = css`

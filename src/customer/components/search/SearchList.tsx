@@ -89,7 +89,7 @@ const SearchList = (props: SearchListProps) => {
                 {query}
               </Link>
               <button onClick={deleteRecentQuery}>
-                <Close />
+                <Close width={24} height={24} stroke={Colors.neutral60} />
               </button>
             </li>
           ))}

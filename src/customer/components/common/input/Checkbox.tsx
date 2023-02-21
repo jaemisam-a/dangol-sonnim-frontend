@@ -24,7 +24,7 @@ const inputWrapper = css`
 
   & input:checked + label {
     border: none;
-    background: url("/icons/Check.svg") center center no-repeat ${Colors.amber50};
+    background: url("/icons/CheckWhite.svg") center center no-repeat ${Colors.amber50};
   }
 `;
 
