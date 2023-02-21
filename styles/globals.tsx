@@ -37,6 +37,8 @@ const global = css`
 
   body {
     margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
