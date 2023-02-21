@@ -1,8 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Image from "next/image";
 import { css, keyframes } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import ArrowLeft from "public/icons/ArrowLeft.svg";
+import Close from "public/icons/Close.svg";
 
 type BottomSheetProps = {
   open: boolean;
@@ -99,7 +100,6 @@ const pointerButton = (isVisible: boolean) => css`
   border: none;
   padding: 0;
   margin: 0;
-  cursor: pointer;
   visibility: ${!isVisible && "hidden"};
 `;
 
@@ -122,23 +122,13 @@ const BottomSheet = (props: BottomSheetProps) => {
         <div css={outerArea} onClick={offBottomSheet} />
         <div css={bottomSheetWrapper(props.height)}>
           <div css={titleSection}>
-            <Image
-              css={pointerButton(props.isBackButton)}
-              onClick={offBottomSheet}
-              src="/images/Arrow_Left_MD.png"
-              alt="arrow-left"
-              width="28"
-              height="28"
-            />
+            <button css={pointerButton(props.isBackButton)} onClick={offBottomSheet}>
+              <ArrowLeft stroke={Colors.amber50} />
+            </button>
             <h2 css={titleText}>{props.title}</h2>
-            <Image
-              css={pointerButton(props.isXButton)}
-              onClick={offBottomSheet}
-              src="/images/X-Icon.png"
-              alt="x-icon"
-              width="28"
-              height="28"
-            />
+            <button css={pointerButton(props.isXButton)} onClick={offBottomSheet}>
+              <Close width={28} height={28} stroke={Colors.neutral90} />
+            </button>
           </div>
           {props.component}
         </div>

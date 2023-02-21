@@ -34,17 +34,17 @@ const buttonWrapper = css`
 
 const Login = () => {
   const socialArr = [
-    { image: "/icons/Kakao.png", name: "카카오", bgColor: "#FFE500", color: "black" },
-    { image: "/icons/Google.png", name: "구글", bgColor: "#FFFFFF", color: "black" },
-    { image: "/icons/Apple.png", name: "Apple", bgColor: "#000000", color: "white" },
-    { image: "/icons/Naver.png", name: "네이버", bgColor: "#03C75A", color: "white" },
+    { image: "/images/loginMethod/Kakao.png", name: "카카오", bgColor: "#FFE500", color: "black" },
+    { image: "/images/loginMethod/Google.png", name: "구글", bgColor: "#FFFFFF", color: "black" },
+    { image: "/images/loginMethod/Apple.png", name: "Apple", bgColor: "#000000", color: "white" },
+    { image: "/images/loginMethod/Naver.png", name: "네이버", bgColor: "#03C75A", color: "white" },
   ];
 
   return (
     <>
       <Layout title="로그인" isNoHeader={true}>
         <div css={logoWrapper}>
-          <Image src="/images/LogoExclude.png" alt="로고" width="140" height="107" />
+          <Image src="/images/logo/LogoExclude.png" alt="로고" width="140" height="107" />
           <div css={phrase}>
             내 주변 맞춤 혜택,&nbsp;
             <span>단골손님</span>

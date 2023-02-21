@@ -53,7 +53,7 @@ const Test = () => {
       />
       <MainCoupon
         couponName="아메리카노 주문 시 사이즈업"
-        qrImage="/images/Mob-QR.png"
+        qrImage="/images/dummy/Mob-QR.png"
         storeLocation="구로구 구로동"
         storeName="메이비카페"
         useCount="4/5"

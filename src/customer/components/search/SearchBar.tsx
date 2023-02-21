@@ -41,7 +41,7 @@ const SearchBar = () => {
         css={input}
         onFocus={goToSearch}
       />
-      <Search css={searchIcon} />
+      <Search css={searchIcon} width={24} height={24} stroke={Colors.amber50} />
     </div>
   );
 };

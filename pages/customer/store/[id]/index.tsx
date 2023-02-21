@@ -19,8 +19,8 @@ const Store = () => {
     images: [
       { src: "/images/dummy/cheetah.jpg", alt: "clxk" },
       { src: "/images/dummy/pizza.png", alt: "clxk" },
-      { src: "/images/Logo.png", alt: "clxk" },
-      { src: "/images/Mob-QR.png", alt: "clxk" },
+      { src: "/images/logo/Logo.png", alt: "clxk" },
+      { src: "/images/dummy/Mob-QR.png", alt: "clxk" },
     ],
     description: "“오늘 뭐먹지?” 고민 무조건 오면 해결!",
     menu: "모든 메뉴 사이즈업(5회)-월 3,500원",
