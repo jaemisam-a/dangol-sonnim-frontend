@@ -18,34 +18,31 @@ type BottomSheetProps = {
 const fadeIn = keyframes`
   from {
     opacity: 0;
-    z-index: 0;
   }
 
   to {
     opacity: 0.6;
-    z-index: 2;
   }
 `;
 
 const fadeOut = keyframes`
   from {
     opacity: 0.6;
-    z-index: 2;
   }
   
   to {
     opacity: 0;
-    z-index: 0;
   }
 `;
 
 const outerWrapper = (open: boolean) => css`
-  animation: ${open ? fadeIn : fadeOut} 0.3s ease;
+  animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 2;
 `;
 
 const wrapper = css`
@@ -111,7 +108,7 @@ const BottomSheet = (props: BottomSheetProps) => {
   };
 
   useEffect(() => {
-    !props.open ? setTimeout(() => setIsVisible(false), 300) : setIsVisible(true);
+    !props.open ? setTimeout(() => setIsVisible(false), 290) : setIsVisible(true);
   }, [props.open]);
 
   if (!isVisible) return null;
