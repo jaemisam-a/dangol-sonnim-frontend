@@ -43,14 +43,6 @@ const inputList = css`
   padding-bottom: 0.75rem;
 `;
 
-const dialogContent = [
-  {
-    usage: "withdrawal" as const,
-    id: "aaa1234",
-    name: "물고기1234",
-    buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
-  },
-];
 const EditProfile = () => {
   const dialogContent = [
     {

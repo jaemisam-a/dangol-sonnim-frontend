@@ -15,13 +15,13 @@ const fadeIn = keyframes`
   }
 
   to {
-    opacity: 0.6;
+    opacity: 1;
   }
 `;
 
 const fadeOut = keyframes`
   from {
-    opacity: 0.6;
+    opacity: 1;
   }
   
   to {
@@ -31,7 +31,7 @@ const fadeOut = keyframes`
 
 const outerWrapper = (open: boolean) => css`
   animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
