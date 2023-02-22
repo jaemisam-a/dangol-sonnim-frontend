@@ -6,7 +6,7 @@ import CountTag from "common/CountTag";
 import RightIcon from "public/icons/Right.svg";
 import { Colors, Texts } from "styles/common";
 
-type MyCouponProps = {
+export type MyCouponProps = {
   storeName: string;
   couponPrice: number;
   couponName: string;

@@ -22,7 +22,6 @@ const Profile = () => {
   return (
     <>
       <Info user={user[0]} openProfile={() => setIsOpen(true)} />
-      <Info user={user[1]} openProfile={() => setIsOpen(true)} />
       <BottomSheet
         open={isOpen}
         setOpen={setIsOpen}

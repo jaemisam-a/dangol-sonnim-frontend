@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/Avatar";
 import InputSection from "common/input/Section";
+import Modal from "common/Modal";
+import Dialog from "customer/my/Dialog";
 
 const wrapper = css`
   display: flex;
@@ -17,10 +19,14 @@ const btnWrapper = css`
   display: flex;
   gap: 0.25rem;
   margin-top: 0.75rem;
-  color: ${Colors.neutral60};
   cursor: pointer;
   width: fit-content;
   ${Texts.B1_13_R2};
+
+  button {
+    color: ${Colors.neutral60};
+    background-color: transparent;
+  }
 `;
 
 const btnDivider = css`
@@ -37,7 +43,16 @@ const inputList = css`
   padding-bottom: 0.75rem;
 `;
 
+const dialogContent = [
+  {
+    usage: "withdrawal" as const,
+    id: "aaa1234",
+    name: "물고기1234",
+    buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
+  },
+];
 const EditProfile = () => {
+  const [openModal, setOpenModal] = useState(false);
   return (
     <>
       <div css={wrapper}>
@@ -52,11 +67,26 @@ const EditProfile = () => {
           />
         </div>
         <div css={btnWrapper}>
-          <span>로그아웃</span>
+          <button
+            onClick={() => {
+              //TODO: 로그아웃
+            }}
+          >
+            로그아웃
+          </button>
           <span css={btnDivider}>|</span>
-          <span>회원탈퇴</span>
+          <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
         </div>
       </div>
+      <Modal onClose={() => setOpenModal(false)} open={openModal}>
+        <Dialog
+          content={dialogContent[0]}
+          onCancel={() => setOpenModal(false)}
+          onConfirm={() => {
+            //TODO: 탈퇴기능
+          }}
+        />
+      </Modal>
     </>
   );
 };
