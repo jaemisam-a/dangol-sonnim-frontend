@@ -1,11 +1,11 @@
 import React from "react";
+import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import Subs from "customer/store/Subs";
 import Menus from "customer/store/menu/Menus";
 import Location from "customer/store/Location";
 import Info from "customer/store/Info";
-import { css } from "@emotion/react";
 import { Colors } from "styles/common";
 
 const divider = css`
@@ -13,6 +13,7 @@ const divider = css`
   border: 0;
   background-color: ${Colors.neutral10};
 `;
+
 const Store = () => {
   const dummyLocation = {
     address: "서울 구로구 디지털로26길 111 지하 1층 002호",

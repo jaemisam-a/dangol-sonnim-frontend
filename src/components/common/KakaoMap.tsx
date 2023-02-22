@@ -48,7 +48,6 @@ const KakaoMap = ({ address }: KakaoMapProp) => {
   useEffect(() => {
     if (!window.kakao) return;
     onLoadKakaoMap();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

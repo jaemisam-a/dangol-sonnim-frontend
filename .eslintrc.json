@@ -5,7 +5,8 @@
     "quotes": ["error", "double"],
     "no-unused-vars": ["error", { "vars": "all", "args": "none" }],
     "react/prop-types": "off",
-    "no-console": "warn"
+    "no-console": "warn",
+    "react-hooks/exhaustive-deps": "off"
   },
   "plugins": ["react"],
   "env": {
