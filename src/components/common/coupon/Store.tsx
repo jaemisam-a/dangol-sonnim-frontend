@@ -10,6 +10,8 @@ type StoreCouponProps = {
   count: number;
   description: string;
   price: number;
+  checked?: boolean;
+  disable?: boolean;
 };
 
 const wrapper = css`
@@ -62,7 +64,7 @@ const StoreCoupon = (props: StoreCouponProps) => {
   return (
     <>
       <div css={wrapper}>
-        <Checkbox setIsChecked={setIsChecked} />
+        <Checkbox setIsChecked={setIsChecked} isChecked={props.checked} disable={props.disable} />
         <div css={contentsWrapper}>
           <div css={contentsTopWrapper}>
             <div css={storeName}>{props.storeName}</div>

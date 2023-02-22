@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { Colors, Texts } from "styles/common";
+import { Texts } from "styles/common";
 import CheckedRadio from "public/icons/CheckedRadio.svg";
 import UnCheckedRadio from "public/icons/UnCheckedRadio.svg";
 
@@ -51,11 +51,7 @@ const Radio = (props: RadioProps) => {
       <div css={wrapper}>
         {props.list.map((item) => (
           <div css={contentWrapper} key={item.id} onClick={handleRadio(item)}>
-            {item.id === props.checked.id ? (
-              <CheckedRadio width="20" height="20" fill={Colors.amber50} stroke={Colors.amber50} />
-            ) : (
-              <UnCheckedRadio width="20" height="20" stroke={Colors.neutral60} />
-            )}
+            {item.id === props.checked.id ? <CheckedRadio /> : <UnCheckedRadio />}
             <span css={contentText}>{item.content}</span>
           </div>
         ))}
