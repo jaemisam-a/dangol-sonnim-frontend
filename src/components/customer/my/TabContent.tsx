@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { css } from "@emotion/react";
+
 import MyCoupon, { MyCouponProps } from "common/coupon/My";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
-import { css } from "@emotion/react";
 
 type TabContentType = {
   selectedTab: number;

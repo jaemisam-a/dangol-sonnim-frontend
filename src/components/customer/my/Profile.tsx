@@ -12,11 +12,6 @@ const Profile = () => {
       nickname: "물고기1234",
       loginInfo: "kakao",
     },
-    {
-      nickname: "치타짱",
-      loginInfo: "apple",
-      avatar: "/images/dummy/cheetah.jpg",
-    },
   ];
 
   return (
