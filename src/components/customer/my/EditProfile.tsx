@@ -52,6 +52,14 @@ const dialogContent = [
   },
 ];
 const EditProfile = () => {
+  const dialogContent = [
+    {
+      usage: "withdrawal" as const,
+      id: "aaa1234",
+      name: "물고기1234",
+      buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
+    },
+  ];
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
@@ -77,6 +85,15 @@ const EditProfile = () => {
           <span css={btnDivider}>|</span>
           <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
         </div>
+        <Modal onClose={() => setOpenModal(false)} open={openModal}>
+          <Dialog
+            content={dialogContent[0]}
+            onCancel={() => setOpenModal(false)}
+            onConfirm={() => {
+              //TODO: 탈퇴기능
+            }}
+          />
+        </Modal>
       </div>
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Dialog
