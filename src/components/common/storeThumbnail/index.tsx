@@ -56,7 +56,7 @@ const tags = (isLarge: boolean) => css`
   margin: ${isLarge ? "" : "0.25rem 0"};
 `;
 
-const Thumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
+const StoreThumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
   const IMG_SIZE = isLarge ? 152 : 83;
 
   return (
@@ -80,4 +80,4 @@ const Thumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
   );
 };
 
-export default Thumbnail;
+export default StoreThumbnail;

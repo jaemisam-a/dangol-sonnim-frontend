@@ -12,17 +12,11 @@ const Profile = () => {
       nickname: "물고기1234",
       loginInfo: "kakao",
     },
-    {
-      nickname: "치타짱",
-      loginInfo: "apple",
-      avatar: "/images/dummy/cheetah.jpg",
-    },
   ];
 
   return (
     <>
       <Info user={user[0]} openProfile={() => setIsOpen(true)} />
-      <Info user={user[1]} openProfile={() => setIsOpen(true)} />
       <BottomSheet
         open={isOpen}
         setOpen={setIsOpen}

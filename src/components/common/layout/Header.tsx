@@ -65,7 +65,7 @@ const hiddenItem = css`
 `;
 
 const Header = (props: HeaderProps) => {
-  const { pathname } = useRouter();
+  const { pathname, back } = useRouter();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -103,9 +103,9 @@ const Header = (props: HeaderProps) => {
           </>
         ) : (
           <>
-            <div css={pointerButton}>
+            <button css={pointerButton} onClick={() => back()}>
               <ArrowLeft stroke={Colors.amber50} />
-            </div>
+            </button>
             <span css={pageTitle}>{props.subTitle}</span>
             {pathname === "/customer/my" ? (
               <div css={pointerButton}>

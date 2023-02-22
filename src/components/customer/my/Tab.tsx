@@ -2,20 +2,23 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import TabContent from "customer/my/TabContent";
 
 const wrapper = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const tabsWrapper = css`
   display: flex;
 `;
 
 const tabBtn = (tab: boolean) => css`
-  width: 50%;
+  width: 100%;
   height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: ${Colors.white};
   color: ${tab ? Colors.amber50 : Colors.neutral40};
   border-bottom: ${tab ? `3px solid ${Colors.amber50}` : `1px solid ${Colors.neutral40}`};
-  cursor: pointer;
   ${Texts.B3_15_B}
 `;
 
@@ -25,13 +28,16 @@ const Tab = () => {
 
   return (
     <>
-      <div css={wrapper}>
-        {tabArr.map((tab, idx) => (
-          <div key={tab} css={tabBtn(selectedTab === idx)} onClick={() => setSelectedTab(idx)}>
-            {tab}
-          </div>
-        ))}
-      </div>
+      <section css={wrapper}>
+        <div css={tabsWrapper}>
+          {tabArr.map((tab, idx) => (
+            <button key={tab} css={tabBtn(selectedTab === idx)} onClick={() => setSelectedTab(idx)}>
+              {tab}
+            </button>
+          ))}
+        </div>
+        <TabContent selectedTab={selectedTab} />
+      </section>
     </>
   );
 };
