@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import Layout from "common/layout";
 import StoreCoupon from "common/coupon/Store";
@@ -49,6 +50,8 @@ const buyButton = (isActive: boolean) => css`
 `;
 
 const StorePayment = () => {
+  const router = useRouter();
+
   const [selectMethod, setSelectMethod] = useState(1);
   const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
     isPersonal: true,
@@ -114,7 +117,18 @@ const StorePayment = () => {
       />
       <PaymentConsent isConsent={isConsent} setIsConsent={setIsConsent} />
       <div css={buttonWrapper}>
-        <button css={buyButton(buttonActive())}>
+        <button
+          css={buyButton(buttonActive())}
+          onClick={() =>
+            router.push(
+              {
+                pathname: `${router.asPath}/complete`,
+                query: { price: DUMMY_PAYMENT.price },
+              },
+              `${router.asPath}/complete`
+            )
+          }
+        >
           {DUMMY_PAYMENT.price.toLocaleString("ko-KR")}원 결제하기
         </button>
       </div>
