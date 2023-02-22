@@ -53,9 +53,11 @@ const submit = (isOkay: boolean) => css`
 const AddProfile = () => {
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
   const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
+  const [profileData, setProfileData] = useState({ name: "", phone: "" });
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청
+    if (!profileData.name) return alert("닉네임을 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
       ? setInputState((prev) => ["success", prev[1]])
@@ -64,6 +66,7 @@ const AddProfile = () => {
 
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
+    if (!profileData.phone) return alert("전화번호를 입력하세요.");
     setInputState((prev) => [prev[0], "success"]);
   };
 
@@ -75,6 +78,7 @@ const AddProfile = () => {
       isRequired: true,
       btnFnc: checkValid,
       message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
+      objectKey: "name",
     },
     {
       label: "휴대폰 번호",
@@ -83,6 +87,7 @@ const AddProfile = () => {
       isRequired: true,
       btnFnc: requestAuth,
       message: { success: "인증되었습니다." },
+      objectKey: "phone",
     },
   ];
 
@@ -106,6 +111,8 @@ const AddProfile = () => {
               state={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
+              setState={setProfileData}
+              objectKey={el.objectKey}
             />
           ))}
         </div>

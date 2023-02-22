@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
@@ -8,12 +8,17 @@ import PaymentMethod from "customer/store/menu/payment/Method";
 import PaymentConsent from "customer/store/menu/payment/Consent";
 import { Colors, Texts } from "styles/common";
 
-export type selectedType = {
+export type SelectedType = {
   id: string;
   name: string;
 };
-
-export type cashReceiptsType = { isPersonal: boolean; data: string; isUse: boolean };
+export type CashReceiptsType = { isPersonal: boolean; data: string; isUse: boolean };
+export type TransferType = {
+  id: string;
+  name: string;
+  accountHolder: string;
+  accountNumber: number;
+};
 
 const DUMMY_PAYMENT = {
   storeName: "정갈한솥",
@@ -29,28 +34,59 @@ const couponWrapper = css`
 
 const buttonWrapper = css`
   padding: 0 1.25rem;
+  padding-bottom: 5rem;
 `;
 
-const buyButton = css`
+const buyButton = (isActive: boolean) => css`
   width: 100%;
   border-radius: 0.25rem;
   margin-top: 2rem;
   padding: 0.688rem 0;
-  color: ${Colors.white};
-  background-color: ${Colors.amber50};
+  cursor: ${isActive ? "pointer" : "default"};
+  color: ${isActive ? Colors.white : Colors.neutral50};
+  background-color: ${isActive ? Colors.amber50 : Colors.neutral20};
   ${Texts.S3_18_M}
 `;
 
 const StorePayment = () => {
   const [selectMethod, setSelectMethod] = useState(1);
-  const [cashReceipts, SetCashReceipts] = useState<cashReceiptsType>({
+  const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
     isPersonal: true,
     data: "",
     isUse: false,
   });
   const [selectedCard, setSelectedCard] = useState({ id: "", name: "" });
-  const [selectedBank, setSelectedBank] = useState({ id: "", name: "" });
+  const [selectedBank, setSelectedBank] = useState<TransferType>({
+    id: "",
+    name: "",
+    accountHolder: "",
+    accountNumber: 0,
+  });
   const [isConsent, setIsConsent] = useState(false);
+
+  useEffect(() => {
+    setSelectedCard({ id: "", name: "" });
+    setSelectedBank({ id: "", name: "", accountHolder: "", accountNumber: 0 });
+    setCashReceipts({ data: "", isPersonal: true, isUse: false });
+  }, [selectMethod]);
+
+  const buttonActive = (): boolean => {
+    const completeCashReceipts = cashReceipts.isUse ? cashReceipts.data : true;
+    switch (selectMethod) {
+      case 1:
+        return Boolean(selectedCard.id) && isConsent;
+      case 2:
+        return (
+          Boolean(selectedBank.id) &&
+          Boolean(selectedBank.accountHolder) &&
+          Boolean(selectedBank.accountNumber) &&
+          Boolean(completeCashReceipts) &&
+          isConsent
+        );
+      default:
+        return isConsent;
+    }
+  };
 
   return (
     <Layout title="결제" subTitle="결제화면">
@@ -70,7 +106,7 @@ const StorePayment = () => {
         selectMethod={selectMethod}
         setSelectMethod={setSelectMethod}
         cashReceipts={cashReceipts}
-        setCashReceipts={SetCashReceipts}
+        setCashReceipts={setCashReceipts}
         selectedCard={selectedCard}
         setSelectedCard={setSelectedCard}
         selectedBank={selectedBank}
@@ -78,7 +114,9 @@ const StorePayment = () => {
       />
       <PaymentConsent isConsent={isConsent} setIsConsent={setIsConsent} />
       <div css={buttonWrapper}>
-        <button css={buyButton}>{DUMMY_PAYMENT.price.toLocaleString("ko-KR")}원 결제하기</button>
+        <button css={buyButton(buttonActive())}>
+          {DUMMY_PAYMENT.price.toLocaleString("ko-KR")}원 결제하기
+        </button>
       </div>
     </Layout>
   );

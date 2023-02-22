@@ -4,13 +4,13 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import ArrowDown from "public/icons/ArrowDown.svg";
 import ArrowUp from "public/icons/ArrowUp.svg";
-import { selectedType } from "pages/customer/store/[id]/payment";
+import { SelectedType, TransferType } from "pages/customer/store/[id]/payment";
 
 type PaymentSelectProps = {
   placeholder: string;
-  list: selectedType[];
-  selected: selectedType;
-  setSelected: Dispatch<SetStateAction<selectedType>>;
+  list: SelectedType[] | TransferType[];
+  selected: SelectedType | TransferType;
+  setSelected: Dispatch<SetStateAction<SelectedType>> | Dispatch<SetStateAction<TransferType>>;
 };
 
 const wrapper = css`
@@ -71,7 +71,9 @@ const PaymentSelect = (props: PaymentSelectProps) => {
                 css={option}
                 key={item.id}
                 onClick={() => {
-                  props.setSelected(item);
+                  props.setSelected((prev: any) => {
+                    return { ...prev, ...item };
+                  });
                   setIsOpen(false);
                 }}
               >

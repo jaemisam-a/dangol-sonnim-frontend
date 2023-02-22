@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { cashReceiptsType } from "pages/customer/store/[id]/payment";
+import { CashReceiptsType } from "pages/customer/store/[id]/payment";
 import Checkbox from "common/input/Checkbox";
 import TextInput from "common/input/Text";
 import { Texts } from "styles/common";
 
-type CashReceiptsType = {
-  cashReceipts: cashReceiptsType;
-  setCashReceipts: Dispatch<SetStateAction<cashReceiptsType>>;
+type CashReceiptsProps = {
+  cashReceipts: CashReceiptsType;
+  setCashReceipts: Dispatch<SetStateAction<CashReceiptsType>>;
 };
 
 const receiptLabel = css`
@@ -57,11 +57,18 @@ const inputWrapper = css`
   margin-bottom: 1.25rem;
 `;
 
-const CashReceipts = (props: CashReceiptsType) => {
+const CashReceipts = (props: CashReceiptsProps) => {
+  const eraseData = () => {
+    if (!props.cashReceipts.isUse)
+      return props.setCashReceipts((prev) => {
+        return { ...prev, data: "" };
+      });
+  };
+
   return (
     <>
       <div css={receiptLabel}>
-        <Checkbox setIsChecked={props.setCashReceipts} objectKey="isUse" />
+        <Checkbox setIsChecked={props.setCashReceipts} objectKey="isUse" extraFnc={eraseData} />
         <label>현금 영수증 발행</label>
       </div>
       {props.cashReceipts?.isUse && (
@@ -102,7 +109,7 @@ const CashReceipts = (props: CashReceiptsType) => {
               {props.cashReceipts.isPersonal ? "휴대폰 번호" : "사업자 번호"}
             </label>
             {/* TODO: input입력 시 cashReceipts.data에 값 입력 */}
-            <TextInput width="100%" />
+            <TextInput width="100%" setState={props.setCashReceipts} objectKey="data" />
           </div>
         </>
       )}
