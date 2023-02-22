@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -51,6 +51,8 @@ const submit = (isOkay: boolean) => css`
 `;
 
 const AddProfile = () => {
+  const checkboxId = useId();
+
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
   const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "" });
@@ -117,8 +119,8 @@ const AddProfile = () => {
           ))}
         </div>
         <div css={consentLabel}>
-          <Checkbox setIsChecked={setIsCheckedConsent} />
-          <span>개인정보 수집 및 이용 동의(필수)</span>
+          <Checkbox setIsChecked={setIsCheckedConsent} forId={checkboxId} />
+          <label htmlFor={checkboxId}>개인정보 수집 및 이용 동의(필수)</label>
         </div>
         <div css={consentDescription}>
           <div>-개인정보 수집 목적: 원활한 구독권 서비스 이용을 위해 수집합니다.</div>

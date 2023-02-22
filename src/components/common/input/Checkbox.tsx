@@ -9,6 +9,7 @@ type CheckboxProps = {
   objectKey?: string;
   extraFnc?: (isChecked: boolean) => void;
   disable?: boolean;
+  forId?: string;
 };
 
 const inputWrapper = (disable: boolean) => css`
@@ -21,7 +22,7 @@ const inputWrapper = (disable: boolean) => css`
   & label {
     width: 1.25rem;
     height: 1.25rem;
-    cursor: pointer;
+    cursor: ${disable ? "not-allowed" : "pointer"};
     display: inline-block;
     border-radius: 2px;
     border: 1px solid ${Colors.neutral60};
@@ -54,12 +55,12 @@ const Checkbox = (props: CheckboxProps) => {
       <div css={inputWrapper(props.disable || false)}>
         <input
           type="checkbox"
-          id={id}
+          id={props.forId ?? id}
           onChange={handleCheck}
           disabled={props.disable}
           checked={props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked}
         />
-        <label htmlFor={id} />
+        <label htmlFor={props.forId ?? id} />
       </div>
     </>
   );
