@@ -14,6 +14,10 @@ const divider = css`
   background-color: ${Colors.neutral10};
 `;
 
+const margin = css`
+  padding-bottom: 4.25rem;
+`;
+
 const Store = () => {
   const dummyLocation = {
     address: "서울 구로구 디지털로26길 111 지하 1층 002호",
@@ -53,6 +57,7 @@ const Store = () => {
         <Menus />
         <hr css={divider} />
         <Subs storeName={dummyStore.storeName} />
+        <div css={margin} />
       </Layout>
     </>
   );
