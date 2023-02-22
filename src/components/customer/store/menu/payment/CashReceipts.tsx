@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useId } from "react";
 import { css } from "@emotion/react";
 
 import { CashReceiptsType } from "pages/customer/store/[id]/payment";
@@ -58,6 +58,8 @@ const inputWrapper = css`
 `;
 
 const CashReceipts = (props: CashReceiptsProps) => {
+  const checkboxId = useId();
+
   const eraseData = () => {
     if (!props.cashReceipts.isUse)
       return props.setCashReceipts((prev) => {
@@ -68,8 +70,13 @@ const CashReceipts = (props: CashReceiptsProps) => {
   return (
     <>
       <div css={receiptLabel}>
-        <Checkbox setIsChecked={props.setCashReceipts} objectKey="isUse" extraFnc={eraseData} />
-        <label>현금 영수증 발행</label>
+        <Checkbox
+          forId={checkboxId}
+          setIsChecked={props.setCashReceipts}
+          objectKey="isUse"
+          extraFnc={eraseData}
+        />
+        <label htmlFor={checkboxId}>현금 영수증 발행</label>
       </div>
       {props.cashReceipts?.isUse && (
         <>

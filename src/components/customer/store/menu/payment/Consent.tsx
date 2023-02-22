@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useId, useState } from "react";
 import { css } from "@emotion/react";
 
 import Checkbox from "common/input/Checkbox";
@@ -40,6 +40,8 @@ const inputWrapper = css`
 `;
 
 const PaymentConsent = (props: PaymentConsentProps) => {
+  const checkboxId = useId();
+
   const consentArr = [
     { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", objectKey: "first" },
     { content: "개인정보 수집 및 이용 동의 (필수)", objectKey: "second" },
@@ -76,11 +78,12 @@ const PaymentConsent = (props: PaymentConsentProps) => {
       <div css={wrapper}>
         <div css={allInputWrapper}>
           <Checkbox
+            forId={checkboxId}
             setIsChecked={props.setIsConsent}
             isChecked={props.isConsent}
             extraFnc={allCheckbox}
           />
-          <label>전체 동의</label>
+          <label htmlFor={checkboxId}>전체 동의</label>
         </div>
         <div css={innerWrapper}>
           {consentArr.map((content) => (

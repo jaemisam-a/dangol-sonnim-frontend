@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -59,13 +59,20 @@ const price = css`
 `;
 
 const StoreCoupon = (props: StoreCouponProps) => {
+  const checkboxId = useId();
+
   const [, setIsChecked] = useState(false);
 
   return (
     <>
       <div css={wrapper}>
-        <Checkbox setIsChecked={setIsChecked} isChecked={props.checked} disable={props.disable} />
-        <div css={contentsWrapper}>
+        <Checkbox
+          forId={checkboxId}
+          setIsChecked={setIsChecked}
+          isChecked={props.checked}
+          disable={props.disable}
+        />
+        <label htmlFor={checkboxId} css={contentsWrapper}>
           <div css={contentsTopWrapper}>
             <div css={storeName}>{props.storeName}</div>
             <div css={subsName}>
@@ -74,7 +81,7 @@ const StoreCoupon = (props: StoreCouponProps) => {
             <div css={description}>{props.description}</div>
           </div>
           <div css={price}>월 {props.price.toLocaleString("ko-KR")}원</div>
-        </div>
+        </label>
       </div>
     </>
   );
