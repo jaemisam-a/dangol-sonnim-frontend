@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Script from "next/script";
 import { css } from "@emotion/react";
 
@@ -44,6 +44,13 @@ const KakaoMap = ({ address }: KakaoMapProp) => {
       });
     });
   };
+
+  useEffect(() => {
+    if (!window.kakao) return;
+    onLoadKakaoMap();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Script
