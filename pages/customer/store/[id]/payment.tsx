@@ -8,12 +8,12 @@ import PaymentMethod from "customer/store/menu/payment/Method";
 import PaymentConsent from "customer/store/menu/payment/Consent";
 import { Colors, Texts } from "styles/common";
 
-export type selectedType = {
+export type SelectedType = {
   id: string;
   name: string;
 };
-export type cashReceiptsType = { isPersonal: boolean; data: string; isUse: boolean };
-export type transferType = {
+export type CashReceiptsType = { isPersonal: boolean; data: string; isUse: boolean };
+export type TransferType = {
   id: string;
   name: string;
   accountHolder: string;
@@ -50,13 +50,13 @@ const buyButton = (isActive: boolean) => css`
 
 const StorePayment = () => {
   const [selectMethod, setSelectMethod] = useState(1);
-  const [cashReceipts, setCashReceipts] = useState<cashReceiptsType>({
+  const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
     isPersonal: true,
     data: "",
     isUse: false,
   });
   const [selectedCard, setSelectedCard] = useState({ id: "", name: "" });
-  const [selectedBank, setSelectedBank] = useState<transferType>({
+  const [selectedBank, setSelectedBank] = useState<TransferType>({
     id: "",
     name: "",
     accountHolder: "",

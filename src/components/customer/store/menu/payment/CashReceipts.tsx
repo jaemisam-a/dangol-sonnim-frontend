@@ -1,14 +1,14 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { cashReceiptsType } from "pages/customer/store/[id]/payment";
+import { CashReceiptsType } from "pages/customer/store/[id]/payment";
 import Checkbox from "common/input/Checkbox";
 import TextInput from "common/input/Text";
 import { Texts } from "styles/common";
 
-type CashReceiptsType = {
-  cashReceipts: cashReceiptsType;
-  setCashReceipts: Dispatch<SetStateAction<cashReceiptsType>>;
+type CashReceiptsProps = {
+  cashReceipts: CashReceiptsType;
+  setCashReceipts: Dispatch<SetStateAction<CashReceiptsType>>;
 };
 
 const receiptLabel = css`
@@ -57,7 +57,7 @@ const inputWrapper = css`
   margin-bottom: 1.25rem;
 `;
 
-const CashReceipts = (props: CashReceiptsType) => {
+const CashReceipts = (props: CashReceiptsProps) => {
   const eraseData = () => {
     if (!props.cashReceipts.isUse)
       return props.setCashReceipts((prev) => {

@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { cashReceiptsType, selectedType, transferType } from "pages/customer/store/[id]/payment";
+import { CashReceiptsType, SelectedType, TransferType } from "pages/customer/store/[id]/payment";
 import StoreSection from "customer/store/Section";
 import MethodButtonList from "customer/store/menu/payment/MethodButtonList";
 import PaymentSelect from "customer/store/menu/payment/Select";
@@ -20,12 +20,12 @@ const PAYMENT_METHODS = [
 type PaymentMethodProps = {
   selectMethod: number;
   setSelectMethod: Dispatch<SetStateAction<number>>;
-  cashReceipts: cashReceiptsType;
-  setCashReceipts: Dispatch<SetStateAction<cashReceiptsType>>;
-  selectedCard: selectedType;
-  setSelectedCard: Dispatch<SetStateAction<selectedType>>;
-  selectedBank: transferType;
-  setSelectedBank: Dispatch<SetStateAction<transferType>>;
+  cashReceipts: CashReceiptsType;
+  setCashReceipts: Dispatch<SetStateAction<CashReceiptsType>>;
+  selectedCard: SelectedType;
+  setSelectedCard: Dispatch<SetStateAction<SelectedType>>;
+  selectedBank: TransferType;
+  setSelectedBank: Dispatch<SetStateAction<TransferType>>;
 };
 
 const methodButtonList = css`
