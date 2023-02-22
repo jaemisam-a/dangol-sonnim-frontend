@@ -1,10 +1,12 @@
-import React from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
 type TextInputProps = {
   width: string;
+  setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
+  objectKey?: string;
   placeholder?: string;
   state?: "error" | "success" | "";
   message?: { error?: string; success: string };
@@ -39,9 +41,25 @@ const success = css`
 `;
 
 const TextInput = (props: TextInputProps) => {
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!props.setState) return;
+    if (props.objectKey) {
+      props.setState((prev: any) => {
+        return { ...prev, [props.objectKey as string]: e.target.value };
+      });
+    } else {
+      props.setState(e.target.value);
+    }
+  };
+
   return (
     <div css={wrapper}>
-      <input type="search" css={input(props)} placeholder={props.placeholder} />
+      <input
+        type="search"
+        css={input(props)}
+        placeholder={props.placeholder}
+        onChange={handleInput}
+      />
       {props.state === "error" && <div css={error}>{props.message?.error}</div>}
       {props.state === "success" && <div css={success}>{props.message?.success}</div>}
     </div>

@@ -7,6 +7,8 @@ import InputSection from "common/input/Section";
 import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
 
+type InpustStateTypes = "error" | "success" | "";
+
 const wrapper = css`
   display: flex;
   flex-direction: column;
@@ -53,18 +55,65 @@ const dialogContent = [
 ];
 const EditProfile = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
+  const [profileData, setProfileData] = useState({ name: "", phone: "" });
+
+  const checkValid = () => {
+    // TODO: 닉네임 중복확인 api 요청
+    if (!profileData.name) return alert("닉네임을 입력하세요.");
+    const randomNum = Math.floor(Math.random() * 2) + 1;
+    randomNum === 1
+      ? setInputState((prev) => ["success", prev[1]])
+      : setInputState((prev) => ["error", prev[1]]);
+  };
+
+  const requestAuth = () => {
+    // TODO: 인증요청 api 요청
+    if (!profileData.phone) return alert("전화번호를 입력하세요.");
+    setInputState((prev) => [prev[0], "success"]);
+  };
+
+  const inputArr = [
+    {
+      label: "닉네임",
+      placeholder: "닉네임 입력",
+      btn: "중복확인",
+      isRequired: false,
+      btnFnc: checkValid,
+      message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
+      objectKey: "name",
+    },
+    {
+      label: "휴대폰 번호",
+      placeholder: "휴대폰 번호 입력('-'제외)",
+      btn: "인증요청",
+      isRequired: false,
+      btnFnc: requestAuth,
+      message: { success: "인증되었습니다." },
+      objectKey: "phone",
+    },
+  ];
+
   return (
     <>
       <div css={wrapper}>
         <Avatar />
         <div css={inputList}>
-          <InputSection label="닉네임" placeholder="닉네임 입력" btn="중복확인" isBottom={true} />
-          <InputSection
-            label="휴대폰 번호"
-            placeholder="휴대폰 번호 입력('-'제외)"
-            btn="다시 본인인증"
-            isBottom={true}
-          />
+          {inputArr.map((el, idx) => (
+            <InputSection
+              label={el.label}
+              placeholder={el.placeholder}
+              btn={el.btn}
+              isBottom={true}
+              key={el.label}
+              isRequired={el.isRequired}
+              state={inputState[idx]}
+              action={el.btnFnc}
+              message={el.message}
+              setState={setProfileData}
+              objectKey={el.objectKey}
+            />
+          ))}
         </div>
         <div css={btnWrapper}>
           <button

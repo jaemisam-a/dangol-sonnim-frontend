@@ -58,10 +58,17 @@ const inputWrapper = css`
 `;
 
 const CashReceipts = (props: CashReceiptsType) => {
+  const eraseData = () => {
+    if (!props.cashReceipts.isUse)
+      return props.setCashReceipts((prev) => {
+        return { ...prev, data: "" };
+      });
+  };
+
   return (
     <>
       <div css={receiptLabel}>
-        <Checkbox setIsChecked={props.setCashReceipts} objectKey="isUse" />
+        <Checkbox setIsChecked={props.setCashReceipts} objectKey="isUse" extraFnc={eraseData} />
         <label>현금 영수증 발행</label>
       </div>
       {props.cashReceipts?.isUse && (
@@ -102,7 +109,7 @@ const CashReceipts = (props: CashReceiptsType) => {
               {props.cashReceipts.isPersonal ? "휴대폰 번호" : "사업자 번호"}
             </label>
             {/* TODO: input입력 시 cashReceipts.data에 값 입력 */}
-            <TextInput width="100%" />
+            <TextInput width="100%" setState={props.setCashReceipts} objectKey="data" />
           </div>
         </>
       )}

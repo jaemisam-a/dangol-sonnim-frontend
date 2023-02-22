@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { cashReceiptsType, selectedType } from "pages/customer/store/[id]/payment";
+import { cashReceiptsType, selectedType, transferType } from "pages/customer/store/[id]/payment";
 import StoreSection from "customer/store/Section";
 import MethodButtonList from "customer/store/menu/payment/MethodButtonList";
 import PaymentSelect from "customer/store/menu/payment/Select";
@@ -24,8 +24,8 @@ type PaymentMethodProps = {
   setCashReceipts: Dispatch<SetStateAction<cashReceiptsType>>;
   selectedCard: selectedType;
   setSelectedCard: Dispatch<SetStateAction<selectedType>>;
-  selectedBank: selectedType;
-  setSelectedBank: Dispatch<SetStateAction<selectedType>>;
+  selectedBank: transferType;
+  setSelectedBank: Dispatch<SetStateAction<transferType>>;
 };
 
 const methodButtonList = css`
@@ -85,11 +85,11 @@ const PaymentMethod = (props: PaymentMethodProps) => {
           </div>
           <div css={inputWrapper}>
             <label css={label}>예금주명</label>
-            <TextInput width="100%" />
+            <TextInput width="100%" setState={props.setSelectedBank} objectKey="accountHolder" />
           </div>
           <div css={inputWrapper}>
             <label css={label}>계좌번호</label>
-            <TextInput width="100%" />
+            <TextInput width="100%" setState={props.setSelectedBank} objectKey="accountNumber" />
           </div>
         </>
       )}

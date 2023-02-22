@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -13,6 +13,8 @@ type InputSectionProps = {
   state?: "error" | "success" | "";
   action?: () => void;
   message?: { error?: string; success: string };
+  setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
+  objectKey?: string;
 };
 
 const inputWrapper = css`
@@ -61,6 +63,8 @@ const InputSection = (props: InputSectionProps) => {
             placeholder={props.placeholder}
             state={props.state}
             message={props.message}
+            setState={props.setState}
+            objectKey={props.objectKey}
           />
           <button css={inputBtn(props.state)} onClick={props.action}>
             {props.btn}
