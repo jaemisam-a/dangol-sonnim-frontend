@@ -47,7 +47,7 @@ const StorePaymentComplete = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.query?.price) router.push("/customer");
+    if (!router.query?.price) router.back();
   }, []);
 
   if (!router.query?.price) return null;
