@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
@@ -7,6 +7,7 @@ import { Colors, Texts } from "styles/common";
 import Share from "public/icons/Share.svg";
 import ArrowLeft from "public/icons/ArrowLeft.svg";
 import Kebab from "public/icons/Kebab.svg";
+import useLoginStore from "src/store/login";
 
 type HeaderProps = {
   subTitle?: string;
@@ -67,7 +68,7 @@ const hiddenItem = css`
 const Header = (props: HeaderProps) => {
   const { pathname, back } = useRouter();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLogin, login } = useLoginStore((state) => state);
 
   return (
     <header css={wrapper(pathname)}>
@@ -82,7 +83,7 @@ const Header = (props: HeaderProps) => {
               height="36"
             />
             <div css={buttons}>
-              {isLoggedIn ? (
+              {isLogin ? (
                 <Image
                   css={pointerButton}
                   src="/images/Profile.png"
@@ -94,7 +95,7 @@ const Header = (props: HeaderProps) => {
                 <>
                   <span css={textButton}>사장님 페이지</span>
                   <span css={buttonDot}>•</span>
-                  <span css={textButton} onClick={() => setIsLoggedIn(true)}>
+                  <span css={textButton} onClick={() => login()}>
                     로그인/회원가입
                   </span>
                 </>
