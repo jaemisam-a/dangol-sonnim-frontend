@@ -11,6 +11,7 @@ type KakaoMapProp = {
 const mapStyle = css`
   width: 100%;
   height: 100%;
+  z-index: 0;
 `;
 
 const KakaoMap = ({ address }: KakaoMapProp) => {

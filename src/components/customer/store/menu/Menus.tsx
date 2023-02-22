@@ -14,13 +14,18 @@ const menuWrapper = css`
   margin-bottom: 0.25rem;
 `;
 
-const more = css`
-  ${Texts.B1_13_M1}
-  color: ${Colors.neutral90};
+const moreBtnWrapper = css`
   display: flex;
   justify-content: end;
+  margin-bottom: 1.5rem;
+`;
+
+const moreBtn = css`
+  display: flex;
   align-items: center;
-  cursor: pointer;
+  background-color: transparent;
+  ${Texts.B1_13_M1}
+  color: ${Colors.neutral90};
 `;
 
 const Menus = () => {
@@ -53,9 +58,11 @@ const Menus = () => {
               />
             ))}
         </div>
-        <div css={more} onClick={() => setOpen(true)}>
-          더보기
-          <RightIcon width={14} height={14} stroke={Colors.neutral90} />
+        <div css={moreBtnWrapper}>
+          <button onClick={() => setOpen(true)} css={moreBtn}>
+            <span>더보기</span>
+            <RightIcon width={14} height={14} stroke={Colors.neutral90} />
+          </button>
         </div>
       </StoreSection>
       <BottomSheet
