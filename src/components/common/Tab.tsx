@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import TabContent from "customer/my/TabContent";
+
+type TabProps = {
+  tabs: string[];
+  children: ReactNode;
+  selectedTab: number;
+  setSelectedTab: Dispatch<SetStateAction<number>>;
+};
 
 const wrapper = css`
   display: flex;
@@ -20,23 +26,21 @@ const tabBtn = (tab: boolean) => css`
   color: ${tab ? Colors.amber50 : Colors.neutral40};
   border-bottom: ${tab ? `3px solid ${Colors.amber50}` : `1px solid ${Colors.neutral40}`};
   ${Texts.B3_15_B}
+  white-space:pre;
 `;
 
-const Tab = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const tabArr = ["내가 구독한 쿠폰", "좋아요 가게"];
-
+const Tab = ({ tabs, children, selectedTab, setSelectedTab }: TabProps) => {
   return (
     <>
       <section css={wrapper}>
         <div css={tabsWrapper}>
-          {tabArr.map((tab, idx) => (
+          {tabs.map((tab, idx) => (
             <button key={tab} css={tabBtn(selectedTab === idx)} onClick={() => setSelectedTab(idx)}>
               {tab}
             </button>
           ))}
         </div>
-        <TabContent selectedTab={selectedTab} />
+        <div>{children}</div>
       </section>
     </>
   );

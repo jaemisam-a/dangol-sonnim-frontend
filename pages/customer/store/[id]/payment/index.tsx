@@ -115,7 +115,11 @@ const StorePayment = () => {
         selectedBank={selectedBank}
         setSelectedBank={setSelectedBank}
       />
-      <PaymentConsent isConsent={isConsent} setIsConsent={setIsConsent} />
+      <PaymentConsent
+        isConsent={isConsent}
+        setIsConsent={setIsConsent}
+        storeName={DUMMY_PAYMENT.storeName}
+      />
       <div css={buttonWrapper}>
         <button
           css={buyButton(buttonActive())}
