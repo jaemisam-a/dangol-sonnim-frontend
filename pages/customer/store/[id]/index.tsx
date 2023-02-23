@@ -1,10 +1,22 @@
 import React from "react";
+import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import Subs from "customer/store/Subs";
 import Menus from "customer/store/menu/Menus";
 import Location from "customer/store/Location";
 import Info from "customer/store/Info";
+import { Colors } from "styles/common";
+
+const divider = css`
+  height: 0.5rem;
+  border: 0;
+  background-color: ${Colors.neutral10};
+`;
+
+const margin = css`
+  padding-bottom: 4.25rem;
+`;
 
 const Store = () => {
   const dummyLocation = {
@@ -35,13 +47,17 @@ const Store = () => {
     <>
       <Layout title="가게이름">
         <Info infoContent={dummyStore} onPick={pickStore} />
+        <hr css={divider} />
         <Location
           address={dummyLocation.address}
           detail={dummyLocation.detail}
           openHour={dummyLocation.openHour}
         />
+        <hr css={divider} />
         <Menus />
+        <hr css={divider} />
         <Subs storeName={dummyStore.storeName} />
+        <div css={margin} />
       </Layout>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import Script from "next/script";
 import { css } from "@emotion/react";
 
@@ -11,6 +11,7 @@ type KakaoMapProp = {
 const mapStyle = css`
   width: 100%;
   height: 100%;
+  z-index: 0;
 `;
 
 const KakaoMap = ({ address }: KakaoMapProp) => {
@@ -44,6 +45,12 @@ const KakaoMap = ({ address }: KakaoMapProp) => {
       });
     });
   };
+
+  useEffect(() => {
+    if (!window.kakao) return;
+    onLoadKakaoMap();
+  }, []);
+
   return (
     <>
       <Script
