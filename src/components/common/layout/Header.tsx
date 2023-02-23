@@ -11,6 +11,7 @@ import useLoginStore from "src/store/login";
 
 type HeaderProps = {
   subTitle?: string;
+  goHome?: boolean;
 };
 
 const wrapper = (pathname: string) => css`
@@ -33,6 +34,10 @@ const buttons = css`
   display: flex;
   gap: 0.25rem;
   color: ${Colors.neutral90};
+
+  button {
+    background-color: transparent;
+  }
 `;
 
 const pointerButton = css`
@@ -66,9 +71,8 @@ const hiddenItem = css`
 `;
 
 const Header = (props: HeaderProps) => {
-  const { pathname, back } = useRouter();
-
-  const { isLogin, login } = useLoginStore((state) => state);
+  const { pathname, back, push } = useRouter();
+  const { isLogin } = useLoginStore();
 
   return (
     <header css={wrapper(pathname)}>
@@ -84,27 +88,32 @@ const Header = (props: HeaderProps) => {
             />
             <div css={buttons}>
               {isLogin ? (
-                <Image
-                  css={pointerButton}
-                  src="/images/Profile.png"
-                  alt="profile"
-                  width="34"
-                  height="34"
-                />
+                <button onClick={() => push("/customer/my")}>
+                  <Image
+                    css={pointerButton}
+                    src="/images/Profile.png"
+                    alt="profile"
+                    width="34"
+                    height="34"
+                  />
+                </button>
               ) : (
                 <>
-                  <span css={textButton}>사장님 페이지</span>
+                  <button css={textButton}>사장님 페이지</button>
                   <span css={buttonDot}>•</span>
-                  <span css={textButton} onClick={() => login()}>
+                  <button css={textButton} onClick={() => push("/customer/login")}>
                     로그인/회원가입
-                  </span>
+                  </button>
                 </>
               )}
             </div>
           </>
         ) : (
           <>
-            <button css={pointerButton} onClick={() => back()}>
+            <button
+              css={pointerButton}
+              onClick={props.goHome ? () => push("/customer") : () => back()}
+            >
               <ArrowLeft stroke={Colors.amber50} />
             </button>
             <span css={pageTitle}>{props.subTitle}</span>

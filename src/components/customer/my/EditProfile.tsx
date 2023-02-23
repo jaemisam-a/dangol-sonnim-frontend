@@ -48,6 +48,9 @@ const inputList = css`
 `;
 
 const EditProfile = () => {
+  const { push } = useRouter();
+  const { logout } = useLoginStore();
+
   const dialogContent = [
     {
       usage: "withdrawal" as const,
@@ -57,11 +60,9 @@ const EditProfile = () => {
     },
   ];
 
-  const { push } = useRouter();
   const [openModal, setOpenModal] = useState(false);
   const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "" });
-  const { logout } = useLoginStore((state) => state);
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청

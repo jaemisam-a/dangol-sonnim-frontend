@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import SocialButton from "customer/login/SocialButton";
 import { Colors, Texts } from "styles/common";
 import useLoginStore from "src/store/login";
-import { useRouter } from "next/router";
 
 const logoWrapper = css`
   display: flex;
@@ -35,7 +35,7 @@ const buttonWrapper = css`
 `;
 
 const Login = () => {
-  const { isLogin } = useLoginStore((state) => state);
+  const { isLogin } = useLoginStore();
   const { push } = useRouter();
 
   const socialArr = [
@@ -46,6 +46,12 @@ const Login = () => {
   ];
 
   useEffect(() => {
+    /**
+     * TODO:
+     * 가입 후 최초로그인 시에만 /profile로 이동
+     * 로그인 된 상태에서 이 페이지 접속 시 /customer로 이동
+     *  */
+
     if (isLogin) {
       push("/customer/login/profile");
     }

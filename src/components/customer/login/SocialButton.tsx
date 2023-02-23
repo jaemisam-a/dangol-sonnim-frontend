@@ -26,7 +26,7 @@ const wrapper = (color: string, bgColor: string, name: string) => css`
 `;
 
 const SocialButton = (props: SocialButtonProps) => {
-  const { login } = useLoginStore((state) => state);
+  const { login } = useLoginStore();
 
   const onLogin = () => {
     // FIXME: 로그인 기능 연동
