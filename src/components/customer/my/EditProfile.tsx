@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/Avatar";
 import InputSection from "common/input/Section";
 import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
+import useLoginStore from "src/store/login";
 
 type InpustStateTypes = "error" | "success" | "";
 
@@ -46,6 +48,9 @@ const inputList = css`
 `;
 
 const EditProfile = () => {
+  const { push } = useRouter();
+  const { logout } = useLoginStore();
+
   const dialogContent = [
     {
       usage: "withdrawal" as const,
@@ -54,6 +59,7 @@ const EditProfile = () => {
       buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
     },
   ];
+
   const [openModal, setOpenModal] = useState(false);
   const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "" });
@@ -119,6 +125,8 @@ const EditProfile = () => {
           <button
             onClick={() => {
               //TODO: 로그아웃
+              logout();
+              push("/customer");
             }}
           >
             로그아웃
@@ -126,15 +134,6 @@ const EditProfile = () => {
           <span css={btnDivider}>|</span>
           <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
         </div>
-        <Modal onClose={() => setOpenModal(false)} open={openModal}>
-          <Dialog
-            content={dialogContent[0]}
-            onCancel={() => setOpenModal(false)}
-            onConfirm={() => {
-              //TODO: 탈퇴기능
-            }}
-          />
-        </Modal>
       </div>
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Dialog

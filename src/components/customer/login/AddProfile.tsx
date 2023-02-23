@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/Avatar";
@@ -52,6 +53,7 @@ const submit = (isOkay: boolean) => css`
 
 const AddProfile = () => {
   const checkboxId = useId();
+  const { push } = useRouter();
 
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
   const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
@@ -97,6 +99,8 @@ const AddProfile = () => {
     // TODO: 프로필 수집에 동의했을 경우 사진을 넣는 기능 추가
   }, []);
 
+  const isPossible = isCheckedConsent && inputState[0] === "success" && inputState[1] === "success";
+
   return (
     <>
       <div css={wrapper}>
@@ -130,10 +134,9 @@ const AddProfile = () => {
           </div>
         </div>
         <button
-          css={submit(
-            isCheckedConsent && inputState[0] === "success" && inputState[1] === "success"
-          )}
-          disabled={isCheckedConsent || inputState[0] === "success" || inputState[1] === "success"}
+          css={submit(isPossible)}
+          disabled={!isPossible}
+          onClick={() => isPossible && push("/customer")}
         >
           확인
         </button>

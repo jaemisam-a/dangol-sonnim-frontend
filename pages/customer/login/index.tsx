@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import SocialButton from "customer/login/SocialButton";
 import { Colors, Texts } from "styles/common";
+import useLoginStore from "src/store/login";
 
 const logoWrapper = css`
   display: flex;
@@ -33,12 +35,27 @@ const buttonWrapper = css`
 `;
 
 const Login = () => {
+  const { isLogin } = useLoginStore();
+  const { push } = useRouter();
+
   const socialArr = [
     { image: "/images/loginMethod/Kakao.png", name: "카카오", bgColor: "#FFE500", color: "black" },
     { image: "/images/loginMethod/Google.png", name: "구글", bgColor: "#FFFFFF", color: "black" },
     { image: "/images/loginMethod/Apple.png", name: "Apple", bgColor: "#000000", color: "white" },
     { image: "/images/loginMethod/Naver.png", name: "네이버", bgColor: "#03C75A", color: "white" },
   ];
+
+  useEffect(() => {
+    /**
+     * TODO:
+     * 가입 후 최초로그인 시에만 /profile로 이동
+     * 로그인 된 상태에서 이 페이지 접속 시 /customer로 이동
+     *  */
+
+    if (isLogin) {
+      push("/customer/login/profile");
+    }
+  }, [isLogin]);
 
   return (
     <>

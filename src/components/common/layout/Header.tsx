@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
@@ -7,9 +7,11 @@ import { Colors, Texts } from "styles/common";
 import Share from "public/icons/Share.svg";
 import ArrowLeft from "public/icons/ArrowLeft.svg";
 import Kebab from "public/icons/Kebab.svg";
+import useLoginStore from "src/store/login";
 
 type HeaderProps = {
   subTitle?: string;
+  goHome?: boolean;
 };
 
 const wrapper = (pathname: string) => css`
@@ -32,6 +34,10 @@ const buttons = css`
   display: flex;
   gap: 0.25rem;
   color: ${Colors.neutral90};
+
+  button {
+    background-color: transparent;
+  }
 `;
 
 const pointerButton = css`
@@ -65,9 +71,8 @@ const hiddenItem = css`
 `;
 
 const Header = (props: HeaderProps) => {
-  const { pathname, back } = useRouter();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { pathname, back, push } = useRouter();
+  const { isLogin } = useLoginStore();
 
   return (
     <header css={wrapper(pathname)}>
@@ -82,28 +87,33 @@ const Header = (props: HeaderProps) => {
               height="36"
             />
             <div css={buttons}>
-              {isLoggedIn ? (
-                <Image
-                  css={pointerButton}
-                  src="/images/Profile.png"
-                  alt="profile"
-                  width="34"
-                  height="34"
-                />
+              {isLogin ? (
+                <button onClick={() => push("/customer/my")}>
+                  <Image
+                    css={pointerButton}
+                    src="/images/Profile.png"
+                    alt="profile"
+                    width="34"
+                    height="34"
+                  />
+                </button>
               ) : (
                 <>
-                  <span css={textButton}>사장님 페이지</span>
+                  <button css={textButton}>사장님 페이지</button>
                   <span css={buttonDot}>•</span>
-                  <span css={textButton} onClick={() => setIsLoggedIn(true)}>
+                  <button css={textButton} onClick={() => push("/customer/login")}>
                     로그인/회원가입
-                  </span>
+                  </button>
                 </>
               )}
             </div>
           </>
         ) : (
           <>
-            <button css={pointerButton} onClick={() => back()}>
+            <button
+              css={pointerButton}
+              onClick={props.goHome ? () => push("/customer") : () => back()}
+            >
               <ArrowLeft stroke={Colors.amber50} />
             </button>
             <span css={pageTitle}>{props.subTitle}</span>
