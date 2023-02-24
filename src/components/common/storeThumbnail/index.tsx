@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -57,11 +58,15 @@ const tags = (isLarge: boolean) => css`
 `;
 
 const StoreThumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
+  const { push } = useRouter();
   const IMG_SIZE = isLarge ? 152 : 83;
 
   return (
     <>
-      <div css={wrapper(isLarge)}>
+      <div
+        css={wrapper(isLarge)}
+        onClick={isLarge ? () => push(`/customer/store/${content.id}`) : () => {}}
+      >
         <Image src={content.img} alt={content.store} width={IMG_SIZE} height={IMG_SIZE} />
         <div>
           <div css={storeInfo}>
