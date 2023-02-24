@@ -6,7 +6,12 @@ import BottomSheet from "common/BottomSheet";
 import Radio from "customer/main/Radio";
 import { Texts } from "styles/common";
 
-const subText = css`
+type LocationProps = {
+  isSearchPage?: boolean;
+};
+
+const subText = (isSearchPage: boolean) => css`
+  display: ${isSearchPage ? "none" : "block"};
   ${Texts.C1_11_R}
   width: fit-content;
 `;
@@ -18,20 +23,20 @@ const locationWrapper = css`
   width: fit-content;
 `;
 
-const locationName = css`
-  ${Texts.S3_18_M}
+const locationName = (isSearchPage: boolean) => css`
+  ${isSearchPage ? Texts.B1_13_R2 : Texts.S3_18_M}
 `;
 
-const Location = () => {
+const Location = ({ isSearchPage }: LocationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [checkedLocation, setCheckedLocation] = useState({ id: 1, content: "강남역" });
 
   return (
     <>
-      <div css={subText}>지금 보고있는 지역은</div>
+      <div css={subText(isSearchPage as boolean)}>지금 보고있는 지역은</div>
       <div css={locationWrapper} onClick={() => setIsOpen(true)}>
-        <span css={locationName}>{checkedLocation.content}</span>
-        <ArrowDown width="24" height="24" stroke="black" />
+        <span css={locationName(isSearchPage as boolean)}>{checkedLocation.content}</span>
+        <ArrowDown width="14" height="14" stroke="black" />
       </div>
       <BottomSheet
         height="18.125rem"

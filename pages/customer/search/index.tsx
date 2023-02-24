@@ -23,7 +23,7 @@ const Search = () => {
   }, [isLogin]);
 
   return (
-    <Layout title="검색창" isNoHeader={true}>
+    <Layout title="검색" isNoHeader={true}>
       <SearchInput />
       <SearchList isLoggedIn={isLogin} queries={queries} />
     </Layout>

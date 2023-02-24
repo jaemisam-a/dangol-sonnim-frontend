@@ -42,7 +42,7 @@ const arrowLeft = css`
 
 const SearchInput = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+  const { push } = useRouter();
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -59,12 +59,12 @@ const SearchInput = () => {
   };
 
   const onSearch = (value: string) => {
-    router.push(`/customer/stores?query=${value}`);
+    push(`/customer/stores?query=${value}`);
   };
 
   return (
     <header css={searchBox}>
-      <button css={arrowLeft} onClick={() => router.back()}>
+      <button css={arrowLeft} onClick={() => push("/customer")}>
         <ArrowLeft stroke={Colors.neutral70} />
       </button>
       <div css={inputWrapper}>

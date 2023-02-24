@@ -1,6 +1,6 @@
 import { NextApiResponse, NextApiRequest } from "next";
 
-type StoreType = {
+export type StoreData = {
   id: string;
   name: string;
   category: string;
@@ -18,7 +18,9 @@ type StoreType = {
     isMain: boolean;
     tags: string[];
   }[];
-}[];
+};
+
+type StoreType = StoreData[];
 
 const store = [
   {
