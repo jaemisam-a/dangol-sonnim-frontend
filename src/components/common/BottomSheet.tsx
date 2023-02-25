@@ -35,8 +35,27 @@ const fadeOut = keyframes`
   }
 `;
 
-const outerWrapper = (open: boolean) => css`
-  animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
+const fadeInBottom = keyframes`
+  from {
+    bottom: -40%;
+  }
+
+  to {
+    bottom: 0;
+  }
+`;
+
+const fadeOutBottom = keyframes`
+  from {
+    bottom: 0;
+  }
+  
+  to {
+    bottom: -40%;
+  }
+`;
+
+const outerWrapper = css`
   position: absolute;
   top: 0;
   left: 0;
@@ -58,7 +77,7 @@ const wrapper = css`
   z-index: 2;
 `;
 
-const outerArea = css`
+const outerArea = (open: boolean) => css`
   position: absolute;
   top: 0;
   height: 100%;
@@ -66,9 +85,10 @@ const outerArea = css`
   max-width: 480px;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
+  animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
 `;
 
-const bottomSheetWrapper = (height: string) => css`
+const bottomSheetWrapper = (open: boolean, height: string) => css`
   position: absolute;
   bottom: 0;
   z-index: 4;
@@ -77,6 +97,7 @@ const bottomSheetWrapper = (height: string) => css`
   height: ${height};
   background-color: ${Colors.white};
   border-radius: 10px 10px 0 0;
+  animation: ${open ? fadeInBottom : fadeOutBottom} 0.3s ease-in;
 `;
 
 const titleSection = css`
@@ -114,10 +135,10 @@ const BottomSheet = (props: BottomSheetProps) => {
   if (!isVisible) return null;
 
   return (
-    <div css={outerWrapper(props.open)}>
+    <div css={outerWrapper}>
       <div css={wrapper}>
-        <div css={outerArea} onClick={offBottomSheet} />
-        <div css={bottomSheetWrapper(props.height)}>
+        <div css={outerArea(props.open)} onClick={offBottomSheet} />
+        <div css={bottomSheetWrapper(props.open, props.height)}>
           <div css={titleSection}>
             <button css={pointerButton(props.isBackButton)} onClick={offBottomSheet}>
               <ArrowLeft stroke={Colors.amber50} />
