@@ -62,6 +62,7 @@ const tableStyle = css`
 
 const subTitleStyle = css`
   ${Texts.S1_16_M}
+  margin-top:0.5rem;
   margin-bottom: 1rem;
 `;
 
