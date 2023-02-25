@@ -6,7 +6,7 @@ export type StoreData = {
   category: string;
   description: string;
   images: { src: string; alt: string }[];
-  location: { address: string; detail: string };
+  location: { address: string; shortAddress: string; detail: string };
   openHour: string;
   menus: { id: string; name: string; price: number; img: string }[];
   subs: {
@@ -31,6 +31,7 @@ const store = [
     images: [{ src: "/images/dummy/cheetah.jpg", alt: "dd" }],
     location: {
       address: "서울 구로구 디지털로26길 111 지하 1층 002호",
+      shortAddress: "서울 구로구",
       detail: "서울대입구역 6번 출구에서 50m",
     },
     openHour: "10시에 영업시작",
@@ -67,6 +68,7 @@ const store = [
     images: [{ src: "/images/dummy/cheetah.jpg", alt: "dd" }],
     location: {
       address: "서울 구로구 디지털로26길 111 지하 1층 002호",
+      shortAddress: "서울 구로구",
       detail: "서울대입구역 6번 출구에서 50m",
     },
     openHour: "10시에 영업시작",
@@ -103,6 +105,7 @@ const store = [
     images: [{ src: "/images/dummy/cheetah.jpg", alt: "dd" }],
     location: {
       address: "서울 구로구 디지털로26길 111 지하 1층 002호",
+      shortAddress: "서울 구로구",
       detail: "서울대입구역 6번 출구에서 50m",
     },
     openHour: "10시에 영업시작",

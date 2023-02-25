@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -38,6 +38,13 @@ const queryWrapper = css`
   justify-content: space-between;
   width: 100%;
   padding: 0 0.5rem;
+
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+    ${Texts.B3_15_R2}
+  }
 `;
 
 const filterWrapper = css`
@@ -70,22 +77,16 @@ const Stores = () => {
   const { query, push } = useRouter();
   const { data } = useQuery("StoreData", () => axios.get("/api/store").then((res) => res.data));
 
-  const [storeData, setStoreData] = useState();
+  const storeData = data?.map((item: StoreData) => {
+    let newObj: { [key: string]: any } = {};
+    newObj["id"] = item.id;
+    newObj["store"] = item.name;
+    newObj["tags"] = item.subs[0].tags;
+    newObj["shortAddress"] = item.location.shortAddress;
+    newObj["img"] = item.images[0].src;
+    return newObj;
+  });
 
-  useEffect(() => {
-    if (data) {
-      const stores = data.map((item: StoreData) => {
-        let newObj: { [key: string]: any } = {};
-        newObj["id"] = item.id;
-        newObj["store"] = item.name;
-        newObj["tags"] = item.subs[0].tags;
-        newObj["location"] = item.location.address;
-        newObj["img"] = item.images[0].src;
-        return newObj;
-      });
-      setStoreData(stores);
-    }
-  }, [data]);
   return (
     <Layout title={`${query.query} 검색`} isNoHeader>
       <header css={headerWrapper}>
@@ -93,7 +94,7 @@ const Stores = () => {
           <ArrowLeft stroke={Colors.neutral70} />
         </button>
         <div css={queryWrapper}>
-          <span>{query.query}</span>
+          <input type="text" value={query.query} onFocus={() => push("/customer/search")} />
           <button onClick={() => push("/customer/search")}>
             <CloseCircle width="1.5rem" height="1.5rem" />
           </button>

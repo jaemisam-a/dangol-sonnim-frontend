@@ -33,7 +33,7 @@ const dummyPickStores = [
     store: "정갈한솥",
     category: "한식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/pizza.png",
   },
   {
@@ -41,7 +41,7 @@ const dummyPickStores = [
     store: "정갈한솥",
     category: "한식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -49,7 +49,7 @@ const dummyPickStores = [
     store: "정갈한솥",
     category: "한식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/pizza.png",
   },
   {
@@ -57,7 +57,7 @@ const dummyPickStores = [
     store: "정갈한솥",
     category: "한식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
 ];
