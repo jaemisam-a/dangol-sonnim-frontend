@@ -7,6 +7,8 @@ import Location from "customer/main/Location";
 import Sort from "customer/main/Sort";
 import Category from "customer/main/Category";
 import SearchBar from "customer/main/SearchBar";
+import CouponSlider from "customer/main/CouponSlider";
+import useLoginStore from "src/store/login";
 
 const MOCK_STORE = [
   {
@@ -75,6 +77,33 @@ const MOCK_STORE = [
   },
 ];
 
+const MOCK_MYCOUPON = [
+  {
+    storeName: "아이비카페",
+    couponName: "아메리카노 주문시 사이즈업",
+    useCount: "3/5",
+    validDate: "2023-01-20~2023.02.20",
+    storeLocation: "구로구 구로동",
+    qrImage: "/images/dummy/Mob-QR.png",
+  },
+  {
+    storeName: "정갈한솥",
+    couponName: "아메리카노 주문시 사이즈",
+    useCount: "3/5",
+    validDate: "2023-01-20~2023.02.20",
+    storeLocation: "구로구 구로동",
+    qrImage: "/images/dummy/Mob-QR.png",
+  },
+  {
+    storeName: "더본즈피자",
+    couponName: "아메리카노 주문시 사이즈",
+    useCount: "3/5",
+    validDate: "2023-01-20~2023.02.20",
+    storeLocation: "구로구 구로동",
+    qrImage: "/images/dummy/Mob-QR.png",
+  },
+];
+
 const searchBar = css`
   display: flex;
   justify-content: center;
@@ -84,7 +113,7 @@ const searchBar = css`
 
 const location = css`
   margin-bottom: 1rem;
-  padding: 0 1.25rem;
+  padding: 1.25rem 1.25rem 0 1.25rem;
 `;
 
 const category = css`
@@ -100,11 +129,14 @@ const sort = css`
 `;
 
 const Customer = () => {
+  const { isLogin } = useLoginStore();
+
   return (
     <Layout title="단골손님">
       <div css={searchBar}>
         <SearchBar />
       </div>
+      {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
       <div css={location}>
         <Location />
       </div>

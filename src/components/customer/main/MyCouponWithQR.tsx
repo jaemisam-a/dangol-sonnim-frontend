@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
 import CountTag from "common/CountTag";
 import { Colors, Texts } from "styles/common";
 import Search from "public/icons/Search.svg";
+import BottomSheet from "common/BottomSheet";
+import QRCheck from "customer/main/QRCheck";
 
-type MainCouponProps = {
+export type MainCouponProps = {
   qrImage: string;
   storeName: string;
   storeLocation: string;
@@ -21,6 +23,7 @@ const wrapper = css`
   display: flex;
   width: fit-content;
   padding: 0.75rem;
+  background-color: ${Colors.white};
 `;
 
 const qrWrapper = css`
@@ -77,13 +80,19 @@ const validDate = css`
   color: ${Colors.neutral70};
 `;
 
+const BottomSheetWrapper = css`
+  cursor: default;
+`;
+
 const MyCouponWithQR = (props: MainCouponProps) => {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <div css={wrapper}>
         <div css={qrWrapper}>
           <Image src={props.qrImage} alt="qr" width="74" height="74" />
-          <button css={qrButton}>
+          <button css={qrButton} onClick={() => setOpen(true)}>
             <Search stroke={Colors.neutral90} width={14} height={14} />
             <span css={qrButtonText}>QR 확대</span>
           </button>
@@ -96,6 +105,23 @@ const MyCouponWithQR = (props: MainCouponProps) => {
           <div css={couponName}>{props.couponName}</div>
           <CountTag useCount={props.useCount} />
           <div css={validDate}>{props.validDate}</div>
+          <div css={BottomSheetWrapper}>
+            <BottomSheet
+              component={
+                <QRCheck
+                  qrImg={props.qrImage}
+                  storeName={props.storeName}
+                  useCount={props.useCount}
+                />
+              }
+              height={"42.25rem"}
+              isXButton={true}
+              isBackButton={false}
+              open={open}
+              setOpen={setOpen}
+              title="QR 인증"
+            />
+          </div>
         </div>
       </div>
     </>
