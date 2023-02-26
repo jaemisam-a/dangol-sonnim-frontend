@@ -21,6 +21,7 @@ const locationWrapper = css`
   cursor: pointer;
   align-items: center;
   width: fit-content;
+  gap: 0.125rem;
 `;
 
 const locationName = (isSearchPage: boolean) => css`

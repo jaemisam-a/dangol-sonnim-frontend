@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import StoreThumbnailList from "common/storeThumbnail/List";
-import Location from "customer/main/Location";
-import Sort from "customer/main/Sort";
+import Location from "common/filter/Location";
+import Sort from "common/filter/Sort";
 import Category from "customer/main/Category";
 import SearchBar from "customer/main/SearchBar";
 
