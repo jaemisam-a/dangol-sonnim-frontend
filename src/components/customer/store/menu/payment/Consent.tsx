@@ -3,10 +3,13 @@ import { css } from "@emotion/react";
 
 import Checkbox from "common/input/Checkbox";
 import { Colors, Texts } from "styles/common";
+import Terms from "customer/store/menu/payment/Terms";
+import BottomSheet from "common/BottomSheet";
 
 type PaymentConsentProps = {
   isConsent: boolean;
   setIsConsent: Dispatch<SetStateAction<boolean>>;
+  storeName: string;
 };
 
 const wrapper = css`
@@ -37,6 +40,10 @@ const inputWrapper = css`
   gap: 0.25rem;
   color: ${Colors.neutral90};
   ${Texts.C2_12_M_line}
+
+  label {
+    cursor: pointer;
+  }
 `;
 
 const PaymentConsent = (props: PaymentConsentProps) => {
@@ -55,6 +62,7 @@ const PaymentConsent = (props: PaymentConsentProps) => {
     third: false,
     fourth: false,
   });
+  const [selectedTerms, setSelectedTerms] = useState("");
 
   const allCheckbox = (isChecked: boolean) => {
     if (isChecked) {
@@ -93,11 +101,20 @@ const PaymentConsent = (props: PaymentConsentProps) => {
                 isChecked={isConsentDetail}
                 objectKey={content.objectKey}
               />
-              <label>{content.content}</label>
+              <label onClick={() => setSelectedTerms(content.objectKey)}>{content.content}</label>
             </div>
           ))}
         </div>
       </div>
+      <BottomSheet
+        height="40.125rem"
+        isBackButton={false}
+        isXButton={true}
+        open={selectedTerms !== ""}
+        setOpen={() => setSelectedTerms("")}
+        title=""
+        component={<Terms selectedTerms={selectedTerms} storeName={props.storeName} />}
+      />
     </>
   );
 };
