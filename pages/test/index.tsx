@@ -6,20 +6,10 @@ import Banner from "customer/Banner";
 import BottomSheet from "common/BottomSheet";
 import Layout from "common/layout";
 import MyCouponWithQR from "customer/main/MyCouponWithQR";
-import StoreThumbnail from "common/storeThumbnail";
 import MyCoupon from "common/coupon/My";
 import SearchBar from "customer/main/SearchBar";
 
 const Test = () => {
-  const dummy = {
-    id: "abc",
-    store: "더본즈피자",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 가리봉동",
-    img: "/images/dummy/pizza.png",
-  };
-
   const TestDiv = styled.div`
     ${Texts.B2_14_R_line}
     color: ${Colors.amber50};
@@ -31,9 +21,6 @@ const Test = () => {
     <Layout title="테스트 페이지">
       <br />
       <SearchBar />
-      <br />
-      <StoreThumbnail content={dummy} isLarge={true} />
-      <StoreThumbnail content={dummy} isLarge={false} />
       <br />
       <TestDiv onClick={() => setOpen(true)}>안녕하세요</TestDiv>
       <Banner

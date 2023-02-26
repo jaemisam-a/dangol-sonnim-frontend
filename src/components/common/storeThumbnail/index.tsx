@@ -11,7 +11,7 @@ export type ThumbnailData = {
   store: string;
   category: string;
   tags: string[];
-  location: string;
+  shortAddress: string;
   img: string;
 };
 
@@ -78,7 +78,7 @@ const StoreThumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
               <Tag text={tag} key={tag} />
             ))}
           </div>
-          <span css={location}>{content.location}</span>
+          <span css={location}>{content.shortAddress}</span>
         </div>
       </div>
     </>

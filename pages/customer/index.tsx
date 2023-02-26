@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import StoreThumbnailList from "common/storeThumbnail/List";
-import Location from "customer/main/Location";
-import Sort from "customer/main/Sort";
+import Location from "common/filter/Location";
+import Sort from "common/filter/Sort";
 import Category from "customer/main/Category";
 import SearchBar from "customer/main/SearchBar";
 
@@ -14,7 +14,7 @@ const MOCK_STORE = [
     store: "더본즈피자",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 가리봉동",
+    shortAddress: "구로구 가리봉동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -22,7 +22,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -30,7 +30,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -38,7 +38,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -46,7 +46,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -54,7 +54,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -62,7 +62,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
   {
@@ -70,7 +70,7 @@ const MOCK_STORE = [
     store: "인버거",
     category: "양식",
     tags: ["사이드 디쉬 추가", "사이즈업"],
-    location: "구로구 구로동",
+    shortAddress: "구로구 구로동",
     img: "/images/dummy/cheetah.jpg",
   },
 ];

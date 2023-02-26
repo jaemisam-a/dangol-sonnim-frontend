@@ -8,11 +8,11 @@ type StoreThumbnailListProps = {
 };
 
 const wrapper = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 1.25rem 6rem 1.25rem;
-  gap: 1.875rem;
+  display: grid;
+  place-items: center;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 1.875rem;
+  column-gap: 1rem;
 `;
 
 const StoreThumbnailList = (props: StoreThumbnailListProps) => {
