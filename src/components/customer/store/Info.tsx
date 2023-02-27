@@ -86,7 +86,7 @@ const Info = ({
   return (
     <section>
       <div css={sliderWrapper}>
-        <Slider>
+        <Slider gap="0.25rem">
           {images.map((img) => (
             <Image
               key={img.src}

@@ -24,7 +24,7 @@ const CouponSlider = ({ coupons }: CouponSliderProps) => {
   return (
     <section css={wrapper}>
       <h3 css={title}>내 구독권</h3>
-      <Slider padding={"0 0 1.25rem 0"}>
+      <Slider padding="0 0 1.25rem 0" gap="0.75rem">
         {coupons.map(
           ({ storeName, couponName, storeLocation, qrImage, useCount, validDate }, idx) => (
             <MyCouponWithQR

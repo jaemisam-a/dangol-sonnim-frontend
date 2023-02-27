@@ -4,11 +4,12 @@ import { css } from "@emotion/react";
 type SliderProps = {
   children: ReactNode;
   padding?: string;
+  gap: string;
 };
 
-const imageWrapper = (padding: string) => css`
+const imageWrapper = (padding: string, gap: string) => css`
   display: flex;
-  gap: 0.25rem;
+  gap: ${gap};
   padding: ${padding};
   overflow-x: scroll;
   cursor: grab;
@@ -57,7 +58,7 @@ const Slider = (props: SliderProps) => {
       onMouseMove={onMouseMove}
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
-      css={imageWrapper(props.padding as string)}
+      css={imageWrapper(props.padding as string, props.gap)}
     >
       {props.children}
     </div>
