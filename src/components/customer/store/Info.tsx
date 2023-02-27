@@ -1,9 +1,10 @@
 import React from "react";
 import { css } from "@emotion/react";
+import Image from "next/image";
 
 import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
-import ImageCarousel from "customer/store/ImageList";
+import Slider from "common/Slider";
 import Pick from "public/icons/Pick.svg";
 
 type InfoProps = {
@@ -17,6 +18,16 @@ type InfoProps = {
   };
   onPick: () => void;
 };
+
+const sliderWrapper = css`
+  margin-bottom: 0.983rem;
+`;
+
+const imgStyle = css`
+  width: 9.25rem;
+  height: 9.25rem;
+  flex-shrink: 0;
+`;
 
 const titleWrapper = css`
   display: flex;
@@ -74,7 +85,20 @@ const Info = ({
 }: InfoProps) => {
   return (
     <section>
-      <ImageCarousel images={images} />
+      <div css={sliderWrapper}>
+        <Slider gap="0.25rem">
+          {images.map((img) => (
+            <Image
+              key={img.src}
+              src={img.src}
+              alt={img.alt}
+              width={148}
+              height={148}
+              css={imgStyle}
+            />
+          ))}
+        </Slider>
+      </div>
       <div css={titleWrapper}>
         <div />
         <div>

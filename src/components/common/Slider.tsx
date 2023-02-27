@@ -1,44 +1,42 @@
-import React, { MouseEvent, useRef, useState } from "react";
+import React, { MouseEvent, ReactNode, useRef, useState } from "react";
 import { css } from "@emotion/react";
-import Image from "next/image";
 
-type ImageListProps = { images: { src: string; alt: string }[] };
+type SliderProps = {
+  children: ReactNode;
+  padding?: string;
+  gap: string;
+};
 
-const imageWrapper = css`
+const imageWrapper = (padding: string, gap: string) => css`
   display: flex;
-  gap: 0.25rem;
-  margin-bottom: 0.983rem;
+  gap: ${gap};
+  padding: ${padding};
   overflow-x: scroll;
   cursor: grab;
+
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
   }
-
-  img {
-    width: 9.25rem;
-    height: 9.25rem;
-    flex-shrink: 0;
-  }
 `;
 
-const ImageList = ({ images }: ImageListProps) => {
-  const imagesRef = useRef<HTMLDivElement>(null);
-  const imageContainer = imagesRef.current as HTMLDivElement;
+const Slider = (props: SliderProps) => {
+  const element = useRef<HTMLDivElement>(null);
+  const elementContainer = element.current as HTMLDivElement;
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
 
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDrag(true);
-    setStartX(e.pageX + imageContainer.scrollLeft);
+    setStartX(e.pageX + elementContainer?.scrollLeft);
   };
 
   const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isDrag) return;
-    const { scrollWidth, clientWidth, scrollLeft } = imageContainer;
-    imageContainer.scrollLeft = startX - e.pageX;
+    const { scrollWidth, clientWidth, scrollLeft } = elementContainer;
+    elementContainer.scrollLeft = startX - e.pageX;
 
     if (scrollLeft === 0) {
       setStartX(e.pageX);
@@ -55,18 +53,16 @@ const ImageList = ({ images }: ImageListProps) => {
   return (
     <div
       draggable={true}
-      ref={imagesRef}
+      ref={element}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onDragEnd}
       onMouseLeave={onDragEnd}
-      css={imageWrapper}
+      css={imageWrapper(props.padding as string, props.gap)}
     >
-      {images.map((img) => (
-        <Image key={img.src} src={img.src} alt={img.alt} width={148} height={148} />
-      ))}
+      {props.children}
     </div>
   );
 };
 
-export default ImageList;
+export default Slider;
