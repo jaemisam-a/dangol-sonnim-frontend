@@ -104,7 +104,7 @@ const StorePayment = () => {
           disable={true}
         />
       </div>
-      <PaymentInfo />
+      <PaymentInfo price={DUMMY_PAYMENT.price} />
       <PaymentMethod
         selectMethod={selectMethod}
         setSelectMethod={setSelectMethod}
@@ -123,6 +123,7 @@ const StorePayment = () => {
       <div css={buttonWrapper}>
         <button
           css={buyButton(buttonActive())}
+          disabled={!buttonActive()}
           onClick={() =>
             router.push(
               {
