@@ -5,6 +5,7 @@ import { Colors, Texts } from "styles/common";
 
 type TextInputProps = {
   width: string;
+  wrapperWidth?: string;
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   objectKey?: string;
   placeholder?: string;
@@ -12,9 +13,10 @@ type TextInputProps = {
   message?: { error?: string; success: string };
 };
 
-const wrapper = css`
+const wrapper = (width: string) => css`
   display: flex;
   flex-direction: column;
+  width: ${width};
 `;
 
 const input = (props: TextInputProps) => css`
@@ -53,7 +55,7 @@ const TextInput = (props: TextInputProps) => {
   };
 
   return (
-    <div css={wrapper}>
+    <div css={wrapper(props.wrapperWidth ?? "100%")}>
       <input
         type="search"
         css={input(props)}

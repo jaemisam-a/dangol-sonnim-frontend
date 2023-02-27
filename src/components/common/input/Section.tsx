@@ -27,6 +27,7 @@ const inputBtnWrapper = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 `;
 
 const inputBtn = (state?: "error" | "success" | "") => css`
@@ -59,7 +60,8 @@ const InputSection = (props: InputSectionProps) => {
         </div>
         <div css={inputBtnWrapper}>
           <TextInput
-            width="12.5rem"
+            width="100%"
+            wrapperWidth="calc(100% - 6.75rem)"
             placeholder={props.placeholder}
             state={props.state}
             message={props.message}
