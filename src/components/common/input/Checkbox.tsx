@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Colors } from "styles/common";
 
 type CheckboxProps = {
-  setIsChecked: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<boolean>>;
+  setIsChecked?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<boolean>>;
   isChecked?: any | boolean;
   objectKey?: string;
   extraFnc?: (isChecked: boolean) => void;
@@ -40,6 +40,7 @@ const Checkbox = (props: CheckboxProps) => {
   const id = useId();
 
   const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!props.setIsChecked) return;
     if (props.objectKey) {
       props.setIsChecked((prev: any) => {
         return { ...prev, [props.objectKey as string]: e.target.checked };
