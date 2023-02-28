@@ -10,10 +10,9 @@ type MethodButtonListProps = {
 };
 
 const wrapper = css`
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.625rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.25rem, 1fr));
+  row-gap: 0.5rem;
 `;
 
 const MethodButtonList = (props: MethodButtonListProps) => {

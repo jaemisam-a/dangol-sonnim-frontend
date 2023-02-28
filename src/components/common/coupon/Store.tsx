@@ -1,16 +1,18 @@
-import React, { useId, useState } from "react";
+import React, { Dispatch, SetStateAction, useId } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Checkbox from "common/input/Checkbox";
 
 type StoreCouponProps = {
+  id: string;
   name: string;
   storeName: string;
   count: number;
   description: string;
   price: number;
   checked?: boolean;
+  setChecked?: Dispatch<SetStateAction<any>>;
   disable?: boolean;
 };
 
@@ -61,16 +63,15 @@ const price = css`
 const StoreCoupon = (props: StoreCouponProps) => {
   const checkboxId = useId();
 
-  const [, setIsChecked] = useState(false);
-
   return (
     <>
       <div css={wrapper}>
         <Checkbox
           forId={checkboxId}
-          setIsChecked={setIsChecked}
+          setIsChecked={props.setChecked}
           isChecked={props.checked}
           disable={props.disable}
+          objectKey={props.id}
         />
         <label htmlFor={checkboxId} css={contentsWrapper}>
           <div css={contentsTopWrapper}>

@@ -22,6 +22,7 @@ export type TransferType = {
 };
 
 const DUMMY_PAYMENT = {
+  id: "abc",
   storeName: "정갈한솥",
   count: 5,
   name: "모든 메뉴 사이즈업",
@@ -95,6 +96,7 @@ const StorePayment = () => {
     <Layout title="결제" subTitle="결제화면">
       <div css={couponWrapper}>
         <StoreCoupon
+          id={DUMMY_PAYMENT.id}
           count={DUMMY_PAYMENT.count}
           description={DUMMY_PAYMENT.description}
           name={DUMMY_PAYMENT.name}
@@ -104,7 +106,7 @@ const StorePayment = () => {
           disable={true}
         />
       </div>
-      <PaymentInfo />
+      <PaymentInfo price={DUMMY_PAYMENT.price} />
       <PaymentMethod
         selectMethod={selectMethod}
         setSelectMethod={setSelectMethod}
@@ -123,6 +125,7 @@ const StorePayment = () => {
       <div css={buttonWrapper}>
         <button
           css={buyButton(buttonActive())}
+          disabled={!buttonActive()}
           onClick={() =>
             router.push(
               {
