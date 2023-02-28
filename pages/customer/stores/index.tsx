@@ -75,17 +75,25 @@ const emptyResult = css`
 const Stores = () => {
   /** TODO: 검색 기능 API */
   const { query, push } = useRouter();
-  const { data } = useQuery("StoreData", () => axios.get("/api/store").then((res) => res.data));
+  const { data: storeData, isLoading } = useQuery("StoreData", () =>
+    axios.get("/api/store").then((res) =>
+      res.data.map((item: StoreData) => {
+        let newObj: { [key: string]: any } = {};
+        newObj["id"] = item.id;
+        newObj["store"] = item.name;
+        newObj["category"] = item.category;
+        newObj["tags"] = item.subs[0].tags;
+        newObj["shortAddress"] = item.location.shortAddress;
+        newObj["img"] = item.images[0].src;
+        return newObj;
+      })
+    )
+  );
 
-  const storeData = data?.map((item: StoreData) => {
-    let newObj: { [key: string]: any } = {};
-    newObj["id"] = item.id;
-    newObj["store"] = item.name;
-    newObj["tags"] = item.subs[0].tags;
-    newObj["shortAddress"] = item.location.shortAddress;
-    newObj["img"] = item.images[0].src;
-    return newObj;
-  });
+  // FIXME: 로그인 시에만 유저 데이터 가져오기
+  const { data: userPick } = useQuery("UserData", () =>
+    axios.get("/api/user").then((res) => res.data[0].pick)
+  );
 
   return (
     <Layout title={`${query.query} 검색`} isNoHeader>
@@ -107,7 +115,7 @@ const Stores = () => {
       </div>
       <section css={resultWrapper}>
         {storeData ? (
-          <StoreThumbnailList contents={storeData} />
+          <StoreThumbnailList contents={storeData} userPick={userPick} isLoading={isLoading} />
         ) : (
           <div css={emptyResult}>
             <p>검색결과가 없습니다.</p>

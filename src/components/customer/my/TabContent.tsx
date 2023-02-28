@@ -109,7 +109,7 @@ const TabContent = ({ selectedTab }: TabContentType) => {
   ) : (
     <div css={myPickWrapper}>
       {myPick?.map((store) => (
-        <StoreThumbnail key={store.id} content={store} isLarge={true} />
+        <StoreThumbnail key={store.id} content={store} isPick={true} />
       ))}
     </div>
   );

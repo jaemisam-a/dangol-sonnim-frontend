@@ -1,5 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 import Layout from "common/layout";
 import StoreThumbnailList from "common/storeThumbnail/List";
@@ -9,73 +11,7 @@ import Category from "customer/main/Category";
 import SearchBar from "customer/main/SearchBar";
 import CouponSlider from "customer/main/CouponSlider";
 import useLoginStore from "src/store/login";
-
-const MOCK_STORE = [
-  {
-    id: "1",
-    store: "더본즈피자",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 가리봉동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "2",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "3",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "4",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "5",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "6",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "7",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "8",
-    store: "인버거",
-    category: "양식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-];
+import { StoreData } from "pages/api/store";
 
 const MOCK_MYCOUPON = [
   {
@@ -131,6 +67,26 @@ const sort = css`
 const Customer = () => {
   const { isLogin } = useLoginStore();
 
+  const { data: storeData, isLoading } = useQuery("StoreData", () =>
+    axios.get("/api/store").then((res) =>
+      res.data.map((item: StoreData) => {
+        let newObj: { [key: string]: any } = {};
+        newObj["id"] = item.id;
+        newObj["store"] = item.name;
+        newObj["category"] = item.category;
+        newObj["tags"] = item.subs[0].tags;
+        newObj["shortAddress"] = item.location.shortAddress;
+        newObj["img"] = item.images[0].src;
+        return newObj;
+      })
+    )
+  );
+
+  // FIXME: 로그인 시에만 유저 데이터 가져오기
+  const { data: userPick } = useQuery("UserData", () =>
+    axios.get("/api/user").then((res) => res.data[0].pick)
+  );
+
   return (
     <Layout title="단골손님">
       <div css={searchBar}>
@@ -146,7 +102,7 @@ const Customer = () => {
       <section css={sort}>
         <Sort />
       </section>
-      <StoreThumbnailList contents={MOCK_STORE} />
+      <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
     </Layout>
   );
 };
