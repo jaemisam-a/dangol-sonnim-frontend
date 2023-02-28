@@ -35,7 +35,7 @@ const exitInfoStyle = css`
 `;
 
 const mapStyle = css`
-  height: 6.5rem;
+  height: 9.75rem;
 `;
 
 const openHourWrapper = css`
