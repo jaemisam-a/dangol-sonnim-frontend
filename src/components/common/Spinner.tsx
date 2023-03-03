@@ -21,9 +21,9 @@ const stretch = keyframes`
   }
 `;
 
-const container = (size: string, color: string, speed: number) => css`
-  height: ${size};
-  width: ${size};
+const container = (color: string, speed: number) => css`
+  height: 2.75rem;
+  width: 2.75rem;
   vertical-align: middle;
   transform-origin: center;
   animation: ${rotate} ${speed + "s"} linear infinite;
@@ -40,10 +40,10 @@ const container = (size: string, color: string, speed: number) => css`
   }
 `;
 
-const Spinner = ({ size = "40px", color = "black", lineWeight = 5, speed = 2 }) => {
+const Spinner = ({ size = "44px", color = "black", lineWeight = 5, speed = 2 }) => {
   return (
     <>
-      <svg height={size} width={size} css={container(size, color, speed)} viewBox="25 25 50 50">
+      <svg height={size} width={size} css={container(color, speed)} viewBox="25 25 50 50">
         <circle cx="50" cy="50" r="20" strokeWidth={lineWeight} />
       </svg>
     </>
