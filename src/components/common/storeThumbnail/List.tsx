@@ -29,20 +29,26 @@ const thumbnails = css`
 `;
 
 const StoreThumbnailList = (props: StoreThumbnailListProps) => {
-  return props.isLoading ? (
-    <div css={loadingOrEmpty}>
-      <Spinner color={Colors.amber50} />
-    </div>
-  ) : props.contents ? (
-    <div css={thumbnails}>
-      {props.contents?.map((content) => {
-        const isPick = props.userPick && props.userPick.includes(content.id);
-        return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
-      })}
-    </div>
-  ) : (
-    <div css={loadingOrEmpty}>검색결과가 없습니다.</div>
-  );
+  if (props.isLoading) {
+    return (
+      <div css={loadingOrEmpty}>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (props.contents) {
+    return (
+      <div css={thumbnails}>
+        {props.contents?.map((content) => {
+          const isPick = props.userPick && props.userPick.includes(content.id);
+          return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
+        })}
+      </div>
+    );
+  }
+
+  return <div css={loadingOrEmpty}>검색결과가 없습니다.</div>;
 };
 
 export default StoreThumbnailList;

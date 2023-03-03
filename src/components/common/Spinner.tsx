@@ -1,6 +1,8 @@
 import React from "react";
 import { css, keyframes } from "@emotion/react";
 
+import { Colors } from "styles/common";
+
 const rotate = keyframes`
   100% {
     transform: rotate(360deg);
@@ -21,9 +23,7 @@ const stretch = keyframes`
   }
 `;
 
-const container = (color: string, speed: number) => css`
-  height: 2.75rem;
-  width: 2.75rem;
+const container = (speed: number) => css`
   vertical-align: middle;
   transform-origin: center;
   animation: ${rotate} ${speed + "s"} linear infinite;
@@ -31,7 +31,7 @@ const container = (color: string, speed: number) => css`
 
   circle {
     fill: none;
-    stroke: ${color};
+    stroke: ${Colors.amber50};
     stroke-dasharray: 1, 200;
     stroke-dashoffset: 0;
     stroke-linecap: round;
@@ -40,10 +40,10 @@ const container = (color: string, speed: number) => css`
   }
 `;
 
-const Spinner = ({ size = "44px", color = "black", lineWeight = 5, speed = 2 }) => {
+const Spinner = ({ lineWeight = 5, speed = 2 }) => {
   return (
     <>
-      <svg height={size} width={size} css={container(color, speed)} viewBox="25 25 50 50">
+      <svg height="44px" width="44px" css={container(speed)} viewBox="25 25 50 50">
         <circle cx="50" cy="50" r="20" strokeWidth={lineWeight} />
       </svg>
     </>

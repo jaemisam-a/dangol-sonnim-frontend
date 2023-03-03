@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import MyCoupon, { MyCouponProps } from "common/coupon/My";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
 import { Colors, Texts } from "styles/common";
-import { useRouter } from "next/router";
 
 type TabContentType = {
   selectedTab: number;
@@ -114,22 +114,25 @@ const TabContent = ({ selectedTab }: TabContentType) => {
     }
   }, [selectedTab]);
 
-  return selectedTab === 0 ? (
-    myCoupons ? (
-      <div css={couponWrapper}>
-        {myCoupons.map((coupon) => (
-          <MyCoupon
-            key={coupon.storeName}
-            couponName={coupon.couponName}
-            couponPrice={coupon.couponPrice}
-            couponDescription={coupon.couponDescription}
-            storeName={coupon.storeName}
-            isDetail={coupon.isDetail}
-            useCount={coupon.useCount}
-          />
-        ))}
-      </div>
-    ) : (
+  if (selectedTab === 0) {
+    if (myCoupons) {
+      return (
+        <div css={couponWrapper}>
+          {myCoupons.map((coupon) => (
+            <MyCoupon
+              key={coupon.storeName}
+              couponName={coupon.couponName}
+              couponPrice={coupon.couponPrice}
+              couponDescription={coupon.couponDescription}
+              storeName={coupon.storeName}
+              isDetail={coupon.isDetail}
+              useCount={coupon.useCount}
+            />
+          ))}
+        </div>
+      );
+    }
+    return (
       <div css={emptyState}>
         <p>
           아직 구독한 쿠폰이 없어요
@@ -138,23 +141,26 @@ const TabContent = ({ selectedTab }: TabContentType) => {
         </p>
         <button onClick={() => push("/")}>가게 보러가기</button>
       </div>
-    )
-  ) : myPick ? (
-    <div css={myPickWrapper}>
-      {myPick.map((store) => (
-        <StoreThumbnail key={store.id} content={store} isPick={true} />
-      ))}
-    </div>
-  ) : (
-    <div css={emptyState}>
-      <p>
-        아직 좋아요 누른 가게가 없어요
-        <br />
-        관심있는 가게에 ♡를 눌러보세요!
-      </p>
-      <button onClick={() => push("/")}>가게 보러가기</button>
-    </div>
-  );
+    );
+  } else {
+    if (myPick) {
+      <div css={myPickWrapper}>
+        {myPick.map((store) => (
+          <StoreThumbnail key={store.id} content={store} isPick={true} />
+        ))}
+      </div>;
+    }
+    return (
+      <div css={emptyState}>
+        <p>
+          아직 좋아요 누른 가게가 없어요
+          <br />
+          관심있는 가게에 ♡를 눌러보세요!
+        </p>
+        <button onClick={() => push("/")}>가게 보러가기</button>
+      </div>
+    );
+  }
 };
 
 export default TabContent;
