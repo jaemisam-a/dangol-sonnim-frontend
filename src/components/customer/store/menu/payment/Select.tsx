@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import ArrowDown from "public/icons/ArrowDown.svg";
 import ArrowUp from "public/icons/ArrowUp.svg";
-import { SelectedType, TransferType } from "pages/customer/store/[id]/payment";
+import { SelectedType, TransferType } from "pages/store/[id]/payment";
 
 type PaymentSelectProps = {
   placeholder: string;

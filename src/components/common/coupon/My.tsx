@@ -70,7 +70,7 @@ const MyCoupon = (props: MyCouponProps) => {
         <div css={titleWrapper}>
           <span css={storeName}>{props.storeName}</span>
           {props.isDetail && (
-            <button css={paymentHistory} onClick={() => router.push("/customer/my/payment")}>
+            <button css={paymentHistory} onClick={() => router.push("/my/payment")}>
               <span>결제내역</span>
               <RightIcon width="14" height="14" stroke={Colors.amber50} />
             </button>

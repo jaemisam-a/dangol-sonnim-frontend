@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useId } from "react";
 import { css } from "@emotion/react";
 
-import { CashReceiptsType } from "pages/customer/store/[id]/payment";
+import { CashReceiptsType } from "pages/store/[id]/payment";
 import Checkbox from "common/input/Checkbox";
 import TextInput from "common/input/Text";
 import { Texts } from "styles/common";

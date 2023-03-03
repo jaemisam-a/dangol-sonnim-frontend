@@ -98,12 +98,12 @@ const Stores = () => {
   return (
     <Layout title={`${query.query} 검색`} isNoHeader>
       <header css={headerWrapper}>
-        <button css={arrowLeft} onClick={() => push("/customer/search")}>
+        <button css={arrowLeft} onClick={() => push("/search")}>
           <ArrowLeft stroke={Colors.neutral70} />
         </button>
         <div css={queryWrapper}>
-          <input type="text" value={query.query} onFocus={() => push("/customer/search")} />
-          <button onClick={() => push("/customer/search")}>
+          <input type="text" value={query.query} onFocus={() => push("/search")} />
+          <button onClick={() => push("/search")}>
             <CloseCircle width="1.5rem" height="1.5rem" />
           </button>
         </div>

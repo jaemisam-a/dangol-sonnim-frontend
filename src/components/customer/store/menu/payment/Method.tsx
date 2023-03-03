@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { CashReceiptsType, SelectedType, TransferType } from "pages/customer/store/[id]/payment";
+import { CashReceiptsType, SelectedType, TransferType } from "pages/store/[id]/payment";
 import StoreSection from "customer/store/Section";
 import MethodButtonList from "customer/store/menu/payment/MethodButtonList";
 import PaymentSelect from "customer/store/menu/payment/Select";

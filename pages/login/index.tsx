@@ -49,11 +49,11 @@ const Login = () => {
     /**
      * TODO:
      * 가입 후 최초로그인 시에만 /profile로 이동
-     * 로그인 된 상태에서 이 페이지 접속 시 /customer로 이동
+     * 로그인 된 상태에서 이 페이지 접속 시 /로 이동
      *  */
 
     if (isLogin) {
-      push("/customer/login/profile");
+      push("/login/profile");
     }
   }, [isLogin]);
 

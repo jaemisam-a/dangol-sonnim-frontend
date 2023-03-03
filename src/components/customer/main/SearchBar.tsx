@@ -34,7 +34,7 @@ const SearchBar = () => {
   const router = useRouter();
 
   const goToSearch = () => {
-    router.push("/customer/search");
+    router.push("/search");
   };
 
   return (

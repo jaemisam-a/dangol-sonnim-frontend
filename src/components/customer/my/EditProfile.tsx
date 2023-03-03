@@ -126,7 +126,7 @@ const EditProfile = () => {
             onClick={() => {
               //TODO: 로그아웃
               logout();
-              push("/customer");
+              push("/");
             }}
           >
             로그아웃
