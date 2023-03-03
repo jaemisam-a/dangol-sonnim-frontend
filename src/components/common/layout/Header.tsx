@@ -17,6 +17,7 @@ type HeaderProps = {
   goHome?: boolean;
   isXButton?: boolean;
   isCheckButton?: boolean;
+  isLogo?: boolean;
 };
 
 const wrapper = (pathname: string) => css`
@@ -85,17 +86,10 @@ const Header = (props: HeaderProps) => {
   const { pathname, back, push } = useRouter();
   const { isLogin } = useLoginStore();
 
-  const isLogo =
-    pathname === "/owner" ||
-    pathname === "/owner/settings" ||
-    pathname === "/owner/qr" ||
-    pathname === "/owner/list" ||
-    pathname === "/owner/subs";
-
   return (
     <header css={wrapper(pathname)}>
       <div css={innerWrapper(pathname)}>
-        {isLogo ? (
+        {props.isLogo ? (
           <>
             <Image
               css={pointerButton}

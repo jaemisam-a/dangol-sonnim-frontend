@@ -1,5 +1,6 @@
-import Layout from "common/layout";
 import React from "react";
+
+import Layout from "common/layout";
 
 const Owner = () => {
   return (

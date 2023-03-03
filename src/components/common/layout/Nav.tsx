@@ -59,10 +59,10 @@ const Nav = () => {
   const router = useRouter();
 
   const navArr = [
-    { icon: <Table />, label: "구독현황", path: "/owner/subs" },
-    { icon: <ListMenu />, label: "회원리스트", path: "/owner/list" },
-    { icon: <Frame fill={Colors.amber50} />, label: "QR코드", path: "/owner/qr" },
-    { icon: <Settings />, label: "가게설정", path: "/owner/settings" },
+    { label: "구독현황", path: "/owner/subs" },
+    { label: "회원리스트", path: "/owner/list" },
+    { label: "QR코드", path: "/owner/qr" },
+    { label: "가게설정", path: "/owner/settings" },
   ];
 
   return (

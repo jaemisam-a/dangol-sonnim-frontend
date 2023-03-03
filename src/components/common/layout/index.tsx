@@ -14,6 +14,7 @@ type LayoutProps = {
   goHome?: boolean;
   isXButton?: boolean;
   isCheckButton?: boolean;
+  isLogo?: boolean;
 };
 
 const wrapper = (pathname: string) => css`
@@ -32,6 +33,7 @@ const Layout = ({
   goHome,
   isXButton,
   isCheckButton,
+  isLogo,
 }: LayoutProps) => {
   const { pathname } = useRouter();
 
@@ -47,6 +49,7 @@ const Layout = ({
             goHome={goHome}
             isXButton={isXButton}
             isCheckButton={isCheckButton}
+            isLogo={isLogo}
           />
         )}
         {children}
