@@ -8,19 +8,25 @@ import Frame from "public/icons/Frame.svg";
 import Settings from "public/icons/Settings.svg";
 import { Colors, Texts } from "styles/common";
 
-const wrapper = css`
+const container = css`
+  display: flex;
+  justify-content: center;
+  position: sticky;
   bottom: 0;
   position: fixed;
   border-top: 1px solid ${Colors.neutral20};
   background-color: ${Colors.white};
+  width: 100%;
+`;
+
+const wrapper = css`
   max-width: 768px;
   width: 100%;
 `;
 
 const innerWarpper = css`
   display: flex;
-  gap: 6.25rem;
-  justify-content: center;
+  justify-content: space-evenly;
   padding: 0.5rem 0;
 `;
 
@@ -67,20 +73,22 @@ const Nav = () => {
 
   return (
     <>
-      <nav css={wrapper}>
-        <div css={innerWarpper}>
-          {navArr.map((el) => (
-            <button
-              key={el.label}
-              css={navButton(router.pathname === el.path)}
-              onClick={() => router.push(el.path)}
-            >
-              {getIcon(el.path, router.pathname === el.path)}
-              <span>{el.label}</span>
-            </button>
-          ))}
-        </div>
-      </nav>
+      <div css={container}>
+        <nav css={wrapper}>
+          <div css={innerWarpper}>
+            {navArr.map((el) => (
+              <button
+                key={el.label}
+                css={navButton(router.pathname === el.path)}
+                onClick={() => router.push(el.path)}
+              >
+                {getIcon(el.path, router.pathname === el.path)}
+                <span>{el.label}</span>
+              </button>
+            ))}
+          </div>
+        </nav>
+      </div>
     </>
   );
 };

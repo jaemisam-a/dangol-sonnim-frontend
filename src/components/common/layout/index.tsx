@@ -22,7 +22,7 @@ const wrapper = (pathname: string) => css`
   max-width: ${pathname.includes("/owner") ? "768px" : "480px"};
   min-height: 100vh;
   margin: auto;
-  box-shadow: rgb(130 130 130 / 15%) 0px 0px 20px;
+  box-shadow: rgb(130 130 130 / 15%) 0px 20px 20px;
 `;
 
 const Layout = ({
@@ -42,19 +42,17 @@ const Layout = ({
       <Head>
         <title>{title}</title>
       </Head>
-      <div css={wrapper(pathname)}>
-        {!isNoHeader && (
-          <Header
-            subTitle={subTitle}
-            goHome={goHome}
-            isXButton={isXButton}
-            isCheckButton={isCheckButton}
-            isLogo={isLogo}
-          />
-        )}
-        {children}
-        {pathname.includes("/owner") && <Nav />}
-      </div>
+      {!isNoHeader && (
+        <Header
+          subTitle={subTitle}
+          goHome={goHome}
+          isXButton={isXButton}
+          isCheckButton={isCheckButton}
+          isLogo={isLogo}
+        />
+      )}
+      <div css={wrapper(pathname)}>{children}</div>
+      {pathname.includes("/owner") && <Nav />}
     </>
   );
 };
