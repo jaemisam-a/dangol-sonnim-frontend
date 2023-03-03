@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
-import Pick from "/public/icons/Pick.svg";
+import Pick from "public/icons/Pick.svg";
 
 export type ThumbnailData = {
   id: string;
