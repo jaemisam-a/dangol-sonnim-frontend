@@ -7,11 +7,16 @@ import { Colors, Texts } from "styles/common";
 import Share from "public/icons/Share.svg";
 import ArrowLeft from "public/icons/ArrowLeft.svg";
 import Kebab from "public/icons/Kebab.svg";
+import Hamburger from "public/icons/Hamburger.svg";
+import Close from "public/icons/Close.svg";
+import Check from "public/icons/Check.svg";
 import useLoginStore from "src/store/login";
 
 type HeaderProps = {
   subTitle?: string;
   goHome?: boolean;
+  isXButton?: boolean;
+  isCheckButton?: boolean;
 };
 
 const wrapper = (pathname: string) => css`
@@ -28,6 +33,7 @@ const innerWrapper = (pathname: string) => css`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 `;
 
 const buttons = css`
@@ -53,6 +59,7 @@ const textButton = css`
   border: none;
   padding: 0;
   cursor: pointer;
+  color: ${Colors.neutral90};
   ${Texts.B2_14_R_line}
 `;
 
@@ -70,14 +77,45 @@ const hiddenItem = css`
   height: 1.75rem;
 `;
 
+const hamburgerButton = css`
+  background-color: transparent;
+`;
+
 const Header = (props: HeaderProps) => {
   const { pathname, back, push } = useRouter();
   const { isLogin } = useLoginStore();
 
+  const isLogo =
+    pathname === "/owner" ||
+    pathname === "/owner/settings" ||
+    pathname === "/owner/qr" ||
+    pathname === "/owner/list" ||
+    pathname === "/owner/subs";
+
   return (
     <header css={wrapper(pathname)}>
       <div css={innerWrapper(pathname)}>
-        {pathname === "/" ? (
+        {isLogo ? (
+          <>
+            <Image
+              css={pointerButton}
+              src="/images/logo/Logo.png"
+              alt="logo"
+              width="27"
+              height="36"
+            />
+            <span css={pageTitle}>{props.subTitle}</span>
+            {pathname === "/owner" ? (
+              <button css={textButton} onClick={() => push("/owner/login")}>
+                로그인/회원가입
+              </button>
+            ) : (
+              <button css={hamburgerButton}>
+                <Hamburger />
+              </button>
+            )}
+          </>
+        ) : pathname === "/" ? (
           <>
             <Image
               css={pointerButton}
@@ -110,8 +148,19 @@ const Header = (props: HeaderProps) => {
           </>
         ) : (
           <>
-            <button css={pointerButton} onClick={props.goHome ? () => push("/") : () => back()}>
-              <ArrowLeft stroke={Colors.amber50} />
+            <button
+              css={pointerButton}
+              onClick={
+                props.goHome
+                  ? () => push(pathname.includes("owner") ? "/owner" : "/")
+                  : () => back()
+              }
+            >
+              {props.isXButton ? (
+                <Close width={28} height={28} stroke={Colors.neutral90} />
+              ) : (
+                <ArrowLeft stroke={Colors.amber50} />
+              )}
             </button>
             <span css={pageTitle}>{props.subTitle}</span>
             {pathname === "/my" ? (
@@ -121,6 +170,10 @@ const Header = (props: HeaderProps) => {
             ) : pathname === "/store/[id]" ? (
               <div css={pointerButton}>
                 <Share />
+              </div>
+            ) : props.isCheckButton ? (
+              <div css={pointerButton}>
+                <Check width={24} height={24} fill={Colors.amber50} />
               </div>
             ) : (
               <div css={hiddenItem} />
