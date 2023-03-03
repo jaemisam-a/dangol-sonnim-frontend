@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Layout from "common/layout";
-import StoreThumbnail from "common/storeThumbnail";
 import MyCoupon from "common/coupon/My";
 import PayHistory from "customer/my/PayHistory";
+import PaymentStoreInfo from "customer/my/PaymentStoreInfo";
 
 const thumbnailSection = css`
   padding: 1.5rem 0 1.25rem 1.25rem;
@@ -76,7 +76,7 @@ const Payment = () => {
   return (
     <Layout title="결제내역" subTitle="결제내역">
       <section css={thumbnailSection}>
-        <StoreThumbnail content={dummyStoreInfo} isLarge={false} />
+        <PaymentStoreInfo content={dummyStoreInfo} />
       </section>
       <section css={couponSection}>
         <h2 css={title}>구독 쿠폰 정보</h2>

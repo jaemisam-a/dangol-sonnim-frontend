@@ -1,10 +1,11 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
+import Pick from "public/icons/Pick.svg";
 
 export type ThumbnailData = {
   id: string;
@@ -17,17 +18,17 @@ export type ThumbnailData = {
 
 type StoreThumbnailProps = {
   content: ThumbnailData;
-  isLarge: boolean;
+  isPick?: boolean;
 };
 
-const wrapper = (isLarge: boolean) => css`
+const wrapper = css`
   display: flex;
-  flex-direction: ${isLarge ? "column" : "row"};
-  gap: ${isLarge ? "0.375rem" : "0.75rem"};
-  cursor: ${isLarge ? "pointer" : "default"};
+  flex-direction: column;
+  gap: 0.375rem;
+  cursor: pointer;
 
   img {
-    border-radius: ${isLarge ? "0.25rem" : "0"};
+    border-radius: 0.25rem;
   }
 `;
 
@@ -37,12 +38,12 @@ const storeInfo = css`
   gap: 0.25rem;
 `;
 
-const store = (isLarge: boolean) => css`
-  ${isLarge ? Texts.B3_15_R2 : Texts.S1_16_B}
+const store = css`
+  ${Texts.B3_15_R2}
 `;
 
-const category = (isLarge: boolean) => css`
-  ${isLarge ? Texts.C2_12_R : Texts.B2_14_R2}
+const category = css`
+  ${Texts.C2_12_R}
   color: ${Colors.neutral60};
 `;
 
@@ -51,29 +52,50 @@ const location = css`
   color: ${Colors.neutral70};
 `;
 
-const tags = (isLarge: boolean) => css`
+const tags = css`
   display: flex;
   gap: 0.25rem;
-  margin: ${isLarge ? "" : "0.25rem 0"};
 `;
 
-const StoreThumbnail = ({ content, isLarge }: StoreThumbnailProps) => {
-  const { push } = useRouter();
-  const IMG_SIZE = isLarge ? 152 : 83;
+const imageWrapper = css`
+  position: relative;
+`;
 
+const pickBtn = (isPick: boolean | undefined) => css`
+  background-color: transparent;
+  position: absolute;
+  bottom: 3px;
+  right: 0.25rem;
+
+  svg {
+    stroke: ${isPick ? Colors.red40 : Colors.white};
+    fill: ${isPick ? Colors.red40 : ""};
+  }
+`;
+
+const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
+  const { push } = useRouter();
+
+  const onPickClick = (e: MouseEvent) => {
+    // TODO: 찜하기 기능
+    e.stopPropagation();
+    alert("찜하기");
+  };
   return (
     <>
-      <div
-        css={wrapper(isLarge)}
-        onClick={isLarge ? () => push(`/customer/store/${content.id}`) : () => {}}
-      >
-        <Image src={content.img} alt={content.store} width={IMG_SIZE} height={IMG_SIZE} />
+      <div css={wrapper} onClick={() => push(`/customer/store/${content.id}`)}>
+        <div css={imageWrapper}>
+          <Image src={content.img} alt={content.store} width={152} height={152} />
+          <button css={pickBtn(isPick)} onClick={onPickClick}>
+            <Pick />
+          </button>
+        </div>
         <div>
           <div css={storeInfo}>
-            <span css={store(isLarge)}>{content.store}</span>
-            <span css={category(isLarge)}>{content.category}</span>
+            <span css={store}>{content.store}</span>
+            <span css={category}>{content.category}</span>
           </div>
-          <div css={tags(isLarge)}>
+          <div css={tags}>
             {content.tags.map((tag) => (
               <Tag text={tag} key={tag} />
             ))}

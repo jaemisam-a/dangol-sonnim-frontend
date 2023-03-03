@@ -5,6 +5,8 @@ import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
 
 type StoreThumbnailListProps = {
   contents: ThumbnailData[];
+  userPick?: string[];
+  isLoading: boolean;
 };
 
 const wrapper = css`
@@ -16,11 +18,14 @@ const wrapper = css`
 `;
 
 const StoreThumbnailList = (props: StoreThumbnailListProps) => {
-  return (
+  return props.isLoading ? (
+    <div>Loading</div>
+  ) : (
     <div css={wrapper}>
-      {props.contents.map((content) => (
-        <StoreThumbnail content={content} isLarge={true} key={content.id} />
-      ))}
+      {props.contents?.map((content) => {
+        const isPick = props.userPick && props.userPick.includes(content.id);
+        return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
+      })}
     </div>
   );
 };
