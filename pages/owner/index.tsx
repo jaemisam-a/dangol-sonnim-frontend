@@ -4,11 +4,9 @@ import Layout from "common/layout";
 
 const Owner = () => {
   return (
-    <>
-      <Layout title="사장님">
-        <div>owner</div>
-      </Layout>
-    </>
+    <Layout title="사장님" isLogo={true}>
+      <div>owner</div>
+    </Layout>
   );
 };
 

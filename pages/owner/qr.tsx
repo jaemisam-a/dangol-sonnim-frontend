@@ -4,7 +4,7 @@ import Layout from "common/layout";
 
 const QR = () => {
   return (
-    <Layout title="QR코드">
+    <Layout title="QR코드" isLogo={true}>
       <div>QR</div>
     </Layout>
   );
