@@ -5,16 +5,17 @@ import { Colors, Texts } from "styles/common";
 import TextInput from "common/input/Text";
 
 type InputSectionProps = {
-  label: string;
+  label?: string;
   placeholder?: string;
-  btn: string;
+  btn?: string;
   isBottom: boolean;
   isRequired?: boolean;
-  state?: "error" | "success" | "";
+  state?: "error" | "success" | "info" | "";
   action?: () => void;
   message?: { error?: string; success: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   objectKey?: string;
+  hidden?: boolean;
 };
 
 const inputWrapper = css`
@@ -30,7 +31,7 @@ const inputBtnWrapper = css`
   gap: 1rem;
 `;
 
-const inputBtn = (state?: "error" | "success" | "") => css`
+const inputBtn = (state?: "error" | "success" | "info" | "") => css`
   width: 6.75rem;
   height: fit-content;
   padding: 0.5rem 0.75rem;
@@ -51,13 +52,16 @@ const inputLabel = (isBottom: boolean) => css`
 `;
 
 const InputSection = (props: InputSectionProps) => {
+  if (props.hidden) return null;
   return (
     <>
       <div css={inputWrapper}>
-        <div css={inputLabel(props.isBottom)}>
-          {props.label}
-          <span>{props.isRequired && "*"}</span>
-        </div>
+        {props.label && (
+          <div css={inputLabel(props.isBottom)}>
+            {props.label}
+            <span>{props.isRequired && "*"}</span>
+          </div>
+        )}
         <div css={inputBtnWrapper}>
           <TextInput
             width="100%"
@@ -68,9 +72,11 @@ const InputSection = (props: InputSectionProps) => {
             setState={props.setState}
             objectKey={props.objectKey}
           />
-          <button css={inputBtn(props.state)} onClick={props.action}>
-            {props.btn}
-          </button>
+          {props.btn && (
+            <button css={inputBtn(props.state)} onClick={props.action}>
+              {props.btn}
+            </button>
+          )}
         </div>
       </div>
     </>

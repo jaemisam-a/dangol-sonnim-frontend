@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useId, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
@@ -7,7 +7,20 @@ import Avatar from "common/Avatar";
 import InputSection from "common/input/Section";
 import Checkbox from "common/input/Checkbox";
 
-type InpustStateTypes = "error" | "success" | "";
+type InpustStateTypes = "error" | "success" | "info" | "";
+
+type InputSectionTypes = {
+  label?: string;
+  placeholder?: string;
+  btn?: string;
+  isRequired?: boolean;
+  state?: InpustStateTypes;
+  btnFnc?: () => void;
+  message?: { error?: string; success: string; info?: string };
+  setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
+  objectKey?: string;
+  hidden?: boolean;
+};
 
 const wrapper = css`
   padding: 3.75rem 1.25rem 0 1.25rem;
@@ -56,50 +69,99 @@ const AddProfile = () => {
   const { push } = useRouter();
 
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
-  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
-  const [profileData, setProfileData] = useState({ name: "", phone: "" });
+  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", "", ""]);
+  const [profileData, setProfileData] = useState({
+    name: "",
+    phone: "",
+    phoneAuth: "",
+    birthday: "",
+  });
+  const [inputArr, setInputArr] = useState<InputSectionTypes[]>([]);
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청
     if (!profileData.name) return alert("닉네임을 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
-      ? setInputState((prev) => ["success", prev[1]])
-      : setInputState((prev) => ["error", prev[1]]);
+      ? setInputState((prev) => ["success", prev[1], prev[2]])
+      : setInputState((prev) => ["error", prev[1], prev[2]]);
   };
 
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
     if (!profileData.phone) return alert("전화번호를 입력하세요.");
-    setInputState((prev) => [prev[0], "success"]);
+    setInputArr((prev) => [
+      prev[0],
+      { ...prev[1], btn: "재전송" },
+      { ...prev[2], hidden: false },
+      prev[3],
+    ]);
+    setInputState((prev) => [prev[0], prev[1], "info"]);
   };
 
-  const inputArr = [
-    {
-      label: "닉네임",
-      placeholder: "닉네임 입력",
-      btn: "중복확인",
-      isRequired: true,
-      btnFnc: checkValid,
-      message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
-      objectKey: "name",
-    },
-    {
-      label: "휴대폰 번호",
-      placeholder: "휴대폰 번호 입력('-'제외)",
-      btn: "인증요청",
-      isRequired: true,
-      btnFnc: requestAuth,
-      message: { success: "인증되었습니다." },
-      objectKey: "phone",
-    },
-  ];
+  const checkAuth = () => {
+    // TODO: 문자인증 api 요청
+    if (!profileData.phoneAuth) return alert("인증번호를 입력하세요.");
+    const randomNum = Math.floor(Math.random() * 2) + 1;
+    randomNum === 1
+      ? setInputState((prev) => [prev[0], prev[1], "success"])
+      : setInputState((prev) => [prev[0], prev[1], "error"]);
+  };
 
   useEffect(() => {
     // TODO: 프로필 수집에 동의했을 경우 사진을 넣는 기능 추가
+    setInputArr([
+      {
+        label: "닉네임",
+        placeholder: "닉네임 입력",
+        btn: "중복확인",
+        isRequired: true,
+        btnFnc: checkValid,
+        message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
+        objectKey: "name",
+      },
+      {
+        label: "휴대폰 번호",
+        placeholder: "휴대폰 번호 입력('-'제외)",
+        btn: "인증요청",
+        isRequired: true,
+        btnFnc: requestAuth,
+        objectKey: "phone",
+      },
+      {
+        btn: "문자인증",
+        btnFnc: checkAuth,
+        message: {
+          success: "인증되었습니다.",
+          info: "문자로 전송된 숫자를 입력해주세요.",
+          error: "인증번호가 맞지 않습니다.",
+        },
+        objectKey: "phoneAuth",
+        hidden: true,
+      },
+      {
+        label: "생년월일",
+        placeholder: "19950324",
+        isRequired: true,
+        objectKey: "birthday",
+      },
+    ]);
   }, []);
 
-  const isPossible = isCheckedConsent && inputState[0] === "success" && inputState[1] === "success";
+  useEffect(() => {
+    setInputArr((prev) => [
+      { ...prev[0], btnFnc: checkValid },
+      { ...prev[1], btnFnc: requestAuth },
+      { ...prev[2], btnFnc: checkAuth },
+      { ...prev[3] },
+    ]);
+  }, [profileData]);
+
+  const isPossible =
+    isCheckedConsent &&
+    inputState[0] === "success" &&
+    inputState[2] === "success" &&
+    Boolean(profileData.birthday);
 
   return (
     <>
@@ -112,13 +174,14 @@ const AddProfile = () => {
               placeholder={el.placeholder}
               btn={el.btn}
               isBottom={false}
-              key={el.label}
+              key={idx}
               isRequired={el.isRequired}
               state={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
               setState={setProfileData}
               objectKey={el.objectKey}
+              hidden={el.hidden}
             />
           ))}
         </div>
