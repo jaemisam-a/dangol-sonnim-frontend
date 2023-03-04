@@ -82,6 +82,23 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
     alert("찜하기");
   };
 
+  const matchCategory = (categoryId: string): string => {
+    switch (categoryId) {
+      case "1":
+        return "한식";
+      case "2":
+        return "분식";
+      case "3":
+        return "중식";
+      case "4":
+        return "일식";
+      case "5":
+        return "양식";
+      default:
+        return "기타";
+    }
+  };
+
   return (
     <>
       <div css={wrapper} onClick={() => push(`/store/${content.id}`)}>
@@ -94,7 +111,7 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
         <div>
           <div css={storeInfo}>
             <span css={store}>{content.store}</span>
-            <span css={category}>{content.category}</span>
+            <span css={category}>{matchCategory(content.category)}</span>
           </div>
           <div css={tags}>
             {content.tags.map((tag) => (
