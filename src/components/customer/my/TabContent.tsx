@@ -144,11 +144,13 @@ const TabContent = ({ selectedTab }: TabContentType) => {
     );
   } else {
     if (myPick) {
-      <div css={myPickWrapper}>
-        {myPick.map((store) => (
-          <StoreThumbnail key={store.id} content={store} isPick={true} />
-        ))}
-      </div>;
+      return (
+        <div css={myPickWrapper}>
+          {myPick.map((store) => (
+            <StoreThumbnail key={store.id} content={store} isPick={true} />
+          ))}
+        </div>
+      );
     }
     return (
       <div css={emptyState}>
