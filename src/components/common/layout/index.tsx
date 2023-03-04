@@ -22,7 +22,7 @@ const wrapper = (pathname: string) => css`
   max-width: ${pathname.includes("/owner") ? "768px" : "480px"};
   min-height: 100vh;
   margin: auto;
-  box-shadow: rgb(130 130 130 / 15%) 0px 20px 20px;
+  box-shadow: rgb(130 130 130 / 15%) 0px 1.25rem 1.25rem;
 `;
 
 const Layout = ({

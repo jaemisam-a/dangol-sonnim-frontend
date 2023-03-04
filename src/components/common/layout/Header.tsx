@@ -27,20 +27,18 @@ const container = (pathname: string) => css`
   position: sticky;
   top: 0;
   background-color: ${Colors.white};
-<<<<<<< HEAD
-  border: ${pathname !== "/" && `1px solid ${Colors.neutral20}`};
-=======
-  border-bottom: ${pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
->>>>>>> 509e3a7 (layout 수정)
+  border-bottom: ${pathname !== "/" && `1px solid ${Colors.neutral20}`};
   z-index: 1;
   width: 100%;
 `;
 
 const wrapper = (pathname: string) => css`
   width: 100%;
-  max-width: ${pathname.includes("customer") ? "480px" : "768px"};
+  max-width: ${pathname.includes("owner") ? "768px" : "480px"};
   height: 3.25rem;
-  box-shadow: ${pathname.includes("customer") ? "rgb(130 130 130 / 15%) 0px -20px 20px" : "none"};
+  box-shadow: ${pathname.includes("owner")
+    ? "none"
+    : "rgb(130 130 130 / 15%) 0px -1.25rem 1.25rem"};
 `;
 
 const innerWrapper = (pathname: string) => css`
@@ -156,7 +154,9 @@ const Header = (props: HeaderProps) => {
                   </button>
                 ) : (
                   <>
-                    <button css={textButton}>사장님 페이지</button>
+                    <button css={textButton} onClick={() => push("/owner")}>
+                      사장님 페이지
+                    </button>
                     <span css={buttonDot}>•</span>
                     <button css={textButton} onClick={() => push("/login")}>
                       로그인/회원가입
@@ -197,25 +197,23 @@ const Header = (props: HeaderProps) => {
               ) : (
                 <div css={hiddenItem} />
               )}
-            </button>
-            <span css={pageTitle}>{props.subTitle}</span>
-            {pathname === "/my" ? (
-              <div css={pointerButton}>
-                <Kebab />
-              </div>
-            ) : pathname === "/store/[id]" ? (
-              <div css={pointerButton}>
-                <Share />
-              </div>
-            ) : props.isCheckButton ? (
-              <div css={pointerButton}>
-                <Check width={24} height={24} fill={Colors.amber50} />
-              </div>
-            ) : (
-              <div css={hiddenItem} />
-            )}
-          </>
-        )}
+              {pathname === "/my" ? (
+                <div css={pointerButton}>
+                  <Kebab />
+                </div>
+              ) : pathname === "/store/[id]" ? (
+                <div css={pointerButton}>
+                  <Share />
+                </div>
+              ) : props.isCheckButton ? (
+                <div css={pointerButton}>
+                  <Check width={24} height={24} fill={Colors.amber50} />
+                </div>
+              ) : (
+                <div css={hiddenItem} />
+              )}
+            </>
+          )}
         </div>
       </header>
     </div>
