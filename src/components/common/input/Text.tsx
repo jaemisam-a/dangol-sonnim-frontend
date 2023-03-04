@@ -9,8 +9,8 @@ type TextInputProps = {
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   objectKey?: string;
   placeholder?: string;
-  state?: "error" | "success" | "";
-  message?: { error?: string; success: string };
+  state?: "error" | "success" | "info" | "";
+  message?: { error?: string; success: string; info?: string };
 };
 
 const wrapper = (width: string) => css`
@@ -32,7 +32,7 @@ const input = (props: TextInputProps) => css`
   width: ${props.width};
 `;
 
-const error = css`
+const errorOrInfo = css`
   ${Texts.C2_12_R}
   color: ${Colors.red40};
 `;
@@ -62,7 +62,8 @@ const TextInput = (props: TextInputProps) => {
         placeholder={props.placeholder}
         onChange={handleInput}
       />
-      {props.state === "error" && <div css={error}>{props.message?.error}</div>}
+      {props.state === "info" && <div css={errorOrInfo}>{props.message?.info}</div>}
+      {props.state === "error" && <div css={errorOrInfo}>{props.message?.error}</div>}
       {props.state === "success" && <div css={success}>{props.message?.success}</div>}
     </div>
   );

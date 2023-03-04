@@ -10,7 +10,7 @@ type InputSectionProps = {
   btn?: string;
   isBottom: boolean;
   isRequired?: boolean;
-  state?: "error" | "success" | "";
+  state?: "error" | "success" | "info" | "";
   action?: () => void;
   message?: { error?: string; success: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
@@ -31,7 +31,7 @@ const inputBtnWrapper = css`
   gap: 1rem;
 `;
 
-const inputBtn = (state?: "error" | "success" | "") => css`
+const inputBtn = (state?: "error" | "success" | "info" | "") => css`
   width: 6.75rem;
   height: fit-content;
   padding: 0.5rem 0.75rem;

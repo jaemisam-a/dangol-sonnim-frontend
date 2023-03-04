@@ -7,7 +7,7 @@ import Avatar from "common/Avatar";
 import InputSection from "common/input/Section";
 import Checkbox from "common/input/Checkbox";
 
-type InpustStateTypes = "error" | "success" | "";
+type InpustStateTypes = "error" | "success" | "info" | "";
 
 type InputSectionTypes = {
   label?: string;
@@ -16,7 +16,7 @@ type InputSectionTypes = {
   isRequired?: boolean;
   state?: InpustStateTypes;
   btnFnc?: () => void;
-  message?: { error?: string; success: string };
+  message?: { error?: string; success: string; info?: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   objectKey?: string;
   hidden?: boolean;
@@ -90,8 +90,13 @@ const AddProfile = () => {
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
     if (!profileData.phone) return alert("전화번호를 입력하세요.");
-    setInputArr((prev) => [prev[0], prev[1], { ...prev[2], hidden: false }, prev[3]]);
-    setInputState((prev) => [prev[0], "success", prev[2]]);
+    setInputArr((prev) => [
+      prev[0],
+      { ...prev[1], btn: "재전송" },
+      { ...prev[2], hidden: false },
+      prev[3],
+    ]);
+    setInputState((prev) => [prev[0], prev[1], "info"]);
   };
 
   const checkAuth = () => {
@@ -121,13 +126,16 @@ const AddProfile = () => {
         btn: "인증요청",
         isRequired: true,
         btnFnc: requestAuth,
-        message: { success: "인증되었습니다." },
         objectKey: "phone",
       },
       {
         btn: "문자인증",
         btnFnc: checkAuth,
-        message: { success: "인증되었습니다.", error: "문자로 전송된 숫자를 입력해주세요." },
+        message: {
+          success: "인증되었습니다.",
+          info: "문자로 전송된 숫자를 입력해주세요.",
+          error: "인증번호가 맞지 않습니다.",
+        },
         objectKey: "phoneAuth",
         hidden: true,
       },
@@ -149,7 +157,11 @@ const AddProfile = () => {
     ]);
   }, [profileData]);
 
-  const isPossible = isCheckedConsent && inputState[0] === "success" && inputState[1] === "success";
+  const isPossible =
+    isCheckedConsent &&
+    inputState[0] === "success" &&
+    inputState[2] === "success" &&
+    Boolean(profileData.birthday);
 
   return (
     <>
