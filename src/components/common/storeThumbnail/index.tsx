@@ -81,6 +81,7 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
     e.stopPropagation();
     alert("찜하기");
   };
+
   return (
     <>
       <div css={wrapper} onClick={() => push(`/store/${content.id}`)}>

@@ -2,14 +2,25 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
+import Spinner from "common/Spinner";
+import { Colors, Texts } from "styles/common";
 
 type StoreThumbnailListProps = {
-  contents: ThumbnailData[];
+  contents: ThumbnailData[] | null;
   userPick?: string[];
   isLoading: boolean;
 };
 
-const wrapper = css`
+const loadingOrEmpty = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  color: ${Colors.neutral80};
+  ${Texts.S3_18_M}
+`;
+
+const thumbnails = css`
   display: grid;
   place-items: center;
   grid-template-columns: 1fr 1fr;
@@ -18,16 +29,26 @@ const wrapper = css`
 `;
 
 const StoreThumbnailList = (props: StoreThumbnailListProps) => {
-  return props.isLoading ? (
-    <div>Loading</div>
-  ) : (
-    <div css={wrapper}>
-      {props.contents?.map((content) => {
-        const isPick = props.userPick && props.userPick.includes(content.id);
-        return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
-      })}
-    </div>
-  );
+  if (props.isLoading) {
+    return (
+      <div css={loadingOrEmpty}>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (props.contents) {
+    return (
+      <div css={thumbnails}>
+        {props.contents?.map((content) => {
+          const isPick = props.userPick && props.userPick.includes(content.id);
+          return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
+        })}
+      </div>
+    );
+  }
+
+  return <div css={loadingOrEmpty}>검색결과가 없습니다.</div>;
 };
 
 export default StoreThumbnailList;

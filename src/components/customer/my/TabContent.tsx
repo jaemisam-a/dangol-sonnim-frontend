@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import MyCoupon, { MyCouponProps } from "common/coupon/My";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
+import { Colors, Texts } from "styles/common";
 
 type TabContentType = {
   selectedTab: number;
@@ -78,7 +80,27 @@ const myPickWrapper = css`
   padding: 1rem 1.25rem;
 `;
 
+const emptyState = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  margin-top: 8.5rem;
+  text-align: center;
+  ${Texts.S1_16_M}
+
+  button {
+    color: ${Colors.white};
+    background-color: ${Colors.amber50};
+    ${Texts.B3_15_M2}
+    border-radius:0.25rem;
+    padding: 0.563rem 0.75rem;
+  }
+`;
+
 const TabContent = ({ selectedTab }: TabContentType) => {
+  const { push } = useRouter();
+
   const [myCoupons, setMyCoupons] = useState<MyCouponProps[] | null>();
   const [myPick, setMyPick] = useState<ThumbnailData[] | null>(null);
 
@@ -92,27 +114,55 @@ const TabContent = ({ selectedTab }: TabContentType) => {
     }
   }, [selectedTab]);
 
-  return selectedTab === 0 ? (
-    <div css={couponWrapper}>
-      {myCoupons?.map((coupon) => (
-        <MyCoupon
-          key={coupon.storeName}
-          couponName={coupon.couponName}
-          couponPrice={coupon.couponPrice}
-          couponDescription={coupon.couponDescription}
-          storeName={coupon.storeName}
-          isDetail={coupon.isDetail}
-          useCount={coupon.useCount}
-        />
-      ))}
-    </div>
-  ) : (
-    <div css={myPickWrapper}>
-      {myPick?.map((store) => (
-        <StoreThumbnail key={store.id} content={store} isPick={true} />
-      ))}
-    </div>
-  );
+  if (selectedTab === 0) {
+    if (myCoupons) {
+      return (
+        <div css={couponWrapper}>
+          {myCoupons.map((coupon) => (
+            <MyCoupon
+              key={coupon.storeName}
+              couponName={coupon.couponName}
+              couponPrice={coupon.couponPrice}
+              couponDescription={coupon.couponDescription}
+              storeName={coupon.storeName}
+              isDetail={coupon.isDetail}
+              useCount={coupon.useCount}
+            />
+          ))}
+        </div>
+      );
+    }
+    return (
+      <div css={emptyState}>
+        <p>
+          아직 구독한 쿠폰이 없어요
+          <br />
+          다양한 구독 혜택을 누려보세요!
+        </p>
+        <button onClick={() => push("/")}>가게 보러가기</button>
+      </div>
+    );
+  } else {
+    if (myPick) {
+      return (
+        <div css={myPickWrapper}>
+          {myPick.map((store) => (
+            <StoreThumbnail key={store.id} content={store} isPick={true} />
+          ))}
+        </div>
+      );
+    }
+    return (
+      <div css={emptyState}>
+        <p>
+          아직 좋아요 누른 가게가 없어요
+          <br />
+          관심있는 가게에 ♡를 눌러보세요!
+        </p>
+        <button onClick={() => push("/")}>가게 보러가기</button>
+      </div>
+    );
+  }
 };
 
 export default TabContent;
