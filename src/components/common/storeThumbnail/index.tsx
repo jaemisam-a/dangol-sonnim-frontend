@@ -83,7 +83,7 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
   };
   return (
     <>
-      <div css={wrapper} onClick={() => push(`/customer/store/${content.id}`)}>
+      <div css={wrapper} onClick={() => push(`/store/${content.id}`)}>
         <div css={imageWrapper}>
           <Image src={content.img} alt={content.store} width={152} height={152} />
           <button css={pickBtn(isPick)} onClick={onPickClick}>

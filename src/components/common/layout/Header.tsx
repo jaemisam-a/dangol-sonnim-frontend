@@ -19,12 +19,12 @@ const wrapper = (pathname: string) => css`
   top: 0;
   height: 3.25rem;
   background-color: ${Colors.white};
-  border: ${pathname !== "/customer" && `1px solid ${Colors.neutral20}`};
+  border: ${pathname !== "/" && `1px solid ${Colors.neutral20}`};
   z-index: 1;
 `;
 
 const innerWrapper = (pathname: string) => css`
-  padding: ${pathname === "/customer" ? "0.5rem" : "0.75rem"} 1.25rem;
+  padding: ${pathname === "/" ? "0.5rem" : "0.75rem"} 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -77,7 +77,7 @@ const Header = (props: HeaderProps) => {
   return (
     <header css={wrapper(pathname)}>
       <div css={innerWrapper(pathname)}>
-        {pathname === "/customer" ? (
+        {pathname === "/" ? (
           <>
             <Image
               css={pointerButton}
@@ -88,7 +88,7 @@ const Header = (props: HeaderProps) => {
             />
             <div css={buttons}>
               {isLogin ? (
-                <button onClick={() => push("/customer/my")}>
+                <button onClick={() => push("/my")}>
                   <Image
                     css={pointerButton}
                     src="/images/Profile.png"
@@ -101,7 +101,7 @@ const Header = (props: HeaderProps) => {
                 <>
                   <button css={textButton}>사장님 페이지</button>
                   <span css={buttonDot}>•</span>
-                  <button css={textButton} onClick={() => push("/customer/login")}>
+                  <button css={textButton} onClick={() => push("/login")}>
                     로그인/회원가입
                   </button>
                 </>
@@ -110,18 +110,15 @@ const Header = (props: HeaderProps) => {
           </>
         ) : (
           <>
-            <button
-              css={pointerButton}
-              onClick={props.goHome ? () => push("/customer") : () => back()}
-            >
+            <button css={pointerButton} onClick={props.goHome ? () => push("/") : () => back()}>
               <ArrowLeft stroke={Colors.amber50} />
             </button>
             <span css={pageTitle}>{props.subTitle}</span>
-            {pathname === "/customer/my" ? (
+            {pathname === "/my" ? (
               <div css={pointerButton}>
                 <Kebab />
               </div>
-            ) : pathname === "/customer/store/[id]" ? (
+            ) : pathname === "/store/[id]" ? (
               <div css={pointerButton}>
                 <Share />
               </div>

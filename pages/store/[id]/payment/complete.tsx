@@ -65,7 +65,7 @@ const StorePaymentComplete = () => {
             </div>
           </div>
           <div css={buttonWrapper}>
-            <button css={submitButton} onClick={() => router.push("/customer")}>
+            <button css={submitButton} onClick={() => router.push("/")}>
               확인
             </button>
           </div>

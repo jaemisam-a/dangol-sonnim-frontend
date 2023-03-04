@@ -136,7 +136,7 @@ const AddProfile = () => {
         <button
           css={submit(isPossible)}
           disabled={!isPossible}
-          onClick={() => isPossible && push("/customer")}
+          onClick={() => isPossible && push("/")}
         >
           확인
         </button>

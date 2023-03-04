@@ -11,7 +11,7 @@ const Profile = () => {
 
   useEffect(() => {
     // TODO:로그인 상태 확인
-    if (!isLogin) push("/customer");
+    if (!isLogin) push("/");
   }, [isLogin]);
 
   return (

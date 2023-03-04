@@ -59,12 +59,12 @@ const SearchInput = () => {
   };
 
   const onSearch = (value: string) => {
-    push(`/customer/stores?query=${value}`);
+    push(`/stores?query=${value}`);
   };
 
   return (
     <header css={searchBox}>
-      <button css={arrowLeft} onClick={() => push("/customer")}>
+      <button css={arrowLeft} onClick={() => push("/")}>
         <ArrowLeft stroke={Colors.neutral70} />
       </button>
       <div css={inputWrapper}>
