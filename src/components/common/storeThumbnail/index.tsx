@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
 import Pick from "public/icons/Pick.svg";
+import categoryIdToString from "src/utils/categoryIdToString";
 
 export type ThumbnailData = {
   id: string;
@@ -94,7 +95,7 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
         <div>
           <div css={storeInfo}>
             <span css={store}>{content.store}</span>
-            <span css={category}>{content.category}</span>
+            <span css={category}>{categoryIdToString(content.category)}</span>
           </div>
           <div css={tags}>
             {content.tags.map((tag) => (
