@@ -6,14 +6,16 @@ import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
 import Slider from "common/Slider";
 import Pick from "public/icons/Pick.svg";
+import categoryIdToString from "src/utils/categoryIdToString";
 
 type InfoProps = {
   infoContent: {
-    storeName: string;
+    name: string;
     category: string;
     images: { src: string; alt: string }[];
     description: string;
     menu: string;
+    mainSubsDesc: string;
     isPick: boolean;
   };
   onPick: () => void;
@@ -80,7 +82,7 @@ const menuStyle = css`
 `;
 
 const Info = ({
-  infoContent: { storeName, category, images, description, menu, isPick },
+  infoContent: { name, category, images, mainSubsDesc, description, isPick },
   onPick,
 }: InfoProps) => {
   return (
@@ -103,8 +105,8 @@ const Info = ({
         <div />
         <div>
           <div css={titleStyle}>
-            <h1>{storeName}</h1>
-            <span>{category}</span>
+            <h1>{name}</h1>
+            <span>{categoryIdToString(category)}</span>
           </div>
           <p css={descriptionStyle}>{description}</p>
         </div>
@@ -120,7 +122,7 @@ const Info = ({
       <hr css={divider} />
       <div css={menuStyle}>
         <Tag text="대표" bgColor={Colors.green50} bold={true} />
-        <p>{menu}</p>
+        <p>{mainSubsDesc}</p>
       </div>
     </section>
   );
