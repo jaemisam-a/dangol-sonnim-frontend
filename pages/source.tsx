@@ -36,7 +36,12 @@ const secondContents = css`
 
 const link = css`
   color: ${Colors.neutral60};
+  word-break: break-all;
   ${Texts.B2_14_M}
+
+  :hover {
+    text-decoration: underline;
+  }
 `;
 
 const Source = () => {
@@ -52,7 +57,13 @@ const Source = () => {
               <span css={secondContents}>By Kryston Schwarze</span>
             </div>
           </div>
-          <div css={link}>https://www.figma.com/community/file/800815864899415771</div>
+          <a
+            href="https://www.figma.com/community/file/800815864899415771"
+            target="_blank"
+            css={link}
+          >
+            https://www.figma.com/community/file/800815864899415771
+          </a>
         </div>
       </Layout>
     </>

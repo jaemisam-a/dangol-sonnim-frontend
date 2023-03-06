@@ -30,13 +30,15 @@ const btnWrapper = css`
     background-color: transparent;
     cursor: pointer;
   }
+
   div {
     display: flex;
     gap: 0.25rem;
   }
-  #icon {
-    ${Texts.C2_12_M}
-  }
+`;
+
+const iconInfo = css`
+  ${Texts.C2_12_M}
 `;
 
 const btnDivider = css`
@@ -141,7 +143,7 @@ const EditProfile = () => {
             <span css={btnDivider}>|</span>
             <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
           </div>
-          <button id="icon" onClick={() => push("/source")}>
+          <button css={iconInfo} onClick={() => push("/source")}>
             아이콘 디자인 소스 정보
           </button>
         </div>
