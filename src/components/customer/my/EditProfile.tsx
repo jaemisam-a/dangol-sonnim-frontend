@@ -21,15 +21,21 @@ const wrapper = css`
 
 const btnWrapper = css`
   display: flex;
-  gap: 0.25rem;
+  justify-content: space-between;
   margin-top: 0.75rem;
-  cursor: pointer;
-  width: fit-content;
   ${Texts.B1_13_R2};
 
   button {
     color: ${Colors.neutral60};
     background-color: transparent;
+    cursor: pointer;
+  }
+  div {
+    display: flex;
+    gap: 0.25rem;
+  }
+  #icon {
+    ${Texts.C2_12_M}
   }
 `;
 
@@ -122,17 +128,22 @@ const EditProfile = () => {
           ))}
         </div>
         <div css={btnWrapper}>
-          <button
-            onClick={() => {
-              //TODO: 로그아웃
-              logout();
-              push("/");
-            }}
-          >
-            로그아웃
+          <div>
+            <button
+              onClick={() => {
+                //TODO: 로그아웃
+                logout();
+                push("/");
+              }}
+            >
+              로그아웃
+            </button>
+            <span css={btnDivider}>|</span>
+            <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
+          </div>
+          <button id="icon" onClick={() => push("/source")}>
+            아이콘 디자인 소스 정보
           </button>
-          <span css={btnDivider}>|</span>
-          <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
         </div>
       </div>
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
