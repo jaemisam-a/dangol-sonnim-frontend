@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
-import Spinner from "common/Spinner";
+import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 
 type StoreThumbnailListProps = {

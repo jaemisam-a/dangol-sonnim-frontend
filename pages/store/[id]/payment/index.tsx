@@ -8,7 +8,6 @@ import PaymentInfo from "customer/store/menu/payment/Info";
 import PaymentMethod from "customer/store/menu/payment/Method";
 import PaymentConsent from "customer/store/menu/payment/Consent";
 import { Colors, Texts } from "styles/common";
-import usePaymentStore from "src/store/payment";
 
 export type SelectedType = {
   id: string;
@@ -55,8 +54,7 @@ const buyButton = (isActive: boolean) => css`
 `;
 
 const StorePayment = () => {
-  const { push, asPath } = useRouter();
-  const { selectedSubs } = usePaymentStore();
+  const { push, asPath, query, isReady } = useRouter();
 
   const [selectMethod, setSelectMethod] = useState(1);
   const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
@@ -97,23 +95,29 @@ const StorePayment = () => {
     }
   };
 
+  useEffect(() => {
+    if (!isReady) return;
+    if (!query.selectedSubs) push(`/store/${query.id}`);
+  }, [isReady]);
+
   return (
     <Layout title="결제" subTitle="결제화면">
       <div css={couponWrapper}>
         {/* FIXME: 선택한 구독권 id에 맞는 api 요청 */}
-        {selectedSubs.map((subs) => (
-          <StoreCoupon
-            id={DUMMY_PAYMENT.id}
-            count={DUMMY_PAYMENT.count}
-            description={DUMMY_PAYMENT.description}
-            name={DUMMY_PAYMENT.name}
-            price={DUMMY_PAYMENT.price}
-            storeName={DUMMY_PAYMENT.storeName}
-            checked={true}
-            disable={true}
-            key={subs}
-          />
-        ))}
+        {query.selectedSubs &&
+          (JSON.parse(query.selectedSubs as string) as string[]).map((subs) => (
+            <StoreCoupon
+              id={DUMMY_PAYMENT.id}
+              count={DUMMY_PAYMENT.count}
+              description={DUMMY_PAYMENT.description}
+              name={DUMMY_PAYMENT.name}
+              price={DUMMY_PAYMENT.price}
+              storeName={DUMMY_PAYMENT.storeName}
+              checked={true}
+              disable={true}
+              key={subs}
+            />
+          ))}
       </div>
       <PaymentInfo price={DUMMY_PAYMENT.price} />
       <PaymentMethod

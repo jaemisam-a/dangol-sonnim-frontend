@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import Spinner from "common/Spinner";
+import Spinner from "common/spinner";
 
 const HEADER_HEIGHT = "3.25rem";
 
@@ -12,7 +12,7 @@ const wrapper = css`
   height: calc(100vh - ${HEADER_HEIGHT});
 `;
 
-const FullPageSpinner = () => {
+const FullPage = () => {
   return (
     <div css={wrapper}>
       <Spinner />
@@ -20,4 +20,4 @@ const FullPageSpinner = () => {
   );
 };
 
-export default FullPageSpinner;
+export default FullPage;

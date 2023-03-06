@@ -6,7 +6,6 @@ import StoreCoupon from "common/coupon/Store";
 import StoreSection from "customer/store/Section";
 import { Colors, Texts } from "styles/common";
 import { subsType } from "pages/api/store";
-import usePaymentStore from "src/store/payment";
 
 type SubsProps = {
   storeName: string;
@@ -36,9 +35,9 @@ const buyButton = (isOkay: boolean) => css`
 
 const Subs = (props: SubsProps) => {
   const router = useRouter();
-  const { selectSubs } = usePaymentStore();
 
   const [isChecked, setIsChecked] = useState<isCheckedType>({});
+  const [selectedSubs, setSelectedSubs] = useState<string[]>([]);
 
   const isOkay = Object.values(isChecked).some((el) => el);
 
@@ -51,7 +50,7 @@ const Subs = (props: SubsProps) => {
         subs.push(key);
       }
     }
-    selectSubs(subs);
+    setSelectedSubs(subs);
   }, [isChecked]);
 
   return (
@@ -74,9 +73,13 @@ const Subs = (props: SubsProps) => {
         <button
           disabled={!isOkay}
           onClick={() =>
-            router.push({
-              pathname: `${router.asPath}/payment`,
-            })
+            router.push(
+              {
+                pathname: `${router.asPath}/payment`,
+                query: { selectedSubs: JSON.stringify(selectedSubs) },
+              },
+              `${router.asPath}/payment`
+            )
           }
           css={buyButton(isOkay)}
         >

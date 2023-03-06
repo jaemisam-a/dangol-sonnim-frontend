@@ -4,7 +4,7 @@ import axios from "axios";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import FullPageSpinner from "common/FullPageSpinner";
+import FullPageSpinner from "common/spinner/FullPage";
 import Subs from "customer/store/Subs";
 import Menus from "customer/store/menu/Menus";
 import Location from "customer/store/Location";
@@ -25,7 +25,7 @@ const Store = () => {
   const [mainSubsDesc, setMainSubsDesc] = useState("");
 
   // FIXME: id에 맞는 api 요청
-  const { data: storeData, isLoading } = useQuery("StoreData", () =>
+  const { data: storeData, isLoading } = useQuery("stores", () =>
     axios.get("/api/store").then((res) => res.data[0])
   );
 
@@ -43,18 +43,11 @@ const Store = () => {
     }
   }, [storeData]);
 
-  if (isLoading) {
-    return (
-      <Layout title="단골손님">
-        <FullPageSpinner />
-      </Layout>
-    );
-  }
-
-  if (storeData) {
-    return (
-      <>
-        <Layout title={storeData.name}>
+  return (
+    <Layout title={storeData?.name ?? "단골손님"}>
+      {isLoading && <FullPageSpinner />}
+      {storeData && (
+        <>
           <Info
             infoContent={{
               name: storeData.name,
@@ -78,10 +71,10 @@ const Store = () => {
           <hr css={divider} />
           <Subs storeName={storeData.name} subsList={storeData.subs} />
           <div css={margin} />
-        </Layout>
-      </>
-    );
-  }
+        </>
+      )}
+    </Layout>
+  );
 };
 
 export default Store;
