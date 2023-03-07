@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import axios from "axios";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
+import FullPageSpinner from "common/spinner/FullPage";
 import Subs from "customer/store/Subs";
 import Menus from "customer/store/menu/Menus";
 import Location from "customer/store/Location";
@@ -19,47 +22,58 @@ const margin = css`
 `;
 
 const Store = () => {
-  const dummyLocation = {
-    address: "서울 구로구 디지털로26길 111 지하 1층 002호",
-    detail: "서울대입구역 6번 출구에서 50m",
-    openHour: "10시에 영업시작",
-  };
+  const [mainSubsDesc, setMainSubsDesc] = useState("");
 
-  const dummyStore = {
-    storeName: "정갈한솥",
-    category: "한식",
-    images: [
-      { src: "/images/dummy/cheetah.jpg", alt: "clxk" },
-      { src: "/images/dummy/pizza.png", alt: "clxk" },
-      { src: "/images/logo/Logo.png", alt: "clxk" },
-      { src: "/images/dummy/Mob-QR.png", alt: "clxk" },
-    ],
-    description: "“오늘 뭐먹지?” 고민 무조건 오면 해결!",
-    menu: "모든 메뉴 사이즈업(5회)-월 3,500원",
-    isPick: true,
-  };
+  // FIXME: id에 맞는 api 요청
+  const { data: storeData, isLoading } = useQuery("Stores", () =>
+    axios.get("/api/store").then((res) => res.data[0])
+  );
 
+  // TODO: 찜하기 기능
   const pickStore = () => {
-    // TODO: 찜하기 기능
+    alert("찜하기!");
   };
+
+  useEffect(() => {
+    if (storeData) {
+      const mainSubsIndex = storeData.subs.findIndex(
+        (sub: { [index: string]: string }) => sub.isMain
+      );
+      setMainSubsDesc(storeData.subs[mainSubsIndex].description);
+    }
+  }, [storeData]);
 
   return (
-    <>
-      <Layout title="가게이름">
-        <Info infoContent={dummyStore} onPick={pickStore} />
-        <hr css={divider} />
-        <Location
-          address={dummyLocation.address}
-          detail={dummyLocation.detail}
-          openHour={dummyLocation.openHour}
-        />
-        <hr css={divider} />
-        <Menus />
-        <hr css={divider} />
-        <Subs storeName={dummyStore.storeName} />
-        <div css={margin} />
-      </Layout>
-    </>
+    <Layout title={storeData?.name ?? "단골손님"}>
+      {isLoading && <FullPageSpinner />}
+      {storeData && (
+        <>
+          <Info
+            infoContent={{
+              name: storeData.name,
+              category: storeData.category,
+              images: storeData.images,
+              description: storeData.description,
+              menu: storeData.menu,
+              isPick: false, // FIXME: 다른 user api에서 가져오기
+              mainSubsDesc: mainSubsDesc,
+            }}
+            onPick={pickStore}
+          />
+          <hr css={divider} />
+          <Location
+            address={storeData.location.address}
+            detail={storeData.location.detail}
+            openHour={storeData.openHour}
+          />
+          <hr css={divider} />
+          <Menus />
+          <hr css={divider} />
+          <Subs storeName={storeData.name} subsList={storeData.subs} />
+          <div css={margin} />
+        </>
+      )}
+    </Layout>
   );
 };
 

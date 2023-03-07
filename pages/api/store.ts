@@ -1,5 +1,15 @@
 import { NextApiResponse, NextApiRequest } from "next";
 
+export type subsType = {
+  id: string;
+  name: string;
+  count: number;
+  description: string;
+  price: number;
+  isMain: boolean;
+  tags: string[];
+}[];
+
 export type StoreData = {
   id: string;
   name: string;
@@ -9,15 +19,7 @@ export type StoreData = {
   location: { address: string; shortAddress: string; detail: string };
   openHour: string;
   menus: { id: string; name: string; price: number; img: string }[];
-  subs: {
-    id: string;
-    name: string;
-    count: number;
-    description: string;
-    price: number;
-    isMain: boolean;
-    tags: string[];
-  }[];
+  subs: subsType;
 };
 
 type StoreType = StoreData[];
@@ -28,7 +30,12 @@ const store = [
     name: "정갈한솥",
     category: "1",
     description: "“오늘 뭐먹지?” 고민 무조건 오면 해결!",
-    images: [{ src: "/images/dummy/cheetah.jpg", alt: "dd" }],
+    images: [
+      { src: "/images/dummy/cheetah.jpg", alt: "a" },
+      { src: "/images/dummy/pizza.png", alt: "b" },
+      { src: "/images/dummy/Mob-QR.png", alt: "c" },
+      { src: "/images/Profile.png", alt: "d" },
+    ],
     location: {
       address: "서울 구로구 디지털로26길 111 지하 1층 002호",
       shortAddress: "서울 구로구",

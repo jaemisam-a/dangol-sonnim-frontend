@@ -32,6 +32,9 @@ const DUMMY_PAYMENT = {
 
 const couponWrapper = css`
   padding: 0.75rem 1.25rem 0 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 `;
 
 const buttonWrapper = css`
@@ -51,7 +54,7 @@ const buyButton = (isActive: boolean) => css`
 `;
 
 const StorePayment = () => {
-  const router = useRouter();
+  const { push, asPath, query, isReady } = useRouter();
 
   const [selectMethod, setSelectMethod] = useState(1);
   const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
@@ -92,19 +95,29 @@ const StorePayment = () => {
     }
   };
 
+  useEffect(() => {
+    if (!isReady) return;
+    if (!query.selectedSubs) push(`/store/${query.id}`);
+  }, [isReady]);
+
   return (
     <Layout title="결제" subTitle="결제화면">
       <div css={couponWrapper}>
-        <StoreCoupon
-          id={DUMMY_PAYMENT.id}
-          count={DUMMY_PAYMENT.count}
-          description={DUMMY_PAYMENT.description}
-          name={DUMMY_PAYMENT.name}
-          price={DUMMY_PAYMENT.price}
-          storeName={DUMMY_PAYMENT.storeName}
-          checked={true}
-          disable={true}
-        />
+        {/* FIXME: 선택한 구독권 id에 맞는 api 요청 */}
+        {query.selectedSubs &&
+          (JSON.parse(query.selectedSubs as string) as string[]).map((subs) => (
+            <StoreCoupon
+              id={DUMMY_PAYMENT.id}
+              count={DUMMY_PAYMENT.count}
+              description={DUMMY_PAYMENT.description}
+              name={DUMMY_PAYMENT.name}
+              price={DUMMY_PAYMENT.price}
+              storeName={DUMMY_PAYMENT.storeName}
+              checked={true}
+              disable={true}
+              key={subs}
+            />
+          ))}
       </div>
       <PaymentInfo price={DUMMY_PAYMENT.price} />
       <PaymentMethod
@@ -127,12 +140,12 @@ const StorePayment = () => {
           css={buyButton(buttonActive())}
           disabled={!buttonActive()}
           onClick={() =>
-            router.push(
+            push(
               {
-                pathname: `${router.asPath}/complete`,
+                pathname: `${asPath}/complete`,
                 query: { price: DUMMY_PAYMENT.price },
               },
-              `${router.asPath}/complete`
+              `${asPath}/complete`
             )
           }
         >
@@ -142,5 +155,4 @@ const StorePayment = () => {
     </Layout>
   );
 };
-
 export default StorePayment;

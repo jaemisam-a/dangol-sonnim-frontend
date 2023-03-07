@@ -8,7 +8,7 @@ import Layout from "common/layout";
 import MyCouponWithQR from "customer/main/MyCouponWithQR";
 import MyCoupon from "common/coupon/My";
 import SearchBar from "customer/main/SearchBar";
-import Spinner from "common/Spinner";
+import Spinner from "common/spinner";
 
 const Test = () => {
   const TestDiv = styled.div`
