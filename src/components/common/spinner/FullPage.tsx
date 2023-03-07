@@ -12,7 +12,7 @@ const wrapper = css`
   height: calc(100vh - ${HEADER_HEIGHT});
 `;
 
-const FullPage = () => {
+const FullPageSpinner = () => {
   return (
     <div css={wrapper}>
       <Spinner />
@@ -20,4 +20,4 @@ const FullPage = () => {
   );
 };
 
-export default FullPage;
+export default FullPageSpinner;

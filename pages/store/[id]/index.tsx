@@ -25,7 +25,7 @@ const Store = () => {
   const [mainSubsDesc, setMainSubsDesc] = useState("");
 
   // FIXME: id에 맞는 api 요청
-  const { data: storeData, isLoading } = useQuery("stores", () =>
+  const { data: storeData, isLoading } = useQuery("Stores", () =>
     axios.get("/api/store").then((res) => res.data[0])
   );
 
