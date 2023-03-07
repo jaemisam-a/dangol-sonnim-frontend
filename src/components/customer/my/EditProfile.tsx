@@ -9,14 +9,14 @@ import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
 import useLoginStore from "src/store/login";
 
-type InpustStateTypes = "error" | "success" | "info" | "";
+type InputStateTypes = "error" | "success" | "info" | "";
 
 type InputSectionTypes = {
   label?: string;
   placeholder?: string;
   btn?: string;
   isRequired?: boolean;
-  state?: InpustStateTypes;
+  state?: InputStateTypes;
   btnFnc?: () => void;
   message?: { error?: string; success: string; info?: string };
   objectKey: string;
@@ -82,7 +82,7 @@ const EditProfile = () => {
   ];
 
   const [openModal, setOpenModal] = useState(false);
-  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
+  const [inputState, setInputState] = useState<InputStateTypes[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "", phoneAuth: "" });
   const [inputArr, setInputArr] = useState<InputSectionTypes[]>([]);
 

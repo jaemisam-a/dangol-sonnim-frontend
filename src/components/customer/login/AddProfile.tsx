@@ -7,14 +7,14 @@ import Avatar from "common/Avatar";
 import InputSection from "common/input/Section";
 import Checkbox from "common/input/Checkbox";
 
-type InpustStateTypes = "error" | "success" | "info" | "";
+type InputStateTypes = "error" | "success" | "info" | "";
 
 type InputSectionTypes = {
   label?: string;
   placeholder?: string;
   btn?: string;
   isRequired?: boolean;
-  state?: InpustStateTypes;
+  state?: InputStateTypes;
   btnFnc?: () => void;
   message?: { error?: string; success: string; info?: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
@@ -70,7 +70,7 @@ const AddProfile = () => {
   const { push } = useRouter();
 
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
-  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", "", ""]);
+  const [inputState, setInputState] = useState<InputStateTypes[]>(["", "", ""]);
   const [profileData, setProfileData] = useState({
     name: "",
     phone: "",
