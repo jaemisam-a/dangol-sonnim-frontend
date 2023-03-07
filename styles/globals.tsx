@@ -28,6 +28,13 @@ const global = css`
     font-display: auto;
   }
 
+  @font-face {
+    font-family: "blackHanSans";
+    src: url("/fonts/blackHanSans.ttf");
+    font-weight: 400;
+    font-display: auto;
+  }
+
   * {
     box-sizing: border-box;
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
