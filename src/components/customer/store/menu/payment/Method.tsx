@@ -85,11 +85,22 @@ const PaymentMethod = (props: PaymentMethodProps) => {
           </div>
           <div css={inputWrapper}>
             <label css={label}>예금주명</label>
-            <TextInput width="100%" setState={props.setSelectedBank} objectKey="accountHolder" />
+            <TextInput
+              width="100%"
+              setState={props.setSelectedBank}
+              objectKey="accountHolder"
+              state={props.selectedBank.accountHolder}
+            />
           </div>
           <div css={inputWrapper}>
             <label css={label}>계좌번호</label>
-            <TextInput width="100%" setState={props.setSelectedBank} objectKey="accountNumber" />
+            <TextInput
+              width="100%"
+              setState={props.setSelectedBank}
+              objectKey="accountNumber"
+              type="number"
+              state={props.selectedBank.accountNumber}
+            />
           </div>
         </>
       )}

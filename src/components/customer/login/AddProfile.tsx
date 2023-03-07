@@ -18,8 +18,9 @@ type InputSectionTypes = {
   btnFnc?: () => void;
   message?: { error?: string; success: string; info?: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
-  objectKey?: string;
+  objectKey: string;
   hidden?: boolean;
+  type: "text" | "number" | "";
 };
 
 const wrapper = css`
@@ -119,6 +120,7 @@ const AddProfile = () => {
         btnFnc: checkValid,
         message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
         objectKey: "name",
+        type: "text",
       },
       {
         label: "휴대폰 번호",
@@ -127,6 +129,7 @@ const AddProfile = () => {
         isRequired: true,
         btnFnc: requestAuth,
         objectKey: "phone",
+        type: "number",
       },
       {
         btn: "문자인증",
@@ -138,12 +141,14 @@ const AddProfile = () => {
         },
         objectKey: "phoneAuth",
         hidden: true,
+        type: "number",
       },
       {
         label: "생년월일",
         placeholder: "19950324",
         isRequired: true,
         objectKey: "birthday",
+        type: "number",
       },
     ]);
   }, []);
@@ -176,12 +181,14 @@ const AddProfile = () => {
               isBottom={false}
               key={idx}
               isRequired={el.isRequired}
-              state={inputState[idx]}
+              inputState={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
               setState={setProfileData}
               objectKey={el.objectKey}
               hidden={el.hidden}
+              type={el.type}
+              state={profileData[el.objectKey as "name" | "phone" | "phoneAuth" | "birthday"]}
             />
           ))}
         </div>

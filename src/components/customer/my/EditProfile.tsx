@@ -96,6 +96,7 @@ const EditProfile = () => {
       btnFnc: checkValid,
       message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
       objectKey: "name",
+      type: "text",
     },
     {
       label: "휴대폰 번호",
@@ -105,6 +106,7 @@ const EditProfile = () => {
       btnFnc: requestAuth,
       message: { success: "인증되었습니다." },
       objectKey: "phone",
+      type: "number",
     },
   ];
 
@@ -121,11 +123,13 @@ const EditProfile = () => {
               isBottom={true}
               key={el.label}
               isRequired={el.isRequired}
-              state={inputState[idx]}
+              inputState={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
               setState={setProfileData}
               objectKey={el.objectKey}
+              state={profileData[el.objectKey as "name" | "phone"]}
+              type={el.type as "text" | "number"}
             />
           ))}
         </div>
