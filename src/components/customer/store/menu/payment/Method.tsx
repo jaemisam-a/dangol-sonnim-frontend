@@ -67,6 +67,11 @@ const PaymentMethod = (props: PaymentMethodProps) => {
               { id: "3", name: "현대카드" },
               { id: "4", name: "KB국민카드" },
               { id: "5", name: "롯데카드" },
+              { id: "6", name: "NH농협카드" },
+              { id: "7", name: "비씨카드" },
+              { id: "8", name: "하나카드" },
+              { id: "9", name: "씨티카드" },
+              { id: "10", name: "카카오뱅크카드" },
             ]}
             selected={props.selectedCard}
             setSelected={props.setSelectedCard}
