@@ -116,7 +116,13 @@ const CashReceipts = (props: CashReceiptsProps) => {
               {props.cashReceipts.isPersonal ? "휴대폰 번호" : "사업자 번호"}
             </label>
             {/* TODO: input입력 시 cashReceipts.data에 값 입력 */}
-            <TextInput width="100%" setState={props.setCashReceipts} objectKey="data" />
+            <TextInput
+              width="100%"
+              setState={props.setCashReceipts}
+              objectKey="data"
+              state={props.cashReceipts.data}
+              type="number"
+            />
           </div>
         </>
       )}

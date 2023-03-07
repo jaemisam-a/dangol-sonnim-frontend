@@ -10,12 +10,14 @@ type InputSectionProps = {
   btn?: string;
   isBottom: boolean;
   isRequired?: boolean;
-  state?: "error" | "success" | "info" | "";
+  inputState?: "error" | "success" | "info" | "";
   action?: () => void;
   message?: { error?: string; success: string };
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   objectKey?: string;
   hidden?: boolean;
+  state: string;
+  type: "text" | "number" | "";
 };
 
 const inputWrapper = css`
@@ -67,13 +69,15 @@ const InputSection = (props: InputSectionProps) => {
             width="100%"
             wrapperWidth="calc(100% - 6.75rem)"
             placeholder={props.placeholder}
-            state={props.state}
+            inputState={props.inputState}
             message={props.message}
             setState={props.setState}
             objectKey={props.objectKey}
+            state={props.state}
+            type={props.type}
           />
           {props.btn && (
-            <button css={inputBtn(props.state)} onClick={props.action}>
+            <button css={inputBtn(props.inputState)} onClick={props.action}>
               {props.btn}
             </button>
           )}
