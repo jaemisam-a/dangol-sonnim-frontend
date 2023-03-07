@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
@@ -9,7 +9,20 @@ import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
 import useLoginStore from "src/store/login";
 
-type InpustStateTypes = "error" | "success" | "";
+type InputStateTypes = "error" | "success" | "info" | "";
+
+type InputSectionTypes = {
+  label?: string;
+  placeholder?: string;
+  btn?: string;
+  isRequired?: boolean;
+  state?: InputStateTypes;
+  btnFnc?: () => void;
+  message?: { error?: string; success: string; info?: string };
+  objectKey: string;
+  hidden?: boolean;
+  type: "text" | "number" | "";
+};
 
 const wrapper = css`
   display: flex;
@@ -69,8 +82,9 @@ const EditProfile = () => {
   ];
 
   const [openModal, setOpenModal] = useState(false);
-  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", ""]);
-  const [profileData, setProfileData] = useState({ name: "", phone: "" });
+  const [inputState, setInputState] = useState<InputStateTypes[]>(["", ""]);
+  const [profileData, setProfileData] = useState({ name: "", phone: "", phoneAuth: "" });
+  const [inputArr, setInputArr] = useState<InputSectionTypes[]>([]);
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청
@@ -84,31 +98,62 @@ const EditProfile = () => {
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
     if (!profileData.phone) return alert("전화번호를 입력하세요.");
-    setInputState((prev) => [prev[0], "success"]);
+    setInputArr((prev) => [prev[0], { ...prev[1], btn: "재전송" }, { ...prev[2], hidden: false }]);
+    setInputState((prev) => [prev[0], prev[1], "info"]);
   };
 
-  const inputArr = [
-    {
-      label: "닉네임",
-      placeholder: "닉네임 입력",
-      btn: "중복확인",
-      isRequired: false,
-      btnFnc: checkValid,
-      message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
-      objectKey: "name",
-      type: "text",
-    },
-    {
-      label: "휴대폰 번호",
-      placeholder: "휴대폰 번호 입력('-'제외)",
-      btn: "인증요청",
-      isRequired: false,
-      btnFnc: requestAuth,
-      message: { success: "인증되었습니다." },
-      objectKey: "phone",
-      type: "number",
-    },
-  ];
+  const checkAuth = () => {
+    // TODO: 문자인증 api 요청
+    if (!profileData.phoneAuth) return alert("인증번호를 입력하세요.");
+    const randomNum = Math.floor(Math.random() * 2) + 1;
+    randomNum === 1
+      ? setInputState((prev) => [prev[0], prev[1], "success"])
+      : setInputState((prev) => [prev[0], prev[1], "error"]);
+  };
+
+  useEffect(() => {
+    setInputArr([
+      {
+        label: "닉네임",
+        placeholder: "닉네임 입력",
+        btn: "중복확인",
+        isRequired: false,
+        btnFnc: checkValid,
+        message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
+        objectKey: "name",
+        type: "text",
+      },
+      {
+        label: "휴대폰 번호",
+        placeholder: "휴대폰 번호 입력('-'제외)",
+        btn: "인증요청",
+        isRequired: false,
+        btnFnc: requestAuth,
+        objectKey: "phone",
+        type: "number",
+      },
+      {
+        btn: "문자인증",
+        btnFnc: checkAuth,
+        message: {
+          success: "인증되었습니다.",
+          info: "문자로 전송된 숫자를 입력해주세요.",
+          error: "인증번호가 맞지 않습니다.",
+        },
+        objectKey: "phoneAuth",
+        hidden: true,
+        type: "number",
+      },
+    ]);
+  }, []);
+
+  useEffect(() => {
+    setInputArr((prev) => [
+      { ...prev[0], btnFnc: checkValid },
+      { ...prev[1], btnFnc: requestAuth },
+      { ...prev[2], btnFnc: checkAuth },
+    ]);
+  }, [profileData]);
 
   return (
     <>
@@ -121,14 +166,15 @@ const EditProfile = () => {
               placeholder={el.placeholder}
               btn={el.btn}
               isBottom={true}
-              key={el.label}
+              key={idx}
               isRequired={el.isRequired}
               inputState={inputState[idx]}
               action={el.btnFnc}
               message={el.message}
               setState={setProfileData}
               objectKey={el.objectKey}
-              state={profileData[el.objectKey as "name" | "phone"]}
+              hidden={el.hidden}
+              state={profileData[el.objectKey as "name" | "phone" | "phoneAuth"]}
               type={el.type as "text" | "number"}
             />
           ))}
