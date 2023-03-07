@@ -64,6 +64,14 @@ const PaymentMethod = (props: PaymentMethodProps) => {
             list={[
               { id: "1", name: "우리카드" },
               { id: "2", name: "신한카드" },
+              { id: "3", name: "현대카드" },
+              { id: "4", name: "KB국민카드" },
+              { id: "5", name: "롯데카드" },
+              { id: "6", name: "NH농협카드" },
+              { id: "7", name: "비씨카드" },
+              { id: "8", name: "하나카드" },
+              { id: "9", name: "씨티카드" },
+              { id: "10", name: "카카오뱅크카드" },
             ]}
             selected={props.selectedCard}
             setSelected={props.setSelectedCard}
@@ -78,6 +86,14 @@ const PaymentMethod = (props: PaymentMethodProps) => {
               list={[
                 { id: "1", name: "국민은행" },
                 { id: "2", name: "농협" },
+                { id: "3", name: "우리은행" },
+                { id: "4", name: "SC제일은행" },
+                { id: "5", name: "기업은행" },
+                { id: "6", name: "외환은행" },
+                { id: "7", name: "하나은행" },
+                { id: "8", name: "카카오뱅크" },
+                { id: "9", name: "신한은행" },
+                { id: "10", name: "한국씨티은행" },
               ]}
               selected={props.selectedBank}
               setSelected={props.setSelectedBank}
