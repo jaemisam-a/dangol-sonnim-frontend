@@ -30,7 +30,7 @@ const global = css`
 
   @font-face {
     font-family: "blackHanSans";
-    src: url("/fonts/blackHanSans.ttf");
+    src: url("/fonts/blackHanSans.ttf") format("truetype");
     font-weight: 400;
     font-display: auto;
   }

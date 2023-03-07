@@ -16,7 +16,9 @@ const banner = css`
   text-align: center;
 
   h1 {
-    font-family: "blackHanSans";
+    font-family: "blackHanSans", -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+      "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     font-size: 2.25rem;
     line-height: 2.813rem;
     font-weight: 400;
@@ -115,7 +117,6 @@ const Owner = () => {
             height={0}
             style={{ width: "100%", height: "auto" }}
             sizes="100vw"
-            priority
           />
           <div>
             <h2>동네 이웃을 내 고객으로</h2>
