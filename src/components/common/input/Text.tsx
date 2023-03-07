@@ -66,6 +66,7 @@ const TextInput = (props: TextInputProps) => {
         placeholder={props.placeholder}
         onChange={handleInput}
         value={props.state || ""}
+        spellCheck={false}
       />
       {props.inputState === "info" && <div css={errorOrInfo}>{props.message?.info}</div>}
       {props.inputState === "error" && <div css={errorOrInfo}>{props.message?.error}</div>}
