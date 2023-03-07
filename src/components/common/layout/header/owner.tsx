@@ -81,7 +81,7 @@ const hamburgerButton = css`
   background-color: transparent;
 `;
 
-const OwnerHedaer = (props: OwnerHeaderProps) => {
+const OwnerHeader = (props: OwnerHeaderProps) => {
   const { pathname, back, push } = useRouter();
 
   return (
@@ -139,4 +139,4 @@ const OwnerHedaer = (props: OwnerHeaderProps) => {
   );
 };
 
-export default OwnerHedaer;
+export default OwnerHeader;

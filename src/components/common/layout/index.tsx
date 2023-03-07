@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import CustomerHeader from "common/layout/header/customer";
-import OwnerHedaer from "common/layout/header/owner";
+import OwnerHeader from "common/layout/header/owner";
 import Nav from "common/layout/Nav";
 
 type LayoutProps = {
@@ -45,7 +45,7 @@ const Layout = ({
       </Head>
       {pathname.includes("/owner") ? (
         <>
-          <OwnerHedaer
+          <OwnerHeader
             subTitle={subTitle}
             goHome={goHome}
             isXButton={isXButton}
