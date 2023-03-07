@@ -11,7 +11,7 @@ import Chat from "public/icons/Chat.svg";
 const banner = css`
   background: no-repeat center url("/images/owner/banner.jpg");
   background-size: cover;
-  padding: 4rem 2.5rem 2.75rem;
+  padding: 4rem 0 2.75rem;
   color: ${Colors.white};
   text-align: center;
 
