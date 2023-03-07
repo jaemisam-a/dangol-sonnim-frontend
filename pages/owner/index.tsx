@@ -24,6 +24,10 @@ const banner = css`
     font-weight: 400;
   }
 
+  h1 span {
+    padding-right: 2.188rem;
+  }
+
   svg {
     margin-bottom: 1rem;
   }
@@ -103,6 +107,7 @@ const Owner = () => {
           <br />
           <Check />
           한번에 끌어오고
+          <span />
           <br />
           싶다면?
         </h1>
