@@ -39,11 +39,6 @@ const inputWrapper = css`
   width: 100%;
 `;
 
-const input = (idx: number) => css`
-  width: 100%;
-  margin-bottom: ${idx === 2 && "-0.75rem"};
-`;
-
 const nextButton = (isPossible: boolean) => css`
   padding: 0 1.25rem;
 
@@ -69,7 +64,12 @@ const OwnerSignup = () => {
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
     if (!inputData.phone) return alert("전화번호를 입력하세요.");
-    setInputArr((prev) => [prev[0], prev[1], { ...prev[2], btn: "재전송" }, prev[3]]);
+    setInputArr((prev) => [
+      prev[0],
+      prev[1],
+      { ...prev[2], btn: "재전송" },
+      { ...prev[3], hidden: false },
+    ]);
     setInputState((prev) => [prev[0], prev[1], prev[2], "info"]);
   };
 
@@ -136,21 +136,21 @@ const OwnerSignup = () => {
       <div css={wrapper}>
         <div css={inputWrapper}>
           {inputArr.map((el, idx) => (
-            <div css={input(idx)} key={el.objectKey}>
-              <InputSection
-                type={el.type as "text" | "number" | ""}
-                isBottom={false}
-                state={inputData[el.objectKey as "email" | "password" | "phone" | "phoneAuth"]}
-                placeholder={el.placeholder}
-                btn={el.btn}
-                setState={setInputData}
-                action={el.btnFnc}
-                objectKey={el.objectKey}
-                inputState={inputState[idx]}
-                message={el.message}
-                buttonType={el.buttonType}
-              />
-            </div>
+            <InputSection
+              key={el.objectKey}
+              type={el.type as "text" | "number" | ""}
+              isBottom={false}
+              state={inputData[el.objectKey as "email" | "password" | "phone" | "phoneAuth"]}
+              placeholder={el.placeholder}
+              btn={el.btn}
+              setState={setInputData}
+              action={el.btnFnc}
+              objectKey={el.objectKey}
+              inputState={inputState[idx]}
+              message={el.message}
+              buttonType={el.buttonType}
+              hidden={el.hidden}
+            />
           ))}
         </div>
         <Consent
