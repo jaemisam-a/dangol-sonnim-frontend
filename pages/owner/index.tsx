@@ -99,6 +99,28 @@ const chatStyle = css`
 
 const Owner = () => {
   const { push } = useRouter();
+
+  const mainOthersData = [
+    {
+      heading: "소식",
+      desc: "내 가게를 알려보세요",
+      imgSrc: "/images/owner/main2.png",
+      alt: "소식 이미지",
+    },
+    {
+      heading: "단골관리",
+      desc: "내 가게만의 고객 리스트",
+      imgSrc: "/images/owner/main2.png",
+      alt: "소식 이미지",
+    },
+    {
+      heading: "구독권",
+      desc: "정기적인 구매를 부르는 찬스",
+      imgSrc: "/images/owner/main2.png",
+      alt: "소식 이미지",
+    },
+  ];
+
   return (
     <Layout title="단골손님 | 사장님" isLogo={true}>
       <section css={banner}>
@@ -114,10 +136,10 @@ const Owner = () => {
         <button onClick={() => push("/owner/login")}>지금 무료로 등록하기</button>
       </section>
       <section css={mainWrapper}>
-        <article css={mainFirst}>
+        <div css={mainFirst}>
           <Image
             src="/images/owner/main1.png"
-            alt="동네 이웃 이미지"
+            alt=""
             width={0}
             height={0}
             style={{ width: "100%", height: "auto" }}
@@ -130,43 +152,21 @@ const Owner = () => {
               <br />한 번에 해결해요.
             </h3>
           </div>
-        </article>
-        <article css={mainOthers}>
-          <h2>소식</h2>
-          <h3>내 가게를 알려보세요</h3>
-          <Image
-            src="/images/owner/main2.png"
-            alt="소식 이미지"
-            width={0}
-            height={0}
-            style={{ width: "50%", height: "auto" }}
-            sizes="50vw"
-          />
-        </article>
-        <article css={mainOthers}>
-          <h2>단골관리</h2>
-          <h3>내 가게만의 고객 리스트</h3>
-          <Image
-            src="/images/owner/main3.png"
-            alt="고객리스트 이미지"
-            width={0}
-            height={0}
-            style={{ width: "50%", height: "auto" }}
-            sizes="50vw"
-          />
-        </article>
-        <article css={mainOthers}>
-          <h2>구독권</h2>
-          <h3>정기적인 구매를 부르는 찬스</h3>
-          <Image
-            src="/images/owner/main4.png"
-            alt="고객리스트 이미지"
-            width={0}
-            height={0}
-            style={{ width: "50%", height: "auto" }}
-            sizes="50vw"
-          />
-        </article>
+        </div>
+        {mainOthersData.map((el) => (
+          <div key={el.heading} css={mainOthers}>
+            <h2>{el.heading}</h2>
+            <h3>{el.desc}</h3>
+            <Image
+              src={el.imgSrc}
+              alt={el.alt}
+              width={0}
+              height={0}
+              style={{ width: "50%", height: "auto" }}
+              sizes="50vw"
+            />
+          </div>
+        ))}
         <article css={chatStyle}>
           <h3>도움이 필요하신가요?</h3>
           <button onClick={() => alert("준비중입니다!")}>
