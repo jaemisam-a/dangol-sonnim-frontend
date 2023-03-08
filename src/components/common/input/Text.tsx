@@ -13,6 +13,7 @@ type TextInputProps = {
   inputState?: "error" | "success" | "info" | "";
   message?: { error?: string; success: string; info?: string };
   type?: "text" | "number" | "";
+  buttonType?: "password" | "search";
 };
 
 const wrapper = (width: string) => css`
@@ -29,7 +30,9 @@ const input = (props: TextInputProps) => css`
       ? Colors.red40
       : props.inputState === "success"
       ? Colors.blue50
-      : Colors.neutral40};
+      : props.state
+      ? Colors.neutral40
+      : Colors.neutral30};
   border-radius: 0.25rem;
   width: ${props.width};
 `;
@@ -61,7 +64,7 @@ const TextInput = (props: TextInputProps) => {
   return (
     <div css={wrapper(props.wrapperWidth ?? "100%")}>
       <input
-        type="search"
+        type={props.buttonType}
         css={input(props)}
         placeholder={props.placeholder}
         onChange={handleInput}
@@ -73,6 +76,10 @@ const TextInput = (props: TextInputProps) => {
       {props.inputState === "success" && <div css={success}>{props.message?.success}</div>}
     </div>
   );
+};
+
+TextInput.defaultProps = {
+  buttonType: "search",
 };
 
 export default TextInput;

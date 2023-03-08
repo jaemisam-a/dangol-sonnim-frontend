@@ -18,6 +18,7 @@ type InputSectionProps = {
   hidden?: boolean;
   state: string;
   type: "text" | "number" | "";
+  buttonType?: "password" | "search";
 };
 
 const inputWrapper = css`
@@ -67,7 +68,7 @@ const InputSection = (props: InputSectionProps) => {
         <div css={inputBtnWrapper}>
           <TextInput
             width="100%"
-            wrapperWidth="calc(100% - 6.75rem)"
+            wrapperWidth={props.btn ? "calc(100% - 6.75rem)" : "100%"}
             placeholder={props.placeholder}
             inputState={props.inputState}
             message={props.message}
@@ -75,6 +76,7 @@ const InputSection = (props: InputSectionProps) => {
             objectKey={props.objectKey}
             state={props.state}
             type={props.type}
+            buttonType={props.buttonType}
           />
           {props.btn && (
             <button css={inputBtn(props.inputState)} onClick={props.action}>

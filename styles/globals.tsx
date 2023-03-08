@@ -57,6 +57,10 @@ const global = css`
     &:focus {
       outline: 1px solid ${Colors.amber50};
     }
+
+    ::placeholder {
+      color: ${Colors.neutral40};
+    }
   }
 
   button {
