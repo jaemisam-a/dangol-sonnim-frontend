@@ -88,7 +88,7 @@ const chatStyle = css`
     display: flex;
     align-items: center;
     ${Texts.S3_18_M}
-    margin:0 auto;
+    margin: 0 auto;
     margin-top: 0.5rem;
     background-color: transparent;
     border: ${Colors.neutral30} solid 1px;
@@ -139,7 +139,7 @@ const Owner = () => {
         <div css={mainFirst}>
           <Image
             src="/images/owner/main1.png"
-            alt=""
+            alt="동네 이웃 이미지"
             width={0}
             height={0}
             style={{ width: "100%", height: "auto" }}
