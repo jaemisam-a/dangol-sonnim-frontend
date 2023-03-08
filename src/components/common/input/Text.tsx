@@ -13,7 +13,7 @@ type TextInputProps = {
   inputState?: "error" | "success" | "info" | "";
   message?: { error?: string; success: string; info?: string };
   type?: "text" | "number" | "";
-  buttonType?: "password" | "search";
+  inputType?: "password" | "search";
 };
 
 const wrapper = (width: string) => css`
@@ -64,7 +64,7 @@ const TextInput = (props: TextInputProps) => {
   return (
     <div css={wrapper(props.wrapperWidth ?? "100%")}>
       <input
-        type={props.buttonType}
+        type={props.inputType}
         css={input(props)}
         placeholder={props.placeholder}
         onChange={handleInput}
@@ -79,7 +79,7 @@ const TextInput = (props: TextInputProps) => {
 };
 
 TextInput.defaultProps = {
-  buttonType: "search",
+  inputType: "search",
 };
 
 export default TextInput;

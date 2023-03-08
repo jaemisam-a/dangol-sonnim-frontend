@@ -46,7 +46,7 @@ const OwnerSignupEmail = () => {
   };
 
   useEffect(() => {
-    if (!query.email) push("/owner");
+    if (!query.email) push("/owner/login");
   }, []);
 
   if (!query.email) return null;

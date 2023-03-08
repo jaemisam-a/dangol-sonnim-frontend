@@ -18,7 +18,7 @@ type InputSectionProps = {
   hidden?: boolean;
   state: string;
   type: "text" | "number" | "";
-  buttonType?: "password" | "search";
+  inputType?: "password" | "search";
 };
 
 const inputWrapper = css`
@@ -76,7 +76,7 @@ const InputSection = (props: InputSectionProps) => {
             objectKey={props.objectKey}
             state={props.state}
             type={props.type}
-            buttonType={props.buttonType}
+            inputType={props.inputType}
           />
           {props.btn && (
             <button css={inputBtn(props.inputState)} onClick={props.action}>

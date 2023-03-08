@@ -21,7 +21,7 @@ type InputSectionTypes = {
   objectKey: string;
   hidden?: boolean;
   type: "text" | "number" | "";
-  buttonType?: "password" | "search";
+  inputType?: "password" | "search";
 };
 
 const wrapper = css`
@@ -89,7 +89,7 @@ const OwnerSignup = () => {
         objectKey: "password",
         placeholder: "비밀번호를 입력해주세요",
         type: "text",
-        buttonType: "password",
+        inputType: "password",
       },
       {
         objectKey: "phone",
@@ -148,7 +148,7 @@ const OwnerSignup = () => {
               objectKey={el.objectKey}
               inputState={inputState[idx]}
               message={el.message}
-              buttonType={el.buttonType}
+              inputType={el.inputType}
               hidden={el.hidden}
             />
           ))}

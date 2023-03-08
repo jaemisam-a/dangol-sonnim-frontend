@@ -43,6 +43,7 @@ const loginButton = css`
 
 const smallButtonWrapper = css`
   display: flex;
+  align-items: center;
   gap: 0.5rem;
 
   button {
@@ -62,7 +63,7 @@ const OwnerLogin = () => {
   const [inputData, setInputData] = useState({ email: "", password: "" });
   const inputArr = [
     { objectKey: "email", placeholder: "이메일을 입력해주세요" },
-    { objectKey: "password", placeholder: "비밀번호를 입력해주세요" },
+    { objectKey: "password", placeholder: "비밀번호를 입력해주세요", inputType: "password" },
   ];
 
   const login = () => {
@@ -89,6 +90,7 @@ const OwnerLogin = () => {
                 objectKey={el.objectKey}
                 setState={setInputData}
                 placeholder={el.placeholder}
+                inputType={el.inputType as "password"}
               />
             ))}
           </div>
