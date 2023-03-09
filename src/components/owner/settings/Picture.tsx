@@ -1,7 +1,7 @@
 import React from "react";
 
 import Empty from "owner/settings/Empty";
-import SettingButton from "owner/settings/settingButton";
+import SettingButton from "owner/settings/SettingButton";
 import { Colors } from "styles/common";
 import Camera from "public/icons/Camera.svg";
 
