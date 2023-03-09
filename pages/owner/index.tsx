@@ -47,6 +47,7 @@ const mainWrapper = css`
   flex-direction: column;
   gap: 2.375rem;
   padding: 2.625rem 1.25rem 0;
+  margin-bottom: 3.875rem;
   text-align: center;
   color: ${Colors.neutral90};
 `;

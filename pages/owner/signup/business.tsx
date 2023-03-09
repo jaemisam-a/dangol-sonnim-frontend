@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import axios from "axios";
@@ -9,6 +9,8 @@ import Layout from "common/layout";
 import FullPageSpinner from "common/spinner/FullPage";
 import { Colors, Texts } from "styles/common";
 
+type dateType = { year: string; month: string; day: string };
+
 const wrapper = css`
   padding: 0 1.25rem;
 `;
@@ -16,11 +18,11 @@ const wrapper = css`
 const infoText = css`
   padding-top: 4rem;
   text-align: center;
-  ${Colors.neutral80}
-  ${Texts.S1_16_M}
+  color: ${Colors.neutral80};
+  ${Texts.S1_16_M};
 `;
 
-const inputWrapper = css`
+const formWrapper = css`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -55,19 +57,23 @@ const submitButtom = css`
   border-radius: 0.25rem;
 `;
 
-type dateType = { year: string; month: string; day: string };
-
 const Business = () => {
   const { push } = useRouter();
 
   const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth() + 1;
+  const currentDay = new Date().getDate();
   const START_YEAR = 1900;
 
   const [businessNumber, setBusinessNumber] = useState(0);
   const [name, setName] = useState("");
-  const [date, setDate] = useState({ year: currentYear.toString(), month: "1", day: "1" });
+  const [date, setDate] = useState({
+    year: currentYear.toString(),
+    month: currentMonth.toString(),
+    day: currentDay.toString(),
+  });
 
-  const { data, isLoading, mutate, isSuccess } = useMutation(async () => {
+  const { data, isLoading, mutate, isSuccess } = useMutation(() => {
     return axios
       .post(
         `https://api.odcloud.kr/api/nts-businessman/v1/validate?serviceKey=${process.env.NEXT_PUBLIC_BUSINESS_VALIDATION_KEY}`,
@@ -93,9 +99,8 @@ const Business = () => {
 
   const formatDate = (date: dateType) => {
     const formattedDate = Object.values(date)
-      .map((value) => (value.length < 2 ? `0${value}` : value))
+      .map((value) => value.padStart(2, "0"))
       .join("");
-
     return formattedDate;
   };
 
@@ -108,6 +113,8 @@ const Business = () => {
 
   useEffect(() => {
     if (!isSuccess) return;
+
+    /** 사업자 등록번호 진위확인 조회 결과 코드 01: Valid, 02: Invalid */
     if (data.valid === "01" && data.status.b_stt !== "폐업자") {
       push(
         { pathname: "/owner/signup/complete", query: { isComplete: true } },
@@ -117,11 +124,41 @@ const Business = () => {
     //TODO: 인증 실패 시 모달 띄우기
   }, [isSuccess]);
 
+  const selectElementsData = [
+    {
+      name: "year",
+      value: date.year,
+      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
+        setDate((prev) => {
+          return { ...prev, year: e.target.value };
+        }),
+      dateArray: yearsArray,
+    },
+    {
+      name: "month",
+      value: date.month,
+      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
+        setDate((prev) => {
+          return { ...prev, month: e.target.value };
+        }),
+      dateArray: monthsArray,
+    },
+    {
+      name: "day",
+      value: date.day,
+      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
+        setDate((prev) => {
+          return { ...prev, day: e.target.value };
+        }),
+      dateArray: daysArray,
+    },
+  ];
+
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">
       <section css={wrapper}>
         <h1 css={infoText}>회원님의 사업장 인증을 해주세요.</h1>
-        <div css={inputWrapper}>
+        <form css={formWrapper}>
           <div>
             <span css={labelStyle}>사업자등록번호</span>
             <TextInput
@@ -139,51 +176,22 @@ const Business = () => {
           <div>
             <span css={labelStyle}>개업일자</span>
             <div css={dateStyle}>
-              <select
-                name="year"
-                id="year"
-                value={date.year}
-                onChange={(e) =>
-                  setDate((prev) => {
-                    return { ...prev, year: e.target.value };
-                  })
-                }
-              >
-                {yearsArray.map((year) => (
-                  <option key={year}>{year}</option>
-                ))}
-              </select>
-              <select
-                name="month"
-                id="month"
-                value={date.month}
-                onChange={(e) =>
-                  setDate((prev) => {
-                    return { ...prev, month: e.target.value };
-                  })
-                }
-              >
-                {monthsArray.map((month) => (
-                  <option key={month}>{month}</option>
-                ))}
-              </select>
-              <select
-                name="day"
-                id="day"
-                value={date.day}
-                onChange={(e) =>
-                  setDate((prev) => {
-                    return { ...prev, day: e.target.value };
-                  })
-                }
-              >
-                {daysArray.map((day) => (
-                  <option key={day}>{day}</option>
-                ))}
-              </select>
+              {selectElementsData.map((el) => (
+                <select
+                  key={el.name}
+                  name={el.name}
+                  id={el.name}
+                  value={el.value}
+                  onChange={el.onChangeAction}
+                >
+                  {el.dateArray.map((item) => (
+                    <option key={item}>{item}</option>
+                  ))}
+                </select>
+              ))}
             </div>
           </div>
-        </div>
+        </form>
         <button css={submitButtom} onClick={onSubmit}>
           인증
         </button>

@@ -11,9 +11,7 @@ const wrapper = css`
   display: flex;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 2.375rem;
+  padding: 14.25rem 2.375rem 0;
 `;
 
 const text = css`
@@ -40,6 +38,8 @@ const Complete = () => {
   useEffect(() => {
     if (!query.isComplete) push("/owner/login");
   }, []);
+
+  if (!query.isComplete) return null;
 
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">
