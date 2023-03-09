@@ -2,8 +2,8 @@ import React, { ReactNode, useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import ArrowUp from "public/icons/ArrowUp.svg";
-import ArrowDown from "public/icons/ArrowDown.svg";
+import Up from "public/icons/direction/Up.svg";
+import Down from "public/icons/direction/Down.svg";
 
 type StoreSectionProps = {
   children: ReactNode;
@@ -37,7 +37,7 @@ const count = css`
   color: ${Colors.amber50};
 `;
 
-const arrow = css`
+const direction = css`
   height: 1.5rem;
   cursor: pointer;
 `;
@@ -54,11 +54,11 @@ const StoreSection = ({ children, sectionTitle, menuCount, fold }: StoreSectionP
             <div css={count}>{menuCount}</div>
           </div>
           {fold && (
-            <div css={arrow} onClick={() => setOpen((prev) => !prev)}>
+            <div css={direction} onClick={() => setOpen((prev) => !prev)}>
               {open ? (
-                <ArrowUp width={24} height={24} stroke={Colors.neutral70} />
+                <Up width={24} height={24} stroke={Colors.neutral70} />
               ) : (
-                <ArrowDown width={24} height={24} stroke={Colors.neutral70} />
+                <Down width={24} height={24} stroke={Colors.neutral70} />
               )}
             </div>
           )}

@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import { Colors } from "styles/common";
-import Search from "public/icons/Search.svg";
+import Search from "public/icons/etc/Search.svg";
 
 const inputWrapper = css`
   position: relative;

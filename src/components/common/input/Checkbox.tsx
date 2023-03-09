@@ -26,13 +26,13 @@ const inputWrapper = (disable: boolean) => css`
     display: inline-block;
     border-radius: 2px;
     border: 1px solid ${Colors.neutral60};
-    background: url("/icons/CheckGrey.svg") center center no-repeat;
+    background: url("/icons/check/CheckGrey.svg") center center no-repeat;
   }
 
   & input:checked + label {
     border: none;
-    background: url(${disable ? "/icons/CheckedGrey.svg" : "/icons/CheckWhite.svg"}) center center
-      no-repeat ${disable ? "transparent" : Colors.amber50};
+    background: url(${disable ? "/icons/check/CheckedGrey.svg" : "/icons/check/CheckWhite.svg"})
+      center center no-repeat ${disable ? "transparent" : Colors.amber50};
   }
 `;
 

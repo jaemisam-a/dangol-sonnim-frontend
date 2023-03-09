@@ -57,7 +57,7 @@ const global = css`
       -webkit-appearance: none;
       width: 20px;
       height: 20px;
-      background: url("/icons/CloseCircle.svg") center center no-repeat;
+      background: url("/icons/close/CloseCircle.svg") center center no-repeat;
       cursor: pointer;
     }
 

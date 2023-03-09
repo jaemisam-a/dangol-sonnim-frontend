@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Colors, Texts } from "styles/common";
 import Tag from "common/Tag";
 import Slider from "common/Slider";
-import Pick from "public/icons/Pick.svg";
+import Pick from "public/icons/etc/Pick.svg";
 import categoryIdToString from "src/utils/categoryIdToString";
 
 type InfoProps = {

@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import CountTag from "common/CountTag";
 import { Colors, Texts } from "styles/common";
-import Search from "public/icons/Search.svg";
+import Search from "public/icons/etc/Search.svg";
 import BottomSheet from "common/BottomSheet";
 import QRCheck from "customer/main/QRCheck";
 

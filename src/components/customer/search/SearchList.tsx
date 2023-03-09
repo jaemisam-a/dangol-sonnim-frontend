@@ -3,7 +3,7 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Close from "public/icons/Close.svg";
+import Close from "public/icons/close/Close.svg";
 
 const wrapper = css`
   padding: 0 1rem;

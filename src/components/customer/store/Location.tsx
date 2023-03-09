@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import MapPin from "public/icons/MapPin.svg";
-import Clock from "public/icons/Clock.svg";
+import MapPin from "public/icons/location/MapPin.svg";
+import Clock from "public/icons/etc/Clock.svg";
 import KakaoMap from "common/KakaoMap";
 import StoreSection from "customer/store/Section";
 import { Colors, Texts } from "styles/common";

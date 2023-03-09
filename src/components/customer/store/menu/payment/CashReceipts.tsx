@@ -37,9 +37,9 @@ const radio = css`
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
-  background: url("/icons/UnCheckedRadio.svg") center center no-repeat;
+  background: url("/icons/check/UnCheckedRadio.svg") center center no-repeat;
   :checked {
-    background: url("/icons/CheckedRadio.svg") center center no-repeat;
+    background: url("/icons/check/CheckedRadio.svg") center center no-repeat;
   }
   :focus {
     outline: none;

@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
-import ArrowLeft from "public/icons/ArrowLeft.svg";
-import SearchIcon from "public/icons/Search.svg";
+import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
+import SearchIcon from "public/icons/etc/Search.svg";
 
 const searchBox = css`
   display: flex;
