@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import axios from "axios";
@@ -128,28 +128,16 @@ const Business = () => {
     {
       name: "year",
       value: date.year,
-      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
-        setDate((prev) => {
-          return { ...prev, year: e.target.value };
-        }),
       dateArray: yearsArray,
     },
     {
       name: "month",
       value: date.month,
-      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
-        setDate((prev) => {
-          return { ...prev, month: e.target.value };
-        }),
       dateArray: monthsArray,
     },
     {
       name: "day",
       value: date.day,
-      onChangeAction: (e: ChangeEvent<HTMLSelectElement>) =>
-        setDate((prev) => {
-          return { ...prev, day: e.target.value };
-        }),
       dateArray: daysArray,
     },
   ];
@@ -182,7 +170,11 @@ const Business = () => {
                   name={el.name}
                   id={el.name}
                   value={el.value}
-                  onChange={el.onChangeAction}
+                  onChange={(e) =>
+                    setDate((prev) => {
+                      return { ...prev, [el.name]: e.target.value };
+                    })
+                  }
                 >
                   {el.dateArray.map((item) => (
                     <option key={item}>{item}</option>
