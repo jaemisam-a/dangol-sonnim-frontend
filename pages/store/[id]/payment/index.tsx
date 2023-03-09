@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 
 import Layout from "common/layout";
 import StoreCoupon from "common/coupon/Store";
+import Consent from "common/Consent";
 import PaymentInfo from "customer/store/menu/payment/Info";
 import PaymentMethod from "customer/store/menu/payment/Method";
-import PaymentConsent from "customer/store/menu/payment/Consent";
 import { Colors, Texts } from "styles/common";
 
 export type SelectedType = {
@@ -130,10 +130,16 @@ const StorePayment = () => {
         selectedBank={selectedBank}
         setSelectedBank={setSelectedBank}
       />
-      <PaymentConsent
+      <Consent
         isConsent={isConsent}
         setIsConsent={setIsConsent}
         storeName={DUMMY_PAYMENT.storeName}
+        consentArr={[
+          { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", objectKey: "first" },
+          { content: "개인정보 수집 및 이용 동의 (필수)", objectKey: "second" },
+          { content: "개인정보 제3자 제공 동의 (필수)", objectKey: "third" },
+          { content: "결제대행 서비스 이용 약관 동의 (필수) 토스페이먼츠", objectKey: "fourth" },
+        ]}
       />
       <div css={buttonWrapper}>
         <button

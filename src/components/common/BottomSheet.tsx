@@ -8,7 +8,7 @@ import Close from "public/icons/Close.svg";
 type BottomSheetProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  title: string;
+  title?: string;
   isXButton: boolean;
   isBackButton: boolean;
   height: string;
