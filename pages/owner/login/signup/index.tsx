@@ -134,7 +134,7 @@ const OwnerSignup = () => {
   return (
     <Layout title="사장님 회원가입" subTitle="회원가입">
       <div css={wrapper}>
-        <div css={inputWrapper}>
+        <form css={inputWrapper}>
           {inputArr.map((el, idx) => (
             <InputSection
               key={el.objectKey}
@@ -152,7 +152,7 @@ const OwnerSignup = () => {
               hidden={el.hidden}
             />
           ))}
-        </div>
+        </form>
         <Consent
           isConsent={isCheckedConsent}
           setIsConsent={setIsCheckedConsent}

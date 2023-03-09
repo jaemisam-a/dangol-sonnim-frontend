@@ -70,6 +70,7 @@ const TextInput = (props: TextInputProps) => {
         onChange={handleInput}
         value={props.state || ""}
         spellCheck={false}
+        autoComplete="on"
       />
       {props.inputState === "info" && <div css={errorOrInfo}>{props.message?.info}</div>}
       {props.inputState === "error" && <div css={errorOrInfo}>{props.message?.error}</div>}

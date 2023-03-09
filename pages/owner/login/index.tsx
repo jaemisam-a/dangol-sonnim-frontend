@@ -81,7 +81,7 @@ const OwnerLogin = () => {
             <Image src="/images/logo/Logo.png" alt="로고" width={43} height={57} />
             <Owner />
           </div>
-          <div css={inputWrapper}>
+          <form css={inputWrapper}>
             {inputArr.map((el) => (
               <TextInput
                 key={el.objectKey}
@@ -93,7 +93,7 @@ const OwnerLogin = () => {
                 inputType={el.inputType as "password"}
               />
             ))}
-          </div>
+          </form>
           <button css={loginButton} onClick={login}>
             로그인
           </button>
