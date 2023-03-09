@@ -4,25 +4,11 @@ import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/Avatar";
-import InputSection from "common/input/Section";
+import InputSection, { InputSectionType } from "common/input/Section";
 import Modal from "common/Modal";
+import { InputStatus } from "common/input/Text";
 import Dialog from "customer/my/Dialog";
 import useLoginStore from "src/store/login";
-
-type InputStateTypes = "error" | "success" | "info" | "";
-
-type InputSectionTypes = {
-  label?: string;
-  placeholder?: string;
-  btn?: string;
-  isRequired?: boolean;
-  state?: InputStateTypes;
-  btnFnc?: () => void;
-  message?: { error?: string; success: string; info?: string };
-  objectKey: string;
-  hidden?: boolean;
-  type: "text" | "number" | "";
-};
 
 const wrapper = css`
   display: flex;
@@ -82,24 +68,28 @@ const EditProfile = () => {
   ];
 
   const [openModal, setOpenModal] = useState(false);
-  const [inputState, setInputState] = useState<InputStateTypes[]>(["", ""]);
+  const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "", phoneAuth: "" });
-  const [inputArr, setInputArr] = useState<InputSectionTypes[]>([]);
+  const [inputArr, setInputArr] = useState<InputSectionType[]>([]);
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청
     if (!profileData.name) return alert("닉네임을 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
-      ? setInputState((prev) => ["success", prev[1]])
-      : setInputState((prev) => ["error", prev[1]]);
+      ? setInputStatus((prev) => ["success", prev[1]])
+      : setInputStatus((prev) => ["error", prev[1]]);
   };
 
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
     if (!profileData.phone) return alert("전화번호를 입력하세요.");
-    setInputArr((prev) => [prev[0], { ...prev[1], btn: "재전송" }, { ...prev[2], hidden: false }]);
-    setInputState((prev) => [prev[0], prev[1], "info"]);
+    setInputArr((prev) => [
+      prev[0],
+      { ...prev[1], btn: "재전송" },
+      { ...prev[2], isHidden: false },
+    ]);
+    setInputStatus((prev) => [prev[0], prev[1], "info"]);
   };
 
   const checkAuth = () => {
@@ -107,8 +97,8 @@ const EditProfile = () => {
     if (!profileData.phoneAuth) return alert("인증번호를 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
-      ? setInputState((prev) => [prev[0], prev[1], "success"])
-      : setInputState((prev) => [prev[0], prev[1], "error"]);
+      ? setInputStatus((prev) => [prev[0], prev[1], "success"])
+      : setInputStatus((prev) => [prev[0], prev[1], "error"]);
   };
 
   useEffect(() => {
@@ -118,40 +108,44 @@ const EditProfile = () => {
         placeholder: "닉네임 입력",
         btn: "중복확인",
         isRequired: false,
-        btnFnc: checkValid,
-        message: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
+        btnAction: checkValid,
+        inputStatusMessage: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
         objectKey: "name",
         type: "text",
+        minValue: 2,
+        maxValue: 12,
       },
       {
         label: "휴대폰 번호",
         placeholder: "휴대폰 번호 입력('-'제외)",
         btn: "인증요청",
         isRequired: false,
-        btnFnc: requestAuth,
+        btnAction: requestAuth,
         objectKey: "phone",
         type: "number",
       },
       {
         btn: "문자인증",
-        btnFnc: checkAuth,
-        message: {
+        btnAction: checkAuth,
+        inputStatusMessage: {
           success: "인증되었습니다.",
           info: "문자로 전송된 숫자를 입력해주세요.",
           error: "인증번호가 맞지 않습니다.",
         },
         objectKey: "phoneAuth",
-        hidden: true,
+        isHidden: true,
         type: "number",
+        minValue: 6,
+        maxValue: 6,
       },
     ]);
   }, []);
 
   useEffect(() => {
     setInputArr((prev) => [
-      { ...prev[0], btnFnc: checkValid },
-      { ...prev[1], btnFnc: requestAuth },
-      { ...prev[2], btnFnc: checkAuth },
+      { ...prev[0], btnAction: checkValid },
+      { ...prev[1], btnAction: requestAuth },
+      { ...prev[2], btnAction: checkAuth },
     ]);
   }, [profileData]);
 
@@ -165,17 +159,19 @@ const EditProfile = () => {
               label={el.label}
               placeholder={el.placeholder}
               btn={el.btn}
-              isBottom={true}
+              isInBottomSheet={true}
               key={idx}
               isRequired={el.isRequired}
-              inputState={inputState[idx]}
-              action={el.btnFnc}
-              message={el.message}
+              inputStatus={inputStatus[idx]}
+              btnAction={el.btnAction}
+              inputStatusMessage={el.inputStatusMessage}
               setState={setProfileData}
               objectKey={el.objectKey}
-              hidden={el.hidden}
+              isHidden={el.isHidden}
               state={profileData[el.objectKey as "name" | "phone" | "phoneAuth"]}
               type={el.type as "text" | "number"}
+              minValue={el.minValue}
+              maxValue={el.maxValue}
             />
           ))}
         </div>

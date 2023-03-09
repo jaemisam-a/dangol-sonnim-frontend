@@ -1,28 +1,12 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import InputSection from "common/input/Section";
+import InputSection, { InputSectionType } from "common/input/Section";
 import Consent from "common/Consent";
 import { Colors, Texts } from "styles/common";
-
-type InpustStateTypes = "error" | "success" | "info" | "";
-
-type InputSectionTypes = {
-  label?: string;
-  placeholder?: string;
-  btn?: string;
-  isRequired?: boolean;
-  state?: InpustStateTypes;
-  btnFnc?: () => void;
-  message?: { error?: string; success: string; info?: string };
-  setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
-  objectKey: string;
-  hidden?: boolean;
-  type: "text" | "number" | "";
-  inputType?: "password" | "search";
-};
+import { InputStatus, InputType } from "common/input/Text";
 
 const wrapper = css`
   display: flex;
@@ -57,9 +41,17 @@ const OwnerSignup = () => {
   const { push } = useRouter();
 
   const [inputData, setInputData] = useState({ email: "", password: "", phone: "", phoneAuth: "" });
-  const [inputArr, setInputArr] = useState<InputSectionTypes[]>([]);
-  const [inputState, setInputState] = useState<InpustStateTypes[]>(["", "", "", ""]);
+  const [inputArr, setInputArr] = useState<InputSectionType[]>([]);
+  const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", "", ""]);
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
+
+  const goNext = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    push(
+      { pathname: "/owner/login/signup/email", query: { email: inputData.email } },
+      "/owner/login/signup/email"
+    );
+  };
 
   const requestAuth = () => {
     // TODO: 인증요청 api 요청
@@ -68,9 +60,9 @@ const OwnerSignup = () => {
       prev[0],
       prev[1],
       { ...prev[2], btn: "재전송" },
-      { ...prev[3], hidden: false },
+      { ...prev[3], isHidden: false },
     ]);
-    setInputState((prev) => [prev[0], prev[1], prev[2], "info"]);
+    setInputStatus((prev) => [prev[0], prev[1], prev[2], "info"]);
   };
 
   const checkAuth = () => {
@@ -78,36 +70,37 @@ const OwnerSignup = () => {
     if (!inputData.phoneAuth) return alert("인증번호를 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
-      ? setInputState((prev) => [prev[0], prev[1], prev[2], "success"])
-      : setInputState((prev) => [prev[0], prev[1], prev[2], "error"]);
+      ? setInputStatus((prev) => [prev[0], prev[1], prev[2], "success"])
+      : setInputStatus((prev) => [prev[0], prev[1], prev[2], "error"]);
   };
 
   useEffect(() => {
     setInputArr([
-      { objectKey: "email", placeholder: "이메일을 입력해주세요", type: "text" },
+      { objectKey: "email", placeholder: "이메일을 입력해주세요", type: "email" },
       {
         objectKey: "password",
         placeholder: "비밀번호를 입력해주세요",
-        type: "text",
-        inputType: "password",
+        type: "password",
+        minValue: 8,
+        maxValue: 16,
       },
       {
         objectKey: "phone",
         placeholder: "핸드폰 번호 입력",
         type: "number",
         btn: "발송",
-        btnFnc: requestAuth,
+        btnAction: requestAuth,
       },
       {
         btn: "문자인증",
-        btnFnc: checkAuth,
-        message: {
+        btnAction: checkAuth,
+        inputStatusMessage: {
           success: "인증되었습니다.",
           info: "문자로 전송된 숫자를 입력해주세요.",
           error: "인증번호가 맞지 않습니다.",
         },
         objectKey: "phoneAuth",
-        hidden: true,
+        isHidden: true,
         type: "number",
         placeholder: "인증번호 입력",
       },
@@ -118,14 +111,14 @@ const OwnerSignup = () => {
     setInputArr((prev) => [
       prev[0],
       prev[1],
-      { ...prev[2], btnFnc: requestAuth },
-      { ...prev[3], btnFnc: checkAuth },
+      { ...prev[2], btnAction: requestAuth },
+      { ...prev[3], btnAction: checkAuth },
     ]);
   }, [inputData]);
 
   const isPossible =
     isCheckedConsent &&
-    inputState[3] === "success" &&
+    inputStatus[3] === "success" &&
     Boolean(inputData.phone) &&
     Boolean(inputData.email) &&
     Boolean(inputData.password) &&
@@ -133,26 +126,27 @@ const OwnerSignup = () => {
 
   return (
     <Layout title="사장님 회원가입" subTitle="회원가입">
-      <div css={wrapper}>
-        <form css={inputWrapper}>
+      <form onSubmit={goNext} css={wrapper}>
+        <div css={inputWrapper}>
           {inputArr.map((el, idx) => (
             <InputSection
               key={el.objectKey}
-              type={el.type as "text" | "number" | ""}
-              isBottom={false}
+              type={el.type as InputType}
+              isInBottomSheet={false}
               state={inputData[el.objectKey as "email" | "password" | "phone" | "phoneAuth"]}
               placeholder={el.placeholder}
               btn={el.btn}
               setState={setInputData}
-              action={el.btnFnc}
+              btnAction={el.btnAction}
               objectKey={el.objectKey}
-              inputState={inputState[idx]}
-              message={el.message}
-              inputType={el.inputType}
-              hidden={el.hidden}
+              inputStatus={inputStatus[idx]}
+              inputStatusMessage={el.inputStatusMessage}
+              isHidden={el.isHidden}
+              minValue={el.minValue}
+              maxValue={el.maxValue}
             />
           ))}
-        </form>
+        </div>
         <Consent
           isConsent={isCheckedConsent}
           setIsConsent={setIsCheckedConsent}
@@ -164,19 +158,11 @@ const OwnerSignup = () => {
           ]}
         />
         <div css={nextButton(isPossible)}>
-          <button
-            disabled={!isPossible}
-            onClick={() =>
-              push(
-                { pathname: "/owner/login/signup/email", query: { email: inputData.email } },
-                "/owner/login/signup/email"
-              )
-            }
-          >
+          <button type="submit" disabled={!isPossible}>
             다음
           </button>
         </div>
-      </div>
+      </form>
     </Layout>
   );
 };

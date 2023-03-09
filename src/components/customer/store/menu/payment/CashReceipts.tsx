@@ -117,7 +117,6 @@ const CashReceipts = (props: CashReceiptsProps) => {
             </label>
             {/* TODO: input입력 시 cashReceipts.data에 값 입력 */}
             <TextInput
-              width="100%"
               setState={props.setCashReceipts}
               objectKey="data"
               state={props.cashReceipts.data}

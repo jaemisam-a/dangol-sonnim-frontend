@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
@@ -45,6 +45,12 @@ const OwnerSignupEmail = () => {
     setIsApprove(true);
   };
 
+  const submitAccount = (e: FormEvent<HTMLFormElement>) => {
+    // TODO: 회원가입 API 요청
+    e.preventDefault();
+    alert("회원가입!");
+  };
+
   useEffect(() => {
     if (!query.email) push("/owner/login");
   }, []);
@@ -53,21 +59,23 @@ const OwnerSignupEmail = () => {
 
   return (
     <Layout title="사장님 회원가입" subTitle="인증번호 입력">
-      <div css={wrapper}>
+      <form onSubmit={submitAccount} css={wrapper}>
         <div css={description}>{query.email}으로 인증번호를 보냈어요</div>
         <InputSection
-          isBottom={false}
+          isInBottomSheet={false}
           type="number"
           btn="확인"
           placeholder="인증번호를 입력해주세요"
-          action={checkAuthNumber}
+          btnAction={checkAuthNumber}
           state={String(authNumber)}
           setState={setAuthNumber}
+          minValue={6}
+          maxValue={6}
         />
         <div css={submitButton(isApprove)}>
-          <button>계정 생성</button>
+          <button type="submit">계정 생성</button>
         </div>
-      </div>
+      </form>
     </Layout>
   );
 };
