@@ -10,8 +10,8 @@ import Layout from "common/layout";
 import StoreThumbnailList from "common/storeThumbnail/List";
 import Sort from "common/filter/Sort";
 import Location from "common/filter/Location";
-import ArrowLeft from "public/icons/ArrowLeft.svg";
-import CloseCircle from "public/icons/CloseCircle.svg";
+import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
+import CloseCircle from "public/icons/close/CloseCircle.svg";
 
 const headerWrapper = css`
   display: flex;

@@ -29,7 +29,7 @@ const KakaoMap = ({ address }: KakaoMapProp) => {
       const map = new kakaoMapObject.Map(kakaoMapRef.current, options);
       const geocoder = new kakaoMapObject.services.Geocoder();
       const markerSize = new kakaoMapObject.Size(28, 28);
-      const markerImage = new kakaoMapObject.MarkerImage("/icons/Marker.svg", markerSize);
+      const markerImage = new kakaoMapObject.MarkerImage("/icons/location/Marker.svg", markerSize);
 
       geocoder.addressSearch(address, (result: any, status: any) => {
         if (status === kakaoMapObject.services.Status.OK) {

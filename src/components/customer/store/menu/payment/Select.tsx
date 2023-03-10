@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import ArrowDown from "public/icons/ArrowDown.svg";
-import ArrowUp from "public/icons/ArrowUp.svg";
+import Down from "public/icons/direction/Down.svg";
+import Up from "public/icons/direction/Up.svg";
 import { SelectedType, TransferType } from "pages/store/[id]/payment";
 
 type PaymentSelectProps = {
@@ -61,9 +61,9 @@ const PaymentSelect = (props: PaymentSelectProps) => {
         <div css={select(isOpen)} onClick={() => setIsOpen((prev) => !prev)}>
           <span>{props.selected.id ? props.selected.name : props.placeholder}</span>
           {isOpen ? (
-            <ArrowUp width={20} height={20} stroke={Colors.neutral80} />
+            <Up width={20} height={20} stroke={Colors.neutral80} />
           ) : (
-            <ArrowDown width={20} height={20} stroke={Colors.neutral80} />
+            <Down width={20} height={20} stroke={Colors.neutral80} />
           )}
         </div>
         {isOpen && (

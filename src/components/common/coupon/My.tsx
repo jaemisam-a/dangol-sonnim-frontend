@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import CountTag from "common/CountTag";
-import RightIcon from "public/icons/Right.svg";
+import RightIcon from "public/icons/direction/Right.svg";
 import { Colors, Texts } from "styles/common";
 
 export type MyCouponProps = {

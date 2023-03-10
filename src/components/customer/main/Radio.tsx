@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Texts } from "styles/common";
-import CheckedRadio from "public/icons/CheckedRadio.svg";
-import UnCheckedRadio from "public/icons/UnCheckedRadio.svg";
+import CheckedRadio from "public/icons/check/CheckedRadio.svg";
+import UnCheckedRadio from "public/icons/check/UnCheckedRadio.svg";
 
 type RadioData = {
   id: number;

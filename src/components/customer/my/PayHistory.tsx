@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import RightIcon from "public/icons/Right.svg";
+import RightIcon from "public/icons/direction/Right.svg";
 import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
 

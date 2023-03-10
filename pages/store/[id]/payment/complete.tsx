@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import { Colors, Texts } from "styles/common";
-import Check from "public/icons/Check.svg";
+import Check from "public/icons/check/Check.svg";
 
 const wrapper = css`
   padding: 14.625rem 0 16.313rem 0;

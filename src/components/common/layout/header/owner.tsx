@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Owner from "public/images/logo/Owner.svg";
-import Hamburger from "public/icons/Hamburger.svg";
-import Close from "public/icons/Close.svg";
-import ArrowLeft from "public/icons/ArrowLeft.svg";
-import Check from "public/icons/Check.svg";
+import Hamburger from "public/icons/menu/Hamburger.svg";
+import Close from "public/icons/close/Close.svg";
+import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
+import Check from "public/icons/check/Check.svg";
 import { Colors, Texts } from "styles/common";
 
 type OwnerHeaderProps = {

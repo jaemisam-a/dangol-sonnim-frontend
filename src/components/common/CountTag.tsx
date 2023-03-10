@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Check from "public/icons/Check.svg";
+import Check from "public/icons/check/Check.svg";
 
 type CountTagProps = {
   useCount: string;

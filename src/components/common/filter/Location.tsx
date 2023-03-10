@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import ArrowDown from "public/icons/ArrowDown.svg";
+import Down from "public/icons/direction/Down.svg";
 import BottomSheet from "common/BottomSheet";
 import Radio from "customer/main/Radio";
 import { Texts } from "styles/common";
@@ -37,7 +37,7 @@ const Location = ({ isSearchPage }: LocationProps) => {
       <div css={subText(isSearchPage as boolean)}>지금 보고있는 지역은</div>
       <div css={locationWrapper} onClick={() => setIsOpen(true)}>
         <span css={locationName(isSearchPage as boolean)}>{checkedLocation.content}</span>
-        <ArrowDown width="14" height="14" stroke="black" />
+        <Down width="14" height="14" stroke="black" />
       </div>
       <BottomSheet
         height="18.125rem"

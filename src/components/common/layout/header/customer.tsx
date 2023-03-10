@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Share from "public/icons/Share.svg";
-import ArrowLeft from "public/icons/ArrowLeft.svg";
-import Kebab from "public/icons/Kebab.svg";
+import Share from "public/icons/etc/Share.svg";
+import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
+import Kebab from "public/icons/menu/Kebab.svg";
 import useLoginStore from "src/store/login";
 
 type HeaderProps = {

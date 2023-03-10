@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import ArrowDown from "public/icons/ArrowDown.svg";
+import Down from "public/icons/direction/Down.svg";
 import BottomSheet from "common/BottomSheet";
 import Radio from "customer/main/Radio";
 import { Texts } from "styles/common";
@@ -31,7 +31,7 @@ const Sort = ({ isSearchPage }: SortProps) => {
     <>
       <div css={wrapper} onClick={() => setIsOpen(true)}>
         <span css={sortText(isSearchPage as boolean)}>{checkedSort.content}</span>
-        <ArrowDown width="14" height="14" stroke="#14181F" />
+        <Down width="14" height="14" stroke="#14181F" />
       </div>
       <BottomSheet
         height="10.625rem"
