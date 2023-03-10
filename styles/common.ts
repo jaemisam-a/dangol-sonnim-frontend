@@ -262,3 +262,13 @@ export const Colors = {
   red20: "#FC6C7B",
   red10: "#FFABB6",
 };
+
+export const fullAmberButtonStyle = css`
+  width: 100%;
+  margin: 3.625rem 0 2.25rem;
+  padding: 0.938rem 0;
+  border-radius: 0.25rem;
+  background-color: ${Colors.amber50};
+  color: ${Colors.white};
+  ${Texts.S3_18_M}
+`;
