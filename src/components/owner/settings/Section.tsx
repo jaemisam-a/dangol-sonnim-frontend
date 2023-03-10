@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { css } from "@emotion/react";
 
-import Kebab from "public/icons/Kebab.svg";
+import Kebab from "public/icons/menu/Kebab.svg";
 import { Colors, Texts } from "styles/common";
 
 type StoreSectionProps = {
