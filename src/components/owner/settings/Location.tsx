@@ -3,8 +3,8 @@ import { css } from "@emotion/react";
 
 import StoreSection from "owner/settings/Section";
 import SettingButton from "owner/settings/SettingButton";
-import MapPin from "public/icons/MapPin.svg";
-import Clock from "public/icons/Clock.svg";
+import MapPin from "public/icons/location/MapPin.svg";
+import Clock from "public/icons/etc/Clock.svg";
 import EditPencil from "public/icons/EditPencil.svg";
 import { Colors, Texts } from "styles/common";
 

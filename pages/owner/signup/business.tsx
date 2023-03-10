@@ -150,7 +150,6 @@ const Business = () => {
           <div>
             <span css={labelStyle}>사업자등록번호</span>
             <TextInput
-              width={"100%"}
               state={businessNumber}
               setState={setBusinessNumber}
               placeholder="‘-’ 입력없이 숫자 10자리"
@@ -159,7 +158,7 @@ const Business = () => {
           </div>
           <div>
             <span css={labelStyle}>대표자성명</span>
-            <TextInput width={"100%"} state={name} setState={setName} type="text" />
+            <TextInput state={name} setState={setName} type="text" />
           </div>
           <div>
             <span css={labelStyle}>개업일자</span>
