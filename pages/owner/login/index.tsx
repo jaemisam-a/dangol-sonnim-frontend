@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
@@ -110,9 +111,9 @@ const OwnerLogin = () => {
             </button>
           </form>
           <div css={smallButtonWrapper}>
-            <button onClick={() => push("/owner/login/signup")}>회원가입</button>
+            <Link href="/owner/signup">회원가입</Link>
             <span>|</span>
-            <button>비밀번호 찾기</button>
+            <Link href="/owner/login/password">비밀번호 찾기</Link>
           </div>
         </div>
       </Layout>
