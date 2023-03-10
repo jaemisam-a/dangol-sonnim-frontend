@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import TextInput from "common/input/Text";
+import TextInput, { TextInputType } from "common/input/Text";
 import { Colors, Texts } from "styles/common";
 import Owner from "public/images/logo/Owner.svg";
 
@@ -21,6 +21,10 @@ const logoWrapper = css`
   gap: 3px;
   padding-left: 1.5rem;
   margin-bottom: 2rem;
+`;
+
+const formWrapper = css`
+  width: 100%;
 `;
 
 const inputWrapper = css`
@@ -61,15 +65,20 @@ const OwnerLogin = () => {
   const { push } = useRouter();
 
   const [inputData, setInputData] = useState({ email: "", password: "" });
-  const inputArr = [
-    { objectKey: "email", placeholder: "이메일을 입력해주세요" },
-    { objectKey: "password", placeholder: "비밀번호를 입력해주세요", inputType: "password" },
+  const inputArr: TextInputType[] = [
+    { objectKey: "email", placeholder: "이메일을 입력해주세요", type: "email" },
+    {
+      objectKey: "password",
+      placeholder: "비밀번호를 입력해주세요",
+      type: "password",
+      minValue: 8,
+      maxValue: 16,
+    },
   ];
 
-  const login = () => {
+  const login = (e: FormEvent<HTMLFormElement>) => {
     // TODO: 로그인 API 추가
-    if (!inputData.email.length || !inputData.password.length)
-      return alert("이메일과 비밀번호를 입력해주세요.");
+    e.preventDefault();
     push("/owner");
   };
 
@@ -81,22 +90,25 @@ const OwnerLogin = () => {
             <Image src="/images/logo/Logo.png" alt="로고" width={43} height={57} />
             <Owner />
           </div>
-          <form css={inputWrapper}>
-            {inputArr.map((el) => (
-              <TextInput
-                key={el.objectKey}
-                state={inputData[el.objectKey as "email" | "password"]}
-                width="100%"
-                objectKey={el.objectKey}
-                setState={setInputData}
-                placeholder={el.placeholder}
-                inputType={el.inputType as "password"}
-              />
-            ))}
+          <form onSubmit={login} css={formWrapper}>
+            <div css={inputWrapper}>
+              {inputArr.map((el) => (
+                <TextInput
+                  key={el.objectKey}
+                  state={inputData[el.objectKey as "email" | "password"]}
+                  objectKey={el.objectKey}
+                  setState={setInputData}
+                  placeholder={el.placeholder}
+                  type={el.type}
+                  maxValue={el.maxValue}
+                  minValue={el.minValue}
+                />
+              ))}
+            </div>
+            <button type="submit" css={loginButton}>
+              로그인
+            </button>
           </form>
-          <button css={loginButton} onClick={login}>
-            로그인
-          </button>
           <div css={smallButtonWrapper}>
             <button onClick={() => push("/owner/login/signup")}>회원가입</button>
             <span>|</span>
