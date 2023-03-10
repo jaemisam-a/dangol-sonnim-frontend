@@ -10,6 +10,7 @@ import { Colors, fullAmberButtonStyle, Texts } from "styles/common";
 const formWrapper = css`
   padding: 5.625rem 1.25rem;
   text-align: center;
+
   h1 {
     color: ${Colors.neutral80};
     ${Texts.S1_16_M}
@@ -22,7 +23,7 @@ const linkWrapper = css`
   gap: 0.5rem;
   justify-content: center;
   ${Texts.B3_15_R2}
-  color:${Colors.neutral70};
+  color: ${Colors.neutral70};
 
   span {
     color: ${Colors.neutral60};
@@ -43,11 +44,12 @@ const Setting = () => {
     <Layout title="비밀번호 재설정" subTitle="비밀번호 재설정">
       <form onSubmit={saveNewPw} css={formWrapper}>
         <TextInput
-          width="100%"
-          inputType="search"
+          type="text"
           placeholder="새 비밀번호를 입력해주세요"
           state={pw}
           setState={setPw}
+          minValue={8}
+          maxValue={16}
         />
         <button type="submit" css={fullAmberButtonStyle}>
           비밀번호 저장

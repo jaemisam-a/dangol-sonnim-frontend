@@ -22,7 +22,7 @@ const linkWrapper = css`
   gap: 0.5rem;
   justify-content: center;
   ${Texts.B3_15_R2}
-  color:${Colors.neutral70};
+  color: ${Colors.neutral70};
 
   span {
     color: ${Colors.neutral60};
@@ -43,8 +43,7 @@ const FindPassword = () => {
       <form onSubmit={submitEmail} css={formWrapper}>
         <h1>비밀번호 재설정을 위해 이메일 주소를 입력해주세요 (메일 발송 1~2분 소요)</h1>
         <TextInput
-          width="100%"
-          inputType="search"
+          type="email"
           placeholder="이메일을 입력해주세요"
           state={email}
           setState={setEmail}
