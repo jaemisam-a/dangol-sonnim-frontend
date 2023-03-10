@@ -5,7 +5,7 @@ import StoreSection from "owner/settings/Section";
 
 const Menus = () => {
   return (
-    <StoreSection sectionTitle="메뉴" isLocation={false} isRegistration={false}>
+    <StoreSection sectionTitle="메뉴" isLocation={false} isEmpty={true}>
       <Empty
         backgroundColor="transparent"
         description={"현재 등록된 메뉴가 없습니다.\n메뉴를 등록해주세요."}

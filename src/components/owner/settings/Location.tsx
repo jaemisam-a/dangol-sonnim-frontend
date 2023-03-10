@@ -66,7 +66,11 @@ const Location = (props: LocationProps) => {
           <span css={openHourStyle}>{props.openHour}</span>
         </div>
       </StoreSection>
-      <SettingButton heading="가게 정보 설정" icon={<EditPencil />} />
+      <SettingButton
+        heading="가게 정보 설정"
+        icon={<EditPencil />}
+        action={() => alert("가게 정보 설정!")}
+      />
     </>
   );
 };

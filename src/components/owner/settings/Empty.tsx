@@ -10,11 +10,11 @@ type EmptyProps = {
   isTop: boolean;
 };
 
-const wrapper = (backgroundColor: string, top: boolean) => css`
+const wrapper = (backgroundColor: string, isTop: boolean) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: ${top ? "1.875rem" : "1.5rem"} 0;
+  padding: ${isTop ? "1.875rem" : "1.5rem"} 0;
   background-color: ${backgroundColor};
   gap: 1rem;
 

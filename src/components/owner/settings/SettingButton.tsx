@@ -6,6 +6,7 @@ import { Colors, Texts } from "styles/common";
 type SettingButtonProps = {
   icon: ReactElement;
   heading: string;
+  action: () => void;
 };
 
 const wrapper = css`
@@ -26,7 +27,7 @@ const icon = css`
 
 const SettingButton = (props: SettingButtonProps) => {
   return (
-    <button css={wrapper}>
+    <button css={wrapper} onClick={props.action}>
       <div css={icon}>{props.icon}</div>
       <div>{props.heading}</div>
     </button>

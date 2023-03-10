@@ -5,7 +5,7 @@ import StoreSection from "owner/settings/Section";
 
 const Subs = () => {
   return (
-    <StoreSection sectionTitle="구독권" isLocation={false} isRegistration={false}>
+    <StoreSection sectionTitle="구독권" isLocation={false} isEmpty={true}>
       <Empty
         backgroundColor="transparent"
         description={"현재 등록된 구독권이 없습니다.\n구독권을 등록해주세요."}

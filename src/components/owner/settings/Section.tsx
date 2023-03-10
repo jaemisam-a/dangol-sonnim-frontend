@@ -9,7 +9,7 @@ type StoreSectionProps = {
   sectionTitle: string;
   menuCount?: number;
   isLocation: boolean;
-  isRegistration?: boolean;
+  isEmpty?: boolean;
 };
 
 const wrapper = css`
@@ -53,12 +53,12 @@ const StoreSection = (props: StoreSectionProps) => {
             <div css={count}>{props.menuCount}</div>
           </div>
           {!props.isLocation &&
-            (props.isRegistration ? (
+            (props.isEmpty ? (
+              <button css={registrationButton}>{props.sectionTitle} 등록</button>
+            ) : (
               <div>
                 <Kebab />
               </div>
-            ) : (
-              <button css={registrationButton}>{props.sectionTitle} 등록</button>
             ))}
         </div>
         {props.children}
