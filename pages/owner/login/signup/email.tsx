@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Layout from "common/layout";
-import InputSection from "common/input/Section";
+import InputWithButton from "common/input/WithButton";
 import { Colors, Texts } from "styles/common";
 
 const wrapper = css`
@@ -61,10 +61,10 @@ const OwnerSignupEmail = () => {
     <Layout title="사장님 회원가입" subTitle="인증번호 입력">
       <form onSubmit={submitAccount} css={wrapper}>
         <div css={description}>{query.email}으로 인증번호를 보냈어요</div>
-        <InputSection
+        <InputWithButton
           isInBottomSheet={false}
           type="number"
-          btn="확인"
+          btnName="확인"
           placeholder="인증번호를 입력해주세요"
           btnAction={checkAuthNumber}
           state={String(authNumber)}

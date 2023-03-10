@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/Avatar";
-import InputSection, { InputSectionType } from "common/input/Section";
+import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
 import Checkbox from "common/input/Checkbox";
 import { InputStatus } from "common/input/Text";
 
@@ -62,7 +62,7 @@ const AddProfile = () => {
     phoneAuth: "",
     birthday: "",
   });
-  const [inputArr, setInputArr] = useState<InputSectionType[]>([]);
+  const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
 
   const submitAccount = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ const AddProfile = () => {
     if (!profileData.phone) return alert("전화번호를 입력하세요.");
     setInputArr((prev) => [
       prev[0],
-      { ...prev[1], btn: "재전송" },
+      { ...prev[1], btnName: "재전송" },
       { ...prev[2], isHidden: false },
       prev[3],
     ]);
@@ -105,7 +105,7 @@ const AddProfile = () => {
       {
         label: "닉네임",
         placeholder: "닉네임 입력",
-        btn: "중복확인",
+        btnName: "중복확인",
         isRequired: true,
         btnAction: checkValid,
         inputStatusMessage: { success: "사용가능한 닉네임입니다.", error: "중복된 닉네임입니다." },
@@ -117,14 +117,14 @@ const AddProfile = () => {
       {
         label: "휴대폰 번호",
         placeholder: "휴대폰 번호 입력('-'제외)",
-        btn: "인증요청",
+        btnName: "인증요청",
         isRequired: true,
         btnAction: requestAuth,
         objectKey: "phone",
         type: "number",
       },
       {
-        btn: "문자인증",
+        btnName: "문자인증",
         btnAction: checkAuth,
         inputStatusMessage: {
           success: "인증되었습니다.",
@@ -170,10 +170,10 @@ const AddProfile = () => {
         <Avatar />
         <div css={inputList}>
           {inputArr.map((el, idx) => (
-            <InputSection
+            <InputWithButton
               label={el.label}
               placeholder={el.placeholder}
-              btn={el.btn}
+              btnName={el.btnName}
               isInBottomSheet={false}
               key={idx}
               isRequired={el.isRequired}

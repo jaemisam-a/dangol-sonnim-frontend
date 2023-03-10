@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import InputSection, { InputSectionType } from "common/input/Section";
+import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
 import Consent from "common/Consent";
 import { Colors, Texts } from "styles/common";
 import { InputStatus, InputType } from "common/input/Text";
@@ -41,7 +41,7 @@ const OwnerSignup = () => {
   const { push } = useRouter();
 
   const [inputData, setInputData] = useState({ email: "", password: "", phone: "", phoneAuth: "" });
-  const [inputArr, setInputArr] = useState<InputSectionType[]>([]);
+  const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", "", ""]);
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
 
@@ -59,7 +59,7 @@ const OwnerSignup = () => {
     setInputArr((prev) => [
       prev[0],
       prev[1],
-      { ...prev[2], btn: "재전송" },
+      { ...prev[2], btnName: "재전송" },
       { ...prev[3], isHidden: false },
     ]);
     setInputStatus((prev) => [prev[0], prev[1], prev[2], "info"]);
@@ -88,11 +88,11 @@ const OwnerSignup = () => {
         objectKey: "phone",
         placeholder: "핸드폰 번호 입력",
         type: "number",
-        btn: "발송",
+        btnName: "발송",
         btnAction: requestAuth,
       },
       {
-        btn: "문자인증",
+        btnName: "문자인증",
         btnAction: checkAuth,
         inputStatusMessage: {
           success: "인증되었습니다.",
@@ -129,13 +129,13 @@ const OwnerSignup = () => {
       <form onSubmit={goNext} css={wrapper}>
         <div css={inputWrapper}>
           {inputArr.map((el, idx) => (
-            <InputSection
+            <InputWithButton
               key={el.objectKey}
               type={el.type as InputType}
               isInBottomSheet={false}
               state={inputData[el.objectKey as "email" | "password" | "phone" | "phoneAuth"]}
               placeholder={el.placeholder}
-              btn={el.btn}
+              btnName={el.btnName}
               setState={setInputData}
               btnAction={el.btnAction}
               objectKey={el.objectKey}

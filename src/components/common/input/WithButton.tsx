@@ -4,10 +4,9 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import TextInput, { InputStatus, TextInputType } from "common/input/Text";
 
-export type InputSectionType = {
+export type InputWithButtonType = {
   label?: string;
-  // 버튼 이름
-  btn?: string;
+  btnName?: string;
   // 라벨 옆 * 유무
   isRequired?: boolean;
   btnAction?: () => void;
@@ -15,12 +14,12 @@ export type InputSectionType = {
   isHidden?: boolean;
 } & TextInputType;
 
-type InputSectionProps = {
+type InputWithButtonProps = {
   // 바텀시트 내부에 있는지
   isInBottomSheet: boolean;
   inputStatus?: InputStatus;
   state: string;
-} & InputSectionType;
+} & InputWithButtonType;
 
 const inputWrapper = css`
   display: flex;
@@ -49,14 +48,14 @@ const inputBtn = (state?: InputStatus) => css`
 
 const inputLabel = (isInBottomSheet: boolean) => css`
   ${isInBottomSheet ? Texts.S1_16_B : Texts.B3_15_M2}
-  color: ${isInBottomSheet ? "black" : Colors.neutral80};
+  color: ${isInBottomSheet ? Colors.black : Colors.neutral80};
 
   span {
     color: ${Colors.amber50};
   }
 `;
 
-const InputSection = (props: InputSectionProps) => {
+const InputWithButton = (props: InputWithButtonProps) => {
   const BUTTON_WIDTH = "6.75rem";
 
   if (props.isHidden) return null;
@@ -72,7 +71,7 @@ const InputSection = (props: InputSectionProps) => {
         )}
         <div css={inputBtnWrapper}>
           <TextInput
-            wrapperWidth={props.btn ? `calc(100% - ${BUTTON_WIDTH})` : "100%"}
+            wrapperWidth={props.btnName ? `calc(100% - ${BUTTON_WIDTH})` : "100%"}
             placeholder={props.placeholder}
             inputStatus={props.inputStatus}
             inputStatusMessage={props.inputStatusMessage}
@@ -83,9 +82,9 @@ const InputSection = (props: InputSectionProps) => {
             minValue={props.minValue}
             maxValue={props.maxValue}
           />
-          {props.btn && (
+          {props.btnName && (
             <button type="button" css={inputBtn(props.inputStatus)} onClick={props.btnAction}>
-              {props.btn}
+              {props.btnName}
             </button>
           )}
         </div>
@@ -94,4 +93,4 @@ const InputSection = (props: InputSectionProps) => {
   );
 };
 
-export default InputSection;
+export default InputWithButton;
