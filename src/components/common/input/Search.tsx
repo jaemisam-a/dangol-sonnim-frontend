@@ -9,7 +9,7 @@ type SearchBarProps = {
   isCustomer: boolean;
   placeholder: string;
   setState?: Dispatch<SetStateAction<string>>;
-  mutate: any;
+  mutate?: any;
 };
 
 const inputWrapper = css`
