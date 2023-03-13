@@ -7,7 +7,7 @@ import { css } from "@emotion/react";
 import Layout from "common/layout";
 import SearchBar from "common/input/Search";
 import LocationList, { checkedAddrType } from "common/LocationList";
-import Spinner from "common/Spinner";
+import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 
 const wrapper = css`
