@@ -10,6 +10,7 @@ type SearchBarProps = {
   placeholder: string;
   setState?: Dispatch<SetStateAction<string>>;
   mutate?: any;
+  setIsSearching?: Dispatch<SetStateAction<boolean>>;
 };
 
 const inputWrapper = css`
@@ -53,6 +54,7 @@ const SearchBar = (props: SearchBarProps) => {
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     if (e.key === "Enter" && target.value != "") {
+      props.setIsSearching && props.setIsSearching(true);
       props.mutate();
     }
   };
@@ -60,6 +62,7 @@ const SearchBar = (props: SearchBarProps) => {
   const onClickSearch = () => {
     const input = inputRef.current as HTMLInputElement;
     if (input.value !== "") {
+      props.setIsSearching && props.setIsSearching(true);
       props.mutate();
     }
   };

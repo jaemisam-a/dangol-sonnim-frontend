@@ -5,7 +5,7 @@ import { Colors, Texts } from "styles/common";
 import CheckedRadio from "public/icons/check/CheckedRadio.svg";
 import UnCheckedRadio from "public/icons/check/UnCheckedRadio.svg";
 
-export type checkedAddrType = { roadAddr: string; idx: number | null };
+export type checkedAddrType = { roadAddr: string };
 
 type LocationListProps = {
   idx: number;
@@ -39,6 +39,7 @@ const roadArr = css`
 const jibunWrapper = css`
   display: flex;
   gap: 0.438rem;
+  align-items: center;
 `;
 
 const jibunTag = css`
@@ -48,6 +49,8 @@ const jibunTag = css`
   border-radius: 7.5rem;
   background-color: ${Colors.amber50};
   color: white;
+  white-space: nowrap;
+  height: fit-content;
   ${Texts.C1_11_B}
 `;
 
@@ -62,7 +65,7 @@ const radioButton = css`
 
 const LocationList = (props: LocationListProps) => {
   const handleRadio = () => {
-    props.setCheckedAddr({ roadAddr: props.roadAddr, idx: props.idx });
+    props.setCheckedAddr({ roadAddr: props.roadAddr });
   };
 
   return (
@@ -75,7 +78,7 @@ const LocationList = (props: LocationListProps) => {
         </div>
       </div>
       <button css={radioButton} onClick={handleRadio}>
-        {props.idx === props.checkedAddr.idx ? <CheckedRadio /> : <UnCheckedRadio />}
+        {props.roadAddr === props.checkedAddr.roadAddr ? <CheckedRadio /> : <UnCheckedRadio />}
       </button>
     </div>
   );

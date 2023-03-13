@@ -7,20 +7,33 @@ import { css } from "@emotion/react";
 import Layout from "common/layout";
 import SearchBar from "common/input/Search";
 import LocationList, { checkedAddrType } from "common/LocationList";
+import Spinner from "common/Spinner";
+import { Colors, Texts } from "styles/common";
 
 const wrapper = css`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 1.25rem 0 1.25rem;
+`;
+
+const centerDiv = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30vh;
+  color: ${Colors.neutral80};
+  ${Texts.S3_18_M}
 `;
 
 const SettingsLocation = () => {
   const [ref, inView] = useInView();
   const [query, setQuery] = useState("");
-  const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({ roadAddr: "", idx: null });
+  const [isSearching, setIsSearching] = useState(false);
+  const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({ roadAddr: "" });
 
-  const { data, refetch, fetchNextPage } = useInfiniteQuery(
+  const { data, isLoading, refetch, fetchNextPage } = useInfiniteQuery(
     "location",
     ({ pageParam = 1 }) =>
       axios
@@ -39,6 +52,7 @@ const SettingsLocation = () => {
     {
       getNextPageParam: (lastPage: any) =>
         Number(JSON.parse(lastPage.data.slice(1, -1)).results.common.currentPage) + 1,
+      enabled: isSearching,
     }
   );
 
@@ -65,25 +79,36 @@ const SettingsLocation = () => {
           placeholder="언주로 170"
           setState={setQuery}
           mutate={refetch}
+          setIsSearching={setIsSearching}
         />
         <div>
-          {locationListData &&
-            data?.pages.map((res: any) => {
-              const locationData = JSON.parse(res.data.slice(1, -1)).results.juso;
-              if (!locationData) return;
-              return locationData.map((el: any, idx: number) => (
-                <LocationList
-                  key={el.roadAddr}
-                  idx={idx}
-                  jibunAddr={el.jibunAddr}
-                  roadAddr={el.roadAddr}
-                  checkedAddr={checkedAddr}
-                  setCheckedAddr={setCheckedAddr}
-                  lastRef={ref}
-                  dataLength={locationData.length}
-                />
-              ));
-            })}
+          {isLoading ? (
+            <div css={centerDiv}>
+              <Spinner />
+            </div>
+          ) : (
+            locationListData &&
+            (locationListData.juso ? (
+              data?.pages.map((res: any) => {
+                const locationData = JSON.parse(res.data.slice(1, -1)).results.juso;
+                if (!locationData) return;
+                return locationData.map((el: any, idx: number) => (
+                  <LocationList
+                    key={el.roadAddr}
+                    idx={idx}
+                    jibunAddr={el.jibunAddr}
+                    roadAddr={el.roadAddr}
+                    checkedAddr={checkedAddr}
+                    setCheckedAddr={setCheckedAddr}
+                    lastRef={ref}
+                    dataLength={locationData.length}
+                  />
+                ));
+              })
+            ) : (
+              <div css={centerDiv}>검색결과가 없습니다.</div>
+            ))
+          )}
         </div>
       </div>
     </Layout>
