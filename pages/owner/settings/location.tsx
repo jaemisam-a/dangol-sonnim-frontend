@@ -33,7 +33,7 @@ const SettingsLocation = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({ roadAddr: "" });
 
-  const { data, isLoading, refetch, fetchNextPage } = useInfiniteQuery(
+  const { data, isFetching, refetch, fetchNextPage } = useInfiniteQuery(
     "location",
     ({ pageParam = 1 }) =>
       axios
@@ -82,13 +82,13 @@ const SettingsLocation = () => {
           setIsSearching={setIsSearching}
         />
         <div>
-          {isLoading ? (
+          {isFetching ? (
             <div css={centerDiv}>
               <Spinner />
             </div>
           ) : (
             locationListData &&
-            (locationListData.juso ? (
+            (locationListData.juso?.length ? (
               data?.pages.map((res: any) => {
                 const locationData = JSON.parse(res.data.slice(1, -1)).results.juso;
                 if (!locationData) return;
