@@ -8,10 +8,10 @@ import StoreThumbnailList from "common/storeThumbnail/List";
 import Location from "common/filter/Location";
 import Sort from "common/filter/Sort";
 import Category from "customer/main/Category";
-import SearchBar from "customer/main/SearchBar";
 import CouponSlider from "customer/main/CouponSlider";
 import useLoginStore from "src/store/login";
 import { StoreData } from "pages/api/store";
+import SearchBar from "common/input/Search";
 
 const MOCK_MYCOUPON = [
   {
@@ -90,7 +90,7 @@ const Home = () => {
   return (
     <Layout title="단골손님">
       <div css={searchBar}>
-        <SearchBar />
+        <SearchBar isCustomer placeholder="음식 이름, 구독권 이름 검색" />
       </div>
       {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
       <div css={location}>
