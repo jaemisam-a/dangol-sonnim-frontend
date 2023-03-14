@@ -75,6 +75,7 @@ const global = css`
     outline: 0;
     cursor: pointer;
     padding: 0;
+    background-color: transparent;
   }
 
   ul,

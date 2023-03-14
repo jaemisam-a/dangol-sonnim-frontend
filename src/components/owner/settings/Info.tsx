@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import categoryIdToString from "src/utils/categoryIdToString";
+import { categoryIdToString } from "src/utils/category";
 import { Colors, Texts } from "styles/common";
 
 type InfoProps = {

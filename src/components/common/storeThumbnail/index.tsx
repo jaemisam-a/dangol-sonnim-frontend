@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Tag from "common/Tag";
+import Tag from "common/tag/TagCustomer";
 import Pick from "public/icons/etc/Pick.svg";
-import categoryIdToString from "src/utils/categoryIdToString";
+import { categoryIdToString } from "src/utils/category";
 
 export type ThumbnailData = {
   id: string;

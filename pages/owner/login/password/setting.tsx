@@ -29,6 +29,11 @@ const linkWrapper = css`
     color: ${Colors.neutral60};
   }
 `;
+
+const buttonStyle = css`
+  margin: 3.625rem 0 2.25rem;
+`;
+
 const Setting = () => {
   const { push } = useRouter();
 
@@ -51,7 +56,7 @@ const Setting = () => {
           minValue={8}
           maxValue={16}
         />
-        <button type="submit" css={fullAmberButtonStyle}>
+        <button type="submit" css={[fullAmberButtonStyle, buttonStyle]}>
           비밀번호 저장
         </button>
         <div css={linkWrapper}>

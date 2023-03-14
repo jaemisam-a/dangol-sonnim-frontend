@@ -3,7 +3,13 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
-const Tag = ({ text, bgColor, bold }: { text: string; bgColor?: string; bold?: boolean }) => {
+type TagProps = {
+  text: string;
+  bgColor?: string;
+  bold?: boolean;
+};
+
+const Tag = ({ text, bgColor, bold }: TagProps) => {
   const tagStyle = css`
     background-color: ${bgColor ?? Colors.amber50};
     color: ${Colors.white};

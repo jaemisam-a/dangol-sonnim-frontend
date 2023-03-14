@@ -3,10 +3,10 @@ import { css } from "@emotion/react";
 import Image from "next/image";
 
 import { Colors, Texts } from "styles/common";
-import Tag from "common/Tag";
+import Tag from "common/tag/TagCustomer";
 import Slider from "common/Slider";
 import Pick from "public/icons/etc/Pick.svg";
-import categoryIdToString from "src/utils/categoryIdToString";
+import { categoryIdToString } from "src/utils/category";
 
 type InfoProps = {
   infoContent: {

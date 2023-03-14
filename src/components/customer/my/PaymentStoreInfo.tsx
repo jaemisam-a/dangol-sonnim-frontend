@@ -3,7 +3,7 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import { ThumbnailData } from "common/storeThumbnail";
-import Tag from "common/Tag";
+import Tag from "common/tag/TagCustomer";
 import { Colors, Texts } from "styles/common";
 
 type StoreThumbnailProps = {

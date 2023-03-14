@@ -7,7 +7,7 @@ import { css } from "@emotion/react";
 import TextInput from "common/input/Text";
 import Layout from "common/layout";
 import FullPageSpinner from "common/spinner/FullPage";
-import { Colors, Texts } from "styles/common";
+import { Colors, selectStyle, Texts } from "styles/common";
 
 type dateType = { year: string; month: string; day: string };
 
@@ -37,15 +37,6 @@ const labelStyle = css`
 const dateStyle = css`
   display: flex;
   gap: 1rem;
-
-  & select {
-    border: 1px solid ${Colors.neutral30};
-    border-radius: 0.25rem;
-    padding: 0.75rem 1.063rem 0.75rem 0.75rem;
-    width: 100%;
-    appearance: none;
-    background: url("/icons/ArrowDownGrey.svg") no-repeat right 12px center;
-  }
 `;
 
 const submitButtom = css`
@@ -165,6 +156,7 @@ const Business = () => {
             <div css={dateStyle}>
               {selectElementsData.map((el) => (
                 <select
+                  css={selectStyle}
                   key={el.name}
                   name={el.name}
                   id={el.name}
