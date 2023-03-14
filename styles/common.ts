@@ -265,10 +265,19 @@ export const Colors = {
 
 export const fullAmberButtonStyle = css`
   width: 100%;
-  margin: 3.625rem 0 2.25rem;
   padding: 0.938rem 0;
   border-radius: 0.25rem;
   background-color: ${Colors.amber50};
   color: ${Colors.white};
   ${Texts.S3_18_M}
+`;
+
+export const selectStyle = css`
+  border: 1px solid ${Colors.neutral30};
+  border-radius: 0.25rem;
+  padding: 0.75rem 1.063rem 0.75rem 0.75rem;
+  width: 100%;
+  appearance: none;
+  background: url("/icons/ArrowDownGrey.svg") no-repeat right 12px center;
+  ${Texts.B3_15_M2}
 `;
