@@ -1,4 +1,5 @@
 import React, { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef } from "react";
+import { useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -43,6 +44,7 @@ const searchIcon = css`
 const SearchBar = (props: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const goToSearch = () => {
     router.push("/search");
@@ -56,6 +58,7 @@ const SearchBar = (props: SearchBarProps) => {
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     if (e.key === "Enter" && target.value != "") {
+      queryClient.removeQueries("location");
       props.setIsSearching && props.setIsSearching(true);
       props
         .mutate()
@@ -68,6 +71,7 @@ const SearchBar = (props: SearchBarProps) => {
   const onClickSearch = () => {
     const input = inputRef.current as HTMLInputElement;
     if (input.value !== "") {
+      queryClient.removeQueries("location");
       props.setIsSearching && props.setIsSearching(true);
       props
         .mutate()
