@@ -61,11 +61,11 @@ const openTimeStyle = css`
   flex-grow: 0;
 `;
 
-const buttonStyle = (isCorrect: boolean) => css`
+const buttonStyle = (isFilled: boolean) => css`
   margin: 0.75rem 0 3rem;
-  cursor: ${isCorrect ? "pointer" : "default"};
-  color: ${isCorrect ? Colors.white : Colors.neutral50};
-  background-color: ${isCorrect ? Colors.amber50 : Colors.neutral20};
+  cursor: ${isFilled ? "pointer" : "default"};
+  color: ${isFilled ? Colors.white : Colors.neutral50};
+  background-color: ${isFilled ? Colors.amber50 : Colors.neutral20};
   ${Texts.S3_18_M}
 `;
 
@@ -79,14 +79,14 @@ const MyStoreSetting = () => {
     openTime: "",
     tags: [""],
   });
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
 
   const addStoreInfo = () => {
     // TODO: 가게 정보 저장
   };
 
   useEffect(() => {
-    setIsCorrect(Object.values(storeInfo).every((el) => el !== "" && el.length !== 0));
+    setIsFilled(Object.values(storeInfo).every((el) => el !== "" && el.length !== 0));
   }, [storeInfo]);
 
   return (
@@ -171,8 +171,8 @@ const MyStoreSetting = () => {
         <button
           type="button"
           onClick={addStoreInfo}
-          disabled={!isCorrect}
-          css={[fullAmberButtonStyle, buttonStyle(isCorrect)]}
+          disabled={!isFilled}
+          css={[fullAmberButtonStyle, buttonStyle(isFilled)]}
         >
           확인
         </button>
