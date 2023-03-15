@@ -22,7 +22,7 @@ const addressSearch = css`
   border: 1px ${Colors.neutral30} solid;
   border-radius: 0.25rem;
 
-  &:focus-within {
+  :focus-within {
     outline: 1px solid ${Colors.amber50};
   }
 
@@ -32,10 +32,6 @@ const addressSearch = css`
     padding: 0.688rem 0.75rem;
     outline: none;
     border: none;
-
-    &::-webkit-search-cancel-button {
-      -webkit-appearance: none;
-    }
   }
 
   svg {
@@ -129,7 +125,7 @@ const MyStoreSetting = () => {
         <InfoFormItem label="위치">
           <div css={addressSearch}>
             <input
-              type="search"
+              type="text"
               placeholder="주소 검색"
               onFocus={() => {
                 // TODO: 주소 검색 페이지로 이동
