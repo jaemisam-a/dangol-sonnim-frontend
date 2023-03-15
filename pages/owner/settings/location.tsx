@@ -27,9 +27,16 @@ const centerDiv = css`
   ${Texts.S3_18_M}
 `;
 
+const bottomSpinner = css`
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+`;
+
 const SettingsLocation = () => {
   const [ref, inView] = useInView();
   const [query, setQuery] = useState("");
+  const [previousQuery, setPreviousQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({ roadAddr: "" });
 
@@ -60,15 +67,24 @@ const SettingsLocation = () => {
 
   useEffect(() => {
     if (!data) return;
-    const { countPerpage, totalCount, currentpage } = locationListData;
+    const { countPerPage, totalCount, currentPage } = locationListData.common;
     /** 계속 fetch되는 것을 막기 위해 현재 페이지가 마지막 페이지라면 return */
+    const countPerPageNumber = parseInt(countPerPage);
+    const totalCountNumber = parseInt(totalCount);
+    const currentPageNumber = parseInt(currentPage);
     if (
-      (totalCount % countPerpage ? totalCount / countPerpage + 1 : totalCount / countPerpage) ===
-      currentpage
+      (totalCountNumber % countPerPageNumber
+        ? Math.floor(totalCountNumber / countPerPageNumber) + 1
+        : totalCountNumber / countPerPageNumber) === currentPageNumber ||
+      totalCountNumber <= countPerPageNumber
     )
       return;
     /** 마지막 ref가 보여지면 다음 페이지 fetch */
-    if (inView) fetchNextPage();
+    if (inView) {
+      setIsSearching(true);
+      fetchNextPage();
+      setIsSearching(false);
+    }
   }, [inView]);
 
   return (
@@ -80,31 +96,40 @@ const SettingsLocation = () => {
           setState={setQuery}
           mutate={refetch}
           setIsSearching={setIsSearching}
+          query={query}
+          setPreviousQuery={setPreviousQuery}
         />
         <div>
-          {isFetching ? (
+          {isFetching && (!locationListData || previousQuery !== query) ? (
             <div css={centerDiv}>
               <Spinner />
             </div>
           ) : (
             locationListData &&
             (locationListData.juso?.length ? (
-              data?.pages.map((res: any) => {
-                const locationData = JSON.parse(res.data.slice(1, -1)).results.juso;
-                if (!locationData) return;
-                return locationData.map((el: any, idx: number) => (
-                  <LocationList
-                    key={el.roadAddr}
-                    idx={idx}
-                    jibunAddr={el.jibunAddr}
-                    roadAddr={el.roadAddr}
-                    checkedAddr={checkedAddr}
-                    setCheckedAddr={setCheckedAddr}
-                    lastRef={ref}
-                    dataLength={locationData.length}
-                  />
-                ));
-              })
+              <>
+                {data?.pages.map((res: any) => {
+                  const locationData = JSON.parse(res.data.slice(1, -1)).results.juso;
+                  if (!locationData) return;
+                  return locationData.map((el: any, idx: number) => (
+                    <LocationList
+                      key={el.jibunAddr + el.roadAddr}
+                      idx={idx}
+                      jibunAddr={el.jibunAddr}
+                      roadAddr={el.roadAddr}
+                      checkedAddr={checkedAddr}
+                      setCheckedAddr={setCheckedAddr}
+                      lastRef={ref}
+                      dataLength={locationData.length}
+                    />
+                  ));
+                })}
+                {isFetching && (
+                  <div css={bottomSpinner}>
+                    <Spinner />
+                  </div>
+                )}
+              </>
             ) : (
               <div css={centerDiv}>검색결과가 없습니다.</div>
             ))

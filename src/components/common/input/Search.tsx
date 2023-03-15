@@ -11,6 +11,8 @@ type SearchBarProps = {
   setState?: Dispatch<SetStateAction<string>>;
   mutate?: any;
   setIsSearching?: Dispatch<SetStateAction<boolean>>;
+  query?: string;
+  setPreviousQuery?: Dispatch<SetStateAction<string>>;
 };
 
 const inputWrapper = css`
@@ -55,7 +57,11 @@ const SearchBar = (props: SearchBarProps) => {
     const target = e.target as HTMLInputElement;
     if (e.key === "Enter" && target.value != "") {
       props.setIsSearching && props.setIsSearching(true);
-      props.mutate();
+      props
+        .mutate()
+        .then(() => props.setPreviousQuery && props.setPreviousQuery(props.query || ""));
+
+      props.setIsSearching && props.setIsSearching(false);
     }
   };
 
@@ -63,7 +69,10 @@ const SearchBar = (props: SearchBarProps) => {
     const input = inputRef.current as HTMLInputElement;
     if (input.value !== "") {
       props.setIsSearching && props.setIsSearching(true);
-      props.mutate();
+      props
+        .mutate()
+        .then(() => props.setPreviousQuery && props.setPreviousQuery(props.query || ""));
+      props.setIsSearching && props.setIsSearching(false);
     }
   };
 
