@@ -4,7 +4,7 @@ export const categories = [
   { id: "3", name: "중식" },
   { id: "4", name: "일식" },
   { id: "5", name: "양식" },
-  { id: "6", name: "카페" },
+  { id: "6", name: "기타" },
 ];
 
 export const categoryIdToString = (categoryId: string): string => {

@@ -1,11 +1,29 @@
-import React, { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useState } from "react";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  KeyboardEvent,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { css } from "@emotion/react";
 
 import Tag from "common/tag/TagOwner";
 import { Colors, Texts } from "styles/common";
 
 type ServiceTagsProps = {
-  handleTags: (tag: string[]) => void;
+  setStoreInfo: Dispatch<
+    SetStateAction<{
+      name: string;
+      category: string;
+      description: string;
+      address: string;
+      openDay: string;
+      openTime: string;
+      tags: string[];
+    }>
+  >;
 };
 
 const desc = css`
@@ -83,11 +101,11 @@ const ServiceTags = (props: ServiceTagsProps) => {
   };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputText(e.target.value.trim());
+    setInputText(e.target.value);
   };
 
   useEffect(() => {
-    props.handleTags(Array.from(selectedTag));
+    props.setStoreInfo((prev) => ({ ...prev, tags: Array.from(selectedTag) }));
   }, [selectedTag]);
 
   return (
@@ -103,9 +121,9 @@ const ServiceTags = (props: ServiceTagsProps) => {
       <div css={inputWrapper}>
         {selectedTag.size !== 0 && (
           <div css={tagsWrapper}>
-            {Array.from(selectedTag).map((tag) => {
-              return <Tag key={tag} text={tag} enableDelete={true} onDeleteBtnClick={deleteTag} />;
-            })}
+            {Array.from(selectedTag).map((tag) => (
+              <Tag key={tag} text={tag} enableDelete={true} onDeleteBtnClick={deleteTag} />
+            ))}
           </div>
         )}
         <input

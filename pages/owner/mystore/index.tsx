@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
@@ -19,13 +19,23 @@ const addressSearch = css`
   position: relative;
   width: 100%;
   margin-bottom: 0.5rem;
+  border: 1px ${Colors.neutral30} solid;
+  border-radius: 0.25rem;
+
+  &:focus-within {
+    outline: 1px solid ${Colors.amber50};
+  }
 
   input {
     ${Texts.B3_15_R1}
-    border: 1px ${Colors.neutral30} solid;
-    border-radius: 4px;
     width: 100%;
     padding: 0.688rem 0.75rem;
+    outline: none;
+    border: none;
+
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+    }
   }
 
   svg {
@@ -40,7 +50,7 @@ const openHourWrapper = css`
   display: flex;
   gap: 1rem;
 
-  & > div {
+  div {
     min-width: 0;
   }
 `;
@@ -55,9 +65,14 @@ const openTimeStyle = css`
   flex-grow: 0;
 `;
 
-const buttonStyle = css`
+const buttonStyle = (isCorrect: boolean) => css`
   margin: 0.75rem 0 3rem;
+  cursor: ${isCorrect ? "pointer" : "default"};
+  color: ${isCorrect ? Colors.white : Colors.neutral50};
+  background-color: ${isCorrect ? Colors.amber50 : Colors.neutral20};
+  ${Texts.S3_18_M}
 `;
+
 const MyStoreSetting = () => {
   const [storeInfo, setStoreInfo] = useState({
     name: "",
@@ -68,14 +83,15 @@ const MyStoreSetting = () => {
     openTime: "",
     tags: [""],
   });
-
-  const addTags = (tags: string[]) => {
-    setStoreInfo((prev) => ({ ...prev, tags: tags }));
-  };
+  const [isCorrect, setIsCorrect] = useState(false);
 
   const addStoreInfo = () => {
     // TODO: 가게 정보 저장
   };
+
+  useEffect(() => {
+    setIsCorrect(Object.values(storeInfo).every((el) => el !== "" && el.length !== 0));
+  }, [storeInfo]);
 
   return (
     <Layout title="가게 정보 등록" subTitle="가게 정보 등록">
@@ -116,7 +132,7 @@ const MyStoreSetting = () => {
               type="search"
               placeholder="주소 검색"
               onFocus={() => {
-                // 주소 검색 페이지로 이동
+                // TODO: 주소 검색 페이지로 이동
               }}
             />
             <Search width={24} height={24} stroke={Colors.amber50} />
@@ -154,9 +170,14 @@ const MyStoreSetting = () => {
           </div>
         </InfoFormItem>
         <InfoFormItem label="서비스 태그">
-          <ServiceTags handleTags={(tags) => addTags(tags)} />
+          <ServiceTags setStoreInfo={setStoreInfo} />
         </InfoFormItem>
-        <button type="button" onClick={addStoreInfo} css={[fullAmberButtonStyle, buttonStyle]}>
+        <button
+          type="button"
+          onClick={addStoreInfo}
+          disabled={!isCorrect}
+          css={[fullAmberButtonStyle, buttonStyle(isCorrect)]}
+        >
           확인
         </button>
       </form>
