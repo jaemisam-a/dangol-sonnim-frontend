@@ -29,6 +29,10 @@ const linkWrapper = css`
   }
 `;
 
+const buttonStyle = css`
+  margin: 3.625rem 0 2.25rem;
+`;
+
 const FindPassword = () => {
   const [email, setEmail] = useState("");
 
@@ -48,7 +52,7 @@ const FindPassword = () => {
           state={email}
           setState={setEmail}
         />
-        <button type="submit" css={fullAmberButtonStyle}>
+        <button type="submit" css={[fullAmberButtonStyle, buttonStyle]}>
           메일 전송하기
         </button>
         <div css={linkWrapper}>
