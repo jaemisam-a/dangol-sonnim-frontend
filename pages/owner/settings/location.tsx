@@ -72,6 +72,7 @@ const SettingsLocation = () => {
     const countPerPageNumber = parseInt(countPerPage);
     const totalCountNumber = parseInt(totalCount);
     const currentPageNumber = parseInt(currentPage);
+
     if (
       (totalCountNumber % countPerPageNumber
         ? Math.floor(totalCountNumber / countPerPageNumber) + 1
