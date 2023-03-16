@@ -36,7 +36,6 @@ const SubsForm = () => {
   return (
     <form css={formWrapper}>
       <FormLabel label="구독권명">
-        기
         <TextInput
           type="text"
           maxValue={20}
@@ -60,7 +59,7 @@ const SubsForm = () => {
           <TextInput
             type="number"
             placeholder="제공 횟수 입력"
-            state={subsContent.count}
+            state={Math.floor(subsContent.count)}
             setState={setSubsContent}
             objectKey="count"
           />
@@ -70,7 +69,7 @@ const SubsForm = () => {
         <TextInput
           type="number"
           placeholder="가격 입력"
-          state={subsContent.price}
+          state={Math.floor(subsContent.price)}
           setState={setSubsContent}
           objectKey="price"
         />
