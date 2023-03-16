@@ -20,13 +20,13 @@ type LayoutProps = {
 
 const BOTTOM_NAV_HEIGHT = "3.875rem";
 
-const wrapper = (pathname: string) => css`
+const wrapper = (isOwner: boolean) => css`
   width: 100vw;
-  max-width: ${pathname.includes("/owner") ? "768px" : "480px"};
-  min-height: calc(100vh - ${BOTTOM_NAV_HEIGHT});
+  max-width: ${isOwner ? "768px" : "480px"};
+  min-height: calc(100vh - ${isOwner ? BOTTOM_NAV_HEIGHT : "0px"});
   margin: auto;
-  padding-bottom: ${pathname.includes("/owner") ? BOTTOM_NAV_HEIGHT : "0"};
-  box-shadow: rgb(130 130 130 / 15%) 0px ${pathname.includes("/owner") ? "1.25rem" : "0"} 1.25rem;
+  padding-bottom: ${isOwner ? BOTTOM_NAV_HEIGHT : "0"};
+  box-shadow: rgb(130 130 130 / 15%) 0px ${isOwner ? "1.25rem" : "0"} 1.25rem;
 `;
 
 const Layout = ({
@@ -41,12 +41,14 @@ const Layout = ({
 }: LayoutProps) => {
   const { pathname } = useRouter();
 
+  const isOwner = pathname.includes("/owner");
+
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      {pathname.includes("/owner") ? (
+      {isOwner ? (
         <>
           <OwnerHeader
             subTitle={subTitle}
@@ -55,15 +57,15 @@ const Layout = ({
             isCheckButton={isCheckButton}
             isLogo={isLogo}
           />
-          <div css={wrapper(pathname)}>{children}</div>
+          <div css={wrapper(isOwner)}>{children}</div>
         </>
       ) : (
-        <div css={wrapper(pathname)}>
+        <div css={wrapper(isOwner)}>
           {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
           {children}
         </div>
       )}
-      {pathname.includes("/owner") && <Nav />}
+      {isOwner && <Nav />}
     </>
   );
 };
