@@ -60,7 +60,6 @@ const jibunAddr = css`
 
 const radioButton = css`
   height: fit-content;
-  background-color: transparent;
 `;
 
 const LocationList = (props: LocationListProps) => {

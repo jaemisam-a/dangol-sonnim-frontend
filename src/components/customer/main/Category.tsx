@@ -11,7 +11,6 @@ const wrapper = css`
 
 const categoryBtn = (id: number, selected: number) => css`
   ${Texts.B3_15_R1}
-  background-color: transparent;
   padding: 0;
   color: ${id === selected ? Colors.black : Colors.neutral60};
   font-weight: ${id === selected ? 500 : 400};

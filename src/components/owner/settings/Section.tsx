@@ -38,7 +38,6 @@ const count = css`
 `;
 
 const registrationButton = css`
-  background-color: transparent;
   color: ${Colors.amber50};
   ${Texts.B3_15_M2}
 `;

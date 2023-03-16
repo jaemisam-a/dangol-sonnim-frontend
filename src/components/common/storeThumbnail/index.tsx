@@ -63,7 +63,6 @@ const imageWrapper = css`
 `;
 
 const pickBtn = (isPick: boolean | undefined) => css`
-  background-color: transparent;
   position: absolute;
   bottom: 3px;
   right: 0.25rem;

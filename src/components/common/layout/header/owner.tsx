@@ -77,10 +77,6 @@ const hiddenItem = css`
   height: 1.75rem;
 `;
 
-const hamburgerButton = css`
-  background-color: transparent;
-`;
-
 const OwnerHeader = (props: OwnerHeaderProps) => {
   const { pathname, back, push } = useRouter();
 
@@ -106,7 +102,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
                   로그인/회원가입
                 </button>
               ) : (
-                <button css={hamburgerButton}>
+                <button>
                   <Hamburger />
                 </button>
               )}

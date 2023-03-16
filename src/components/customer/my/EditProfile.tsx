@@ -26,7 +26,6 @@ const btnWrapper = css`
 
   button {
     color: ${Colors.neutral60};
-    background-color: transparent;
     cursor: pointer;
   }
 

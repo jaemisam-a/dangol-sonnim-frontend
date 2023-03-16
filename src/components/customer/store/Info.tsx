@@ -54,10 +54,6 @@ const titleStyle = css`
   }
 `;
 
-const pickStyle = css`
-  background-color: transparent;
-`;
-
 const descriptionStyle = css`
   ${Texts.B1_13_R2}
   color:${Colors.neutral80};
@@ -110,7 +106,7 @@ const Info = ({
           </div>
           <p css={descriptionStyle}>{description}</p>
         </div>
-        <button css={pickStyle} onClick={onPick}>
+        <button onClick={onPick}>
           <Pick
             width={24}
             height={24}
