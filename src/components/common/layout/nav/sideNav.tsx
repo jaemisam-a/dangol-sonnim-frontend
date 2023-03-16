@@ -1,7 +1,7 @@
 import React, { Dispatch, MouseEvent, SetStateAction, useEffect, useState } from "react";
 import { css, keyframes } from "@emotion/react";
 
-import { Colors } from "styles/common";
+import { Colors, Sizes } from "styles/common";
 import MyInfo from "owner/settings/myInfo";
 
 type SideNavProps = {
@@ -63,7 +63,7 @@ const wrapper = css`
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 768px;
+  max-width: ${Sizes.owner_width};
 `;
 
 const background = css`

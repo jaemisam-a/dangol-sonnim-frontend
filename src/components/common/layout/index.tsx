@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import CustomerHeader from "common/layout/header/customer";
 import OwnerHeader from "common/layout/header/owner";
 import BottomNav from "common/layout/nav/bottomNav";
+import { Sizes } from "styles/common";
 
 type LayoutProps = {
   children: ReactNode;
@@ -18,14 +19,12 @@ type LayoutProps = {
   isLogo?: boolean;
 };
 
-const BOTTOM_NAV_HEIGHT = "3.875rem";
-
 const wrapper = (pathname: string) => css`
   width: 100vw;
-  max-width: ${pathname.includes("/owner") ? "768px" : "480px"};
-  min-height: calc(100vh - ${BOTTOM_NAV_HEIGHT});
+  max-width: ${pathname.includes("/owner") ? Sizes.owner_width : Sizes.customer_width};
+  min-height: calc(100vh - ${Sizes.bottom_nav_height});
   margin: auto;
-  padding-bottom: ${pathname.includes("/owner") ? BOTTOM_NAV_HEIGHT : "0"};
+  padding-bottom: ${pathname.includes("/owner") ? Sizes.bottom_nav_height : "0"};
   box-shadow: rgb(130 130 130 / 15%) 0px ${pathname.includes("/owner") ? "1.25rem" : "0"} 1.25rem;
 `;
 
