@@ -8,7 +8,7 @@ import Hamburger from "public/icons/menu/Hamburger.svg";
 import Close from "public/icons/close/Close.svg";
 import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
 import Check from "public/icons/check/Check.svg";
-import { Colors, Texts } from "styles/common";
+import { Colors, Sizes, Texts } from "styles/common";
 import SideNav from "common/layout/nav/sideNav";
 
 type OwnerHeaderProps = {
@@ -32,7 +32,7 @@ const container = css`
 
 const wrapper = css`
   width: 100%;
-  max-width: 768px;
+  max-width: ${Sizes.owner_width};
   height: 3.25rem;
 `;
 

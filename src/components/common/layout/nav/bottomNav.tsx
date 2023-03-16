@@ -6,7 +6,7 @@ import Table from "public/icons/navbar/Table.svg";
 import ListMenu from "public/icons/navbar/ListMenu.svg";
 import Frame from "public/icons/navbar/Frame.svg";
 import Settings from "public/icons/navbar/Settings.svg";
-import { Colors, Texts } from "styles/common";
+import { Colors, Sizes, Texts } from "styles/common";
 
 const container = css`
   display: flex;
@@ -20,7 +20,7 @@ const container = css`
 `;
 
 const wrapper = css`
-  max-width: 768px;
+  max-width: ${Sizes.owner_width};
   width: 100%;
 `;
 
