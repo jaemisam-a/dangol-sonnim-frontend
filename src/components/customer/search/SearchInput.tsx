@@ -12,10 +12,6 @@ const searchBox = css`
   justify-content: space-between;
   border-bottom: solid 1px ${Colors.amber30};
   padding: 0.5rem 0.75rem;
-
-  & button {
-    background: transparent;
-  }
 `;
 
 const inputWrapper = css`

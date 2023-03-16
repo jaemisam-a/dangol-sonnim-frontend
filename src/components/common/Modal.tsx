@@ -1,7 +1,7 @@
 import React, { MouseEvent, ReactNode, useEffect, useState } from "react";
 import { css, keyframes } from "@emotion/react";
 
-import { Colors } from "styles/common";
+import { Colors, Sizes } from "styles/common";
 
 type ModalProps = {
   children: ReactNode;
@@ -26,7 +26,7 @@ const fadeOut = keyframes`
   
   to {
     opacity: 0;
-    }
+  }
 `;
 
 const outerWrapper = (open: boolean) => css`
@@ -44,7 +44,7 @@ const outerWrapper = (open: boolean) => css`
 const wrapper = css`
   width: 100%;
   height: 100%;
-  max-width: 480px;
+  max-width: ${Sizes.customer_width};
 `;
 
 const background = css`

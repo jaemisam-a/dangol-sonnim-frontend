@@ -3,7 +3,7 @@ import React from "react";
 import Empty from "owner/settings/Empty";
 import SettingButton from "owner/settings/SettingButton";
 import { Colors } from "styles/common";
-import Camera from "public/icons/Camera.svg";
+import Camera from "public/icons/etc/Camera.svg";
 
 const Picture = () => {
   return (

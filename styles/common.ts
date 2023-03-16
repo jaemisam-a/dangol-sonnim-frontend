@@ -263,6 +263,13 @@ export const Colors = {
   red10: "#FFABB6",
 };
 
+export const Sizes = {
+  bottom_nav_height: "3.875rem",
+  header_height: "3.25rem",
+  customer_width: "480px",
+  owner_width: "768px",
+};
+
 export const fullAmberButtonStyle = css`
   width: 100%;
   padding: 0.938rem 0;

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import { Colors, Texts } from "styles/common";
+import { Colors, Sizes, Texts } from "styles/common";
 import Share from "public/icons/etc/Share.svg";
 import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
 import Kebab from "public/icons/menu/Kebab.svg";
@@ -29,7 +29,7 @@ const wrapper = (pathname: string) => css`
   border-bottom: ${pathname !== "/" && `1px solid ${Colors.neutral20}`};
   z-index: 1;
   width: 100%;
-  max-width: 480px;
+  max-width: ${Sizes.customer_width};
 `;
 
 const innerWrapper = (pathname: string) => css`
@@ -43,10 +43,6 @@ const buttons = css`
   display: flex;
   gap: 0.25rem;
   color: ${Colors.neutral90};
-
-  button {
-    background-color: transparent;
-  }
 `;
 
 const pointerButton = css`

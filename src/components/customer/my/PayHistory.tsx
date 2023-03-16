@@ -50,7 +50,6 @@ const subTitle = css`
 const withdrawalBtn = css`
   display: flex;
   align-items: center;
-  background-color: transparent;
   color: ${Colors.neutral60};
   ${Texts.B1_13_R2}
 `;

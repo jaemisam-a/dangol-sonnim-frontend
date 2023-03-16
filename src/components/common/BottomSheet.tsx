@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { css, keyframes } from "@emotion/react";
 
-import { Colors, Texts } from "styles/common";
+import { Colors, Sizes, Texts } from "styles/common";
 import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
 import Close from "public/icons/close/Close.svg";
 
@@ -72,7 +72,7 @@ const wrapper = css`
   right: 0;
   margin: auto;
   width: 100%;
-  max-width: 480px;
+  max-width: ${Sizes.customer_width};
   height: 100%;
   z-index: 2;
 `;
@@ -82,7 +82,7 @@ const outerArea = (open: boolean) => css`
   top: 0;
   height: 100%;
   width: 100%;
-  max-width: 480px;
+  max-width: ${Sizes.customer_width};
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
   animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
@@ -93,7 +93,7 @@ const bottomSheetWrapper = (open: boolean, height: string) => css`
   bottom: 0;
   z-index: 4;
   width: 100%;
-  max-width: 480px;
+  max-width: ${Sizes.customer_width};
   height: ${height};
   background-color: ${Colors.white};
   border-radius: 10px 10px 0 0;
