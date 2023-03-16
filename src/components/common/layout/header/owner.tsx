@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
@@ -9,6 +9,7 @@ import Close from "public/icons/close/Close.svg";
 import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
 import Check from "public/icons/check/Check.svg";
 import { Colors, Texts } from "styles/common";
+import SideNav from "common/layout/nav/sideNav";
 
 type OwnerHeaderProps = {
   isLogo?: boolean;
@@ -80,6 +81,8 @@ const hiddenItem = css`
 const OwnerHeader = (props: OwnerHeaderProps) => {
   const { pathname, back, push } = useRouter();
 
+  const [openNav, setOpenNav] = useState(false);
+
   return (
     <div css={container}>
       <header css={wrapper}>
@@ -102,7 +105,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
                   로그인/회원가입
                 </button>
               ) : (
-                <button>
+                <button onClick={() => setOpenNav(true)}>
                   <Hamburger />
                 </button>
               )}
@@ -131,6 +134,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
           )}
         </div>
       </header>
+      <SideNav open={openNav} setOpen={setOpenNav} />
     </div>
   );
 };

@@ -61,7 +61,7 @@ const getIcon = (path: string, isChecked: boolean) => {
   }
 };
 
-const Nav = () => {
+const BottomNav = () => {
   const router = useRouter();
 
   const navArr = [
@@ -93,4 +93,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default BottomNav;
