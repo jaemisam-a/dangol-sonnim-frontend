@@ -43,10 +43,6 @@ const buttons = css`
   display: flex;
   gap: 0.25rem;
   color: ${Colors.neutral90};
-
-  button {
-    background-color: transparent;
-  }
 `;
 
 const pointerButton = css`

@@ -37,7 +37,6 @@ const qrButton = css`
   padding: 0.313rem 0.5rem;
   display: flex;
   align-items: center;
-  background-color: transparent;
   margin-top: 0.125rem;
   cursor: pointer;
 `;

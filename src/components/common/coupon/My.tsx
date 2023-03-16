@@ -33,7 +33,6 @@ const paymentHistory = css`
   align-items: center;
   gap: 0.125rem;
   color: ${Colors.amber50};
-  background-color: transparent;
   ${Texts.B1_13_M1}
 `;
 

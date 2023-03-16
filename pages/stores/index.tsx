@@ -20,10 +20,6 @@ const headerWrapper = css`
   border-bottom: solid 1px ${Colors.neutral30};
   padding: 0.5rem 0.75rem;
   height: 3.5rem;
-
-  & button {
-    background: transparent;
-  }
 `;
 
 const arrowLeft = css`

@@ -54,7 +54,6 @@ const smallButtonWrapper = css`
   button {
     ${Texts.B3_15_R2};
     color: ${Colors.neutral70};
-    background-color: transparent;
   }
 
   span {

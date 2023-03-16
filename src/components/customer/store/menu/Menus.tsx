@@ -23,7 +23,6 @@ const moreBtnWrapper = css`
 const moreBtn = css`
   display: flex;
   align-items: center;
-  background-color: transparent;
   ${Texts.B1_13_M1}
   color: ${Colors.neutral90};
 `;

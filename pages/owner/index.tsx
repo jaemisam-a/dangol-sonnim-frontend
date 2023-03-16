@@ -91,7 +91,6 @@ const chatStyle = css`
     ${Texts.S3_18_M}
     margin: 0 auto;
     margin-top: 0.5rem;
-    background-color: transparent;
     border: ${Colors.neutral30} solid 1px;
     border-radius: 0.25rem;
     padding: 0.688rem 2.594rem;

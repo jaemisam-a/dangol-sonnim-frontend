@@ -14,7 +14,6 @@ const subjectWrapper = css`
   justify-content: space-between;
 
   button {
-    background-color: transparent;
     ${Texts.B1_13_R2}
     color:${Colors.neutral50}
   }
@@ -34,10 +33,6 @@ const queryList = css`
 const recentQueries = css`
   display: flex;
   justify-content: space-between;
-
-  & button {
-    background-color: transparent;
-  }
 `;
 
 const link = css`
@@ -51,7 +46,6 @@ const margin = css`
   text-align: end;
 
   & button {
-    background-color: transparent;
     color: ${Colors.neutral60};
     ${Texts.B2_14_R2}
   }
