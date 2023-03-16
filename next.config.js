@@ -12,6 +12,14 @@ const nextConfig = {
     });
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/juso/:path*",
+        destination: "https://business.juso.go.kr/:path*",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
