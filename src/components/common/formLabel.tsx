@@ -24,7 +24,7 @@ const wrapper = css`
   }
 `;
 
-const InfoFormItem = (props: InfoFormItemType) => {
+const FormLabel = (props: InfoFormItemType) => {
   return (
     <section css={wrapper}>
       <label>
@@ -36,4 +36,4 @@ const InfoFormItem = (props: InfoFormItemType) => {
   );
 };
 
-export default InfoFormItem;
+export default FormLabel;
