@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-import AddPlusCircle from "public/icons/etc/AddPlusCircle.svg";
+import AddPlusCircle from "public/icons/add/plusCircleFilled.svg";
 
 const profileWrapper = css`
   display: flex;

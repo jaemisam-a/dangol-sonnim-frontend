@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 
 import CustomerHeader from "common/layout/header/customer";
 import OwnerHeader from "common/layout/header/owner";
-import Nav from "common/layout/Nav";
+import BottomNav from "common/layout/nav/bottomNav";
 
 type LayoutProps = {
   children: ReactNode;
@@ -63,7 +63,7 @@ const Layout = ({
           {children}
         </div>
       )}
-      {pathname.includes("/owner") && <Nav />}
+      {pathname.includes("/owner") && <BottomNav />}
     </>
   );
 };
