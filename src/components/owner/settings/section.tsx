@@ -12,8 +12,8 @@ type StoreSectionProps = {
   menuCount?: number;
   isLocation: boolean;
   isEmpty?: boolean;
-  status: statusType;
-  setStatus: Dispatch<SetStateAction<statusType>>;
+  status?: statusType;
+  setStatus?: Dispatch<SetStateAction<statusType>>;
 };
 
 const wrapper = css`

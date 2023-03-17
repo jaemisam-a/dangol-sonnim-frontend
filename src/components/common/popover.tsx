@@ -13,7 +13,7 @@ type PopoverProps = {
   style: any;
   attributes: any;
   label: string;
-  setStatus: Dispatch<SetStateAction<statusType>>;
+  setStatus?: Dispatch<SetStateAction<statusType>>;
 };
 
 const wrapper = (isOpen: boolean) => css`
@@ -51,7 +51,7 @@ const Popover = (props: PopoverProps) => {
     >
       <button
         onClick={() => {
-          props.setStatus("edit");
+          props.setStatus && props.setStatus("edit");
           props.setIsOpen(false);
         }}
       >
@@ -59,7 +59,7 @@ const Popover = (props: PopoverProps) => {
       </button>
       <button
         onClick={() => {
-          props.setStatus("delete");
+          props.setStatus && props.setStatus("delete");
           props.setIsOpen(false);
         }}
       >
