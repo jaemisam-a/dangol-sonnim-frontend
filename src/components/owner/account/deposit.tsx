@@ -2,8 +2,8 @@ import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { css } from "@emotion/react";
 
 import { TransferType } from "pages/store/[id]/payment";
-import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
-import PaymentSelect from "customer/store/menu/payment/Select";
+import InputWithButton, { InputWithButtonType } from "common/input/withButton";
+import PaymentSelect from "customer/store/menu/payment/select";
 import { Colors, Texts } from "styles/common";
 
 type DepositAccount = {

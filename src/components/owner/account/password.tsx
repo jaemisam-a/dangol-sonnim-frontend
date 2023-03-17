@@ -1,7 +1,7 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { css } from "@emotion/react";
 
-import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
+import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
 
 type PasswordChangeProps = {

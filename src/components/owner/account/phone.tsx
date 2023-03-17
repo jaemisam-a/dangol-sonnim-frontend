@@ -1,8 +1,8 @@
 import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
-import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
-import { InputStatus } from "common/input/Text";
+import InputWithButton, { InputWithButtonType } from "common/input/withButton";
+import { InputStatus } from "common/input/text";
 import { Colors, Texts } from "styles/common";
 
 type PhoneChangeProps = {
