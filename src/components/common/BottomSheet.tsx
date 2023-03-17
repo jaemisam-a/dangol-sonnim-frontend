@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { css, keyframes } from "@emotion/react";
 
 import { Colors, Sizes, Texts } from "styles/common";
@@ -64,7 +65,7 @@ const outerWrapper = css`
   z-index: 2;
 `;
 
-const wrapper = css`
+const wrapper = (isOwner: boolean) => css`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -72,28 +73,28 @@ const wrapper = css`
   right: 0;
   margin: auto;
   width: 100%;
-  max-width: ${Sizes.customer_width};
+  max-width: ${isOwner ? Sizes.owner_width : Sizes.customer_width};
   height: 100%;
   z-index: 2;
 `;
 
-const outerArea = (open: boolean) => css`
+const outerArea = (open: boolean, isOwner: boolean) => css`
   position: absolute;
   top: 0;
   height: 100%;
   width: 100%;
-  max-width: ${Sizes.customer_width};
+  max-width: ${isOwner ? Sizes.owner_width : Sizes.customer_width};
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 3;
   animation: ${open ? fadeIn : fadeOut} 0.3s ease-in;
 `;
 
-const bottomSheetWrapper = (open: boolean, height: string) => css`
+const bottomSheetWrapper = (open: boolean, height: string, isOwner: boolean) => css`
   position: absolute;
   bottom: 0;
   z-index: 4;
   width: 100%;
-  max-width: ${Sizes.customer_width};
+  max-width: ${isOwner ? Sizes.owner_width : Sizes.customer_width};
   height: ${height};
   background-color: ${Colors.white};
   border-radius: 10px 10px 0 0;
@@ -122,6 +123,8 @@ const pointerButton = (isVisible: boolean) => css`
 `;
 
 const BottomSheet = (props: BottomSheetProps) => {
+  const { pathname } = useRouter();
+
   const [isVisible, setIsVisible] = useState(props.open);
 
   const offBottomSheet = () => {
@@ -136,9 +139,9 @@ const BottomSheet = (props: BottomSheetProps) => {
 
   return (
     <div css={outerWrapper}>
-      <div css={wrapper}>
-        <div css={outerArea(props.open)} onClick={offBottomSheet} />
-        <div css={bottomSheetWrapper(props.open, props.height)}>
+      <div css={wrapper(pathname.includes("owner"))}>
+        <div css={outerArea(props.open, pathname.includes("owner"))} onClick={offBottomSheet} />
+        <div css={bottomSheetWrapper(props.open, props.height, pathname.includes("owner"))}>
           <div css={titleSection}>
             <button css={pointerButton(props.isBackButton)} onClick={offBottomSheet}>
               <ArrowLeft stroke={Colors.amber50} />
