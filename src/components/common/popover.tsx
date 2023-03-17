@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { CSSProperties, Dispatch, MutableRefObject, SetStateAction } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -9,8 +9,8 @@ export type statusType = "edit" | "delete" | "default";
 type PopoverProps = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-  popoverRef: any;
-  style: any;
+  popoverRef: MutableRefObject<null>;
+  style: CSSProperties;
   attributes: any;
   label: string;
   setStatus?: Dispatch<SetStateAction<statusType>>;
@@ -23,6 +23,7 @@ const wrapper = (isOpen: boolean) => css`
   width: 10rem;
   box-shadow: 1px 2px 10px rgba(205, 186, 160, 0.6);
   border-radius: 0.25rem;
+  background-color: white;
 
   button {
     text-align: left;
