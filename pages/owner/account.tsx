@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import AccountSection from "owner/account/Section";
+import AccountSection from "owner/account/section";
 import { Colors, Texts } from "styles/common";
 import Modal from "common/Modal";
 import Dialog from "customer/my/Dialog";
 import BottomSheet from "common/BottomSheet";
-import DepositAccount from "owner/account/Deposit";
-import PasswordChange from "owner/account/Password";
-import PhoneChange from "owner/account/Phone";
+import DepositAccount from "owner/account/deposit";
+import PasswordChange from "owner/account/password";
+import PhoneChange from "owner/account/phone";
 
 const wrapper = css`
   padding: 0.5rem 1.25rem;
