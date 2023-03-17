@@ -1,4 +1,5 @@
 import React, { MouseEvent, ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { css, keyframes } from "@emotion/react";
 
 import { Colors, Sizes } from "styles/common";
@@ -41,10 +42,10 @@ const outerWrapper = (open: boolean) => css`
   justify-content: center;
 `;
 
-const wrapper = css`
+const wrapper = (isOwner: boolean) => css`
   width: 100%;
   height: 100%;
-  max-width: ${Sizes.customer_width};
+  max-width: ${isOwner ? Sizes.owner_width : Sizes.customer_width};
 `;
 
 const background = css`
@@ -63,6 +64,8 @@ const content = css`
 `;
 
 const Modal = ({ children, open, onClose }: ModalProps) => {
+  const { pathname } = useRouter();
+
   const [isVisible, setIsVisible] = useState(open);
 
   const handleClose = (e: MouseEvent<HTMLDivElement>) => {
@@ -80,7 +83,7 @@ const Modal = ({ children, open, onClose }: ModalProps) => {
   return (
     <>
       <div css={outerWrapper(open)} onClick={handleClose}>
-        <div css={wrapper}>
+        <div css={wrapper(pathname.includes("owner"))}>
           <div css={background} onClick={onClose} />
           <div css={content}>{children}</div>
         </div>
