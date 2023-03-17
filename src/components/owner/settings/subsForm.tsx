@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import FormLabel from "common/formLabel";
-import Checkbox from "common/input/Checkbox";
-import TextInput from "common/input/Text";
+import Checkbox from "common/input/checkbox";
+import TextInput from "common/input/text";
 import { selectStyle, Texts } from "styles/common";
 
 const formWrapper = css`
