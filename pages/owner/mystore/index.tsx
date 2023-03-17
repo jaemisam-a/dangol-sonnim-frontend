@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
+import FormLabel from "common/formLabel";
 import TextInput from "common/input/text";
-import InfoFormItem from "owner/store/infoFormItem";
 import ServiceTags from "owner/store/serviceTags";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
@@ -92,7 +92,7 @@ const MyStoreSetting = () => {
   return (
     <Layout title="가게 정보 등록" subTitle="가게 정보 등록">
       <form css={formWrapper}>
-        <InfoFormItem label="가게명">
+        <FormLabel label="가게명">
           <TextInput
             type="text"
             placeholder="가게명 입력"
@@ -100,8 +100,8 @@ const MyStoreSetting = () => {
             objectKey="name"
             setState={setStoreInfo}
           />
-        </InfoFormItem>
-        <InfoFormItem label="가게 카테고리">
+        </FormLabel>
+        <FormLabel label="가게 카테고리">
           <select
             css={selectStyle}
             onChange={(e) => setStoreInfo((prev) => ({ ...prev, category: e.target.value }))}
@@ -112,8 +112,8 @@ const MyStoreSetting = () => {
               </option>
             ))}
           </select>
-        </InfoFormItem>
-        <InfoFormItem label="가게 한줄 소개">
+        </FormLabel>
+        <FormLabel label="가게 한줄 소개">
           <TextInput
             type="text"
             placeholder="가게 한줄 소개 입력"
@@ -121,8 +121,8 @@ const MyStoreSetting = () => {
             objectKey="description"
             setState={setStoreInfo}
           />
-        </InfoFormItem>
-        <InfoFormItem label="위치">
+        </FormLabel>
+        <FormLabel label="위치">
           <div css={addressSearch}>
             <input
               type="text"
@@ -140,8 +140,8 @@ const MyStoreSetting = () => {
             state={storeInfo.address}
             setState={setStoreInfo}
           />
-        </InfoFormItem>
-        <InfoFormItem label="영업시간">
+        </FormLabel>
+        <FormLabel label="영업시간">
           <div css={openHourWrapper}>
             <div css={openDayStyle}>
               <TextInput
@@ -164,10 +164,10 @@ const MyStoreSetting = () => {
               />
             </div>
           </div>
-        </InfoFormItem>
-        <InfoFormItem label="서비스 태그">
+        </FormLabel>
+        <FormLabel label="서비스 태그">
           <ServiceTags setStoreInfo={setStoreInfo} />
-        </InfoFormItem>
+        </FormLabel>
         <button
           type="button"
           onClick={addStoreInfo}

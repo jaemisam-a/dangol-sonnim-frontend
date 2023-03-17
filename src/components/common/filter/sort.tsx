@@ -20,7 +20,7 @@ const wrapper = css`
 
 const sortText = (isSearchPage: boolean) => css`
   ${isSearchPage ? Texts.B1_13_R2 : Texts.C2_12_R}
-  color: "#191919";
+  color: #191919;
 `;
 
 const Sort = ({ isSearchPage }: SortProps) => {

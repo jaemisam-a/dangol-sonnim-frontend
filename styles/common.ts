@@ -285,6 +285,6 @@ export const selectStyle = css`
   padding: 0.75rem 1.063rem 0.75rem 0.75rem;
   width: 100%;
   appearance: none;
-  background: url("/icons/arrowDownGrey.svg") no-repeat right 12px center;
+  background: url("/icons/direction/downGrey.svg") no-repeat right 12px center;
   ${Texts.B3_15_M2}
 `;
