@@ -18,7 +18,7 @@ export type TransferType = {
   id: string;
   name: string;
   accountHolder: string;
-  accountNumber: number;
+  accountNumber: string;
 };
 
 const DUMMY_PAYMENT = {
@@ -67,13 +67,13 @@ const StorePayment = () => {
     id: "",
     name: "",
     accountHolder: "",
-    accountNumber: 0,
+    accountNumber: "",
   });
   const [isConsent, setIsConsent] = useState(false);
 
   useEffect(() => {
     setSelectedCard({ id: "", name: "" });
-    setSelectedBank({ id: "", name: "", accountHolder: "", accountNumber: 0 });
+    setSelectedBank({ id: "", name: "", accountHolder: "", accountNumber: "" });
     setCashReceipts({ data: "", isPersonal: true, isUse: false });
   }, [selectMethod]);
 
