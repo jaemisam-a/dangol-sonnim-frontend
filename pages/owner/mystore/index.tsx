@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import TextInput from "common/input/text";
 import FormLabel from "common/formLabel";
+import TextInput from "common/input/text";
 import ServiceTags from "owner/store/serviceTags";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";

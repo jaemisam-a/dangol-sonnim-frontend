@@ -15,6 +15,10 @@ const checkboxWrapper = css`
   align-items: center;
   gap: 0.25rem;
   ${Texts.B3_15_M1}
+
+  label {
+    cursor: pointer;
+  }
 `;
 
 const SubsForm = () => {
