@@ -9,6 +9,7 @@ export type InputWithButtonType = {
   btnName?: string;
   // 라벨 옆 * 유무
   isRequired?: boolean;
+  isBold?: boolean;
   btnAction?: () => void;
   setState?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<string>>;
   isHidden?: boolean;
@@ -21,10 +22,10 @@ type InputWithButtonProps = {
   state: string;
 } & InputWithButtonType;
 
-const inputWrapper = css`
+const inputWrapper = (isBold?: boolean) => css`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: ${isBold ? "0.25rem" : "0.5rem"};
 `;
 
 const inputBtnWrapper = css`
@@ -46,9 +47,9 @@ const inputBtn = (state?: InputStatus) => css`
   ${Texts.B3_15_M2}
 `;
 
-const inputLabel = (isInBottomSheet: boolean) => css`
-  ${isInBottomSheet ? Texts.S1_16_B : Texts.B3_15_M2}
-  color: ${isInBottomSheet ? Colors.black : Colors.neutral80};
+const inputLabel = (isInBottomSheet: boolean, isBold?: boolean) => css`
+  ${isInBottomSheet || isBold ? Texts.S1_16_B : Texts.B3_15_M2}
+  color: ${isInBottomSheet || isBold ? Colors.black : Colors.neutral80};
 
   span {
     color: ${Colors.amber50};
@@ -62,9 +63,9 @@ const InputWithButton = (props: InputWithButtonProps) => {
 
   return (
     <>
-      <div css={inputWrapper}>
+      <div css={inputWrapper(props.isBold)}>
         {props.label && (
-          <div css={inputLabel(props.isInBottomSheet)}>
+          <div css={inputLabel(props.isInBottomSheet, props.isBold)}>
             {props.label}
             <span>{props.isRequired && "*"}</span>
           </div>

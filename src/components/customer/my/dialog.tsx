@@ -5,9 +5,9 @@ import { Colors, Texts } from "styles/common";
 
 type DialogProps = {
   content: {
-    usage: "withdrawal" | "unsubscribe";
-    id: string;
-    name: string;
+    usage: "withdrawal" | "unsubscribe" | "ownerWithdrawal";
+    id?: string;
+    name?: string;
     subscribeDate?: string;
     buttonText: { confirm: string; cancel: string };
   };
@@ -66,26 +66,49 @@ const buttonWrapper = css`
 `;
 
 const Dialog = ({ content, onConfirm, onCancel }: DialogProps) => {
-  return (
-    <div css={wrapper}>
-      <div css={headingWrapper}>
-        <h1 css={heading}>
-          {content.usage === "withdrawal"
-            ? `${content.name}님,\n정말 회원 탈퇴하시겠습니까?`
-            : `${content.name},\n구독 해지하겠습니까?`}
-        </h1>
-        {content.usage === "withdrawal" ? (
+  const getHeading = () => {
+    switch (content.usage) {
+      case "withdrawal":
+        return `${content.name}님,\n정말 회원 탈퇴하시겠습니까?`;
+      case "unsubscribe":
+        return `${content.name},\n구독 해지하겠습니까?`;
+      case "ownerWithdrawal":
+        return "회원탈퇴 요청을 하시겠습니까?";
+    }
+  };
+
+  const getDescription = () => {
+    switch (content.usage) {
+      case "withdrawal":
+        return (
           <div css={infoText}>
             현재 구독중인 구독권에 대한 환불은 어려워요!
             <br />
             남은 기간 동안의 <span>혜택</span>을 사용해보세요!
           </div>
-        ) : (
+        );
+      case "unsubscribe":
+        return (
           <div>
             해당 구독권은 {content.subscribeDate}까지 사용 가능하고 해당 날짜 이후 구독권이
             종료됩니다.
           </div>
-        )}
+        );
+      case "ownerWithdrawal":
+        return (
+          <div>
+            회원탈퇴 요청을 하시게되면 빠른 시일 내<br />
+            담당 부서에서 연락을 드릴 예정입니다.
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div css={wrapper}>
+      <div css={headingWrapper}>
+        <h1 css={heading}>{getHeading()}</h1>
+        {getDescription()}
       </div>
       <div css={buttonWrapper}>
         <button className="confirmBtn" onClick={onConfirm}>
