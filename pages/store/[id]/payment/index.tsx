@@ -3,10 +3,10 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Layout from "common/layout";
-import StoreCoupon from "common/coupon/Store";
-import Consent from "common/Consent";
-import PaymentInfo from "customer/store/menu/payment/Info";
-import PaymentMethod from "customer/store/menu/payment/Method";
+import StoreCoupon from "common/coupon/store";
+import Consent from "common/consent";
+import PaymentInfo from "customer/store/menu/payment/info";
+import PaymentMethod from "customer/store/menu/payment/method";
 import { Colors, Texts } from "styles/common";
 
 export type SelectedType = {

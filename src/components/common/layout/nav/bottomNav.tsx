@@ -2,10 +2,10 @@ import React from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import Table from "public/icons/navbar/Table.svg";
-import ListMenu from "public/icons/navbar/ListMenu.svg";
-import Frame from "public/icons/navbar/Frame.svg";
-import Settings from "public/icons/navbar/Settings.svg";
+import Table from "public/icons/navbar/table.svg";
+import ListMenu from "public/icons/navbar/listMenu.svg";
+import Frame from "public/icons/navbar/frame.svg";
+import Settings from "public/icons/navbar/settings.svg";
 import { Colors, Sizes, Texts } from "styles/common";
 
 const container = css`

@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Sizes, Texts } from "styles/common";
-import Share from "public/icons/etc/Share.svg";
-import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
-import Kebab from "public/icons/menu/Kebab.svg";
+import Share from "public/icons/etc/share.svg";
+import ArrowLeft from "public/icons/direction/arrowLeft.svg";
+import Kebab from "public/icons/menu/kebab.svg";
 import useLoginStore from "src/store/login";
 
 type HeaderProps = {
@@ -87,7 +87,7 @@ const CustomerHeader = (props: HeaderProps) => {
             <>
               <Image
                 css={pointerButton}
-                src="/images/logo/Logo.png"
+                src="/images/logo/logo.png"
                 alt="logo"
                 width="27"
                 height="36"
@@ -97,7 +97,7 @@ const CustomerHeader = (props: HeaderProps) => {
                   <button onClick={() => push("/my")}>
                     <Image
                       css={pointerButton}
-                      src="/images/Profile.png"
+                      src="/images/profile.png"
                       alt="profile"
                       width="34"
                       height="34"

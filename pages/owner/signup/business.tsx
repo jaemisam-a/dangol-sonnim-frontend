@@ -4,9 +4,9 @@ import { useMutation } from "react-query";
 import axios from "axios";
 import { css } from "@emotion/react";
 
-import TextInput from "common/input/Text";
+import TextInput from "common/input/text";
 import Layout from "common/layout";
-import FullPageSpinner from "common/spinner/FullPage";
+import FullPageSpinner from "common/spinner/fullPage";
 import { Colors, selectStyle, Texts } from "styles/common";
 
 type dateType = { year: string; month: string; day: string };

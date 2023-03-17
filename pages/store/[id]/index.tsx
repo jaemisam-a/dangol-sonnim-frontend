@@ -4,11 +4,11 @@ import axios from "axios";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import FullPageSpinner from "common/spinner/FullPage";
-import Subs from "customer/store/Subs";
-import Menus from "customer/store/menu/Menus";
-import Location from "customer/store/Location";
-import Info from "customer/store/Info";
+import FullPageSpinner from "common/spinner/fullPage";
+import Subs from "customer/store/subs";
+import Menus from "customer/store/menu/menus";
+import Location from "customer/store/location";
+import Info from "customer/store/info";
 import { Colors } from "styles/common";
 
 const divider = css`

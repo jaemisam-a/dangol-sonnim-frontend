@@ -3,10 +3,10 @@ import { css } from "@emotion/react";
 import Link from "next/link";
 import Image from "next/image";
 
-import CloseLarge from "public/icons/close/CloseLarge.svg";
-import Right from "public/icons/direction/Right.svg";
-import LinkIcon from "public/icons/etc/Link.svg";
-import PlusCircle from "public/icons/add/PlusCircle.svg";
+import CloseLarge from "public/icons/close/closeLarge.svg";
+import Right from "public/icons/direction/right.svg";
+import LinkIcon from "public/icons/etc/link.svg";
+import PlusCircle from "public/icons/add/plusCircle.svg";
 import { Colors, Texts } from "styles/common";
 
 type MyInfoProps = {
@@ -95,7 +95,7 @@ const MyInfo = (props: MyInfoProps) => {
         </button>
       </div>
       <div css={emailWrapper}>
-        <Image src="/images/Profile.png" width={40} height={40} alt="프로필 이미지" />
+        <Image src="/images/profile.png" width={40} height={40} alt="프로필 이미지" />
         <p>{owner.email}</p>
         <Link href="/owner/myinfo">
           <Right width={20} height={20} stroke={Colors.neutral80} />

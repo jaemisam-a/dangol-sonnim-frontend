@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import TextInput from "common/input/Text";
+import TextInput from "common/input/text";
 import Layout from "common/layout";
 import { Colors, fullAmberButtonStyle, Texts } from "styles/common";
 

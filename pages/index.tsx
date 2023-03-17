@@ -4,14 +4,14 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 import Layout from "common/layout";
-import StoreThumbnailList from "common/storeThumbnail/List";
-import Location from "common/filter/Location";
-import Sort from "common/filter/Sort";
-import Category from "customer/main/Category";
-import CouponSlider from "customer/main/CouponSlider";
+import StoreThumbnailList from "common/storeThumbnail/list";
+import Location from "common/filter/location";
+import Sort from "common/filter/sort";
+import Category from "customer/main/category";
+import CouponSlider from "customer/main/couponSlider";
 import useLoginStore from "src/store/login";
 import { StoreData } from "pages/api/store";
-import SearchBar from "common/input/Search";
+import SearchBar from "common/input/search";
 
 const MOCK_MYCOUPON = [
   {

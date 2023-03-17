@@ -5,8 +5,8 @@ import axios from "axios";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import SearchBar from "common/input/Search";
-import LocationList, { checkedAddrType } from "common/LocationList";
+import SearchBar from "common/input/search";
+import LocationList, { checkedAddrType } from "common/locationList";
 import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 

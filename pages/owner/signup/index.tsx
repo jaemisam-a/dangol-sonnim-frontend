@@ -3,10 +3,10 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
-import Consent from "common/Consent";
+import InputWithButton, { InputWithButtonType } from "common/input/withButton";
+import Consent from "common/consent";
 import { Colors, Texts } from "styles/common";
-import { InputStatus, InputType } from "common/input/Text";
+import { InputStatus, InputType } from "common/input/text";
 
 const wrapper = css`
   display: flex;

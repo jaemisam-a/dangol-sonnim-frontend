@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 import Layout from "common/layout";
-import Tab from "common/Tab";
-import Profile from "customer/my/Profile";
-import TabContent from "customer/my/TabContent";
+import Tab from "common/tab";
+import Profile from "customer/my/profile";
+import TabContent from "customer/my/tabContent";
 
 const My = () => {
   useEffect(() => {

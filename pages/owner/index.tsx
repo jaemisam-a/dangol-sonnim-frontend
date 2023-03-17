@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import { Colors, Texts } from "styles/common";
-import Check from "public/icons/check/BannerCheck.svg";
-import Chat from "public/icons/etc/Chat.svg";
+import Check from "public/icons/check/bannerCheck.svg";
+import Chat from "public/icons/etc/chat.svg";
 
 const banner = css`
   background: no-repeat center url("/images/owner/banner.jpg");
