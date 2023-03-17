@@ -2,8 +2,8 @@ import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from 
 import { css } from "@emotion/react";
 
 import InputWithButton, { InputWithButtonType } from "common/input/WithButton";
-import { Colors, Texts } from "styles/common";
 import { InputStatus } from "common/input/Text";
+import { Colors, Texts } from "styles/common";
 
 type PhoneChangeProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -64,7 +64,7 @@ const PhoneChange = (props: PhoneChangeProps) => {
       {
         objectKey: "phone",
         placeholder: "핸드폰 번호 입력",
-        type: "text",
+        type: "number",
         btnName: "발송",
         btnAction: requestAuth,
       },
