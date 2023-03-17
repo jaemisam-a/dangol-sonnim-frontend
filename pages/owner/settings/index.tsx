@@ -1,4 +1,5 @@
 import React from "react";
+import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import Picture from "owner/settings/Picture";
@@ -6,6 +7,10 @@ import Location from "owner/settings/Location";
 import Menus from "owner/settings/Menus";
 import Subs from "owner/settings/Subs";
 import Info from "owner/settings/Info";
+
+const bottomPadding = css`
+  height: 2rem;
+`;
 
 const Settings = () => {
   return (
@@ -20,6 +25,7 @@ const Settings = () => {
       />
       <Menus />
       <Subs />
+      <div css={bottomPadding} />
     </Layout>
   );
 };
