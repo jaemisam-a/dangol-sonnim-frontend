@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import SocialButton from "customer/login/SocialButton";
+import SocialButton from "customer/login/socialButton";
 import { Colors, Texts } from "styles/common";
 import useLoginStore from "src/store/login";
 
@@ -39,10 +39,10 @@ const Login = () => {
   const { push } = useRouter();
 
   const socialArr = [
-    { image: "/images/loginMethod/Kakao.png", name: "카카오", bgColor: "#FFE500", color: "black" },
-    { image: "/images/loginMethod/Google.png", name: "구글", bgColor: "#FFFFFF", color: "black" },
-    { image: "/images/loginMethod/Apple.png", name: "Apple", bgColor: "#000000", color: "white" },
-    { image: "/images/loginMethod/Naver.png", name: "네이버", bgColor: "#03C75A", color: "white" },
+    { image: "/images/loginMethod/kakao.png", name: "카카오", bgColor: "#FFE500", color: "black" },
+    { image: "/images/loginMethod/google.png", name: "구글", bgColor: "#FFFFFF", color: "black" },
+    { image: "/images/loginMethod/apple.png", name: "Apple", bgColor: "#000000", color: "white" },
+    { image: "/images/loginMethod/naver.png", name: "네이버", bgColor: "#03C75A", color: "white" },
   ];
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const Login = () => {
     <>
       <Layout title="로그인" isNoHeader={true}>
         <div css={logoWrapper}>
-          <Image src="/images/logo/LogoExclude.png" alt="로고" width="140" height="107" />
+          <Image src="/images/logo/logoExclude.png" alt="로고" width="140" height="107" />
           <div css={phrase}>
             내 주변 맞춤 혜택,&nbsp;
             <span>단골손님</span>

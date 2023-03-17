@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { css } from "@emotion/react";
 
-import Tag from "common/tag/TagOwner";
+import Tag from "common/tag/tagOwner";
 import { Colors, Texts } from "styles/common";
 
 type ServiceTagsProps = {

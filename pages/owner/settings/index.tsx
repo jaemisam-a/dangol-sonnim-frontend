@@ -2,11 +2,11 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import Picture from "owner/settings/Picture";
-import Location from "owner/settings/Location";
-import Menus from "owner/settings/Menus";
-import Subs from "owner/settings/Subs";
-import Info from "owner/settings/Info";
+import Picture from "owner/settings/picture";
+import Location from "owner/settings/location";
+import Menus from "owner/settings/menus";
+import Subs from "owner/settings/subs";
+import Info from "owner/settings/info";
 
 const bottomPadding = css`
   height: 2rem;

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "src/components/common/layout";
-import AddProfile from "src/components/customer/login/AddProfile";
+import AddProfile from "customer/login/addProfile";
 import useLoginStore from "src/store/login";
 
 const Profile = () => {

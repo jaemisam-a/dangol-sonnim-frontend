@@ -5,9 +5,9 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import TextInput, { TextInputType } from "common/input/Text";
+import TextInput, { TextInputType } from "common/input/text";
 import { Colors, Texts } from "styles/common";
-import Owner from "public/images/logo/Owner.svg";
+import Owner from "public/images/logo/owner.svg";
 
 const wrapper = css`
   display: flex;
@@ -87,7 +87,7 @@ const OwnerLogin = () => {
       <Layout title="사장님 로그인" subTitle="로그인">
         <div css={wrapper}>
           <div css={logoWrapper}>
-            <Image src="/images/logo/Logo.png" alt="로고" width={43} height={57} />
+            <Image src="/images/logo/logo.png" alt="로고" width={43} height={57} />
             <Owner />
           </div>
           <form onSubmit={login} css={formWrapper}>

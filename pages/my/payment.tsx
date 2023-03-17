@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Layout from "common/layout";
-import MyCoupon from "common/coupon/My";
-import PayHistory from "customer/my/PayHistory";
-import PaymentStoreInfo from "customer/my/PaymentStoreInfo";
+import MyCoupon from "common/coupon/my";
+import PayHistory from "customer/my/payHistory";
+import PaymentStoreInfo from "customer/my/paymentStoreInfo";
 
 const thumbnailSection = css`
   padding: 1.5rem 0 1.25rem 1.25rem;

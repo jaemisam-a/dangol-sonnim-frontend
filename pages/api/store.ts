@@ -34,7 +34,7 @@ const store = [
       { src: "/images/dummy/cheetah.jpg", alt: "a" },
       { src: "/images/dummy/pizza.png", alt: "b" },
       { src: "/images/dummy/Mob-QR.png", alt: "c" },
-      { src: "/images/Profile.png", alt: "d" },
+      { src: "/images/profile.png", alt: "d" },
     ],
     location: {
       address: "서울 구로구 디지털로26길 111 지하 1층 002호",

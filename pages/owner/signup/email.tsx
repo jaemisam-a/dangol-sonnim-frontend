@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Layout from "common/layout";
-import InputWithButton from "common/input/WithButton";
+import InputWithButton from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
 
 const wrapper = css`

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
-import TextInput from "common/input/Text";
+import TextInput from "common/input/text";
 import InfoFormItem from "owner/store/infoFormItem";
 import ServiceTags from "owner/store/serviceTags";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
-import Search from "public/icons/etc/Search.svg";
+import Search from "public/icons/etc/search.svg";
 
 const formWrapper = css`
   display: flex;

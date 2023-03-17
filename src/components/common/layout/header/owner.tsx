@@ -3,11 +3,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import Owner from "public/images/logo/Owner.svg";
-import Hamburger from "public/icons/menu/Hamburger.svg";
-import Close from "public/icons/close/Close.svg";
-import ArrowLeft from "public/icons/direction/ArrowLeft.svg";
-import Check from "public/icons/check/Check.svg";
+import Owner from "public/images/logo/owner.svg";
+import Hamburger from "public/icons/menu/hamburger.svg";
+import Close from "public/icons/close/close.svg";
+import ArrowLeft from "public/icons/direction/arrowLeft.svg";
+import Check from "public/icons/check/check.svg";
 import { Colors, Sizes, Texts } from "styles/common";
 import SideNav from "common/layout/nav/sideNav";
 
@@ -92,7 +92,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
               <span css={logo}>
                 <Image
                   css={pointerButton}
-                  src="/images/logo/Logo.png"
+                  src="/images/logo/logo.png"
                   alt="logo"
                   width="27"
                   height="36"

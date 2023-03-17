@@ -2,12 +2,12 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 
 import { Texts, Colors } from "styles/common";
-import Banner from "customer/Banner";
-import BottomSheet from "common/BottomSheet";
+import Banner from "customer/banner";
+import BottomSheet from "common/bottomSheet";
 import Layout from "common/layout";
-import MyCouponWithQR from "customer/main/MyCouponWithQR";
-import MyCoupon from "common/coupon/My";
-import SearchBar from "customer/main/SearchBar";
+import MyCouponWithQR from "customer/main/myCouponWithQR";
+import MyCoupon from "common/coupon/my";
+import SearchBar from "customer/main/searchBar";
 import Spinner from "common/spinner";
 
 const Test = () => {
