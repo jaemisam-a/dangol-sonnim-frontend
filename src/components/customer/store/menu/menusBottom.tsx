@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import Menu from "customer/store/menu/menu";
+import Menu from "common/menuCard";
 
 type MenusBottomProps = {
   menus: { id: number; name: string; price: number; img: string }[];

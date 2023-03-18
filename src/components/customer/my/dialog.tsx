@@ -5,11 +5,12 @@ import { Colors, Texts } from "styles/common";
 
 type DialogProps = {
   content: {
-    usage: "withdrawal" | "unsubscribe" | "ownerWithdrawal";
+    usage?: "withdrawal" | "unsubscribe" | "ownerWithdrawal";
     id?: string;
     name?: string;
     subscribeDate?: string;
     buttonText: { confirm: string; cancel: string };
+    title?: string;
   };
   onConfirm: () => void;
   onCancel: () => void;
@@ -74,6 +75,8 @@ const Dialog = ({ content, onConfirm, onCancel }: DialogProps) => {
         return `${content.name},\n구독 해지하겠습니까?`;
       case "ownerWithdrawal":
         return "회원탈퇴 요청을 하시겠습니까?";
+      default:
+        return <div>{content.title}</div>;
     }
   };
 

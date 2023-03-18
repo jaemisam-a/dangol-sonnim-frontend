@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import RightIcon from "public/icons/direction/right.svg";
 import { Colors, Texts } from "styles/common";
 import StoreSection from "customer/store/section";
-import Menu from "customer/store/menu/menu";
+import Menu from "common/menuCard";
 import MenusBottom from "customer/store/menu/menusBottom";
 import BottomSheet from "common/bottomSheet";
 

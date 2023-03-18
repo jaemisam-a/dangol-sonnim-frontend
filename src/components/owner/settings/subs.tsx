@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 import Empty from "owner/settings/empty";
 import StoreSection from "owner/settings/section";
 import { statusType } from "common/popover";
 
 const Subs = () => {
-  const [status, setStatus] = useState<statusType>("default");
+  const { push } = useRouter();
+
+  const [, setStatus] = useState<statusType>("default");
 
   return (
     <StoreSection
-      status={status}
+      btnAction={() => push("/owner/settings/subs")}
       setStatus={setStatus}
       sectionTitle="구독권"
       isLocation={false}

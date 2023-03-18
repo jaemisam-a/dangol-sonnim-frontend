@@ -24,6 +24,7 @@ const wrapper = (isOpen: boolean) => css`
   box-shadow: 1px 2px 10px rgba(205, 186, 160, 0.6);
   border-radius: 0.25rem;
   background-color: white;
+  z-index: 1;
 
   button {
     text-align: left;
