@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import Empty from "owner/settings/Empty";
-import StoreSection from "owner/settings/Section";
+import Empty from "owner/settings/empty";
+import StoreSection from "owner/settings/section";
 import MenuCard from "common/menuCard";
-import Modal from "common/Modal";
+import Modal from "common/modal";
 import { statusType } from "common/popover";
-import Dialog from "customer/my/Dialog";
+import Dialog from "customer/my/dialog";
 
 type MenusProps = {
   data: { id: string; name: string; img: string; price: number }[];

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useId, useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-import Camera from "public/icons/etc/Camera.svg";
+import Camera from "public/icons/etc/camera.svg";
 
 const wrapper = css`
   width: 6.5rem;
