@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import CustomerHeader from "common/layout/header/customer";
 import OwnerHeader from "common/layout/header/owner";
 import BottomNav from "common/layout/nav/bottomNav";
+import Toast from "common/toast";
 import { Sizes } from "styles/common";
 
 type LayoutProps = {
@@ -62,6 +63,7 @@ const Layout = ({
         <div css={wrapper(isOwner)}>
           {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
           {children}
+          <Toast />
         </div>
       )}
       {isOwner && <BottomNav />}
