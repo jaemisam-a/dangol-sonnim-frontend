@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -24,10 +24,6 @@ const Menus = (props: MenusProps) => {
 
   const [status, setStatus] = useState<statusType>("default");
   const [openModal, setOpenModal] = useState(false);
-
-  useEffect(() => {
-    setStatus("default");
-  }, []);
 
   return (
     <StoreSection
