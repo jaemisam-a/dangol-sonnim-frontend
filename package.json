@@ -31,7 +31,7 @@
     "zustand": "^4.3.5"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^4.31.0",
+    "@netlify/plugin-nextjs": "^4.32.2",
     "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
