@@ -13,6 +13,14 @@ const bottomPadding = css`
 `;
 
 const Settings = () => {
+  const menuDummyData = [
+    { id: "1", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: "2", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: "3", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: "4", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: "5", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+  ];
+
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
       <Picture />
@@ -23,7 +31,7 @@ const Settings = () => {
         detail="서울대입구역 6번 출구에서 50m"
         openHour="10시에 영업시작"
       />
-      <Menus />
+      <Menus data={menuDummyData} />
       <Subs />
       <div css={bottomPadding} />
     </Layout>

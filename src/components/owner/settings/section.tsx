@@ -12,7 +12,7 @@ type StoreSectionProps = {
   menuCount?: number;
   isLocation: boolean;
   isEmpty?: boolean;
-  status?: statusType;
+  btnAction?: () => void;
   setStatus?: Dispatch<SetStateAction<statusType>>;
 };
 
@@ -65,8 +65,10 @@ const StoreSection = (props: StoreSectionProps) => {
           </div>
           {!props.isLocation && (
             <div>
-              {props.status === "default" ? (
-                <button css={registrationButton}>{props.sectionTitle} 등록</button>
+              {props.isEmpty ? (
+                <button onClick={props.btnAction} css={registrationButton}>
+                  {props.sectionTitle} 등록
+                </button>
               ) : (
                 <>
                   <button ref={kebabRef} onClick={() => setOpenPopover((prev) => !prev)}>
