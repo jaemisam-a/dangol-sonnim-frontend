@@ -35,7 +35,7 @@ const Menus = (props: MenusProps) => {
       setStatus={setStatus}
       btnAction={() => push("/owner/settings/menu")}
       isLocation={false}
-      isEmpty={Boolean(props.data?.length)}
+      isEmpty={Boolean(!props.data?.length)}
     >
       {props.data?.length ? (
         <div css={menusWrapper}>

@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Close from "public/icons/close/close.svg";
-import EditOnlyPencil from "public/icons/editOnlyPencil.svg";
+import Pencil from "public/icons/etc/pencil.svg";
 
 type MenuProps = {
   imgSrc: string;
@@ -61,7 +61,7 @@ const MenuCard = (props: MenuProps) => {
           />
           {props.isEdit && (
             <button css={btnOnImg} onClick={props.editAction}>
-              <EditOnlyPencil stroke={Colors.white} />
+              <Pencil stroke={Colors.white} />
             </button>
           )}
           {props.isDelete && (
