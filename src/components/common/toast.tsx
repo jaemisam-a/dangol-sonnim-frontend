@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { css, keyframes } from "@emotion/react";
 
 import useToastStore from "src/store/toast";
