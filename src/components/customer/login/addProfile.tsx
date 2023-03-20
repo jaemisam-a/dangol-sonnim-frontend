@@ -9,7 +9,7 @@ import Checkbox from "common/input/checkbox";
 import { InputStatus } from "common/input/text";
 
 const wrapper = css`
-  padding: 3.75rem 1.25rem 0 1.25rem;
+  padding: 3.75rem 1.25rem 1.25rem 1.25rem;
 `;
 
 const inputList = css`

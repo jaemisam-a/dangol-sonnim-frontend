@@ -11,6 +11,7 @@ const wrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 `;
 
 const paymentWrapper = css`
@@ -18,6 +19,7 @@ const paymentWrapper = css`
   flex-direction: column;
   align-items: center;
   gap: 1.375rem;
+  padding: 0 1.25rem;
 `;
 
 const title = css`

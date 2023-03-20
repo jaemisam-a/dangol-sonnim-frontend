@@ -32,7 +32,7 @@ const contentsWrapper = css`
 `;
 
 const contentsTopWrapper = css`
-  height: 4.875rem;
+  min-height: 4.875rem;
 `;
 
 const storeName = css`
