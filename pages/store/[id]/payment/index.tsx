@@ -135,10 +135,10 @@ const StorePayment = () => {
         setIsConsent={setIsConsent}
         storeName={DUMMY_PAYMENT.storeName}
         consentArr={[
-          { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", objectKey: "first" },
-          { content: "개인정보 수집 및 이용 동의 (필수)", objectKey: "second" },
-          { content: "개인정보 제3자 제공 동의 (필수)", objectKey: "third" },
-          { content: "결제대행 서비스 이용 약관 동의 (필수) 토스페이먼츠", objectKey: "fourth" },
+          { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", termsType: "refund" },
+          { content: "개인정보 수집 및 이용 동의 (필수)", termsType: "privacy" },
+          { content: "개인정보 제3자 제공 동의 (필수)", termsType: "privacyThirdParties" },
+          { content: "결제대행 서비스 이용 약관 동의 (필수) 토스페이먼츠", termsType: "payment" },
         ]}
       />
       <div css={buttonWrapper}>

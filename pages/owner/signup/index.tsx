@@ -148,13 +148,13 @@ const OwnerSignup = () => {
           ))}
         </div>
         <Consent
+          isOwner={true}
           isConsent={isCheckedConsent}
           setIsConsent={setIsCheckedConsent}
           consentArr={[
-            { content: "단골손님 사장님 이용약관(필수)", objectKey: "first" },
-            { content: "개인정보 수집 및 이용 동의(필수)", objectKey: "second" },
-            { content: "위치기반 서비스 이용약관(필수)", objectKey: "third" },
-            { content: "마케팅 정보 수신동의(필수)", objectKey: "fourth" },
+            { content: "단골손님 사장님 이용약관(필수)", termsType: "use" },
+            { content: "개인정보 수집 및 이용 동의(필수)", termsType: "privacy" },
+            { content: "마케팅 정보 수신동의(필수)", termsType: "marketing" },
           ]}
         />
         <div css={nextButton(isPossible)}>

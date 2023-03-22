@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import Checkbox from "common/input/checkbox";
 import { Colors, Texts } from "styles/common";
-import Terms from "customer/store/menu/payment/terms";
+import Terms, { TermsType } from "customer/store/menu/payment/terms";
 import BottomSheet from "common/bottomSheet";
 
 type PaymentConsentProps = {
@@ -50,10 +50,10 @@ const PaymentConsent = (props: PaymentConsentProps) => {
   const checkboxId = useId();
 
   const consentArr = [
-    { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", objectKey: "first" },
-    { content: "개인정보 수집 및 이용 동의 (필수)", objectKey: "second" },
-    { content: "개인정보 제3자 제공 동의 (필수)", objectKey: "third" },
-    { content: "결제대행 서비스 이용 약관 동의 (필수) 토스페이먼츠", objectKey: "fourth" },
+    { content: "구독취소 등 환불 안내 확인 및 동의 (필수)", objectKey: "refund" },
+    { content: "개인정보 수집 및 이용 동의 (필수)", objectKey: "privacy" },
+    { content: "개인정보 제3자 제공 동의 (필수)", objectKey: "privacyThirdParties" },
+    { content: "결제대행 서비스 이용 약관 동의 (필수) 토스페이먼츠", objectKey: "payment" },
   ];
 
   const [isConsentDetail, setIsConsentDetail] = useState({
@@ -113,7 +113,7 @@ const PaymentConsent = (props: PaymentConsentProps) => {
         open={selectedTerms !== ""}
         setOpen={() => setSelectedTerms("")}
         title=""
-        component={<Terms selectedTerms={selectedTerms} storeName={props.storeName} />}
+        component={<Terms selectedTerms={selectedTerms as TermsType} storeName={props.storeName} />}
       />
     </>
   );

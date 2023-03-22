@@ -4,13 +4,14 @@ import { css } from "@emotion/react";
 import Checkbox from "common/input/checkbox";
 import BottomSheet from "common/bottomSheet";
 import { Colors, Texts } from "styles/common";
-import Terms from "customer/store/menu/payment/terms";
+import Terms, { TermsType } from "customer/store/menu/payment/terms";
 
 type PaymentConsentProps = {
+  isOwner?: boolean;
   isConsent: boolean;
   setIsConsent: Dispatch<SetStateAction<boolean>>;
   storeName?: string;
-  consentArr: { content: string; objectKey: string }[];
+  consentArr: { content: string; termsType: TermsType }[];
 };
 
 const wrapper = css`
@@ -56,7 +57,7 @@ const Consent = (props: PaymentConsentProps) => {
     third: false,
     fourth: false,
   });
-  const [selectedTerms, setSelectedTerms] = useState("");
+  const [selectedTerms, setSelectedTerms] = useState<TermsType>(null);
 
   const allCheckbox = (isChecked: boolean) => {
     if (isChecked) {
@@ -89,13 +90,13 @@ const Consent = (props: PaymentConsentProps) => {
         </div>
         <div css={innerWrapper}>
           {props.consentArr.map((content) => (
-            <div css={inputWrapper} key={content.objectKey}>
+            <div css={inputWrapper} key={content.termsType}>
               <Checkbox
                 setIsChecked={setIsConsentDetail}
                 isChecked={isConsentDetail}
-                objectKey={content.objectKey}
+                objectKey={content.termsType as string}
               />
-              <label onClick={() => setSelectedTerms(content.objectKey)}>{content.content}</label>
+              <label onClick={() => setSelectedTerms(content.termsType)}>{content.content}</label>
             </div>
           ))}
         </div>
@@ -104,9 +105,15 @@ const Consent = (props: PaymentConsentProps) => {
         height="40.125rem"
         isBackButton={false}
         isXButton={true}
-        open={selectedTerms !== ""}
-        setOpen={() => setSelectedTerms("")}
-        component={<Terms selectedTerms={selectedTerms} storeName={props.storeName || ""} />}
+        open={selectedTerms !== null}
+        setOpen={() => setSelectedTerms(null)}
+        component={
+          <Terms
+            isOwner={props.isOwner}
+            selectedTerms={selectedTerms}
+            storeName={props.storeName || ""}
+          />
+        }
       />
     </>
   );
