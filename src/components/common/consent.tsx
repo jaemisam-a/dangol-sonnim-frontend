@@ -11,7 +11,7 @@ type PaymentConsentProps = {
   isConsent: boolean;
   setIsConsent: Dispatch<SetStateAction<boolean>>;
   storeName?: string;
-  consentArr: { content: string; objectKey: TermsType }[];
+  consentArr: { content: string; termsType: TermsType }[];
 };
 
 const wrapper = css`
@@ -90,13 +90,13 @@ const Consent = (props: PaymentConsentProps) => {
         </div>
         <div css={innerWrapper}>
           {props.consentArr.map((content) => (
-            <div css={inputWrapper} key={content.objectKey}>
+            <div css={inputWrapper} key={content.termsType}>
               <Checkbox
                 setIsChecked={setIsConsentDetail}
                 isChecked={isConsentDetail}
-                objectKey={content.objectKey as string}
+                objectKey={content.termsType as string}
               />
-              <label onClick={() => setSelectedTerms(content.objectKey)}>{content.content}</label>
+              <label onClick={() => setSelectedTerms(content.termsType)}>{content.content}</label>
             </div>
           ))}
         </div>
