@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { css, keyframes } from "@emotion/react";
 
 import useToastStore from "src/store/toast";
@@ -55,12 +55,12 @@ const buttonWrapper = css`
 const Toast = () => {
   const { message, type, setMessage } = useToastStore();
 
-  // useEffect(() => {
-  //   if (!message) return;
-  //   setTimeout(() => {
-  //     setMessage("");
-  //   }, 600);
-  // }, [message]);
+  useEffect(() => {
+    if (!message) return;
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  }, [message]);
 
   if (!message) return null;
 
