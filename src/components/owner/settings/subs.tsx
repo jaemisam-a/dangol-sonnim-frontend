@@ -81,7 +81,7 @@ const SubsSetting = (props: SubsSettingProps) => {
           onConfirm={() => setOpenModal(false)}
           content={{
             buttonText: { cancel: "삭제", confirm: "취소" },
-            title: "해당 메뉴를 삭제하시겠습니까?",
+            title: "해당 구독권을 삭제하시겠습니까?",
           }}
         />
       </Modal>

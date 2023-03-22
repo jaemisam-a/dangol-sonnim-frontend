@@ -35,7 +35,7 @@ const Settings = () => {
 
     {
       id: "jghs!4985",
-      name: "계란 추가 or 새우튀김 제공(5회권)",
+      name: "계란 추가 or 새우튀김 제공",
       count: 5,
       description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
       price: 3500,
