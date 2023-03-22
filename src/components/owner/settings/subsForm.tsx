@@ -6,6 +6,10 @@ import Checkbox from "common/input/checkbox";
 import TextInput from "common/input/text";
 import { selectStyle, Texts } from "styles/common";
 
+type SubsFormProps = {
+  isEdit: boolean;
+};
+
 const formWrapper = css`
   padding: 1.5rem 1.25rem;
 `;
@@ -21,7 +25,7 @@ const checkboxWrapper = css`
   }
 `;
 
-const SubsForm = () => {
+const SubsForm = (props: SubsFormProps) => {
   const [subsContent, setSubsContent] = useState({
     name: "",
     type: "monthly",

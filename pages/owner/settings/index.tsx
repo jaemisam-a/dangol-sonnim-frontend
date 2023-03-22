@@ -21,6 +21,30 @@ const Settings = () => {
     { id: "5", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
   ];
 
+  const subsDummyData = [
+    {
+      id: "jghs!12314",
+      name: "모든 메뉴 사이즈업",
+      count: 5,
+      description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
+      price: 3500,
+      isMain: true,
+      tags: ["사이드디쉬추가", "사이즈업"],
+      storeName: "정갈한솥",
+    },
+
+    {
+      id: "jghs!4985",
+      name: "계란 추가 or 새우튀김 제공",
+      count: 5,
+      description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
+      price: 3500,
+      isMain: false,
+      tags: ["사이드디쉬추가", "사이즈업"],
+      storeName: "정갈한솥",
+    },
+  ];
+
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
       <Picture />
@@ -32,7 +56,7 @@ const Settings = () => {
         openHour="10시에 영업시작"
       />
       <Menus data={menuDummyData} />
-      <Subs />
+      <Subs data={subsDummyData} />
       <div css={bottomPadding} />
     </Layout>
   );
