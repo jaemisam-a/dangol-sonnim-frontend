@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import { CashReceiptsType, SelectedType, TransferType } from "pages/store/[id]/payment";
 import StoreSection from "customer/store/section";
 import MethodButtonList from "customer/store/menu/payment/methodButtonList";
-import PaymentSelect from "customer/store/menu/payment/select";
+import Select from "common/select";
 import CashReceipts from "customer/store/menu/payment/cashReceipts";
 import TextInput from "common/input/text";
 import { Texts } from "styles/common";
@@ -59,7 +59,7 @@ const PaymentMethod = (props: PaymentMethodProps) => {
       </div>
       {props.selectMethod === 1 && (
         <div css={paymentSelect}>
-          <PaymentSelect
+          <Select
             placeholder="카드를 선택해주세요"
             list={[
               { id: "1", name: "우리카드" },
@@ -81,7 +81,7 @@ const PaymentMethod = (props: PaymentMethodProps) => {
       {props.selectMethod === 2 && (
         <>
           <div css={paymentSelect}>
-            <PaymentSelect
+            <Select
               placeholder="은행을 선택해주세요"
               list={[
                 { id: "1", name: "국민은행" },

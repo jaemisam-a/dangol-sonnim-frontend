@@ -85,7 +85,8 @@ const global = css`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  hr {
     padding: 0;
     margin: 0;
   }

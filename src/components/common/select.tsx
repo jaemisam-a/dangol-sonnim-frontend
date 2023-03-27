@@ -6,11 +6,14 @@ import Down from "public/icons/direction/down.svg";
 import Up from "public/icons/direction/up.svg";
 import { SelectedType, TransferType } from "pages/store/[id]/payment";
 
-type PaymentSelectProps = {
-  placeholder: string;
+type SelectProps = {
+  placeholder?: string;
   list: SelectedType[] | TransferType[];
   selected: SelectedType | TransferType;
-  setSelected: Dispatch<SetStateAction<SelectedType>> | Dispatch<SetStateAction<TransferType>>;
+  setSelected:
+    | Dispatch<SetStateAction<SelectedType>>
+    | Dispatch<SetStateAction<TransferType>>
+    | Dispatch<SetStateAction<string>>;
 };
 
 const wrapper = css`
@@ -52,7 +55,7 @@ const option = css`
   ${Texts.B3_15_R2}
 `;
 
-const PaymentSelect = (props: PaymentSelectProps) => {
+const Select = (props: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -89,4 +92,4 @@ const PaymentSelect = (props: PaymentSelectProps) => {
   );
 };
 
-export default PaymentSelect;
+export default Select;

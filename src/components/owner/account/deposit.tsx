@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import { TransferType } from "pages/store/[id]/payment";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
-import PaymentSelect from "customer/store/menu/payment/select";
+import Select from "common/select";
 import { Colors, Texts } from "styles/common";
 
 type DepositAccount = {
@@ -73,7 +73,7 @@ const DepositAccount = (props: DepositAccount) => {
         />
         <div>
           <label css={bankLabel}>은행선택</label>
-          <PaymentSelect
+          <Select
             placeholder="은행을 선택해주세요"
             list={[
               { id: "1", name: "국민은행" },
