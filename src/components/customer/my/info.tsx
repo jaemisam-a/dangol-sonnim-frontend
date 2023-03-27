@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Colors, Texts } from "styles/common";
 import RightIcon from "public/icons/direction/right.svg";
 
-type LoginType = "kakao" | "google" | "apple" | "naver";
+export type LoginType = "kakao" | "google" | "apple" | "naver";
 
 type InfoProps = {
   user: {
