@@ -3,7 +3,7 @@ import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import Info from "customer/my/info";
-import Check from "public/icons/Check/check.svg";
+import Check from "public/icons/check/check.svg";
 import { Colors, Texts } from "styles/common";
 import SubscriberSection from "owner/list/section";
 
