@@ -88,15 +88,17 @@ const Subs = () => {
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth() + 1;
 
+    const yearArr = [];
     const monthArr = [];
 
     for (let year = currentYear; year >= 2000; year--) {
-      setYearList((prev) => [...prev, { id: String(year), name: `${year}년` }]);
+      yearArr.push({ id: String(year), name: `${year}년` });
     }
     for (let i = 1; i <= 12; i++) {
       monthArr.push({ id: String(i), name: `${i}월` });
     }
 
+    setYearList(yearArr);
     setMonthList(monthArr);
 
     setSelectedYear({ id: String(currentYear), name: `${currentYear}년` });
