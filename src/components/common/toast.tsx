@@ -21,7 +21,7 @@ const outerWrapper = css`
   justify-content: center;
 `;
 
-const wrapper = css`
+const wrapper = (hasConfirmButton: boolean) => css`
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -29,8 +29,8 @@ const wrapper = css`
   z-index: 10;
   padding: 1rem;
   width: 20rem;
-  height: 5.25rem;
-  background-color: ${Colors.neutral80};
+  height: ${hasConfirmButton ? "5.25rem" : "auto"};
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 0.625rem;
   color: ${Colors.white};
   ${Texts.B2_14_R2}
@@ -53,10 +53,11 @@ const buttonWrapper = css`
 `;
 
 const Toast = () => {
-  const { message, type, setMessage } = useToastStore();
+  const { message, type, hasConfirmButton, setMessage } = useToastStore();
 
   useEffect(() => {
     if (!message) return;
+    if (hasConfirmButton) return;
     setTimeout(() => {
       setMessage("");
     }, 2000);
@@ -66,14 +67,16 @@ const Toast = () => {
 
   return (
     <div css={outerWrapper}>
-      <div css={wrapper}>
+      <div css={wrapper(hasConfirmButton)}>
         <div css={textWrapper}>
           {type === "warning" && <Warning />}
           <div>{message}</div>
         </div>
-        <div css={buttonWrapper}>
-          <button onClick={() => setMessage("")}>확인</button>
-        </div>
+        {hasConfirmButton && (
+          <div css={buttonWrapper}>
+            <button onClick={() => setMessage("")}>확인</button>
+          </div>
+        )}
       </div>
     </div>
   );

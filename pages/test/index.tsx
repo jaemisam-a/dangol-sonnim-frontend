@@ -61,11 +61,13 @@ const Test = () => {
       />
       <Spinner />
       <br />
-      <button onClick={() => setMessage("방문이 등록되었습니다.", "info")}>toast info</button>
+      <button onClick={() => setMessage("방문이 등록되었습니다.", false, "info")}>
+        toast info
+      </button>
       <br />
       <button
         onClick={() =>
-          setMessage("QR코드 인증에 실패했습니다.\n다시 한번 확인해주세요.", "warning")
+          setMessage("QR코드 인증에 실패했습니다.\n다시 한번 확인해주세요.", true, "warning")
         }
       >
         toast warning

@@ -14,11 +14,14 @@ type MessageType = "info" | "warning";
 interface StoreState {
   message: string;
   type?: MessageType;
-  setMessage: (message: string, type?: MessageType) => void;
+  hasConfirmButton: boolean;
+  setMessage: (message: string, hasConfirmButton?: boolean, type?: MessageType) => void;
 }
 const store = (set: any) => ({
   message: "",
-  setMessage: (message: string, type?: MessageType) => set(() => ({ message, type })),
+  hasConfirmButton: false,
+  setMessage: (message: string, hasConfirmButton?: boolean, type?: MessageType) =>
+    set(() => ({ message, type, hasConfirmButton })),
 });
 
 const useToastStore = create<StoreState>()(addDevtools(store));
