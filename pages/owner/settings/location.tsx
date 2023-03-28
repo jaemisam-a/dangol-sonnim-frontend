@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery, useQueryClient } from "react-query";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 import { css } from "@emotion/react";
@@ -35,6 +35,8 @@ const bottomSpinner = css`
 
 const SettingsLocation = () => {
   const [ref, inView] = useInView();
+  const queryClient = useQueryClient();
+
   const [query, setQuery] = useState("");
   const [previousQuery, setPreviousQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
@@ -64,6 +66,13 @@ const SettingsLocation = () => {
   );
 
   const locationListData = data && JSON.parse(data?.pages.at(-1)?.data.slice(1, -1)).results;
+
+  const searchSubmit = () => {
+    queryClient.removeQueries("location");
+    setIsSearching(true);
+    refetch().then(() => setPreviousQuery && setPreviousQuery(query));
+    setIsSearching(false);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -95,10 +104,7 @@ const SettingsLocation = () => {
           isCustomer={false}
           placeholder="언주로 170"
           setState={setQuery}
-          mutate={refetch}
-          setIsSearching={setIsSearching}
-          query={query}
-          setPreviousQuery={setPreviousQuery}
+          mutate={searchSubmit}
         />
         <div>
           {isFetching && (!locationListData || previousQuery !== query) ? (

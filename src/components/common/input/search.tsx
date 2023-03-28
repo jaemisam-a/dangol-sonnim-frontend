@@ -1,5 +1,4 @@
 import React, { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef } from "react";
-import { useQueryClient } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -7,13 +6,11 @@ import { Colors } from "styles/common";
 import Search from "public/icons/etc/search.svg";
 
 type SearchBarProps = {
+  isBackgroundWhite?: boolean;
   isCustomer: boolean;
   placeholder: string;
   setState?: Dispatch<SetStateAction<string>>;
   mutate?: any;
-  setIsSearching?: Dispatch<SetStateAction<boolean>>;
-  query?: string;
-  setPreviousQuery?: Dispatch<SetStateAction<string>>;
 };
 
 const inputWrapper = css`
@@ -21,13 +18,13 @@ const inputWrapper = css`
   width: 100%;
 `;
 
-const input = css`
-  background-color: ${Colors.neutral20};
+const input = (isBackgroundWhite: boolean) => css`
+  background-color: ${isBackgroundWhite ? Colors.white : Colors.neutral20};
+  border: ${isBackgroundWhite ? `1px solid ${Colors.neutral30}` : "none"};
   border-radius: 4px;
   width: 100%;
   height: 2.5rem;
   padding: 0.5rem 3.25rem 0.5rem 0.75rem;
-  border: 0;
 
   &:focus {
     outline: none;
@@ -44,7 +41,6 @@ const searchIcon = css`
 const SearchBar = (props: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   const goToSearch = () => {
     router.push("/search");
@@ -58,25 +54,14 @@ const SearchBar = (props: SearchBarProps) => {
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     if (e.key === "Enter" && target.value != "") {
-      queryClient.removeQueries("location");
-      props.setIsSearching && props.setIsSearching(true);
-      props
-        .mutate()
-        .then(() => props.setPreviousQuery && props.setPreviousQuery(props.query || ""));
-
-      props.setIsSearching && props.setIsSearching(false);
+      props.mutate();
     }
   };
 
   const onClickSearch = () => {
     const input = inputRef.current as HTMLInputElement;
     if (input.value !== "") {
-      queryClient.removeQueries("location");
-      props.setIsSearching && props.setIsSearching(true);
-      props
-        .mutate()
-        .then(() => props.setPreviousQuery && props.setPreviousQuery(props.query || ""));
-      props.setIsSearching && props.setIsSearching(false);
+      props.mutate();
     }
   };
 
@@ -86,12 +71,12 @@ const SearchBar = (props: SearchBarProps) => {
         type="search"
         placeholder={props.placeholder}
         ref={inputRef}
-        css={input}
+        css={input(props.isBackgroundWhite as boolean)}
         onChange={handleSearch}
         onFocus={props.isCustomer ? goToSearch : undefined}
-        onKeyDown={!props.isCustomer ? onKeyDown : undefined}
+        onKeyDown={onKeyDown}
       />
-      <button onClick={!props.isCustomer ? onClickSearch : undefined}>
+      <button onClick={onClickSearch}>
         <Search css={searchIcon} width={24} height={24} stroke={Colors.amber50} />
       </button>
     </div>
