@@ -29,10 +29,11 @@ const titleWrapper = css`
   gap: 0.25rem;
 `;
 
-const titleInnerWrapper = css`
+const titleInnerWrapper = (isAllSubs: boolean) => css`
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  ${isAllSubs ? Texts.S3_18_B : Texts.S1_16_B}
 `;
 
 const caption = css`
@@ -42,6 +43,7 @@ const caption = css`
 
 const detailButton = css`
   color: ${Colors.amber50};
+  ${Texts.C2_12_B}
 `;
 
 const smallHr = css`
@@ -81,18 +83,37 @@ const amberText = css`
   color: ${Colors.amber50};
 `;
 
+const neutralText = css`
+  color: ${Colors.neutral90};
+`;
+
+const countOrPrice = css`
+  ${Texts.S1_16_B}
+`;
+
 const SubsSection = (props: SubsSectionProps) => {
+  const clickDetail = () => {
+    // TODO: 상세보기 페이지 연결
+    alert("상세보기");
+  };
+
   return (
     <section css={wrapper}>
       <div css={titleWithButton}>
         <div css={titleWrapper}>
-          <div css={titleInnerWrapper}>
-            <h2>{props.title}</h2>
-            <span css={props.allSubs && amberText}>{props.count.toLocaleString("ko-KR")}명</span>
+          <div css={titleInnerWrapper(Boolean(props.allSubs))}>
+            <span>{props.title}</span>
+            <span css={props.allSubs ? amberText : neutralText}>
+              {props.count.toLocaleString("ko-KR")}명
+            </span>
           </div>
           <div css={caption}>지난달 대비 {props.lastCount.toLocaleString("ko-KR")}명 증가</div>
         </div>
-        {!props.allSubs && <button css={detailButton}>상세보기</button>}
+        {!props.allSubs && (
+          <button css={detailButton} onClick={clickDetail}>
+            상세보기
+          </button>
+        )}
       </div>
       <hr css={smallHr} />
       {props.allSubs && (
@@ -110,11 +131,11 @@ const SubsSection = (props: SubsSectionProps) => {
       <div css={countWrapper}>
         <div>
           <span>총 방문횟수</span>
-          <span>{props.visitCount.toLocaleString("ko-KR")}번</span>
+          <span css={countOrPrice}>{props.visitCount.toLocaleString("ko-KR")}번</span>
         </div>
         <div>
           <span>총 판매액</span>
-          <span css={amberText}>{props.price.toLocaleString("ko-KR")}원</span>
+          <span css={[amberText, countOrPrice]}>{props.price.toLocaleString("ko-KR")}원</span>
         </div>
       </div>
     </section>
