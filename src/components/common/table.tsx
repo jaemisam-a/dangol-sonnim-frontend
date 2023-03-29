@@ -14,6 +14,7 @@ const wrapper = css`
 `;
 
 const table = css`
+  width: 100%;
   border-collapse: collapse;
 `;
 
@@ -38,7 +39,7 @@ const tableBody = css`
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      max-width: 7rem;
+      /* max-width: 7rem; */
       padding: 0.5rem 0.25rem;
     }
   }
