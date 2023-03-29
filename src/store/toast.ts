@@ -17,6 +17,7 @@ interface StoreState {
   hasConfirmButton: boolean;
   setMessage: (message: string, hasConfirmButton?: boolean, type?: MessageType) => void;
 }
+
 const store = (set: any) => ({
   message: "",
   hasConfirmButton: false,
