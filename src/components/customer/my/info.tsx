@@ -5,13 +5,15 @@ import Image from "next/image";
 import { Colors, Texts } from "styles/common";
 import RightIcon from "public/icons/direction/right.svg";
 
+export type LoginType = "kakao" | "google" | "apple" | "naver";
+
 type InfoProps = {
   user: {
     nickname: string;
-    loginInfo: string;
+    loginInfo: LoginType;
     avatar?: string;
   };
-  openProfile: () => void;
+  openProfile?: () => void;
 };
 
 type StateTypes = {
@@ -88,9 +90,11 @@ const Info = ({ user: { nickname, loginInfo, avatar }, openProfile }: InfoProps)
       <div css={textWrapper}>
         <div css={nicknameStyle}>
           <span>{nickname}</span>
-          <button onClick={openProfile}>
-            <RightIcon width="24" height="24" stroke="#14181F" />
-          </button>
+          {openProfile && (
+            <button onClick={openProfile}>
+              <RightIcon width="24" height="24" stroke="#14181F" />
+            </button>
+          )}
         </div>
         <div css={loginInfoStyle}>
           <Image width={20} height={20} src={myLoginType.imgSrc} alt={loginInfo} />

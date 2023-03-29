@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import BottomSheet from "common/bottomSheet";
 import EditProfile from "customer/my/editProfile";
-import Info from "customer/my/info";
+import Info, { LoginType } from "customer/my/info";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ const Profile = () => {
   const user = [
     {
       nickname: "물고기1234",
-      loginInfo: "kakao",
+      loginInfo: "kakao" as LoginType,
     },
   ];
 
