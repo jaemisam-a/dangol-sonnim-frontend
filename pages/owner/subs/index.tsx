@@ -79,7 +79,6 @@ const bigHr = css`
 const Subs = () => {
   const [yearList, setYearList] = useState<SelectedType[]>([]);
   const [monthList, setMonthList] = useState<SelectedType[]>([]);
-
   const [selectedYear, setSelectedYear] = useState<SelectedType>({ id: "", name: "" });
   const [selectedMonth, setSelectedMonth] = useState<SelectedType>({ id: "", name: "" });
 
@@ -106,7 +105,7 @@ const Subs = () => {
   }, []);
 
   return (
-    <Layout title="구독현황" isLogo={true}>
+    <Layout title="구독현황" subTitle="구독현황" isLogo={true}>
       <div css={wrapper}>
         <div css={selectWrapper}>
           <Select list={yearList} selected={selectedYear} setSelected={setSelectedYear} />
