@@ -59,7 +59,9 @@ const Checkbox = (props: CheckboxProps) => {
           id={props.forId ?? id}
           onChange={handleCheck}
           disabled={props.disable}
-          checked={props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked}
+          checked={
+            (props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked) || false
+          }
         />
         <label htmlFor={props.forId ?? id} />
       </div>

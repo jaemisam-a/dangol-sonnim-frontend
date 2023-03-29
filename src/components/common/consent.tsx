@@ -14,6 +14,8 @@ type PaymentConsentProps = {
   consentArr: { content: string; termsType: TermsType }[];
 };
 
+type ConsentType = Record<string, boolean>;
+
 const wrapper = css`
   padding: 0 1.25rem;
 `;
@@ -51,21 +53,25 @@ const inputWrapper = css`
 const Consent = (props: PaymentConsentProps) => {
   const checkboxId = useId();
 
-  const [isConsentDetail, setIsConsentDetail] = useState({
-    first: false,
-    second: false,
-    third: false,
-    fourth: false,
-  });
+  const [isConsentDetail, setIsConsentDetail] = useState<ConsentType>({ first: false });
   const [selectedTerms, setSelectedTerms] = useState<TermsType>(null);
 
   const allCheckbox = (isChecked: boolean) => {
+    const result: ConsentType = {};
     if (isChecked) {
-      setIsConsentDetail({ first: true, second: true, third: true, fourth: true });
+      props.consentArr.forEach((el) => (result[el.termsType as string] = true));
+      setIsConsentDetail(result);
     } else {
-      setIsConsentDetail({ first: false, second: false, third: false, fourth: false });
+      props.consentArr.forEach((el) => (result[el.termsType as string] = false));
+      setIsConsentDetail(result);
     }
   };
+
+  useEffect(() => {
+    const result: ConsentType = {};
+    props.consentArr.forEach((el) => (result[el.termsType as string] = false));
+    setIsConsentDetail(result);
+  }, []);
 
   useEffect(() => {
     if (Object.values(isConsentDetail).some((el) => !el)) {
