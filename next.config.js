@@ -18,6 +18,10 @@ const nextConfig = {
         source: "/juso/:path*",
         destination: "https://business.juso.go.kr/:path*",
       },
+      {
+        source: "/api/:path*",
+        destination: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/:path*`,
+      },
     ];
   },
 };

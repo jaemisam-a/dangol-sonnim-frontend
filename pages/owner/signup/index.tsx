@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -7,6 +8,7 @@ import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Consent from "common/consent";
 import { Colors, Texts } from "styles/common";
 import { InputStatus, InputType } from "common/input/text";
+import { sendEmailAuth } from "pages/api/owner/emailAuth";
 
 const wrapper = css`
   display: flex;
@@ -40,6 +42,8 @@ const nextButton = (isPossible: boolean) => css`
 const OwnerSignup = () => {
   const { push } = useRouter();
 
+  const { mutate } = useMutation(sendEmailAuth);
+
   const [inputData, setInputData] = useState({ email: "", password: "", phone: "", phoneAuth: "" });
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", "", ""]);
@@ -47,9 +51,13 @@ const OwnerSignup = () => {
 
   const goNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutate(inputData.email);
     push(
-      { pathname: "/owner/login/signup/email", query: { email: inputData.email } },
-      "/owner/login/signup/email"
+      {
+        pathname: "/owner/signup/email",
+        query: { email: inputData.email, password: inputData.password, phone: inputData.phone },
+      },
+      "/owner/signup/email"
     );
   };
 

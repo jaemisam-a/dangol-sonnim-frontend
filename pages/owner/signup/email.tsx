@@ -1,10 +1,13 @@
 import React, { FormEvent, useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-query";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Layout from "common/layout";
 import InputWithButton from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
+import { verifyEmailAuth } from "pages/api/owner/emailAuth";
+import { signUp } from "pages/api/owner/sign";
 
 const wrapper = css`
   display: flex;
@@ -39,15 +42,32 @@ const OwnerSignupEmail = () => {
 
   const [authNumber, setAuthNumber] = useState("");
   const [isApprove, setIsApprove] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  const { refetch } = useQuery(
+    ["verifyEmail", { email: query.email, authCode: authNumber }],
+    () => verifyEmailAuth(query.email as string, authNumber),
+    { enabled: isValid }
+  );
+  const { mutate } = useMutation(signUp);
 
   const checkAuthNumber = () => {
     // TODO: 인증번호 확인 API 요청
+    setIsValid(true);
+    refetch().finally(() => setIsValid(false));
     setIsApprove(true);
   };
 
   const submitAccount = (e: FormEvent<HTMLFormElement>) => {
     // TODO: 회원가입 API 요청
     e.preventDefault();
+    mutate({
+      name: "단골손님",
+      email: query.email as string,
+      password: "abcd",
+      phoneNumber: query.phone as string,
+      marketingAgreement: true,
+    });
     alert("회원가입!");
   };
 
@@ -63,14 +83,12 @@ const OwnerSignupEmail = () => {
         <div css={description}>{query.email}으로 인증번호를 보냈어요</div>
         <InputWithButton
           isInBottomSheet={false}
-          type="number"
+          type="text"
           btnName="확인"
           placeholder="인증번호를 입력해주세요"
           btnAction={checkAuthNumber}
           state={String(authNumber)}
           setState={setAuthNumber}
-          minValue={6}
-          maxValue={6}
         />
         <div css={submitButton(isApprove)}>
           <button type="submit">계정 생성</button>
