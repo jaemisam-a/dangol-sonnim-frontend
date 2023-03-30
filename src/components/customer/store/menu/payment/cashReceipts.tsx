@@ -72,6 +72,7 @@ const CashReceipts = (props: CashReceiptsProps) => {
       <div css={receiptLabel}>
         <Checkbox
           forId={checkboxId}
+          isChecked={props.cashReceipts}
           setIsChecked={props.setCashReceipts}
           objectKey="isUse"
           extraFnc={eraseData}
