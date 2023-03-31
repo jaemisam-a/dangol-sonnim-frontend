@@ -9,12 +9,15 @@ import MyCouponWithQR from "customer/main/myCouponWithQR";
 import MyCoupon from "common/coupon/my";
 import SearchBar from "customer/main/searchBar";
 import Spinner from "common/spinner";
+import useToastStore from "src/store/toast";
 
 const Test = () => {
   const TestDiv = styled.div`
     ${Texts.B2_14_R_line}
     color: ${Colors.amber50};
   `;
+
+  const { setMessage } = useToastStore();
 
   const [open, setOpen] = useState(false);
 
@@ -57,6 +60,18 @@ const Test = () => {
         isDetail={true}
       />
       <Spinner />
+      <br />
+      <button onClick={() => setMessage("방문이 등록되었습니다.", false, "info")}>
+        toast info
+      </button>
+      <br />
+      <button
+        onClick={() =>
+          setMessage("QR코드 인증에 실패했습니다.\n다시 한번 확인해주세요.", true, "warning")
+        }
+      >
+        toast warning
+      </button>
     </Layout>
   );
 };
