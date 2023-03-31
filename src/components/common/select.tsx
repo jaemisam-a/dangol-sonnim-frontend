@@ -42,8 +42,9 @@ const options = css`
   border-radius: 0.25rem;
   width: 100%;
   margin-top: 2px;
-  height: 12.5rem;
+  max-height: 12.5rem;
   overflow: scroll;
+  z-index: 1;
 `;
 
 const option = css`

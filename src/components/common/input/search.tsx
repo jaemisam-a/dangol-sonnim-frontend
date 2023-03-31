@@ -2,7 +2,7 @@ import React, { ChangeEvent, Dispatch, KeyboardEvent, SetStateAction, useRef } f
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import { Colors } from "styles/common";
+import { Colors, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
 
 type SearchBarProps = {
@@ -11,6 +11,8 @@ type SearchBarProps = {
   placeholder: string;
   setState?: Dispatch<SetStateAction<string>>;
   mutate?: any;
+  height?: string;
+  text?: string;
 };
 
 const inputWrapper = css`
@@ -18,13 +20,14 @@ const inputWrapper = css`
   width: 100%;
 `;
 
-const input = (isBackgroundWhite: boolean) => css`
+const input = (isBackgroundWhite: boolean, height: string, text: string) => css`
   background-color: ${isBackgroundWhite ? Colors.white : Colors.neutral20};
   border: ${isBackgroundWhite ? `1px solid ${Colors.neutral30}` : "none"};
   border-radius: 4px;
   width: 100%;
-  height: 2.5rem;
+  height: ${height};
   padding: 0.5rem 3.25rem 0.5rem 0.75rem;
+  ${Texts[text as "B3_15_M2"]}
 
   &:focus {
     outline: none;
@@ -71,7 +74,11 @@ const SearchBar = (props: SearchBarProps) => {
         type="search"
         placeholder={props.placeholder}
         ref={inputRef}
-        css={input(props.isBackgroundWhite as boolean)}
+        css={input(
+          props.isBackgroundWhite as boolean,
+          props.height as string,
+          props.text as string
+        )}
         onChange={handleSearch}
         onFocus={props.isCustomer ? goToSearch : undefined}
         onKeyDown={onKeyDown}
@@ -84,3 +91,7 @@ const SearchBar = (props: SearchBarProps) => {
 };
 
 export default SearchBar;
+
+SearchBar.defaultProps = {
+  height: "2.5rem",
+};
