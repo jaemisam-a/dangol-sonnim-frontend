@@ -191,7 +191,11 @@ const AddProfile = () => {
           ))}
         </div>
         <div css={consentLabel}>
-          <Checkbox setIsChecked={setIsCheckedConsent} forId={checkboxId} />
+          <Checkbox
+            isChecked={isCheckedConsent}
+            setIsChecked={setIsCheckedConsent}
+            forId={checkboxId}
+          />
           <label htmlFor={checkboxId}>개인정보 수집 및 이용 동의(필수)</label>
         </div>
         <div css={consentDescription}>

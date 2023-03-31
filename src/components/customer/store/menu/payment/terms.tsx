@@ -130,11 +130,11 @@ const Terms = ({ isOwner, selectedTerms, storeName }: TermsProps) => {
     getTermTitle();
   }, [selectedTerms]);
 
-  if (isOwner) {
+  if (!isOwner) {
     switch (selectedTerms) {
       case "refund":
         return (
-          <article css={[wrapper]}>
+          <article css={wrapper}>
             <h1 css={titleStyle}>{termsTitle}</h1>
             <p css={infoStyle}>
               *반복 결제되며 언제든지 취소할 수 있습니다. 제휴업체가 혜택을 업데이트할 수 있습니다.
@@ -258,7 +258,7 @@ const Terms = ({ isOwner, selectedTerms, storeName }: TermsProps) => {
   } else {
     switch (selectedTerms) {
       case "use":
-        return <article css={[wrapper]}>{/* TODO: 이용약관 정의되면 작성 */}</article>;
+        return <article css={wrapper}>{/* TODO: 이용약관 정의되면 작성 */}</article>;
 
       case "privacy":
         return (

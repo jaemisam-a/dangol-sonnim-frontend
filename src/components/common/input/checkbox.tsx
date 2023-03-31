@@ -5,7 +5,7 @@ import { Colors } from "styles/common";
 
 type CheckboxProps = {
   setIsChecked?: Dispatch<SetStateAction<any>> | Dispatch<SetStateAction<boolean>>;
-  isChecked?: any | boolean;
+  isChecked: any | boolean;
   objectKey?: string;
   extraFnc?: (isChecked: boolean) => void;
   disable?: boolean;
@@ -59,7 +59,7 @@ const Checkbox = (props: CheckboxProps) => {
           id={props.forId ?? id}
           onChange={handleCheck}
           disabled={props.disable}
-          checked={props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked}
+          checked={Boolean(props.objectKey ? props.isChecked?.[props.objectKey] : props.isChecked)}
         />
         <label htmlFor={props.forId ?? id} />
       </div>

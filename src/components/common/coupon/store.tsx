@@ -13,7 +13,7 @@ type StoreCouponProps = {
   count: number;
   description: string;
   price: number;
-  checked?: boolean;
+  checked?: any | boolean;
   setChecked?: Dispatch<SetStateAction<any>>;
   disable?: boolean;
   isOwner?: boolean;

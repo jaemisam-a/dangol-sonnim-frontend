@@ -13,7 +13,7 @@ type SubsProps = {
 };
 
 type isCheckedType = {
-  [index: string]: string;
+  [index: string]: boolean;
 };
 
 const subsWrapper = css`
@@ -66,6 +66,7 @@ const Subs = (props: SubsProps) => {
               price={el.price}
               storeName={props.storeName}
               key={el.id}
+              checked={isChecked}
               setChecked={setIsChecked}
             />
           ))}
