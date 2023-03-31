@@ -32,9 +32,13 @@ const input = (isBackgroundWhite: boolean, height: string, text: string) => css`
   &:focus {
     outline: none;
   }
+
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
 `;
 
-const searchIcon = css`
+const searchBtn = css`
   position: absolute;
   right: 0.75rem;
   top: 50%;
@@ -83,8 +87,8 @@ const SearchBar = (props: SearchBarProps) => {
         onFocus={props.isCustomer ? goToSearch : undefined}
         onKeyDown={onKeyDown}
       />
-      <button onClick={onClickSearch}>
-        <Search css={searchIcon} width={24} height={24} stroke={Colors.amber50} />
+      <button onClick={onClickSearch} css={searchBtn}>
+        <Search width={24} height={24} stroke={Colors.amber50} />
       </button>
     </div>
   );
