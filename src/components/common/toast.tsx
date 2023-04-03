@@ -28,7 +28,8 @@ const wrapper = (hasConfirmButton: boolean) => css`
   bottom: 4.25rem;
   z-index: 10;
   padding: 1rem;
-  width: 20rem;
+  max-width: 20rem;
+  width: calc(100% - 40px);
   height: ${hasConfirmButton ? "5.25rem" : "auto"};
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 0.625rem;

@@ -63,9 +63,9 @@ const Layout = ({
         <div css={wrapper(isOwner)}>
           {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
           {children}
-          <Toast />
         </div>
       )}
+      <Toast />
       {isOwner && <BottomNav />}
     </>
   );
