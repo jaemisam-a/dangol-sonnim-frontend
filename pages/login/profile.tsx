@@ -16,7 +16,7 @@ const Profile = () => {
 
   return (
     <>
-      <Layout title="회원가입" subTitle="가입 입력 정보" goHome={true}>
+      <Layout title="회원가입" subTitle="가입 정보 입력" goHome={true}>
         <AddProfile />
       </Layout>
     </>
