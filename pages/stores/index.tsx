@@ -98,7 +98,7 @@ const Stores = () => {
           <ArrowLeft stroke={Colors.neutral70} />
         </button>
         <div css={queryWrapper}>
-          <input type="text" value={query.query} onFocus={() => push("/search")} />
+          <input type="text" defaultValue={query.query} onFocus={() => push("/search")} />
           <button onClick={() => push("/search")}>
             <CloseCircle width="1.5rem" height="1.5rem" />
           </button>
