@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-query";
-import { css } from "@emotion/react";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
+import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import InputWithButton from "common/input/withButton";
@@ -29,7 +29,6 @@ const submitButton = (isPossible: boolean) => css`
     width: 100%;
     height: 3.5rem;
     border-radius: 0.25rem;
-
     background-color: ${isPossible ? Colors.amber50 : Colors.neutral20};
     cursor: ${isPossible ? "pointer" : "not-allowed"};
     color: ${isPossible ? Colors.white : Colors.neutral50};
@@ -42,33 +41,39 @@ const OwnerSignupEmail = () => {
 
   const [authNumber, setAuthNumber] = useState("");
   const [isApprove, setIsApprove] = useState(false);
-  const [isValid, setIsValid] = useState(false);
 
-  const { refetch } = useQuery(
-    ["verifyEmail", { email: query.email, authCode: authNumber }],
-    () => verifyEmailAuth(query.email as string, authNumber),
-    { enabled: isValid }
-  );
-  const { mutate } = useMutation(signUp);
+  const { mutateAsync: verifyEmail } = useMutation(verifyEmailAuth);
+  const { mutateAsync: ownerSignUp } = useMutation(signUp);
 
-  const checkAuthNumber = () => {
-    // TODO: 인증번호 확인 API 요청
-    setIsValid(true);
-    refetch().finally(() => setIsValid(false));
-    setIsApprove(true);
+  const checkAuthNumber = async () => {
+    await verifyEmail({
+      email: query.email as string,
+      authCode: authNumber,
+    }).then((res) => {
+      if (res.isValid) {
+        setIsApprove(true);
+      } else {
+        alert("인증번호가 일치하지 않습니다.");
+      }
+    });
   };
 
-  const submitAccount = (e: FormEvent<HTMLFormElement>) => {
-    // TODO: 회원가입 API 요청
+  const submitAccount = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutate({
-      name: "단골손님",
+    await ownerSignUp({
+      name: query.name as string,
       email: query.email as string,
-      password: "abcd",
+      password: query.password as string,
       phoneNumber: query.phone as string,
       marketingAgreement: true,
-    });
-    alert("회원가입!");
+    })
+      .then(() => {
+        alert("회원가입 되었습니다.");
+        push("/owner/login");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
   };
 
   useEffect(() => {
