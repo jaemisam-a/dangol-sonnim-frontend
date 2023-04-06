@@ -7,7 +7,7 @@ import Layout from "common/layout";
 import InputWithButton from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
 import { verifyEmailAuth } from "pages/api/owner/emailAuth";
-import { signUp } from "pages/api/owner/sign";
+import { signUp } from "pages/api/owner/signUp";
 
 const wrapper = css`
   display: flex;
@@ -96,7 +96,9 @@ const OwnerSignupEmail = () => {
           setState={setAuthNumber}
         />
         <div css={submitButton(isApprove)}>
-          <button type="submit">계정 생성</button>
+          <button disabled={!isApprove} type="submit">
+            계정 생성
+          </button>
         </div>
       </form>
     </Layout>
