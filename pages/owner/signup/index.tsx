@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -7,6 +8,7 @@ import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Consent from "common/consent";
 import { Colors, Texts } from "styles/common";
 import { InputStatus, InputType } from "common/input/text";
+import { sendEmailAuth } from "pages/api/owner/emailAuth";
 
 const wrapper = css`
   display: flex;
@@ -40,16 +42,33 @@ const nextButton = (isPossible: boolean) => css`
 const OwnerSignup = () => {
   const { push } = useRouter();
 
-  const [inputData, setInputData] = useState({ email: "", password: "", phone: "", phoneAuth: "" });
+  const { mutate } = useMutation(sendEmailAuth);
+
+  const [inputData, setInputData] = useState({
+    email: "",
+    name: "",
+    password: "",
+    phone: "",
+    phoneAuth: "",
+  });
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
-  const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", "", ""]);
+  const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", "", "", ""]);
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
 
   const goNext = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutate(inputData.email);
     push(
-      { pathname: "/owner/login/signup/email", query: { email: inputData.email } },
-      "/owner/login/signup/email"
+      {
+        pathname: "/owner/signup/email",
+        query: {
+          name: inputData.name,
+          email: inputData.email,
+          password: inputData.password,
+          phone: inputData.phone,
+        },
+      },
+      "/owner/signup/email"
     );
   };
 
@@ -59,10 +78,11 @@ const OwnerSignup = () => {
     setInputArr((prev) => [
       prev[0],
       prev[1],
-      { ...prev[2], btnName: "재전송" },
-      { ...prev[3], isHidden: false },
+      prev[2],
+      { ...prev[3], btnName: "재전송" },
+      { ...prev[4], isHidden: false },
     ]);
-    setInputStatus((prev) => [prev[0], prev[1], prev[2], "info"]);
+    setInputStatus((prev) => [prev[0], prev[1], prev[2], prev[3], "info"]);
   };
 
   const checkAuth = () => {
@@ -70,19 +90,25 @@ const OwnerSignup = () => {
     if (!inputData.phoneAuth) return alert("인증번호를 입력하세요.");
     const randomNum = Math.floor(Math.random() * 2) + 1;
     randomNum === 1
-      ? setInputStatus((prev) => [prev[0], prev[1], prev[2], "success"])
-      : setInputStatus((prev) => [prev[0], prev[1], prev[2], "error"]);
+      ? setInputStatus((prev) => [prev[0], prev[1], prev[2], prev[3], "success"])
+      : setInputStatus((prev) => [prev[0], prev[1], prev[2], prev[3], "error"]);
   };
 
   useEffect(() => {
     setInputArr([
+      {
+        objectKey: "name",
+        placeholder: "본인 이름을 입력해주세요",
+        type: "text",
+        minValue: 1,
+        maxValue: 8,
+      },
       { objectKey: "email", placeholder: "이메일을 입력해주세요", type: "email" },
       {
         objectKey: "password",
         placeholder: "비밀번호를 입력해주세요",
         type: "password",
         minValue: 8,
-        maxValue: 16,
       },
       {
         objectKey: "phone",
@@ -90,6 +116,8 @@ const OwnerSignup = () => {
         type: "number",
         btnName: "발송",
         btnAction: requestAuth,
+        minValue: 11,
+        maxValue: 11,
       },
       {
         btnName: "문자인증",
@@ -111,14 +139,15 @@ const OwnerSignup = () => {
     setInputArr((prev) => [
       prev[0],
       prev[1],
-      { ...prev[2], btnAction: requestAuth },
-      { ...prev[3], btnAction: checkAuth },
+      prev[2],
+      { ...prev[3], btnAction: requestAuth },
+      { ...prev[4], btnAction: checkAuth },
     ]);
   }, [inputData]);
 
   const isPossible =
     isCheckedConsent &&
-    inputStatus[3] === "success" &&
+    inputStatus[4] === "success" &&
     Boolean(inputData.phone) &&
     Boolean(inputData.email) &&
     Boolean(inputData.password) &&
