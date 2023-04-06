@@ -1,9 +1,11 @@
 import React, { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { css } from "@emotion/react";
 
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import { InputStatus } from "common/input/text";
 import { Colors, Texts } from "styles/common";
+import { editOwnerAccount } from "pages/api/owner/account";
 
 type PhoneChangeProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -36,6 +38,14 @@ const submitButton = (isEmpty: boolean) => css`
 `;
 
 const PhoneChange = (props: PhoneChangeProps) => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation(editOwnerAccount, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["ownerAccount"]);
+    },
+  });
+
   const [inputData, setInputData] = useState({ phone: "", phoneAuth: "" });
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", ""]);
@@ -95,9 +105,10 @@ const PhoneChange = (props: PhoneChangeProps) => {
 
   const isEmpty = Object.values(inputData).some((el) => !el) || inputStatus[1] !== "success";
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // TODO: 핸드폰 번호 변경 api 요청
+    await mutateAsync({ phoneNumber: inputData.phone, marketingAgreement: true });
     props.setOpen(false);
   };
 
