@@ -7,6 +7,7 @@ interface StoreState {
   login: () => void;
   logout: () => void;
 }
+
 const store = (set: any) => ({
   isLogin: false,
   login: () => set(() => ({ isLogin: true })),

@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 
 export const AccessTokenAuth = () => {
-  useEffect(() => {
+  const valid = () => {
     // TODO: accessToken 유효성 검증 API 추가
+  };
+
+  useEffect(() => {
+    valid();
     const intervalCheck = setInterval(() => {
-      // TODO: accessToken 유효성 검증 API 추가
+      valid();
     }, 10 * 60 * 1000);
 
     return () => clearInterval(intervalCheck);
