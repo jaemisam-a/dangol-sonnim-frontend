@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from "react";
+import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +9,8 @@ import Layout from "common/layout";
 import TextInput, { TextInputType } from "common/input/text";
 import { Colors, Texts } from "styles/common";
 import Owner from "public/images/logo/owner.svg";
+import { login } from "pages/api/owner/login";
+import useOwnerLoginStore from "src/store/ownerLogin";
 
 const wrapper = css`
   display: flex;
@@ -63,6 +66,7 @@ const smallButtonWrapper = css`
 
 const OwnerLogin = () => {
   const { push } = useRouter();
+  const { login: onLogin } = useOwnerLoginStore();
 
   const [inputData, setInputData] = useState({ email: "", password: "" });
   const inputArr: TextInputType[] = [
@@ -76,10 +80,17 @@ const OwnerLogin = () => {
     },
   ];
 
-  const login = (e: FormEvent<HTMLFormElement>) => {
-    // TODO: 로그인 API 추가
+  const { mutateAsync } = useMutation(login);
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    push("/owner");
+    await mutateAsync({ email: inputData.email, password: inputData.password })
+      .then((res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        onLogin();
+        push("/owner");
+      })
+      .catch((err) => alert(err.response.data.message));
   };
 
   return (
@@ -90,7 +101,7 @@ const OwnerLogin = () => {
             <Image src="/images/logo/logo.png" alt="로고" width={43} height={57} />
             <Owner />
           </div>
-          <form onSubmit={login} css={formWrapper}>
+          <form onSubmit={submit} css={formWrapper}>
             <div css={inputWrapper}>
               {inputArr.map((el) => (
                 <TextInput
