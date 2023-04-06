@@ -83,7 +83,6 @@ const OwnerLogin = () => {
   const { mutateAsync } = useMutation(login);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
-    // TODO: 로그인 API 추가
     e.preventDefault();
     await mutateAsync({ email: inputData.email, password: inputData.password })
       .then((res) => {

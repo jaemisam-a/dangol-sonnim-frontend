@@ -2,7 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { AccessTokenAuth } from "src/utils/AccessTokenAuth";
+import { AccessTokenAuth } from "src/utils/accessTokenAuth";
 import GlobalStyle from "styles/globals";
 
 const client = new QueryClient();
