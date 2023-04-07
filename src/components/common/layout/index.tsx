@@ -16,7 +16,7 @@ type LayoutProps = {
   isNoHeader?: boolean;
   goHome?: boolean;
   isXButton?: boolean;
-  isCheckButton?: boolean;
+  isCheckButton?: () => void;
   isLogo?: boolean;
 };
 

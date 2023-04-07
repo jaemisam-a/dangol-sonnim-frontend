@@ -18,7 +18,12 @@ type ServiceTagsProps = {
       name: string;
       category: string;
       description: string;
-      address: string;
+      roadAddr: string;
+      siNm: string;
+      sggNm: string;
+      emdNm: string;
+      bname2: string;
+      detailedAddress: string;
       openDay: string;
       openTime: string;
       tags: string[];

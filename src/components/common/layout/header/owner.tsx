@@ -16,7 +16,7 @@ type OwnerHeaderProps = {
   subTitle?: string;
   goHome?: boolean;
   isXButton?: boolean;
-  isCheckButton?: boolean;
+  isCheckButton?: () => void;
 };
 
 const container = css`
@@ -51,14 +51,6 @@ const logo = css`
   cursor: pointer;
 `;
 
-const pointerButton = css`
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-`;
-
 const textButton = css`
   background: none;
   border: none;
@@ -90,13 +82,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
           {props.isLogo ? (
             <>
               <span css={logo}>
-                <Image
-                  css={pointerButton}
-                  src="/images/logo/logo.png"
-                  alt="logo"
-                  width="27"
-                  height="36"
-                />
+                <Image src="/images/logo/logo.png" alt="logo" width="27" height="36" />
                 <Owner />
               </span>
               <span css={pageTitle}>{props.subTitle}</span>
@@ -112,10 +98,7 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
             </>
           ) : (
             <>
-              <button
-                css={pointerButton}
-                onClick={props.goHome ? () => push("owner") : () => back()}
-              >
+              <button onClick={props.goHome ? () => push("owner") : () => back()}>
                 {props.isXButton ? (
                   <Close width={28} height={28} stroke={Colors.neutral90} />
                 ) : (
@@ -124,9 +107,9 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
               </button>
               <span css={pageTitle}>{props.subTitle}</span>
               {props.isCheckButton ? (
-                <div css={pointerButton}>
+                <button onClick={props.isCheckButton}>
                   <Check width={24} height={24} fill={Colors.amber50} />
-                </div>
+                </button>
               ) : (
                 <div css={hiddenItem} />
               )}

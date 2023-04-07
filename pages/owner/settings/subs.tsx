@@ -13,7 +13,7 @@ const Subs = () => {
       title="메뉴 관리"
       subTitle={isEdit ? "구독권 수정" : "구독권 등록"}
       isXButton={true}
-      isCheckButton={true}
+      isCheckButton={() => {}}
     >
       <SubsForm isEdit={isEdit} />
     </Layout>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
 
 import Layout from "common/layout";
 import FormLabel from "common/formLabel";
@@ -70,15 +71,23 @@ const buttonStyle = (isFilled: boolean) => css`
 `;
 
 const MyStoreSetting = () => {
+  const { push, pathname, query } = useRouter();
+
   const [storeInfo, setStoreInfo] = useState({
     name: "",
     category: "1",
     description: "",
-    address: "",
+    roadAddr: "",
+    siNm: "",
+    sggNm: "",
+    emdNm: "",
+    bname2: "",
+    detailedAddress: "",
     openDay: "",
     openTime: "",
     tags: [""],
   });
+
   const [isFilled, setIsFilled] = useState(false);
 
   const addStoreInfo = () => {
@@ -89,17 +98,27 @@ const MyStoreSetting = () => {
     setIsFilled(Object.values(storeInfo).every((el) => el !== "" && el.length !== 0));
   }, [storeInfo]);
 
+  useEffect(() => {
+    if (query.address) {
+      const address = JSON.parse(query.address as string);
+      Object.keys(address).forEach((key) =>
+        setStoreInfo((prev) => ({ ...prev, [key]: address[key] }))
+      );
+    }
+  }, [query.address]);
+
+  const getAddress = () => {
+    push(
+      { pathname: "/owner/settings/location", query: { returnPath: pathname } },
+      "owner/settings/location"
+    );
+  };
+
   return (
     <Layout title="가게 정보 등록" subTitle="가게 정보 등록">
       <form css={formWrapper}>
         <FormLabel label="가게명">
-          <TextInput
-            type="text"
-            placeholder="가게명 입력"
-            state={storeInfo.name}
-            objectKey="name"
-            setState={setStoreInfo}
-          />
+          <TextInput type="text" state={storeInfo.name} objectKey="name" setState={setStoreInfo} />
         </FormLabel>
         <FormLabel label="가게 카테고리">
           <select
@@ -127,17 +146,18 @@ const MyStoreSetting = () => {
             <input
               type="text"
               placeholder="주소 검색"
-              onFocus={() => {
-                // TODO: 주소 검색 페이지로 이동
-              }}
+              onFocus={getAddress}
+              defaultValue={storeInfo.roadAddr}
             />
-            <Search width={24} height={24} stroke={Colors.amber50} />
+            <button onClick={getAddress}>
+              <Search width={24} height={24} stroke={Colors.amber50} />
+            </button>
           </div>
           <TextInput
             type="text"
             placeholder="상세주소"
-            objectKey="address"
-            state={storeInfo.address}
+            objectKey="detailedAddress"
+            state={storeInfo.detailedAddress}
             setState={setStoreInfo}
           />
         </FormLabel>
