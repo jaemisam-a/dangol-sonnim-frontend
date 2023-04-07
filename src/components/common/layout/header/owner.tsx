@@ -16,7 +16,7 @@ type OwnerHeaderProps = {
   subTitle?: string;
   goHome?: boolean;
   isXButton?: boolean;
-  isCheckButton?: () => void;
+  checkBtnFnc?: () => void;
 };
 
 const container = css`
@@ -106,8 +106,8 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
                 )}
               </button>
               <span css={pageTitle}>{props.subTitle}</span>
-              {props.isCheckButton ? (
-                <button onClick={props.isCheckButton}>
+              {props.checkBtnFnc ? (
+                <button onClick={props.checkBtnFnc}>
                   <Check width={24} height={24} fill={Colors.amber50} />
                 </button>
               ) : (

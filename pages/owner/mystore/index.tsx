@@ -81,13 +81,11 @@ const MyStoreSetting = () => {
     siNm: "",
     sggNm: "",
     emdNm: "",
-    bname2: "",
     detailedAddress: "",
     openDay: "",
     openTime: "",
     tags: [""],
   });
-
   const [isFilled, setIsFilled] = useState(false);
 
   const addStoreInfo = () => {

@@ -39,7 +39,7 @@ const SettingsMenu = () => {
       title="메뉴 관리"
       subTitle={isEdit ? "메뉴 수정" : "메뉴 등록"}
       isXButton={true}
-      isCheckButton={() => {}}
+      checkBtnFnc={() => {}}
     >
       <div css={wrapper}>
         <ImageManage />

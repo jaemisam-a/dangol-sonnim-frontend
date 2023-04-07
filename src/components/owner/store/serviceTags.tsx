@@ -22,7 +22,6 @@ type ServiceTagsProps = {
       siNm: string;
       sggNm: string;
       emdNm: string;
-      bname2: string;
       detailedAddress: string;
       openDay: string;
       openTime: string;

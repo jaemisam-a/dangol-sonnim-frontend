@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useInfiniteQuery } from "react-query";
+import { useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 import { css } from "@emotion/react";
@@ -9,7 +10,6 @@ import SearchBar from "common/input/search";
 import LocationList, { checkedAddrType } from "common/locationList";
 import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
-import { useRouter } from "next/router";
 
 const wrapper = css`
   display: flex;
@@ -99,7 +99,7 @@ const SettingsLocation = () => {
     <Layout
       title="가게 위치 등록"
       subTitle="위치 등록"
-      isCheckButton={() =>
+      checkBtnFnc={() =>
         push(
           {
             pathname: routerQuery.returnPath as string,
