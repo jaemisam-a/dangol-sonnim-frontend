@@ -77,6 +77,8 @@ const PhoneChange = (props: PhoneChangeProps) => {
         type: "number",
         btnName: "발송",
         btnAction: requestAuth,
+        minValue: 11,
+        maxValue: 11,
       },
       {
         objectKey: "phoneAuth",

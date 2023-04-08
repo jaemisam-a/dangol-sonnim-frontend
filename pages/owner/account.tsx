@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { css } from "@emotion/react";
 
@@ -13,6 +14,7 @@ import DepositAccount from "owner/account/deposit";
 import PasswordChange from "owner/account/password";
 import PhoneChange from "owner/account/phone";
 import { getOwnerAccount } from "pages/api/owner/account";
+import useOwnerLoginStore from "src/store/ownerLogin";
 
 type accountDataType = {
   title: string;
@@ -41,7 +43,11 @@ const logout = css`
 `;
 
 const OwnerAccount = () => {
-  const { data, isLoading } = useQuery("ownerAccount", getOwnerAccount);
+  const { isLogin } = useOwnerLoginStore();
+  const { push } = useRouter();
+  const { data, isLoading, refetch } = useQuery("ownerAccount", getOwnerAccount, {
+    enabled: false,
+  });
 
   const [openModal, setOpenModal] = useState(false);
   const [openAccountBS, setOpenAccountBS] = useState(false);
@@ -70,12 +76,22 @@ const OwnerAccount = () => {
       { title: "개업일자", contents: "2013.11.3" },
       {
         title: "계좌번호",
-        contents: "국민은행 225-25-0000-497",
+        contents: `${data.bank} ${data.account}`,
         btnName: "변경",
         btnAction: () => setOpenAccountBS(true),
       },
     ]);
   }, [data]);
+
+  useEffect(() => {
+    if (!isLogin) push("/owner");
+  }, [isLogin]);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  if (!isLogin) return null;
 
   return (
     <Layout title="계정 정보" subTitle="계정 정보">

@@ -5,6 +5,12 @@ type editOwnerAccountType = {
   marketingAgreement: boolean;
 };
 
+type postOwnerAccountType = {
+  account: string;
+  accountHolder: string;
+  bank: string;
+};
+
 export const getOwnerAccount = async () => {
   const accessToken = localStorage.getItem("accessToken");
   const queryKey = "/api/v1/boss";
@@ -23,6 +29,17 @@ export const editOwnerAccount = async ({
   const response = await axios.patch(
     queryKey,
     { phoneNumber, marketingAgreement },
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
+  return response.data;
+};
+
+export const postOwnerAccount = async ({ account, accountHolder, bank }: postOwnerAccountType) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const queryKey = "/api/v1/boss/register-account?_csrf=a3e71c92-dc89-413b-b564-3c62d43f21de";
+  const response = await axios.post(
+    queryKey,
+    { account, accountHolder, bank },
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
   return response.data;
