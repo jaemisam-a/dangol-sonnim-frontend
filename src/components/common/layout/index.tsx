@@ -16,7 +16,7 @@ type LayoutProps = {
   isNoHeader?: boolean;
   goHome?: boolean;
   isXButton?: boolean;
-  isCheckButton?: boolean;
+  checkBtnFnc?: () => void;
   isLogo?: boolean;
 };
 
@@ -36,7 +36,7 @@ const Layout = ({
   isNoHeader,
   goHome,
   isXButton,
-  isCheckButton,
+  checkBtnFnc,
   isLogo,
 }: LayoutProps) => {
   const { pathname } = useRouter();
@@ -54,7 +54,7 @@ const Layout = ({
             subTitle={subTitle}
             goHome={goHome}
             isXButton={isXButton}
-            isCheckButton={isCheckButton}
+            checkBtnFnc={checkBtnFnc}
             isLogo={isLogo}
           />
           <div css={wrapper(isOwner)}>{children}</div>

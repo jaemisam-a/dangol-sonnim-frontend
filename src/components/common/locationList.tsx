@@ -5,17 +5,16 @@ import { Colors, Texts } from "styles/common";
 import CheckedRadio from "public/icons/check/checkedRadio.svg";
 import UnCheckedRadio from "public/icons/check/unCheckedRadio.svg";
 
-export type checkedAddrType = { roadAddr: string };
+export type checkedAddrType = { roadAddr: string; siNm: string; sggNm: string; emdNm: string };
 
 type LocationListProps = {
   idx: number;
-  roadAddr: string;
   jibunAddr: string;
   checkedAddr: checkedAddrType;
   setCheckedAddr: Dispatch<SetStateAction<checkedAddrType>>;
   lastRef: (node?: Element | null | undefined) => void;
   dataLength: number;
-};
+} & checkedAddrType;
 
 const wrapper = css`
   display: flex;
@@ -64,7 +63,12 @@ const radioButton = css`
 
 const LocationList = (props: LocationListProps) => {
   const handleRadio = () => {
-    props.setCheckedAddr({ roadAddr: props.roadAddr });
+    props.setCheckedAddr({
+      roadAddr: props.roadAddr,
+      siNm: props.siNm,
+      sggNm: props.sggNm,
+      emdNm: props.emdNm,
+    });
   };
 
   return (

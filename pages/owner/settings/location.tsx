@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useInfiniteQuery } from "react-query";
+import { useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 import { css } from "@emotion/react";
@@ -34,11 +35,17 @@ const bottomSpinner = css`
 `;
 
 const SettingsLocation = () => {
+  const { push, query: routerQuery } = useRouter();
   const [ref, inView] = useInView();
   const [query, setQuery] = useState("");
   const [previousQuery, setPreviousQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({ roadAddr: "" });
+  const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({
+    roadAddr: "",
+    siNm: "",
+    sggNm: "",
+    emdNm: "",
+  });
 
   const { data, isFetching, refetch, fetchNextPage } = useInfiniteQuery(
     "location",
@@ -89,7 +96,19 @@ const SettingsLocation = () => {
   }, [inView]);
 
   return (
-    <Layout title="가게 위치 등록" subTitle="위치 등록" isCheckButton={true}>
+    <Layout
+      title="가게 위치 등록"
+      subTitle="위치 등록"
+      checkBtnFnc={() =>
+        push(
+          {
+            pathname: routerQuery.returnPath as string,
+            query: { address: JSON.stringify(checkedAddr) },
+          },
+          routerQuery.returnPath as string
+        )
+      }
+    >
       <div css={wrapper}>
         <SearchBar
           isCustomer={false}
@@ -117,6 +136,9 @@ const SettingsLocation = () => {
                       key={el.jibunAddr + el.roadAddr}
                       idx={idx}
                       jibunAddr={el.jibunAddr}
+                      siNm={el.siNm}
+                      sggNm={el.sggNm}
+                      emdNm={el.emdNm}
                       roadAddr={el.roadAddr}
                       checkedAddr={checkedAddr}
                       setCheckedAddr={setCheckedAddr}
