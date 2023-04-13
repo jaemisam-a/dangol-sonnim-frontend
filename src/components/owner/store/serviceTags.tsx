@@ -11,6 +11,7 @@ import { css } from "@emotion/react";
 
 import Tag from "common/tag/tagOwner";
 import { Colors, Texts } from "styles/common";
+import { BHourType } from "pages/api/owner/dangolStore";
 
 type ServiceTagsProps = {
   setStoreInfo: Dispatch<
@@ -23,8 +24,7 @@ type ServiceTagsProps = {
       sggNm: string;
       emdNm: string;
       detailedAddress: string;
-      openDay: string;
-      openTime: string;
+      businessHours: BHourType[];
       tags: string[];
     }>
   >;
