@@ -7,9 +7,7 @@ export const categories = [
   { id: "CAFE", name: "카페" },
 ];
 
-type CategoryType = "KOREAN" | "BUNSIK" | "CHINESE" | "JAPANESE" | "WESTERN" | "CAFE";
-
-export const categoryIdToString = (categoryId: CategoryType): string => {
+export const categoryIdToString = (categoryId: string): string => {
   switch (categoryId) {
     case "KOREAN":
       return "한식";
