@@ -3,10 +3,10 @@ import { useMutation, useQueryClient } from "react-query";
 import { css } from "@emotion/react";
 
 import { TransferType } from "pages/store/[id]/payment";
+import { postOwnerAccount } from "pages/api/owner/account";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Select from "common/select";
 import { Colors, Texts } from "styles/common";
-import { postOwnerAccount } from "pages/api/owner/account";
 
 type DepositAccount = {
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -68,13 +68,10 @@ const DepositAccount = (props: DepositAccount) => {
       account: selectedBank.accountNumber,
       accountHolder: selectedBank.accountHolder,
       bank: selectedBank.name,
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    });
     props.setOpen(false);
   };
 
-  console.log(selectedBank);
   return (
     <>
       <form onSubmit={submit} css={wrapper}>

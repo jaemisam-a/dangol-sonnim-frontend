@@ -84,7 +84,7 @@ const OwnerAccount = () => {
   }, [data]);
 
   useEffect(() => {
-    if (!isLogin) push("/owner");
+    if (!isLogin) push("/owner/login");
   }, [isLogin]);
 
   useEffect(() => {
