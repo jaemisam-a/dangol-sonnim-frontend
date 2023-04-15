@@ -12,7 +12,7 @@ type StoreSectionProps = {
   menuCount?: number;
   isLocation: boolean;
   isEmpty?: boolean;
-  btnAction?: () => void;
+  btnAction: () => void;
   setStatus?: Dispatch<SetStateAction<statusType>>;
 };
 
@@ -75,6 +75,7 @@ const StoreSection = (props: StoreSectionProps) => {
                     <Kebab />
                   </button>
                   <Popover
+                    btnAction={props.btnAction}
                     label={props.sectionTitle}
                     isOpen={openPopover}
                     setIsOpen={setOpenPopover}

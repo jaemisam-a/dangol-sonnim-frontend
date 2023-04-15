@@ -16,7 +16,7 @@ export type subsType = {
 };
 
 const Subs = () => {
-  const { query } = useRouter();
+  const { query, back } = useRouter();
 
   const { mutateAsync } = useMutation(addSubsCoupon);
 
@@ -40,7 +40,12 @@ const Subs = () => {
       useCount: subsContent.count,
       // FIXME: 가게 id를 query로 받아 적용
       storeId: 1,
-    });
+    })
+      .then(() => {
+        alert("등록되었습니다");
+        back();
+      })
+      .catch((err) => alert(err.response.data?.message));
   };
 
   return (

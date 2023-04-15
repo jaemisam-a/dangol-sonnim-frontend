@@ -1,5 +1,4 @@
 import React, { CSSProperties, Dispatch, MutableRefObject, SetStateAction } from "react";
-import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -14,6 +13,7 @@ type PopoverProps = {
   attributes: any;
   label: string;
   setStatus?: Dispatch<SetStateAction<statusType>>;
+  btnAction: () => void;
 };
 
 const wrapper = (isOpen: boolean) => css`
@@ -42,8 +42,6 @@ const colored = css`
 `;
 
 const Popover = (props: PopoverProps) => {
-  const { push } = useRouter();
-
   return (
     <div
       css={wrapper(props.isOpen)}
@@ -67,7 +65,7 @@ const Popover = (props: PopoverProps) => {
       >
         삭제
       </button>
-      <button onClick={() => push("/owner/settings/menu")} css={colored}>
+      <button onClick={props.btnAction} css={colored}>
         {props.label} 등록
       </button>
     </div>
