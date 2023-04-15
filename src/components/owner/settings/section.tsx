@@ -12,7 +12,7 @@ type StoreSectionProps = {
   menuCount?: number;
   isLocation: boolean;
   isEmpty?: boolean;
-  btnAction: () => void;
+  btnAction?: () => void;
   setStatus?: Dispatch<SetStateAction<statusType>>;
 };
 

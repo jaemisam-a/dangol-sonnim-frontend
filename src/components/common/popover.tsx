@@ -13,7 +13,7 @@ type PopoverProps = {
   attributes: any;
   label: string;
   setStatus?: Dispatch<SetStateAction<statusType>>;
-  btnAction: () => void;
+  btnAction?: () => void;
 };
 
 const wrapper = (isOpen: boolean) => css`
