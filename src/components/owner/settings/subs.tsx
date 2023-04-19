@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
 import { css } from "@emotion/react";
 
 import Empty from "owner/settings/empty";
@@ -8,6 +9,7 @@ import { statusType } from "common/popover";
 import StoreCoupon from "common/coupon/store";
 import Modal from "common/modal";
 import Dialog from "customer/my/dialog";
+import { deleteSubs } from "pages/api/owner/settings";
 
 type SubsSettingProps = {
   data: {
@@ -32,8 +34,21 @@ const subsWrapper = css`
 const SubsSetting = (props: SubsSettingProps) => {
   const { push } = useRouter();
 
+  const { mutateAsync } = useMutation(deleteSubs, {
+    onSuccess: () => {
+      // TODO: 가게 정보 불러오기 refetchQueries 추가
+    },
+  });
+
   const [status, setStatus] = useState<statusType>("default");
+  const [selectedSubs, setSelectedSubs] = useState("");
   const [openModal, setOpenModal] = useState(false);
+
+  const deleteSubscribe = async () => {
+    await mutateAsync({ subscribeId: selectedSubs })
+      .then(() => setOpenModal(false))
+      .catch((err) => alert(err.response.data.message));
+  };
 
   return (
     <StoreSection
@@ -64,7 +79,10 @@ const SubsSetting = (props: SubsSettingProps) => {
                   "/owner/settings/subs"
                 )
               }
-              deleteAction={() => setOpenModal(true)}
+              deleteAction={() => {
+                setSelectedSubs(el.id);
+                setOpenModal(true);
+              }}
             />
           ))}
         </div>
@@ -77,7 +95,7 @@ const SubsSetting = (props: SubsSettingProps) => {
       )}
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Dialog
-          onCancel={() => setOpenModal(false)}
+          onCancel={deleteSubscribe}
           onConfirm={() => setOpenModal(false)}
           content={{
             buttonText: { cancel: "삭제", confirm: "취소" },
