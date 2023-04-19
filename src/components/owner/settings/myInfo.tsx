@@ -97,7 +97,7 @@ const MyInfo = (props: MyInfoProps) => {
       <div css={emailWrapper}>
         <Image src="/images/profile.png" width={40} height={40} alt="프로필 이미지" />
         <p>{owner.email}</p>
-        <Link href="/owner/myinfo">
+        <Link href="/owner/account">
           <Right width={20} height={20} stroke={Colors.neutral80} />
         </Link>
       </div>

@@ -1,7 +1,9 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { css } from "@emotion/react";
 
 import { TransferType } from "pages/store/[id]/payment";
+import { postOwnerAccount } from "pages/api/owner/account";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Select from "common/select";
 import { Colors, Texts } from "styles/common";
@@ -33,6 +35,8 @@ const submitButton = (isEmpty: boolean) => css`
 `;
 
 const DepositAccount = (props: DepositAccount) => {
+  const queryClient = useQueryClient();
+
   const [selectedBank, setSelectedBank] = useState<TransferType>({
     id: "",
     name: "",
@@ -52,9 +56,19 @@ const DepositAccount = (props: DepositAccount) => {
 
   const isEmpty = Object.values(selectedBank).some((el) => !el);
 
+  const { mutateAsync } = useMutation(postOwnerAccount, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["ownerAccount"]);
+    },
+  });
+
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: 계좌번호 수정 api 요청
+    mutateAsync({
+      account: selectedBank.accountNumber,
+      accountHolder: selectedBank.accountHolder,
+      bank: selectedBank.name,
+    });
     props.setOpen(false);
   };
 
