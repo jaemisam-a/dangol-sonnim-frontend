@@ -23,7 +23,11 @@ type RequestDataType = {
 };
 
 export const createDangolStore = async (requestData: RequestDataType) => {
-  const queryKey = "/api/v1/store/create?_csrf=88917112-31cc-4278-9368-9afed4ba2b64";
-  const response = await axios.post(queryKey, requestData);
+  const queryKey = "/api/v1/store/create?_csrf=957d8df2-0107-4a0e-b71e-faff75331ee0";
+
+  const accessToken = localStorage.getItem("accessToken");
+  const response = await axios.post(queryKey, requestData, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
   return response.data;
 };

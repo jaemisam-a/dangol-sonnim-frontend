@@ -96,7 +96,7 @@ const MyStoreSetting = () => {
       businessHours: trimmedBHourArr,
       tags: storeInfo.tags,
       categoryType: storeInfo.category,
-      registerNumber: "1234567890", // TODO: 사업자등록번호 가져오기
+      registerNumber: Date.now().toString(), // TODO: 사업자등록번호 가져오기
       registerName: "단골손님",
     })
       .then((res) => console.log(res))

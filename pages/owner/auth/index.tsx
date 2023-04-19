@@ -8,7 +8,6 @@ import TextInput from "common/input/text";
 import Layout from "common/layout";
 import FullPageSpinner from "common/spinner/fullPage";
 import { Colors, selectStyle, Texts } from "styles/common";
-import useToastStore from "src/store/toast";
 
 type dateType = { year: string; month: string; day: string };
 
@@ -65,8 +64,6 @@ const Business = () => {
     day: currentDay.toString(),
   });
 
-  const { setMessage } = useToastStore();
-
   const { data, isLoading, mutate, isSuccess } = useMutation(() => {
     return axios
       .post(
@@ -108,15 +105,23 @@ const Business = () => {
   useEffect(() => {
     if (!isSuccess) return;
 
-    /** 사업자 등록번호 진위확인 조회 결과 코드 01: Valid, 02: Invalid */
-    if (data.valid === "01" && data.status.b_stt !== "폐업자") {
+    //FIXME: API 연동 테스트 위해 진위 상관없이 모두 확인 처리함
+    if (data.valid) {
       push(
-        { pathname: "/owner/signup/complete", query: { isComplete: true } },
-        "/owner/signup/complete"
+        { pathname: "/owner/auth/complete", query: { isComplete: true } },
+        "/owner/auth/complete"
       );
-    } else {
-      setMessage("사업자 인증에 실패했습니다.\n입력 내용을 확인해주세요.", true, "warning");
     }
+
+    /** 사업자 등록번호 진위확인 조회 결과 코드 01: Valid, 02: Invalid */
+
+    // if (data.valid === "01" && data.status.b_stt !== "폐업자") {
+    //   push(
+    //     { pathname: "/owner/auth/complete", query: { isComplete: true } },
+    //     "/owner/auth/complete"
+    //   );
+    // }
+    //TODO: 인증 실패 시 모달 띄우기
   }, [isSuccess]);
 
   const selectElementsData = [
@@ -149,8 +154,8 @@ const Business = () => {
               setState={setBusinessNumber}
               placeholder="‘-’ 입력없이 숫자 10자리"
               type="number"
-              maxValue={10}
               minValue={10}
+              maxValue={10}
             />
           </div>
           <div>

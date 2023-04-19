@@ -112,7 +112,7 @@ const MyInfo = (props: MyInfoProps) => {
             </span>
           ))}
         </div>
-        <Link href="/owner/mystore" css={addButton}>
+        <Link href="/owner/auth" css={addButton}>
           <span>내 가게 추가 등록</span>
           <PlusCircle />
         </Link>

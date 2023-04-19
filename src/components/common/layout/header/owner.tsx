@@ -48,7 +48,6 @@ const logo = css`
   display: flex;
   align-items: baseline;
   gap: 0.313rem;
-  cursor: pointer;
 `;
 
 const textButton = css`
@@ -81,10 +80,10 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
         <div css={innerWrapper}>
           {props.isLogo ? (
             <>
-              <span css={logo}>
+              <button css={logo} onClick={() => push("/owner")}>
                 <Image src="/images/logo/logo.png" alt="logo" width="27" height="36" />
                 <Owner />
-              </span>
+              </button>
               <span css={pageTitle}>{props.subTitle}</span>
               {pathname === "/owner" ? (
                 <button css={textButton} onClick={() => push("/owner/login")}>
