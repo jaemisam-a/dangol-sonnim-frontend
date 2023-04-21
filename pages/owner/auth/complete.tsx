@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import Link from "next/link";
+import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import Layout from "common/layout";
 import { Colors, Texts } from "styles/common";
 import Check from "public/icons/check/check.svg";
+import { createDangolStore } from "pages/api/owner/dangolStore";
 
 const wrapper = css`
   display: flex;
@@ -34,12 +35,34 @@ const link = css`
 
 const Complete = () => {
   const { query, push } = useRouter();
+  const { mutateAsync } = useMutation(createDangolStore);
+
+  const createStore = async () => {
+    await mutateAsync({
+      name: query.name as string,
+      phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
+      newAddress: query.newAddress as string,
+      sido: query.sido as string,
+      sigungu: query.sigungu as string,
+      bname1: query.bname1 as string,
+      bname2: "",
+      detailedAddress: query.detailedAddress as string,
+      comments: query.comments as string,
+      businessHours: JSON.parse(query.businessHours as string),
+      tags: query.tags as string[],
+      categoryType: query.categoryType as string,
+      registerNumber: query.registerNumber as string,
+      registerName: query.registerName as string,
+    })
+      .then(() => push("/owner"))
+      .catch((err) => alert(err.response.data.message));
+  };
 
   useEffect(() => {
-    if (!query.isComplete) push("/owner/login");
+    if (!query.name) push("/owner/login");
   }, []);
 
-  if (!query.isComplete) return null;
+  if (!query.name) return null;
 
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">
@@ -48,9 +71,9 @@ const Complete = () => {
           <h1>인증이 완료되었습니다</h1>
           <Check width={55} height={55} fill={Colors.green50} />
         </div>
-        <Link href="/owner/mystore" css={link}>
+        <button onClick={createStore} css={link}>
           가게 등록하기
-        </Link>
+        </button>
       </div>
     </Layout>
   );

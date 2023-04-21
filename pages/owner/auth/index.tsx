@@ -49,7 +49,7 @@ const submitButtom = css`
 `;
 
 const Business = () => {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
@@ -88,6 +88,24 @@ const Business = () => {
   const monthsArray = Array.from({ length: 12 }, (_, index) => index + 1);
   const daysArray = Array.from({ length: 31 }, (_, index) => index + 1);
 
+  const selectElementsData = [
+    {
+      name: "year",
+      value: date.year,
+      dateArray: yearsArray,
+    },
+    {
+      name: "month",
+      value: date.month,
+      dateArray: monthsArray,
+    },
+    {
+      name: "day",
+      value: date.day,
+      dateArray: daysArray,
+    },
+  ];
+
   const formatDate = (date: dateType) => {
     const formattedDate = Object.values(date)
       .map((value) => value.padStart(2, "0"))
@@ -108,7 +126,25 @@ const Business = () => {
     //FIXME: API 연동 테스트 위해 진위 상관없이 모두 확인 처리함
     if (data.valid) {
       push(
-        { pathname: "/owner/auth/complete", query: { isComplete: true } },
+        {
+          pathname: "/owner/auth/complete",
+          query: {
+            name: query.name,
+            phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
+            newAddress: query.newAddress,
+            sido: query.sido,
+            sigungu: query.sigungu,
+            bname1: query.bname1,
+            bname2: "",
+            detailedAddress: query.detailedAddress,
+            comments: query.comments,
+            businessHours: query.businessHours,
+            tags: query.tags,
+            categoryType: query.categoryType,
+            registerNumber: businessNumber,
+            registerName: name,
+          },
+        },
         "/owner/auth/complete"
       );
     }
@@ -124,23 +160,15 @@ const Business = () => {
     //TODO: 인증 실패 시 모달 띄우기
   }, [isSuccess]);
 
-  const selectElementsData = [
-    {
-      name: "year",
-      value: date.year,
-      dateArray: yearsArray,
-    },
-    {
-      name: "month",
-      value: date.month,
-      dateArray: monthsArray,
-    },
-    {
-      name: "day",
-      value: date.day,
-      dateArray: daysArray,
-    },
-  ];
+  useEffect(() => {
+    if (!query.name) {
+      push("/owner/login");
+    }
+  }, []);
+
+  if (!query.name) {
+    return null;
+  }
 
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">

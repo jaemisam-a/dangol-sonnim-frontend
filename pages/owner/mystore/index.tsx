@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
-import { useMutation } from "react-query";
 
 import Layout from "common/layout";
 import FormLabel from "common/formLabel";
@@ -10,7 +9,7 @@ import ServiceTags from "owner/store/serviceTags";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
-import { BHourType, createDangolStore } from "pages/api/owner/dangolStore";
+import { BHourType } from "pages/api/owner/dangolStore";
 import BusinessHour from "owner/store/businessHour";
 
 const formWrapper = css`
@@ -76,31 +75,31 @@ const MyStoreSetting = () => {
   });
   const [isFilled, setIsFilled] = useState(false);
 
-  const { mutateAsync } = useMutation(createDangolStore);
-
-  const addStoreInfo = async () => {
+  const goToBusinessAuth = () => {
     const trimmedBHourArr = storeInfo.businessHours.filter(
       (el) => el.weeks !== "" && el.hours !== ""
     );
 
-    await mutateAsync({
-      name: storeInfo.name,
-      phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
-      newAddress: storeInfo.roadAddr,
-      sido: storeInfo.siNm,
-      sigungu: storeInfo.sggNm,
-      bname1: storeInfo.emdNm,
-      bname2: "",
-      detailedAddress: storeInfo.detailedAddress,
-      comments: storeInfo.description,
-      businessHours: trimmedBHourArr,
-      tags: storeInfo.tags,
-      categoryType: storeInfo.category,
-      registerNumber: Date.now().toString(), // TODO: 사업자등록번호 가져오기
-      registerName: "단골손님",
-    })
-      .then((res) => console.log(res))
-      .catch((err) => alert(err.response.data.message));
+    push(
+      {
+        pathname: "/owner/auth",
+        query: {
+          name: storeInfo.name,
+          phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
+          newAddress: storeInfo.roadAddr,
+          sido: storeInfo.siNm,
+          sigungu: storeInfo.sggNm,
+          bname1: storeInfo.emdNm,
+          bname2: "",
+          detailedAddress: storeInfo.detailedAddress,
+          comments: storeInfo.description,
+          businessHours: JSON.stringify(trimmedBHourArr),
+          tags: storeInfo.tags,
+          categoryType: storeInfo.category,
+        },
+      },
+      "owner/auth"
+    );
   };
 
   useEffect(() => {
@@ -195,7 +194,7 @@ const MyStoreSetting = () => {
         </FormLabel>
         <button
           type="button"
-          onClick={addStoreInfo}
+          onClick={goToBusinessAuth}
           disabled={!isFilled}
           css={[fullAmberButtonStyle, buttonStyle(isFilled)]}
         >
