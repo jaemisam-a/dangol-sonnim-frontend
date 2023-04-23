@@ -9,6 +9,8 @@ import ServiceTags from "owner/store/serviceTags";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
+import { BHourType } from "pages/api/owner/dangolStore";
+import BusinessHour from "owner/store/businessHour";
 
 const formWrapper = css`
   display: flex;
@@ -43,25 +45,6 @@ const addressSearch = css`
   }
 `;
 
-const openHourWrapper = css`
-  display: flex;
-  gap: 1rem;
-
-  div {
-    min-width: 0;
-  }
-`;
-
-const openDayStyle = css`
-  flex-basis: 30%;
-  flex-grow: 0;
-`;
-
-const openTimeStyle = css`
-  flex-basis: 70%;
-  flex-grow: 0;
-`;
-
 const buttonStyle = (isFilled: boolean) => css`
   margin: 0.75rem 0 3rem;
   cursor: ${isFilled ? "pointer" : "default"};
@@ -75,25 +58,65 @@ const MyStoreSetting = () => {
 
   const [storeInfo, setStoreInfo] = useState({
     name: "",
-    category: "1",
+    category: "KOREAN",
     description: "",
     roadAddr: "",
     siNm: "",
     sggNm: "",
     emdNm: "",
     detailedAddress: "",
-    openDay: "",
-    openTime: "",
+    businessHours: [
+      {
+        weeks: "",
+        hours: "",
+      },
+    ],
     tags: [""],
   });
   const [isFilled, setIsFilled] = useState(false);
 
-  const addStoreInfo = () => {
-    // TODO: 가게 정보 저장
+  const goToBusinessAuth = () => {
+    const trimmedBHourArr = storeInfo.businessHours.filter(
+      (el) => el.weeks !== "" && el.hours !== ""
+    );
+
+    push(
+      {
+        pathname: "/owner/auth",
+        query: {
+          name: storeInfo.name,
+          phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
+          newAddress: storeInfo.roadAddr,
+          sido: storeInfo.siNm,
+          sigungu: storeInfo.sggNm,
+          bname1: storeInfo.emdNm,
+          bname2: "",
+          detailedAddress: storeInfo.detailedAddress,
+          comments: storeInfo.description,
+          businessHours: JSON.stringify(trimmedBHourArr),
+          tags: storeInfo.tags,
+          categoryType: storeInfo.category,
+        },
+      },
+      "owner/auth"
+    );
   };
 
   useEffect(() => {
-    setIsFilled(Object.values(storeInfo).every((el) => el !== "" && el.length !== 0));
+    const isEachSectionFilled = Object.values(storeInfo).every(
+      (el) => el !== "" && el.length !== 0
+    );
+
+    const isBHourFilled = storeInfo.businessHours.every((el, idx) => {
+      if (idx === 0 || idx !== storeInfo.businessHours.length - 1) {
+        /** 마지막 칸이 아니라면 빈칸을 허용하지 않는다. */
+        return el.weeks !== "" && el.hours !== "";
+      } else {
+        /** 마지막은 모두 비어있거나 모두 입력되어야한다. */
+        return (el.weeks === "" && el.hours === "") || (el.hours !== "" && el.weeks !== "");
+      }
+    });
+    setIsFilled(isEachSectionFilled && isBHourFilled);
   }, [storeInfo]);
 
   useEffect(() => {
@@ -110,6 +133,10 @@ const MyStoreSetting = () => {
       { pathname: "/owner/settings/location", query: { returnPath: pathname } },
       "owner/settings/location"
     );
+  };
+
+  const handleBhour = (addedBHour: BHourType[]) => {
+    setStoreInfo((prev) => ({ ...prev, businessHours: addedBHour }));
   };
 
   return (
@@ -147,7 +174,7 @@ const MyStoreSetting = () => {
               onFocus={getAddress}
               defaultValue={storeInfo.roadAddr}
             />
-            <button onClick={getAddress}>
+            <button onClick={getAddress} type={"button"}>
               <Search width={24} height={24} stroke={Colors.amber50} />
             </button>
           </div>
@@ -160,35 +187,14 @@ const MyStoreSetting = () => {
           />
         </FormLabel>
         <FormLabel label="영업시간">
-          <div css={openHourWrapper}>
-            <div css={openDayStyle}>
-              <TextInput
-                type="text"
-                state={storeInfo.openDay}
-                setState={setStoreInfo}
-                objectKey="openDay"
-                placeholder="요일"
-                css={openDayStyle}
-              />
-            </div>
-            <div css={openTimeStyle}>
-              <TextInput
-                type="text"
-                state={storeInfo.openTime}
-                setState={setStoreInfo}
-                objectKey="openTime"
-                placeholder="영업시간"
-                css={openTimeStyle}
-              />
-            </div>
-          </div>
+          <BusinessHour bHour={storeInfo.businessHours} handleBhour={handleBhour} />
         </FormLabel>
         <FormLabel label="서비스 태그">
           <ServiceTags setStoreInfo={setStoreInfo} />
         </FormLabel>
         <button
           type="button"
-          onClick={addStoreInfo}
+          onClick={goToBusinessAuth}
           disabled={!isFilled}
           css={[fullAmberButtonStyle, buttonStyle(isFilled)]}
         >
