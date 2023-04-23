@@ -1,8 +1,12 @@
-import React, { ChangeEvent, useId, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useId, useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
 import Camera from "public/icons/etc/camera.svg";
+
+type ImageManageProps = {
+  setImage: Dispatch<SetStateAction<File>>;
+};
 
 const wrapper = css`
   width: 6.5rem;
@@ -29,7 +33,7 @@ const image = css`
   border-radius: 0.25rem;
 `;
 
-const ImageManage = () => {
+const ImageManage = (props: ImageManageProps) => {
   const fileId = useId();
 
   const [profileImg, setProfileImg] = useState("");
@@ -42,6 +46,7 @@ const ImageManage = () => {
     reader.onloadend = () => {
       setProfileImg(reader.result as string);
     };
+    props.setImage(e.target.files?.[0] as File);
   };
 
   return (
