@@ -22,7 +22,7 @@ type RequestDataType = {
   tags: string[];
 };
 
-export type createStoreResDataType = {
+export type CreateStoreResDataType = {
   bname1: string;
   bname2: string;
   businessHours: BHourType[];
@@ -36,6 +36,7 @@ export type createStoreResDataType = {
   sido: string;
   sigungu: string;
   tags: string[];
+  name: string;
 };
 
 export const createDangolStore = async (requestData: RequestDataType) => {

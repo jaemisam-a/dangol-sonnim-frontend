@@ -10,7 +10,7 @@ import Right from "public/icons/direction/right.svg";
 import LinkIcon from "public/icons/etc/link.svg";
 import PlusCircle from "public/icons/add/plusCircle.svg";
 import { Colors, Texts } from "styles/common";
-import { createStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { CreateStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
 import useCurrentStore from "src/store/currentStore";
 
 type MyInfoProps = {
@@ -108,7 +108,7 @@ const MyInfo = (props: MyInfoProps) => {
       <section css={storeListWrapper}>
         <p>내 가게</p>
         <div css={storeList}>
-          {data.map((store: createStoreResDataType) => (
+          {data.map((store: CreateStoreResDataType) => (
             // FIXME: 링크 이동 경로, 현재 클릭한 스토어 판단 로직 수정필요
             <button
               key={store.id}
