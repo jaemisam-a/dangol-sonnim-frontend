@@ -46,7 +46,10 @@ const SubsSetting = (props: SubsSettingProps) => {
 
   const deleteSubscribe = async () => {
     await mutateAsync({ subscribeId: selectedSubs })
-      .then(() => setOpenModal(false))
+      .then(() => {
+        alert("삭제되었습니다.");
+        setOpenModal(false);
+      })
       .catch((err) => alert(err.response.data.message));
   };
 
