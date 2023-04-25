@@ -28,6 +28,7 @@ export const addSubsCoupon = async ({
     intro,
     isTop,
     useCount,
+    benefits: [{ description: "" }],
   });
   return response.data;
 };

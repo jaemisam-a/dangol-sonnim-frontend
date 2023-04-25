@@ -36,10 +36,10 @@ const Subs = () => {
       type: subsContent.type,
       intro: subsContent.benefit,
       isTop: subsContent.isMain,
-      price: subsContent.price,
-      useCount: subsContent.count,
+      price: Number(subsContent.price),
+      useCount: Number(subsContent.count),
       // FIXME: 가게 id를 query로 받아 적용
-      storeId: 1,
+      storeId: 7,
     })
       .then(() => {
         alert("등록되었습니다");
