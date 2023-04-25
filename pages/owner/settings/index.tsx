@@ -11,7 +11,7 @@ import Location from "owner/settings/location";
 import Menus from "owner/settings/menus";
 import Subs from "owner/settings/subs";
 import Info from "owner/settings/info";
-import { DangolStoreDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { createStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
 import { categoryIdToString } from "src/utils/category";
 import useCurrentStore from "src/store/currentStore";
 
@@ -53,7 +53,9 @@ const Settings = () => {
   ];
 
   const { push } = useRouter();
-  const { data, isLoading, error } = useQuery("getMyStore", getMyStore);
+  const { data, isLoading } = useQuery("getMyStore", getMyStore, {
+    onError: (error) => alert(error),
+  });
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
 
   const [storeData, setStoreData] = useState(data[0]);
@@ -68,11 +70,10 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    setStoreData(data?.filter((el: DangolStoreDataType) => el.id === currentStoreId)[0]);
+    setStoreData(data?.filter((el: createStoreResDataType) => el.id === currentStoreId)[0]);
   }, [currentStoreId]);
 
   if (isLoading) return <Loading />;
-  if (error) return alert(error);
 
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>

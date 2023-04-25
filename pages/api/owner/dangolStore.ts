@@ -8,9 +8,21 @@ export type BHourType = {
 type RequestDataType = {
   name: string;
   phoneNumber: string;
-} & DangolStoreDataType;
+  bname1: string;
+  bname2: string;
+  businessHours: BHourType[];
+  categoryType: string;
+  comments: string;
+  detailedAddress: string;
+  newAddress: string;
+  registerName: string;
+  registerNumber: string;
+  sido: string;
+  sigungu: string;
+  tags: string[];
+};
 
-export type DangolStoreDataType = {
+export type createStoreResDataType = {
   bname1: string;
   bname2: string;
   businessHours: BHourType[];
@@ -18,7 +30,6 @@ export type DangolStoreDataType = {
   comments: string;
   detailedAddress: string;
   id: string;
-  name: string;
   newAddress: string;
   registerName: string;
   registerNumber: string;
