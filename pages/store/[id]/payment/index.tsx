@@ -22,7 +22,7 @@ export type TransferType = {
 };
 
 const DUMMY_PAYMENT = {
-  id: "abc",
+  id: 1,
   storeName: "정갈한솥",
   count: 5,
   name: "모든 메뉴 사이즈업",
