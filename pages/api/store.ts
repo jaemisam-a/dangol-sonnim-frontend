@@ -1,7 +1,7 @@
 import { NextApiResponse, NextApiRequest } from "next";
 
 export type subsType = {
-  id: string;
+  id: number;
   name: string;
   count: number;
   description: string;
@@ -48,7 +48,7 @@ const store = [
     ],
     subs: [
       {
-        id: "jghs!12314",
+        id: 1,
         name: "모든 메뉴 사이즈업",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
@@ -57,7 +57,7 @@ const store = [
         tags: ["사이드디쉬추가", "사이즈업"],
       },
       {
-        id: "jghs!4985",
+        id: 2,
         name: "계란 추가 or 새우튀김 제공(5회권)",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
@@ -85,7 +85,7 @@ const store = [
     ],
     subs: [
       {
-        id: "tbspz!3928",
+        id: 3,
         name: "모든 메뉴 사이즈업",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
@@ -94,7 +94,7 @@ const store = [
         tags: ["사이드디쉬추가", "사이즈업"],
       },
       {
-        id: "tbspz!0909",
+        id: 4,
         name: "사이드메뉴 증정",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
@@ -122,7 +122,7 @@ const store = [
     ],
     subs: [
       {
-        id: "mstf!3928",
+        id: 5,
         name: "모든 메뉴 사이즈업",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
@@ -131,7 +131,7 @@ const store = [
         tags: ["사이드디쉬추가", "사이즈업"],
       },
       {
-        id: "mstf!0909",
+        id: 6,
         name: "사이드메뉴 증정",
         count: 5,
         description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번",
