@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { useStore } from "zustand";
 
 import Layout from "common/layout";
+import Loading from "common/loading";
 import Picture from "owner/settings/picture";
 import Location from "owner/settings/location";
 import Menus from "owner/settings/menus";
 import Subs from "owner/settings/subs";
 import Info from "owner/settings/info";
+import { DangolStoreDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { categoryIdToString } from "src/utils/category";
+import useCurrentStore from "src/store/currentStore";
 
 const bottomPadding = css`
   height: 2rem;
@@ -45,15 +52,40 @@ const Settings = () => {
     },
   ];
 
+  const { push } = useRouter();
+  const { data, isLoading, error } = useQuery("getMyStore", getMyStore);
+  const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
+
+  const [storeData, setStoreData] = useState(data[0]);
+
+  /** 가게 설정 페이지 처음 접속 시에는 가게 목록 중 첫번째가 보이도록 함 */
+  useEffect(() => {
+    if (!data) {
+      push("/owner/mystore");
+    } else {
+      setCurrentStoreId(data[0].id);
+    }
+  }, []);
+
+  useEffect(() => {
+    setStoreData(data?.filter((el: DangolStoreDataType) => el.id === currentStoreId)[0]);
+  }, [currentStoreId]);
+
+  if (isLoading) return <Loading />;
+  if (error) return alert(error);
+
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
       <Picture />
-      {/* prettier-ignore */}
-      <Info name="정갈한솥" category="1" description={"\"오늘 뭐먹지?\" 고민 무조건 오면 해결!"} />
+      <Info
+        name={storeData.name}
+        category={categoryIdToString(storeData.categoryType)}
+        description={storeData.comments}
+      />
       <Location
-        address="서울 구로구 디지털로 26길 111 지하 1층 002호"
-        detail="서울대입구역 6번 출구에서 50m"
-        openHour="10시에 영업시작"
+        address={storeData.newAddress}
+        detail={storeData.detailedAddress}
+        openHour={storeData.businessHours}
       />
       <Menus data={menuDummyData} />
       <Subs data={subsDummyData} />

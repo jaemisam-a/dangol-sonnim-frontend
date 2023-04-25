@@ -11,7 +11,7 @@ import { Colors, Texts } from "styles/common";
 type LocationProps = {
   address: string;
   detail: string;
-  openHour: string;
+  openHour: { weeks: string; hours: string }[];
 };
 
 const addressWrapper = css`
@@ -40,11 +40,18 @@ const openHourWrapper = css`
   gap: 0.75rem;
   margin-top: 1.125rem;
   margin-bottom: 1.75rem;
+  align-items: flex-start;
 `;
 
 const openHourStyle = css`
+  display: flex;
+  flex-direction: column;
   ${Texts.B2_14_R1}
   color:${Colors.neutral90};
+`;
+
+const weeksStyle = css`
+  margin-right: 0.5rem;
 `;
 
 const Location = (props: LocationProps) => {
@@ -63,7 +70,14 @@ const Location = (props: LocationProps) => {
             <Clock />
             영업시간
           </span>
-          <span css={openHourStyle}>{props.openHour}</span>
+          <div css={openHourStyle}>
+            {props.openHour.map((el, idx) => (
+              <p key={idx}>
+                <span css={weeksStyle}>{el.weeks}</span>
+                <span>{el.hours}</span>
+              </p>
+            ))}
+          </div>
         </div>
       </StoreSection>
       <SettingButton
