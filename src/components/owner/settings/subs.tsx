@@ -13,7 +13,7 @@ import { deleteSubs } from "pages/api/owner/settings";
 
 type SubsSettingProps = {
   data: {
-    id: string;
+    id: number;
     name: string;
     count: number;
     description: string;
@@ -41,7 +41,7 @@ const SubsSetting = (props: SubsSettingProps) => {
   });
 
   const [status, setStatus] = useState<statusType>("default");
-  const [selectedSubs, setSelectedSubs] = useState("");
+  const [selectedSubs, setSelectedSubs] = useState(0);
   const [openModal, setOpenModal] = useState(false);
 
   const deleteSubscribe = async () => {
