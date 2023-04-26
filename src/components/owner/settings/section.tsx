@@ -75,6 +75,7 @@ const StoreSection = (props: StoreSectionProps) => {
                     <Kebab />
                   </button>
                   <Popover
+                    btnAction={props.btnAction}
                     label={props.sectionTitle}
                     isOpen={openPopover}
                     setIsOpen={setOpenPopover}
