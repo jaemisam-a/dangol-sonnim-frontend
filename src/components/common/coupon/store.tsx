@@ -7,7 +7,7 @@ import Close from "public/icons/close/close.svg";
 import Pencil from "public/icons/etc/pencil.svg";
 
 type StoreCouponProps = {
-  id: string;
+  id: number;
   name: string;
   storeName: string;
   count: number;
@@ -89,7 +89,7 @@ const StoreCoupon = (props: StoreCouponProps) => {
             setIsChecked={props.setChecked}
             isChecked={props.checked}
             disable={props.disable}
-            objectKey={props.id}
+            objectKey={String(props.id)}
           />
         )}
         <label htmlFor={checkboxId} css={subsWrapper}>
