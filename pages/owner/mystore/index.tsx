@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
+import { useStore } from "zustand";
 
 import Layout from "common/layout";
 import FormLabel from "common/formLabel";
-import TextInput from "common/input/text";
 import ServiceTags from "owner/store/serviceTags";
+import BusinessHour from "owner/store/businessHour";
 import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
-import { BHourType } from "pages/api/owner/dangolStore";
-import BusinessHour from "owner/store/businessHour";
+import useMyStoreInfo from "src/store/storeInfo";
 
 const formWrapper = css`
   display: flex;
   flex-direction: column;
   padding: 1.5rem 1.25rem 3rem;
+`;
+
+const inputStyle = css`
+  ${Texts.B3_15_R1}
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.688rem 0.75rem;
+  border: 1px solid ${Colors.neutral30};
+  border-radius: 0.25rem;
 `;
 
 const addressSearch = css`
@@ -55,60 +65,69 @@ const buttonStyle = (isFilled: boolean) => css`
 
 const MyStoreSetting = () => {
   const { push, pathname, query } = useRouter();
+  const {
+    name,
+    category,
+    description,
+    roadAddr,
+    siNm,
+    sggNm,
+    emdNm,
+    detailedAddress,
+    businessHours,
+    tags,
+    setGlobalStoreInfo,
+  } = useStore(useMyStoreInfo);
 
-  const [storeInfo, setStoreInfo] = useState({
-    name: "",
-    category: "KOREAN",
-    description: "",
-    roadAddr: "",
-    siNm: "",
-    sggNm: "",
-    emdNm: "",
-    detailedAddress: "",
-    businessHours: [
-      {
-        weeks: "",
-        hours: "",
-      },
-    ],
-    tags: [""],
-  });
   const [isFilled, setIsFilled] = useState(false);
 
   const goToBusinessAuth = () => {
-    const trimmedBHourArr = storeInfo.businessHours.filter(
-      (el) => el.weeks !== "" && el.hours !== ""
-    );
-
     push(
       {
         pathname: "/owner/auth",
-        query: {
-          name: storeInfo.name,
-          phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
-          newAddress: storeInfo.roadAddr,
-          sido: storeInfo.siNm,
-          sigungu: storeInfo.sggNm,
-          bname1: storeInfo.emdNm,
-          bname2: "",
-          detailedAddress: storeInfo.detailedAddress,
-          comments: storeInfo.description,
-          businessHours: JSON.stringify(trimmedBHourArr),
-          tags: storeInfo.tags,
-          categoryType: storeInfo.category,
-        },
+        query: { accessToken: localStorage.getItem("accessToken") },
       },
       "owner/auth"
     );
   };
 
-  useEffect(() => {
-    const isEachSectionFilled = Object.values(storeInfo).every(
-      (el) => el !== "" && el.length !== 0
+  const getAddress = () => {
+    push(
+      {
+        pathname: "/owner/settings/location",
+        query: {
+          returnPath: pathname,
+        },
+      },
+      "owner/settings/location"
     );
+  };
 
-    const isBHourFilled = storeInfo.businessHours.every((el, idx) => {
-      if (idx === 0 || idx !== storeInfo.businessHours.length - 1) {
+  useEffect(() => {
+    if (query.address) {
+      const address = JSON.parse(query.address as string);
+      Object.keys(address).forEach((key) => setGlobalStoreInfo(key, address[key]));
+    }
+  }, [query.address]);
+
+  useEffect(() => {
+    /** 현재 페이지의 각 섹션 빈칸 확인 */
+    const isEachSectionFilled = [
+      name,
+      category,
+      description,
+      roadAddr,
+      siNm,
+      sggNm,
+      emdNm,
+      detailedAddress,
+      businessHours,
+      tags,
+    ].every((el) => el !== "" && el.length !== 0);
+
+    /** 영업 시간 섹션의 빈칸 확인 */
+    const isBHourFilled = businessHours.every((el, idx) => {
+      if (idx === 0 || idx !== businessHours.length - 1) {
         /** 마지막 칸이 아니라면 빈칸을 허용하지 않는다. */
         return el.weeks !== "" && el.hours !== "";
       } else {
@@ -117,38 +136,35 @@ const MyStoreSetting = () => {
       }
     });
     setIsFilled(isEachSectionFilled && isBHourFilled);
-  }, [storeInfo]);
-
-  useEffect(() => {
-    if (query.address) {
-      const address = JSON.parse(query.address as string);
-      Object.keys(address).forEach((key) =>
-        setStoreInfo((prev) => ({ ...prev, [key]: address[key] }))
-      );
-    }
-  }, [query.address]);
-
-  const getAddress = () => {
-    push(
-      { pathname: "/owner/settings/location", query: { returnPath: pathname } },
-      "owner/settings/location"
-    );
-  };
-
-  const handleBhour = (addedBHour: BHourType[]) => {
-    setStoreInfo((prev) => ({ ...prev, businessHours: addedBHour }));
-  };
+  }, [
+    name,
+    category,
+    description,
+    roadAddr,
+    siNm,
+    sggNm,
+    emdNm,
+    detailedAddress,
+    businessHours,
+    tags,
+  ]);
 
   return (
     <Layout title="가게 정보 등록" subTitle="가게 정보 등록">
       <form css={formWrapper}>
         <FormLabel label="가게명">
-          <TextInput type="text" state={storeInfo.name} objectKey="name" setState={setStoreInfo} />
+          <input
+            type="text"
+            css={inputStyle}
+            value={name}
+            onChange={(e) => setGlobalStoreInfo("name", e.target.value)}
+          />
         </FormLabel>
         <FormLabel label="가게 카테고리">
           <select
             css={selectStyle}
-            onChange={(e) => setStoreInfo((prev) => ({ ...prev, category: e.target.value }))}
+            onChange={(e) => setGlobalStoreInfo("category", e.target.value)}
+            value={category}
           >
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -158,12 +174,12 @@ const MyStoreSetting = () => {
           </select>
         </FormLabel>
         <FormLabel label="가게 한줄 소개">
-          <TextInput
+          <input
             type="text"
+            css={inputStyle}
             placeholder="가게 한줄 소개 입력"
-            state={storeInfo.description}
-            objectKey="description"
-            setState={setStoreInfo}
+            value={description}
+            onChange={(e) => setGlobalStoreInfo("description", e.target.value)}
           />
         </FormLabel>
         <FormLabel label="위치">
@@ -172,25 +188,24 @@ const MyStoreSetting = () => {
               type="text"
               placeholder="주소 검색"
               onFocus={getAddress}
-              defaultValue={storeInfo.roadAddr}
+              defaultValue={roadAddr}
             />
             <button onClick={getAddress} type={"button"}>
               <Search width={24} height={24} stroke={Colors.amber50} />
             </button>
           </div>
-          <TextInput
+          <input
             type="text"
-            placeholder="상세주소"
-            objectKey="detailedAddress"
-            state={storeInfo.detailedAddress}
-            setState={setStoreInfo}
+            css={inputStyle}
+            value={detailedAddress}
+            onChange={(e) => setGlobalStoreInfo("detailedAddress", e.target.value)}
           />
         </FormLabel>
         <FormLabel label="영업시간">
-          <BusinessHour bHour={storeInfo.businessHours} handleBhour={handleBhour} />
+          <BusinessHour />
         </FormLabel>
         <FormLabel label="서비스 태그">
-          <ServiceTags setStoreInfo={setStoreInfo} />
+          <ServiceTags />
         </FormLabel>
         <button
           type="button"

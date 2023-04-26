@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import Layout from "common/layout";
 import { Colors, Texts } from "styles/common";
 import Check from "public/icons/check/check.svg";
 import { createDangolStore } from "pages/api/owner/dangolStore";
+import useMyStoreInfo from "src/store/storeInfo";
 
 const wrapper = css`
   display: flex;
@@ -34,35 +36,47 @@ const link = css`
 `;
 
 const Complete = () => {
-  const { query, push } = useRouter();
+  const { query, push, back } = useRouter();
   const { mutateAsync } = useMutation(createDangolStore);
 
+  const globalState = useStore(useMyStoreInfo);
+  const { resetStoreInfo } = useStore(useMyStoreInfo);
+
   const createStore = async () => {
+    const trimmedBHourArr = globalState.businessHours.filter(
+      (el) => el.weeks !== "" && el.hours !== ""
+    );
     await mutateAsync({
-      name: query.name as string,
+      name: globalState.name,
       phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
-      newAddress: query.newAddress as string,
-      sido: query.sido as string,
-      sigungu: query.sigungu as string,
-      bname1: query.bname1 as string,
+      newAddress: globalState.roadAddr,
+      sido: globalState.siNm,
+      sigungu: globalState.sggNm,
+      bname1: globalState.emdNm,
       bname2: "",
-      detailedAddress: query.detailedAddress as string,
-      comments: query.comments as string,
-      businessHours: JSON.parse(query.businessHours as string),
-      tags: query.tags as string[],
-      categoryType: query.categoryType as string,
-      registerNumber: query.registerNumber as string,
-      registerName: query.registerName as string,
+      detailedAddress: globalState.detailedAddress,
+      comments: globalState.description,
+      businessHours: trimmedBHourArr,
+      tags: globalState.tags,
+      categoryType: globalState.category,
+      registerNumber: globalState.registerNumber,
+      registerName: globalState.name,
     })
-      .then(() => push("/owner"))
+      .then(() => {
+        alert("가게 등록 완료!");
+        resetStoreInfo();
+        push("/owner");
+      })
       .catch((err) => alert(err.response.data.message));
   };
 
   useEffect(() => {
-    if (!query.name) push("/owner/login");
+    if (!query.accessToken) {
+      back();
+    }
   }, []);
 
-  if (!query.name) return null;
+  if (!query.accessToken) return null;
 
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">

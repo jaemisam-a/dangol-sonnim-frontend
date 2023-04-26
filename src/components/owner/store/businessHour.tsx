@@ -1,13 +1,10 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, ChangeEvent } from "react";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import { Colors, Texts } from "styles/common";
 import { BHourType } from "pages/api/owner/dangolStore";
-
-type BusinessHourProps = {
-  bHour: BHourType[];
-  handleBhour: (addedBHour: BHourType[]) => void;
-};
+import useMyStoreInfo from "src/store/storeInfo";
 
 const openHourWrapper = css`
   display: flex;
@@ -37,41 +34,35 @@ const inputStyle = css`
   border-radius: 0.25rem;
 `;
 
-const BusinessHour = (props: BusinessHourProps) => {
-  const [bHourArr, setBHourArr] = useState([
-    {
-      weeks: "",
-      hours: "",
-    },
-  ]);
+const BusinessHour = () => {
+  const { businessHours, setGlobalStoreInfo } = useStore(useMyStoreInfo);
 
   useEffect(() => {
     /**
-     * 날짜-시간 한 쌍이 모두 채워지면 이 컴포넌트를 사용하는 부모 컴포넌트로 bHourArr 값을 전달하고 맨 마지막에 새로운 빈 칸을 추가합니다.
+     * 날짜-시간 한 쌍이 모두 채워지면 맨 마지막에 새로운 빈 칸을 추가합니다.
      * 칸은 8개까지 추가될 수 있습니다.
      */
-    const lastField = bHourArr.at(-1) as BHourType;
+    const lastField = businessHours.at(-1) as BHourType;
     const isFilled = Object.values(lastField).every((el) => el !== "");
-    const bHourLength = props.bHour.length;
+    const bHourLength = businessHours.length;
 
     /** 새로운 빈 칸 추가 */
     if (bHourLength < 8 && isFilled) {
-      setBHourArr((prev) => [...prev, { weeks: "", hours: "" }]);
+      setGlobalStoreInfo("businessHours", [...businessHours, { weeks: "", hours: "" }]);
     }
-    props.handleBhour(bHourArr);
-  }, [bHourArr]);
+  }, [businessHours]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>, key: keyof BHourType, idx: number) => {
-    const copy = [...bHourArr];
-    const findIndex = bHourArr.findIndex((_, index) => index === idx);
+    const copy = [...businessHours];
+    const findIndex = businessHours.findIndex((_, index) => index === idx);
     copy[findIndex][key] = e.target.value;
-    setBHourArr(copy);
+    setGlobalStoreInfo("businessHours", copy);
   };
 
   return (
     <div>
-      {bHourArr.map((el, idx) => {
-        const isLastField = idx + 1 === bHourArr.length;
+      {businessHours.map((el, idx) => {
+        const isLastField = idx + 1 === businessHours.length;
         const isAllFilled = el.weeks !== "" && el.hours !== "";
         return (
           <div css={openHourWrapper} key={idx}>
