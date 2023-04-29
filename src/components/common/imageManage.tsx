@@ -1,10 +1,11 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useId, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useId, useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
 import Camera from "public/icons/etc/camera.svg";
 
 type ImageManageProps = {
+  imageUrl?: string;
   setImage: Dispatch<SetStateAction<File>>;
 };
 
@@ -39,7 +40,6 @@ const ImageManage = (props: ImageManageProps) => {
   const [profileImg, setProfileImg] = useState("");
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-    // FIXME: 추후 Backend에서 이미지 업로드 시 필요한 데이터 파악하여 수정예정
     if (!e.target.files?.[0]) return;
     const reader = new FileReader();
     reader.readAsDataURL(e.target.files?.[0] as Blob);
@@ -48,6 +48,18 @@ const ImageManage = (props: ImageManageProps) => {
     };
     props.setImage(e.target.files?.[0] as File);
   };
+
+  useEffect(() => {
+    if (!props.imageUrl) return;
+    setProfileImg(props.imageUrl);
+    // 이미지 주소로 이미지 객체 생성하여 저장
+    fetch("/static" + props.imageUrl.split("static").at(-1))
+      .then((res) => res.blob())
+      .then((blob) => {
+        const imageFile = new File([blob], "image.jpg", { type: "image/jpeg" });
+        props.setImage(imageFile);
+      });
+  }, [props.imageUrl]);
 
   return (
     <>

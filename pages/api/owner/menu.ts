@@ -3,7 +3,7 @@ import axios from "axios";
 type MenuDataType = {
   name: string;
   price: number;
-  multipartFile: File;
+  multipartFile?: File;
 };
 
 export const getMenu = async (menuId: number) => {
@@ -20,12 +20,16 @@ export const deleteMenu = async (menuId: number) => {
 
 export const updateMenu = async (menuData: { menuId: number } & MenuDataType) => {
   const queryKey = "/api/v1/menu/update";
-  const response = await axios.put(queryKey, menuData);
+  const response = await axios.post(queryKey, menuData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
 
 export const createMenu = async (menuData: { storeId: number } & MenuDataType) => {
   const queryKey = "/api/v1/menu/create";
-  const response = await axios.post(queryKey, menuData);
+  const response = await axios.post(queryKey, menuData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };

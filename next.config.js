@@ -4,6 +4,9 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  images: {
+    domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -21,6 +24,10 @@ const nextConfig = {
       {
         source: "/api/:path*",
         destination: `http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/:path*`,
+      },
+      {
+        source: "/static/:path*",
+        destination: `https://${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/static/:path*`,
       },
     ];
   },

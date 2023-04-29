@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useMutation } from "react-query";
 import { css } from "@emotion/react";
 
 import Empty from "owner/settings/empty";
@@ -8,9 +9,10 @@ import MenuCard from "common/menuCard";
 import Modal from "common/modal";
 import { statusType } from "common/popover";
 import Dialog from "customer/my/dialog";
+import { deleteMenu as deleteMenuApi } from "pages/api/owner/menu";
 
 type MenusProps = {
-  data: { id: string; name: string; img: string; price: number }[];
+  data: { id: number; name: string; img: string; price: number }[];
 };
 
 const menusWrapper = css`
@@ -22,8 +24,20 @@ const menusWrapper = css`
 const Menus = (props: MenusProps) => {
   const { push } = useRouter();
 
+  const { mutateAsync } = useMutation(deleteMenuApi);
+
   const [status, setStatus] = useState<statusType>("default");
   const [openModal, setOpenModal] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState(0);
+
+  const deleteMenu = () => {
+    mutateAsync(selectedMenu)
+      .then(() => {
+        alert("삭제되었습니다.");
+        setOpenModal(false);
+      })
+      .catch((err) => alert(err.response.data.message));
+  };
 
   return (
     <StoreSection
@@ -51,7 +65,10 @@ const Menus = (props: MenusProps) => {
                   "/owner/settings/menu"
                 )
               }
-              deleteAction={() => setOpenModal(true)}
+              deleteAction={() => {
+                setSelectedMenu(el.id);
+                setOpenModal(true);
+              }}
             />
           ))}
         </div>
@@ -64,7 +81,7 @@ const Menus = (props: MenusProps) => {
       )}
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
         <Dialog
-          onCancel={() => setOpenModal(false)}
+          onCancel={deleteMenu}
           onConfirm={() => setOpenModal(false)}
           content={{
             buttonText: { cancel: "삭제", confirm: "취소" },

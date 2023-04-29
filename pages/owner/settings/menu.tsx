@@ -30,7 +30,7 @@ const SettingsMenu = () => {
   const { mutateAsync: create } = useMutation(createMenu);
   const { mutateAsync: update } = useMutation(updateMenu);
 
-  const [inputData, setInputData] = useState({ name: "", price: "" });
+  const [inputData, setInputData] = useState({ name: "", price: "", imageUrl: "" });
   const [image, setImage] = useState<File>();
 
   const isEdit = Boolean(query?.menuId);
@@ -49,23 +49,25 @@ const SettingsMenu = () => {
         multipartFile: image as File,
       })
         .then(() => back())
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => alert(err.response.data.message));
     } else {
       create({
+        // TODO: storeId 값을 받아 입력
         storeId: 1,
         name: inputData.name,
         price: parseInt(inputData.price),
         multipartFile: image as File,
       })
         .then(() => back())
-        .catch((err) => console.log(err.response.data.message));
+        .catch((err) => alert(err.response.data.message));
     }
   };
 
   useEffect(() => {
     if (isError) back();
-    // TODO: 메뉴 조회에서 데이터 받아와 아래에 적용
-  }, [query]);
+    if (!data) return;
+    setInputData({ name: data?.name, price: data?.price, imageUrl: data?.imageUrl });
+  }, [query, data]);
 
   // 메뉴 조회에서 에러가 발생했다면 정상적인 방법으로 접근한 것이 아님
   if (isError) return null;
@@ -78,7 +80,10 @@ const SettingsMenu = () => {
       checkBtnFnc={handleSubmit}
     >
       <div css={wrapper}>
-        <ImageManage setImage={setImage as Dispatch<SetStateAction<File>>} />
+        <ImageManage
+          imageUrl={inputData.imageUrl}
+          setImage={setImage as Dispatch<SetStateAction<File>>}
+        />
         <div css={inputWrapper}>
           {inputArr.map((el) => (
             <InputWithButton
