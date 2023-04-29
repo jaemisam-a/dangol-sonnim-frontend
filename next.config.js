@@ -5,7 +5,7 @@ const nextConfig = {
     emotion: true,
   },
   images: {
-    domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN],
+    domains: ["dangol.s3.ap-northeast-2.amazonaws.com"],
   },
   webpack: (config) => {
     config.module.rules.push({
@@ -27,7 +27,7 @@ const nextConfig = {
       },
       {
         source: "/static/:path*",
-        destination: `https://${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}/static/:path*`,
+        destination: "https://dangol.s3.ap-northeast-2.amazonaws.com/static/:path*",
       },
     ];
   },
