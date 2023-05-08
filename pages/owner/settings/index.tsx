@@ -54,24 +54,33 @@ const Settings = () => {
 
   const { push } = useRouter();
   const { data, isLoading } = useQuery("getMyStore", getMyStore, {
-    onError: (error) => alert(error),
+    // FIXME: 로그인 여부 확인하여 enable 상태 변경하도록 수정하기
+    enabled: true,
   });
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
 
   const [storeData, setStoreData] = useState<CreateStoreResDataType>();
 
-  /** 가게 설정 페이지 처음 접속 시에는 가게 목록 중 첫번째가 보이도록 함 */
   useEffect(() => {
-    if (!data) {
-      push("/owner/mystore");
-    } else if (data && data.length > 0) {
+    //FIXME: 로그인 안된 상태라면 로그인 페이지로 이동
+    if (!localStorage.getItem("accessToken")) {
+      push("/owner/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      /** 등록한 가게가 있으면 기본적으로 가게 목록 중 첫번째가 보이도록 함 */
       setStoreData(data[0]);
       setCurrentStoreId(data[0].id);
+    } else if (data?.length < 1) {
+      /** 등록한 가게가 없는 경우에는 가게 정보 등록 페이지로 이동 */
+      push("/owner/mystore");
     }
   }, [data]);
 
-  /** 사이드 네비바에서 설정한 가게 변경할 경우 */
   useEffect(() => {
+    /** 사이드 네비바에서 설정한 가게 변경할 경우 */
     if (data) {
       const currentStore = data.find((el: CreateStoreResDataType) => el.id === currentStoreId);
       if (currentStore) {
@@ -80,7 +89,9 @@ const Settings = () => {
     }
   }, [currentStoreId, data]);
 
+  /** 등록한 가게가 없어서 storeData가 빈 값인 경우에도 /mystore로 이동하는 동안에는 로딩을 렌더링한다. */
   if (isLoading || !storeData) return <Loading />;
+
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
       <Picture />
