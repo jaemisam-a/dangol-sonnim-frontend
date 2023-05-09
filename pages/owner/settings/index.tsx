@@ -21,11 +21,11 @@ const bottomPadding = css`
 
 const Settings = () => {
   const menuDummyData = [
-    { id: "1", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
-    { id: "2", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
-    { id: "3", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
-    { id: "4", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
-    { id: "5", name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: 1, name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: 2, name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: 3, name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: 4, name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
+    { id: 5, name: "불고기비빔밥", img: "/images/dummy/cheetah.jpg", price: 9500 },
   ];
 
   const subsDummyData = [
