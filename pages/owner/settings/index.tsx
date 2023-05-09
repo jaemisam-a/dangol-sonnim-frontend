@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { useStore } from "zustand";
 
 import Layout from "common/layout";
+import Loading from "common/loading";
 import Picture from "owner/settings/picture";
 import Location from "owner/settings/location";
 import Menus from "owner/settings/menus";
 import Subs from "owner/settings/subs";
 import Info from "owner/settings/info";
+import { CreateStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { categoryIdToString } from "src/utils/category";
+import useCurrentStore from "src/store/currentStore";
 
 const bottomPadding = css`
   height: 2rem;
@@ -45,15 +52,58 @@ const Settings = () => {
     },
   ];
 
+  const { push } = useRouter();
+  const { data, isLoading } = useQuery("getMyStore", getMyStore, {
+    // FIXME: 로그인 여부 확인하여 enable 상태 변경하도록 수정하기
+    enabled: true,
+  });
+  const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
+
+  const [storeData, setStoreData] = useState<CreateStoreResDataType>();
+
+  useEffect(() => {
+    //FIXME: 로그인 안된 상태라면 로그인 페이지로 이동
+    if (!localStorage.getItem("accessToken")) {
+      push("/owner/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data?.length > 0) {
+      /** 등록한 가게가 있으면 기본적으로 가게 목록 중 첫번째가 보이도록 함 */
+      setStoreData(data[0]);
+      setCurrentStoreId(data[0].id);
+    } else if (data?.length < 1) {
+      /** 등록한 가게가 없는 경우에는 가게 정보 등록 페이지로 이동 */
+      push("/owner/mystore");
+    }
+  }, [data]);
+
+  useEffect(() => {
+    /** 사이드 네비바에서 설정한 가게 변경할 경우 */
+    if (data) {
+      const currentStore = data.find((el: CreateStoreResDataType) => el.id === currentStoreId);
+      if (currentStore) {
+        setStoreData(currentStore);
+      }
+    }
+  }, [currentStoreId, data]);
+
+  /** 등록한 가게가 없어서 storeData가 빈 값인 경우에도 /mystore로 이동하는 동안에는 로딩을 렌더링한다. */
+  if (isLoading || !storeData) return <Loading />;
+
   return (
     <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
       <Picture />
-      {/* prettier-ignore */}
-      <Info name="정갈한솥" category="1" description={"\"오늘 뭐먹지?\" 고민 무조건 오면 해결!"} />
+      <Info
+        name={storeData?.name}
+        category={categoryIdToString(storeData?.categoryType)}
+        description={storeData?.comments}
+      />
       <Location
-        address="서울 구로구 디지털로 26길 111 지하 1층 002호"
-        detail="서울대입구역 6번 출구에서 50m"
-        openHour="10시에 영업시작"
+        address={storeData?.newAddress}
+        detail={storeData?.detailedAddress}
+        openHour={storeData?.businessHours}
       />
       <Menus data={menuDummyData} />
       <Subs data={subsDummyData} />

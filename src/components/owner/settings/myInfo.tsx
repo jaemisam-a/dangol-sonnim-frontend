@@ -2,12 +2,16 @@ import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "react-query";
+import { useStore } from "zustand";
 
 import CloseLarge from "public/icons/close/closeLarge.svg";
 import Right from "public/icons/direction/right.svg";
 import LinkIcon from "public/icons/etc/link.svg";
 import PlusCircle from "public/icons/add/plusCircle.svg";
 import { Colors, Texts } from "styles/common";
+import { CreateStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
+import useCurrentStore from "src/store/currentStore";
 
 type MyInfoProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
@@ -50,6 +54,7 @@ const storeListWrapper = css`
 const storeList = css`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.5rem;
 `;
 
@@ -61,7 +66,7 @@ const storeLink = (isCurrent: boolean) => css`
     stroke: ${isCurrent ? Colors.black : Colors.neutral50};
   }
 
-  a {
+  span {
     color: ${isCurrent ? Colors.black : Colors.neutral50};
   }
 `;
@@ -77,15 +82,14 @@ const addButton = css`
 `;
 
 const MyInfo = (props: MyInfoProps) => {
+  //TODO: Owner 정보 API 연결
   const owner = {
     name: "김두말",
     email: "owner@gmail.com",
-    phoneNo: "010-1234-1234",
-    businessNo: "1234567890",
-    bankInfo: { name: "국민은행", accountNo: "1234567890" },
-    stores: ["지파이", "미스사이공"],
-    currentStoreId: "지파이",
   };
+
+  const { data } = useQuery("getMyStore", getMyStore);
+  const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
 
   return (
     <div>
@@ -104,12 +108,16 @@ const MyInfo = (props: MyInfoProps) => {
       <section css={storeListWrapper}>
         <p>내 가게</p>
         <div css={storeList}>
-          {owner.stores.map((store) => (
+          {data.map((store: CreateStoreResDataType) => (
             // FIXME: 링크 이동 경로, 현재 클릭한 스토어 판단 로직 수정필요
-            <span key={store} css={storeLink(store === owner.currentStoreId)}>
+            <button
+              key={store.id}
+              css={storeLink(store.id === currentStoreId)}
+              onClick={() => setCurrentStoreId(store.id)}
+            >
               <LinkIcon />
-              <Link href={`/settings/${store}`}>{store}</Link>
-            </span>
+              <span>{store.registerName}</span>
+            </button>
           ))}
         </div>
         <Link href="/owner/mystore" css={addButton}>
