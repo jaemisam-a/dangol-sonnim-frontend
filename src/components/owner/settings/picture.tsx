@@ -17,17 +17,9 @@ const Picture = () => {
   const onChangeImage = async (e: ChangeEvent<Element>) => {
     const currentTarget = e.currentTarget as HTMLInputElement;
     if (!currentTarget.files) return;
-
-    //  FIXME: 백엔드 파일 타입 확인 후 수정하기
-
-    const formData = new FormData();
-    for (let i = 0; i < currentTarget.files.length; i++) {
-      formData.append("file", currentTarget.files[i]);
-    }
-
     await mutateAsync({
       storeId: 1, //TODO: storeId 변경
-      multipartFile: Array.from(formData),
+      multipartFile: currentTarget.files,
     }).then((res) => console.log(res));
   };
 

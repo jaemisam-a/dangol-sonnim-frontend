@@ -41,7 +41,7 @@ export type CreateStoreResDataType = {
 
 type uploadStoreImageDataType = {
   storeId: number;
-  multipartFile: any;
+  multipartFile: FileList;
 };
 
 export const createDangolStore = async (requestData: createStoreDataType) => {
@@ -64,12 +64,9 @@ export const getMyStore = async () => {
 
 export const uploadStoreImage = async (requestData: uploadStoreImageDataType) => {
   const queryKey = "/api/v1/store/image-upload";
-  // const accessToken = localStorage.getItem("accessToken");
 
   const response = await axios.post(queryKey, requestData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+    headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data;
 };
