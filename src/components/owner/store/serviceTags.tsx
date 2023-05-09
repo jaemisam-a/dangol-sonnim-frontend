@@ -1,34 +1,10 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  KeyboardEvent,
-  MouseEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import Tag from "common/tag/tagOwner";
 import { Colors, Texts } from "styles/common";
-import { BHourType } from "pages/api/owner/dangolStore";
-
-type ServiceTagsProps = {
-  setStoreInfo: Dispatch<
-    SetStateAction<{
-      name: string;
-      category: string;
-      description: string;
-      roadAddr: string;
-      siNm: string;
-      sggNm: string;
-      emdNm: string;
-      detailedAddress: string;
-      businessHours: BHourType[];
-      tags: string[];
-    }>
-  >;
-};
+import useMyStoreInfo from "src/store/storeInfo";
 
 const desc = css`
   color: ${Colors.neutral60};
@@ -71,7 +47,9 @@ const inputStyle = css`
   ${Texts.C2_12_M}
 `;
 
-const ServiceTags = (props: ServiceTagsProps) => {
+const ServiceTags = () => {
+  const { tags, setGlobalStoreInfo } = useStore(useMyStoreInfo);
+
   const tagExample = [
     "음료제공",
     "가격할인",
@@ -81,11 +59,11 @@ const ServiceTags = (props: ServiceTagsProps) => {
     "우선예약",
     "주류제공",
   ];
-
   const [selectedTag, setSelectedTag] = useState(new Set<string>());
   const [inputText, setInputText] = useState("");
 
-  const onTagClick = (e: MouseEvent<HTMLButtonElement>, tag: string) => {
+  const onTagClick = (tag: string) => {
+    if (tag === "") return;
     if (selectedTag.size >= 2) return;
     setSelectedTag((prev) => new Set(prev.add(tag)));
   };
@@ -109,15 +87,19 @@ const ServiceTags = (props: ServiceTagsProps) => {
   };
 
   useEffect(() => {
-    props.setStoreInfo((prev) => ({ ...prev, tags: Array.from(selectedTag) }));
+    setGlobalStoreInfo("tags", Array.from(selectedTag));
   }, [selectedTag]);
+
+  useEffect(() => {
+    tags.forEach((tag) => onTagClick(tag));
+  }, []);
 
   return (
     <div>
       <p css={desc}>최대 2개 선택/작성 가능</p>
       <div css={tagExampleWrapper}>
         {tagExample.map((tag) => (
-          <button type="button" key={tag} onClick={(e) => onTagClick(e, tag)}>
+          <button type="button" key={tag} onClick={() => onTagClick(tag)}>
             <Tag text={tag} bgColor={Colors.neutral10} />
           </button>
         ))}

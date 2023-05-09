@@ -3,11 +3,13 @@ import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import axios from "axios";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import TextInput from "common/input/text";
 import Layout from "common/layout";
 import FullPageSpinner from "common/spinner/fullPage";
 import { Colors, selectStyle, Texts } from "styles/common";
+import useMyStoreInfo from "src/store/storeInfo";
 
 type dateType = { year: string; month: string; day: string };
 
@@ -49,7 +51,8 @@ const submitButtom = css`
 `;
 
 const Business = () => {
-  const { push, query } = useRouter();
+  const { push, query, back } = useRouter();
+  const { setGlobalStoreInfo } = useStore(useMyStoreInfo);
 
   const currentYear = new Date().getFullYear();
   const currentMonth = new Date().getMonth() + 1;
@@ -125,25 +128,11 @@ const Business = () => {
 
     //FIXME: API 연동 테스트 위해 진위 상관없이 모두 확인 처리함
     if (data.valid) {
+      setGlobalStoreInfo("registerNumber", businessNumber.toString());
       push(
         {
           pathname: "/owner/auth/complete",
-          query: {
-            name: query.name,
-            phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
-            newAddress: query.newAddress,
-            sido: query.sido,
-            sigungu: query.sigungu,
-            bname1: query.bname1,
-            bname2: "",
-            detailedAddress: query.detailedAddress,
-            comments: query.comments,
-            businessHours: query.businessHours,
-            tags: query.tags,
-            categoryType: query.categoryType,
-            registerNumber: businessNumber,
-            registerName: name,
-          },
+          query: { accessToken: query.accessToken },
         },
         "/owner/auth/complete"
       );
@@ -161,14 +150,12 @@ const Business = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (!query.name) {
-      push("/owner/login");
+    if (!query.accessToken) {
+      back();
     }
   }, []);
 
-  if (!query.name) {
-    return null;
-  }
+  if (!query.accessToken) return null;
 
   return (
     <Layout title="사업자 등록" subTitle="사업자 등록">
