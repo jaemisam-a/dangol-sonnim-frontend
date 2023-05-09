@@ -24,7 +24,7 @@ const inputWrapper = css`
 const SettingsMenu = () => {
   const { query, back } = useRouter();
 
-  const { data, isError } = useQuery("menu", () => getMenu(Number(query?.menuId)), {
+  const { data } = useQuery("menu", () => getMenu(Number(query?.menuId)), {
     enabled: Boolean(query?.menuId),
   });
   const { mutateAsync: create } = useMutation(createMenu);
@@ -64,13 +64,14 @@ const SettingsMenu = () => {
   };
 
   useEffect(() => {
-    if (isError) back();
+    // if (isError) back();
     if (!data) return;
     setInputData({ name: data?.name, price: data?.price, imageUrl: data?.imageUrl });
   }, [query, data]);
 
   // 메뉴 조회에서 에러가 발생했다면 정상적인 방법으로 접근한 것이 아님
-  if (isError) return null;
+  // TODO: 메뉴 목록을 백에서 불러와 적용할 때 사용
+  // if (isError) return null;
 
   return (
     <Layout
