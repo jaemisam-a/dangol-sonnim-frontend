@@ -99,7 +99,7 @@ const MyStoreSetting = () => {
           returnPath: pathname,
         },
       },
-      "owner/settings/location"
+      "/owner/settings/location"
     );
   };
 

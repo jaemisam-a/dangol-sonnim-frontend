@@ -4,13 +4,13 @@ import addDevtools from "src/store/devtools";
 
 interface StoreState {
   name: string;
-  category: string;
+  category: "KOREAN" | "BUNSIK" | "CHINESE" | "JAPANESE" | "WESTERN" | "CAFE";
   description: string;
-  roadAddr: string;
-  siNm: string;
-  sggNm: string;
-  emdNm: string;
-  detailedAddress: string;
+  roadAddr: string; // 도로명 주소
+  siNm: string; // 시
+  sggNm: string; // 시군구
+  emdNm: string; // 읍면동
+  detailedAddress: string; // 상세 주소
   businessHours: {
     weeks: string;
     hours: string;
