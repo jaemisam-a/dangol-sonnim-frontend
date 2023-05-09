@@ -53,7 +53,8 @@ const ImageManage = (props: ImageManageProps) => {
     if (!props.imageUrl) return;
     setProfileImg(props.imageUrl);
     // 이미지 주소로 이미지 객체 생성하여 저장
-    fetch("/static" + props.imageUrl.split("static").at(-1))
+    // FIXME: axios로 적용
+    fetch(`/static${props.imageUrl.split("static").at(-1)}`)
       .then((res) => res.blob())
       .then((blob) => {
         const imageFile = new File([blob], "image.jpg", { type: "image/jpeg" });
