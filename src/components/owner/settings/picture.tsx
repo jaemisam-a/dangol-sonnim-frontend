@@ -17,10 +17,11 @@ const Picture = () => {
   const onChangeImage = async (e: ChangeEvent<Element>) => {
     const currentTarget = e.currentTarget as HTMLInputElement;
     if (!currentTarget.files) return;
+
     await mutateAsync({
       storeId: 1, //TODO: storeId 변경
       multipartFile: currentTarget.files,
-    }).then((res) => console.log(res));
+    }).catch((err) => alert("1MB 이하 이미지만 등록 가능합니다."));
   };
 
   return (
