@@ -46,7 +46,7 @@ const SettingButton = (props: SettingButtonProps) => {
       {props.inputType === "file" && (
         <input
           type="file"
-          accept="image/gif, image/jpeg, image/png"
+          accept="image/*"
           multiple={true}
           css={inputStyle}
           ref={inputRef}

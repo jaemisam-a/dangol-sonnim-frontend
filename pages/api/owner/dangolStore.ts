@@ -5,7 +5,7 @@ export type BHourType = {
   hours: string;
 };
 
-type createStoreDataType = {
+type CreateStoreDataType = {
   name: string;
   phoneNumber: string;
   bname1: string;
@@ -39,12 +39,12 @@ export type CreateStoreResDataType = {
   name: string;
 };
 
-type uploadStoreImageDataType = {
+type UploadStoreImageDataType = {
   storeId: number;
   multipartFile: FileList;
 };
 
-export const createDangolStore = async (requestData: createStoreDataType) => {
+export const createDangolStore = async (requestData: CreateStoreDataType) => {
   const queryKey = "/api/v1/store/create?_csrf=957d8df2-0107-4a0e-b71e-faff75331ee0";
   const accessToken = localStorage.getItem("accessToken");
   const response = await axios.post(queryKey, requestData, {
@@ -62,7 +62,7 @@ export const getMyStore = async () => {
   return response.data;
 };
 
-export const uploadStoreImage = async (requestData: uploadStoreImageDataType) => {
+export const uploadStoreImage = async (requestData: UploadStoreImageDataType) => {
   const queryKey = "/api/v1/store/image-upload";
 
   const response = await axios.post(queryKey, requestData, {
