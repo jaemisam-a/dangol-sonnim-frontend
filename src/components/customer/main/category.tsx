@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+
+type CategoryPropsType = {
+  selected: string;
+  setSelected: Dispatch<SetStateAction<string>>;
+};
 
 const wrapper = css`
   margin: 1rem 0 0.75rem;
@@ -9,33 +14,36 @@ const wrapper = css`
   gap: 0.75rem;
 `;
 
-const categoryBtn = (id: number, selected: number) => css`
+const categoryBtn = (value: string, selected: string) => css`
   ${Texts.B3_15_R1}
   padding: 0;
-  color: ${id === selected ? Colors.black : Colors.neutral60};
-  font-weight: ${id === selected ? 500 : 400};
+  color: ${value === selected ? Colors.black : Colors.neutral60};
+  font-weight: ${value === selected ? 500 : 400};
 `;
 
-const Category = () => {
-  const [selected, setSelected] = useState(1);
-
+const Category = (props: CategoryPropsType) => {
   useEffect(() => {
     // TODO: 선택한 카테고리로 쿼리 요청
-  }, [selected]);
+  }, [props.selected]);
 
   const categories = [
-    { id: 1, category: "전체" },
-    { id: 2, category: "한식" },
-    { id: 3, category: "분식" },
-    { id: 4, category: "중식" },
-    { id: 5, category: "일식" },
-    { id: 6, category: "양식" },
+    { value: "ALL", category: "전체" },
+    { value: "KOREAN", category: "한식" },
+    { value: "BUNSIK", category: "분식" },
+    { value: "CHINESE", category: "중식" },
+    { value: "JAPANESE", category: "일식" },
+    { value: "WESTERN", category: "양식" },
+    { value: "CAFE", category: "카페" },
   ];
 
   return (
     <div css={wrapper}>
-      {categories.map(({ id, category }) => (
-        <button key={id} css={categoryBtn(id, selected)} onClick={() => setSelected(id)}>
+      {categories.map(({ value, category }) => (
+        <button
+          key={value}
+          css={categoryBtn(value, props.selected)}
+          onClick={() => props.setSelected(value)}
+        >
           {category}
         </button>
       ))}

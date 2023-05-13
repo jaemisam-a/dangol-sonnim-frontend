@@ -6,7 +6,7 @@ import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 
 type StoreThumbnailListProps = {
-  contents: ThumbnailData[] | null;
+  contents: { content: ThumbnailData[] };
   userPick?: string[];
   isLoading: boolean;
 };
@@ -37,12 +37,12 @@ const StoreThumbnailList = (props: StoreThumbnailListProps) => {
     );
   }
 
-  if (props.contents) {
+  if (props.contents?.content.length > 0) {
     return (
       <div css={thumbnails}>
-        {props.contents?.map((content) => {
-          const isPick = props.userPick && props.userPick.includes(content.id);
-          return <StoreThumbnail content={content} key={content.id} isPick={isPick} />;
+        {props.contents?.content.map((el) => {
+          const isPick = props.userPick && props.userPick.includes(el.id);
+          return <StoreThumbnail content={el} key={el.id} isPick={isPick} />;
         })}
       </div>
     );

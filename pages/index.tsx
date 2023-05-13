@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -10,8 +10,8 @@ import Sort from "common/filter/sort";
 import Category from "customer/main/category";
 import CouponSlider from "customer/main/couponSlider";
 import useLoginStore from "src/store/login";
-import { StoreData } from "pages/api/store";
 import SearchBar from "common/input/search";
+import { getStoreList } from "pages/api/store";
 
 const MOCK_MYCOUPON = [
   {
@@ -66,26 +66,37 @@ const sort = css`
 
 const Home = () => {
   const { isLogin } = useLoginStore();
+  const [selected, setSelected] = useState("ALL");
+  const [checkedLocation, setCheckedLocation] = useState({ id: 0, content: "전체" });
+  const [storeListParams, setStoreListParams] = useState({});
 
-  const { data: storeData, isLoading } = useQuery("StoreData", () =>
-    axios.get("/api/store").then((res) =>
-      res.data.map((item: StoreData) => {
-        let newObj: { [key: string]: any } = {};
-        newObj["id"] = item.id;
-        newObj["store"] = item.name;
-        newObj["category"] = item.category;
-        newObj["tags"] = item.subs[0].tags;
-        newObj["shortAddress"] = item.location.shortAddress;
-        newObj["img"] = item.images[0].src;
-        return newObj;
-      })
-    )
-  );
+  const {
+    data: storeData,
+    isFetching: isLoading,
+    refetch,
+  } = useQuery(["storeList", selected], () => getStoreList(storeListParams), {
+    enabled: false,
+  });
 
   // FIXME: 로그인 시에만 유저 데이터 가져오기
   const { data: userPick } = useQuery("UserData", () =>
     axios.get("/api/user").then((res) => res.data[0].pick)
   );
+
+  useEffect(() => {
+    if (selected === "ALL" && checkedLocation.id === 0) {
+    } else {
+      if (selected !== "ALL") {
+        setStoreListParams((prev) => ({ ...prev, category: selected }));
+      }
+      if (checkedLocation.id !== 0) {
+        setStoreListParams((prev) => ({ ...prev, sigungu: checkedLocation.content }));
+      }
+    }
+    setTimeout(() => {
+      refetch();
+    }, 0);
+  }, [selected, checkedLocation]);
 
   return (
     <Layout title="단골손님">
@@ -94,10 +105,10 @@ const Home = () => {
       </div>
       {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
       <div css={location}>
-        <Location />
+        <Location checkedLocation={checkedLocation} setCheckedLocation={setCheckedLocation} />
       </div>
       <div css={category}>
-        <Category />
+        <Category selected={selected} setSelected={setSelected} />
       </div>
       <section css={sort}>
         <Sort />
