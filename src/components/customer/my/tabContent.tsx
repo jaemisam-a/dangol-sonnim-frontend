@@ -29,7 +29,7 @@ const dummyMyCoupon = [
   },
 ];
 
-const dummyPickStores = [
+const dummyPickStores: any = [
   {
     id: "abc",
     store: "정갈한솥",
