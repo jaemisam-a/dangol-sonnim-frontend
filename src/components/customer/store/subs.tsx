@@ -6,11 +6,10 @@ import { useRouter } from "next/router";
 import StoreCoupon from "common/coupon/store";
 import StoreSection from "customer/store/section";
 import { Colors, Texts } from "styles/common";
-// import { subsType } from "pages/api/store";
 
 type SubsProps = {
   storeName: string;
-  subsList: any;
+  subsList: [];
 };
 
 type isCheckedType = {

@@ -12,7 +12,7 @@ type InfoProps = {
   infoContent: {
     name: string;
     category: string;
-    images: { src: string; alt: string }[];
+    images: string[];
     description: string;
     menu: string;
     mainSubsDesc: string;
@@ -85,15 +85,8 @@ const Info = ({
     <section>
       <div css={sliderWrapper}>
         <Slider gap="0.25rem">
-          {images.map((img) => (
-            <Image
-              key={img.src}
-              src={img.src}
-              alt={img.alt}
-              width={148}
-              height={148}
-              css={imgStyle}
-            />
+          {images.map((image) => (
+            <Image key={image} src={image} alt={image} width={148} height={148} css={imgStyle} />
           ))}
         </Slider>
       </div>
