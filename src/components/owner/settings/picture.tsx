@@ -1,11 +1,29 @@
-import React from "react";
+import React, { ChangeEvent, RefObject } from "react";
+import { useMutation } from "react-query";
 
 import Empty from "owner/settings/empty";
 import SettingButton from "owner/settings/settingButton";
 import { Colors } from "styles/common";
 import Camera from "public/icons/etc/camera.svg";
+import { uploadStoreImage } from "pages/api/owner/dangolStore";
 
 const Picture = () => {
+  const { mutateAsync } = useMutation(uploadStoreImage);
+
+  const clickUploadBtn = (inputRef: RefObject<HTMLInputElement> | undefined) => {
+    inputRef?.current?.click();
+  };
+
+  const onChangeImage = async (e: ChangeEvent<Element>) => {
+    const currentTarget = e.currentTarget as HTMLInputElement;
+    if (!currentTarget.files) return;
+
+    await mutateAsync({
+      storeId: 1, //TODO: storeId 변경
+      multipartFile: currentTarget.files,
+    }).catch((err) => alert("1MB 이하 이미지만 등록 가능합니다."));
+  };
+
   return (
     <>
       <Empty
@@ -14,9 +32,11 @@ const Picture = () => {
         isTop={true}
       />
       <SettingButton
+        inputType="file"
         heading="가게 사진 설정"
         icon={<Camera />}
-        action={() => alert("가게 정보 설정!")}
+        action={clickUploadBtn}
+        onChange={onChangeImage}
       />
     </>
   );

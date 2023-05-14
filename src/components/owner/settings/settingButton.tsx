@@ -1,12 +1,14 @@
-import React, { ReactElement } from "react";
+import React, { ChangeEvent, ReactElement, RefObject, useRef } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 
 type SettingButtonProps = {
+  inputType?: "file";
+  onChange?: (e: ChangeEvent) => void;
   icon: ReactElement;
   heading: string;
-  action: () => void;
+  action: (inputRef?: RefObject<HTMLInputElement>) => void;
 };
 
 const wrapper = css`
@@ -25,12 +27,33 @@ const icon = css`
   height: 1.5rem;
 `;
 
+const inputStyle = css`
+  display: none;
+`;
+
 const SettingButton = (props: SettingButtonProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <button css={wrapper} onClick={props.action}>
-      <div css={icon}>{props.icon}</div>
-      <div>{props.heading}</div>
-    </button>
+    <>
+      <button
+        css={wrapper}
+        onClick={() => props.action(props.inputType === "file" ? inputRef : undefined)}
+      >
+        <div css={icon}>{props.icon}</div>
+        <div>{props.heading}</div>
+      </button>
+      {props.inputType === "file" && (
+        <input
+          type="file"
+          accept="image/*"
+          multiple={true}
+          css={inputStyle}
+          ref={inputRef}
+          onChange={props.onChange}
+        />
+      )}
+    </>
   );
 };
 
