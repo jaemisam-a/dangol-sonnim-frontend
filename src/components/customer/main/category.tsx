@@ -1,7 +1,8 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import { categories } from "src/utils/category";
 
 type CategoryPropsType = {
   selected: string;
@@ -22,29 +23,15 @@ const categoryBtn = (value: string, selected: string) => css`
 `;
 
 const Category = (props: CategoryPropsType) => {
-  useEffect(() => {
-    // TODO: 선택한 카테고리로 쿼리 요청
-  }, [props.selected]);
-
-  const categories = [
-    { value: "ALL", category: "전체" },
-    { value: "KOREAN", category: "한식" },
-    { value: "BUNSIK", category: "분식" },
-    { value: "CHINESE", category: "중식" },
-    { value: "JAPANESE", category: "일식" },
-    { value: "WESTERN", category: "양식" },
-    { value: "CAFE", category: "카페" },
-  ];
-
   return (
     <div css={wrapper}>
-      {categories.map(({ value, category }) => (
+      {categories.map(({ id, name }) => (
         <button
-          key={value}
-          css={categoryBtn(value, props.selected)}
-          onClick={() => props.setSelected(value)}
+          key={id}
+          css={categoryBtn(id, props.selected)}
+          onClick={() => props.setSelected(id)}
         >
-          {category}
+          {name}
         </button>
       ))}
     </div>

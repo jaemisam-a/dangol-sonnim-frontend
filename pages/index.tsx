@@ -68,7 +68,9 @@ const Home = () => {
   const { isLogin } = useLoginStore();
   const [selected, setSelected] = useState("ALL");
   const [checkedLocation, setCheckedLocation] = useState({ id: 0, content: "전체" });
-  const [storeListParams, setStoreListParams] = useState({});
+  const [storeListParams, setStoreListParams] = useState<{ category?: string; sigungu?: string }>(
+    {}
+  );
 
   const {
     data: storeData,
@@ -84,19 +86,21 @@ const Home = () => {
   );
 
   useEffect(() => {
-    if (selected === "ALL" && checkedLocation.id === 0) {
+    if (selected !== "ALL") {
+      setStoreListParams((prev) => ({ ...prev, category: selected }));
     } else {
-      if (selected !== "ALL") {
-        setStoreListParams((prev) => ({ ...prev, category: selected }));
-      }
-      if (checkedLocation.id !== 0) {
-        setStoreListParams((prev) => ({ ...prev, sigungu: checkedLocation.content }));
-      }
+      setStoreListParams((prev) => ({ ...prev, category: "" }));
     }
-    setTimeout(() => {
-      refetch();
-    }, 0);
+    if (checkedLocation.id !== 0) {
+      setStoreListParams((prev) => ({ ...prev, sigungu: checkedLocation.content }));
+    } else {
+      setStoreListParams((prev) => ({ ...prev, sigungu: "" }));
+    }
   }, [selected, checkedLocation]);
+
+  useEffect(() => {
+    refetch();
+  }, [storeListParams]);
 
   return (
     <Layout title="단골손님">
