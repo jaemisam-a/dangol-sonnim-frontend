@@ -7,8 +7,9 @@ import { useStore } from "zustand";
 import Layout from "common/layout";
 import { Colors, Texts } from "styles/common";
 import Check from "public/icons/check/check.svg";
-import { createDangolStore } from "pages/api/owner/dangolStore";
+import { createDangolStore, updateDangolStore } from "pages/api/owner/dangolStore";
 import useMyStoreInfo from "src/store/storeInfo";
+import useCurrentStore from "src/store/currentStore";
 
 const wrapper = css`
   display: flex;
@@ -37,37 +38,51 @@ const link = css`
 
 const Complete = () => {
   const { query, push, back } = useRouter();
-  const { mutateAsync } = useMutation(createDangolStore);
 
+  const { mutateAsync: createStore } = useMutation(createDangolStore);
+  const { mutateAsync: updateStore } = useMutation(updateDangolStore);
+
+  const { currentStoreId } = useStore(useCurrentStore);
   const globalState = useStore(useMyStoreInfo);
   const { resetStoreInfo } = useStore(useMyStoreInfo);
 
-  const createStore = async () => {
+  const onSubmit = async () => {
     const trimmedBHourArr = globalState.businessHours.filter(
       (el) => el.weeks !== "" && el.hours !== ""
     );
-    await mutateAsync({
+    const requestData = {
       name: globalState.name,
       phoneNumber: "01012345671", // TODO: 사장님 정보에서 전화번호 가져오기
-      newAddress: globalState.roadAddr,
-      sido: globalState.siNm,
-      sigungu: globalState.sggNm,
-      bname1: globalState.emdNm,
+      newAddress: globalState.newAddress,
+      sido: globalState.sido,
+      sigungu: globalState.sigungu,
+      bname1: globalState.bname1,
       bname2: "",
       detailedAddress: globalState.detailedAddress,
-      comments: globalState.description,
+      comments: globalState.comments,
       businessHours: trimmedBHourArr,
       tags: globalState.tags,
-      categoryType: globalState.category,
+      categoryType: globalState.categoryType,
       registerNumber: globalState.registerNumber,
       registerName: globalState.name,
-    })
-      .then(() => {
-        alert("가게 등록 완료!");
-        resetStoreInfo();
-        push("/owner");
-      })
-      .catch((err) => alert(err.response.data.message));
+    };
+    if (query.isEdit) {
+      await updateStore({ requestData, storeId: currentStoreId })
+        .then(() => {
+          alert("가게 수정 완료!");
+          resetStoreInfo();
+          push("/owner");
+        })
+        .catch((err) => alert(err.response.data.message));
+    } else {
+      await createStore(requestData)
+        .then(() => {
+          alert("가게 등록 완료!");
+          resetStoreInfo();
+          push("/owner");
+        })
+        .catch((err) => alert(err.response.data.message));
+    }
   };
 
   useEffect(() => {
@@ -85,7 +100,7 @@ const Complete = () => {
           <h1>인증이 완료되었습니다</h1>
           <Check width={55} height={55} fill={Colors.green50} />
         </div>
-        <button onClick={createStore} css={link}>
+        <button onClick={onSubmit} css={link}>
           가게 등록하기
         </button>
       </div>

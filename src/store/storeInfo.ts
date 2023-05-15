@@ -4,12 +4,12 @@ import addDevtools from "src/store/devtools";
 
 interface StoreState {
   name: string;
-  category: "KOREAN" | "BUNSIK" | "CHINESE" | "JAPANESE" | "WESTERN" | "CAFE";
-  description: string;
-  roadAddr: string; // 도로명 주소
-  siNm: string; // 시
-  sggNm: string; // 시군구
-  emdNm: string; // 읍면동
+  categoryType: "KOREAN" | "BUNSIK" | "CHINESE" | "JAPANESE" | "WESTERN" | "CAFE";
+  comments: string;
+  newAddress: string; // 도로명 주소
+  sido: string; // 시
+  sigungu: string; // 시군구
+  bname1: string; // 읍면동
   detailedAddress: string; // 상세 주소
   businessHours: {
     weeks: string;
@@ -28,12 +28,12 @@ interface StoreState {
 
 const store = (set: any) => ({
   name: "",
-  category: "KOREAN",
-  description: "",
-  roadAddr: "",
-  siNm: "",
-  sggNm: "",
-  emdNm: "",
+  categoryType: "KOREAN",
+  comments: "",
+  newAddress: "",
+  sido: "",
+  sigungu: "",
+  bname1: "",
   detailedAddress: "",
   businessHours: [
     {
@@ -52,12 +52,12 @@ const store = (set: any) => ({
   resetStoreInfo: () =>
     set(() => ({
       name: "",
-      category: "KOREAN",
-      description: "",
-      roadAddr: "",
-      siNm: "",
-      sggNm: "",
-      emdNm: "",
+      categoryType: "KOREAN",
+      comments: "",
+      newAddress: "",
+      sido: "",
+      sigungu: "",
+      bname1: "",
       detailedAddress: "",
       businessHours: [
         {

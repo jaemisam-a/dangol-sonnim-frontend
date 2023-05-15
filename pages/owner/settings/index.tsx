@@ -11,9 +11,12 @@ import Location from "owner/settings/location";
 import Menus from "owner/settings/menus";
 import Subs from "owner/settings/subs";
 import Info from "owner/settings/info";
-import { CreateStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { CreateStoreResDataType, getMyStoreList } from "pages/api/owner/dangolStore";
 import { categoryIdToString } from "src/utils/category";
 import useCurrentStore from "src/store/currentStore";
+import SettingButton from "owner/settings/settingButton";
+import PencilUnderline from "public/icons/etc/pencilUnderline.svg";
+import useMyStoreInfo from "src/store/storeInfo";
 
 const bottomPadding = css`
   height: 2rem;
@@ -53,11 +56,12 @@ const Settings = () => {
   ];
 
   const { push } = useRouter();
-  const { data, isLoading } = useQuery("getMyStore", getMyStore, {
+  const { data, isLoading } = useQuery("getMyStoreList", getMyStoreList, {
     // FIXME: 로그인 여부 확인하여 enable 상태 변경하도록 수정하기
     enabled: true,
   });
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
+  const { resetStoreInfo } = useStore(useMyStoreInfo);
 
   const [storeData, setStoreData] = useState<CreateStoreResDataType>();
 
@@ -69,7 +73,7 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    if (data?.length > 0) {
+    if (data?.length > 0 && currentStoreId === "") {
       /** 등록한 가게가 있으면 기본적으로 가게 목록 중 첫번째가 보이도록 함 */
       setStoreData(data[0]);
       setCurrentStoreId(data[0].id);
@@ -77,6 +81,8 @@ const Settings = () => {
       /** 등록한 가게가 없는 경우에는 가게 정보 등록 페이지로 이동 */
       push("/owner/mystore");
     }
+    /** mystore를 중간에 이탈 할 경우 전역변수를 reset해야함. mystore 페이지가 unmount 될 때 초기화하면 다음 페이지까지 입력한 값을 유지할 수 없으므로 가게 설정페이지에 들어오면 reset한다. */
+    resetStoreInfo();
   }, [data]);
 
   useEffect(() => {
@@ -98,12 +104,19 @@ const Settings = () => {
       <Info
         name={storeData?.name}
         category={categoryIdToString(storeData?.categoryType)}
-        description={storeData?.comments}
+        comments={storeData?.comments}
       />
       <Location
         address={storeData?.newAddress}
         detail={storeData?.detailedAddress}
         openHour={storeData?.businessHours}
+      />
+      <SettingButton
+        heading="가게 정보 설정"
+        icon={<PencilUnderline />}
+        action={() =>
+          push({ pathname: "/owner/mystore", query: { isEdit: true } }, "/owner/mystore")
+        }
       />
       <Menus data={menuDummyData} />
       <Subs data={subsDummyData} />

@@ -2,10 +2,8 @@ import React from "react";
 import { css } from "@emotion/react";
 
 import StoreSection from "owner/settings/section";
-import SettingButton from "owner/settings/settingButton";
 import MapPin from "public/icons/location/mapPin.svg";
 import Clock from "public/icons/etc/clock.svg";
-import PencilUnderline from "public/icons/etc/pencilUnderline.svg";
 import { Colors, Texts } from "styles/common";
 
 type LocationProps = {
@@ -80,11 +78,6 @@ const Location = (props: LocationProps) => {
           </div>
         </div>
       </StoreSection>
-      <SettingButton
-        heading="가게 정보 설정"
-        icon={<PencilUnderline />}
-        action={() => alert("가게 정보 설정!")}
-      />
     </>
   );
 };

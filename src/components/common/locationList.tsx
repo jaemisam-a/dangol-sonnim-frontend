@@ -5,7 +5,7 @@ import { Colors, Texts } from "styles/common";
 import CheckedRadio from "public/icons/check/checkedRadio.svg";
 import UnCheckedRadio from "public/icons/check/unCheckedRadio.svg";
 
-export type checkedAddrType = { roadAddr: string; siNm: string; sggNm: string; emdNm: string };
+export type checkedAddrType = { newAddress: string; sido: string; sigungu: string; bname1: string };
 
 type LocationListProps = {
   idx: number;
@@ -64,24 +64,24 @@ const radioButton = css`
 const LocationList = (props: LocationListProps) => {
   const handleRadio = () => {
     props.setCheckedAddr({
-      roadAddr: props.roadAddr,
-      siNm: props.siNm,
-      sggNm: props.sggNm,
-      emdNm: props.emdNm,
+      newAddress: props.newAddress,
+      sido: props.sido,
+      sigungu: props.sigungu,
+      bname1: props.bname1,
     });
   };
 
   return (
     <div css={wrapper} ref={props.idx === props.dataLength - 1 ? props.lastRef : null}>
       <div css={addrWrapper}>
-        <div css={roadArr}>{props.roadAddr}</div>
+        <div css={roadArr}>{props.newAddress}</div>
         <div css={jibunWrapper}>
           <span css={jibunTag}>지번</span>
           <span css={jibunAddr}>{props.jibunAddr}</span>
         </div>
       </div>
       <button css={radioButton} onClick={handleRadio}>
-        {props.roadAddr === props.checkedAddr.roadAddr ? <CheckedRadio /> : <UnCheckedRadio />}
+        {props.newAddress === props.checkedAddr.newAddress ? <CheckedRadio /> : <UnCheckedRadio />}
       </button>
     </div>
   );

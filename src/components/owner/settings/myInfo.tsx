@@ -4,14 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { useQuery } from "react-query";
 import { useStore } from "zustand";
+import { useRouter } from "next/router";
 
 import CloseLarge from "public/icons/close/closeLarge.svg";
 import Right from "public/icons/direction/right.svg";
 import LinkIcon from "public/icons/etc/link.svg";
 import PlusCircle from "public/icons/add/plusCircle.svg";
 import { Colors, Texts } from "styles/common";
-import { CreateStoreResDataType, getMyStore } from "pages/api/owner/dangolStore";
+import { CreateStoreResDataType, getMyStoreList } from "pages/api/owner/dangolStore";
 import useCurrentStore from "src/store/currentStore";
+import useMyStoreInfo from "src/store/storeInfo";
 
 type MyInfoProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
@@ -88,8 +90,11 @@ const MyInfo = (props: MyInfoProps) => {
     email: "owner@gmail.com",
   };
 
-  const { data } = useQuery("getMyStore", getMyStore);
+  const { push } = useRouter();
+  const { data } = useQuery("getMyStoreList", getMyStoreList);
+
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
+  const { resetStoreInfo } = useStore(useMyStoreInfo);
 
   return (
     <div>
@@ -116,14 +121,20 @@ const MyInfo = (props: MyInfoProps) => {
               onClick={() => setCurrentStoreId(store.id)}
             >
               <LinkIcon />
-              <span>{store.registerName}</span>
+              <span>{store.name}</span>
             </button>
           ))}
         </div>
-        <Link href="/owner/mystore" css={addButton}>
+        <button
+          onClick={() => {
+            resetStoreInfo();
+            push("/owner/mystore");
+          }}
+          css={addButton}
+        >
           <span>내 가게 추가 등록</span>
           <PlusCircle />
-        </Link>
+        </button>
       </section>
     </div>
   );

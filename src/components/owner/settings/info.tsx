@@ -1,13 +1,12 @@
 import React from "react";
 import { css } from "@emotion/react";
 
-import { categoryIdToString } from "src/utils/category";
 import { Colors, Texts } from "styles/common";
 
 type InfoProps = {
   name: string;
   category: string;
-  description: string;
+  comments: string;
 };
 
 const wrapper = css`
@@ -36,7 +35,7 @@ const titleStyle = css`
   }
 `;
 
-const descriptionStyle = css`
+const commentsStyle = css`
   ${Texts.B1_13_R2}
   color:${Colors.neutral80};
   margin-bottom: 0.5rem;
@@ -47,9 +46,9 @@ const Info = (props: InfoProps) => {
     <div css={wrapper}>
       <div css={titleStyle}>
         <h1>{props.name}</h1>
-        <span>{categoryIdToString(props.category)}</span>
+        <span>{props.category}</span>
       </div>
-      <p css={descriptionStyle}>{props.description}</p>
+      <p css={commentsStyle}>{props.comments}</p>
     </div>
   );
 };

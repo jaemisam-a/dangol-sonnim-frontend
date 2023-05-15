@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import { useStore } from "zustand";
+import { useQuery } from "react-query";
 
 import Layout from "common/layout";
 import FormLabel from "common/formLabel";
@@ -11,6 +12,8 @@ import { categories } from "src/utils/category";
 import { Colors, fullAmberButtonStyle, selectStyle, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
 import useMyStoreInfo from "src/store/storeInfo";
+import useCurrentStore from "src/store/currentStore";
+import { getStoreInfo } from "pages/api/owner/dangolStore";
 
 const formWrapper = css`
   display: flex;
@@ -67,25 +70,30 @@ const MyStoreSetting = () => {
   const { push, pathname, query } = useRouter();
   const {
     name,
-    category,
-    description,
-    roadAddr,
-    siNm,
-    sggNm,
-    emdNm,
+    categoryType,
+    comments,
+    newAddress,
+    sido,
+    sigungu,
+    bname1,
     detailedAddress,
     businessHours,
     tags,
     setGlobalStoreInfo,
   } = useStore(useMyStoreInfo);
+  const { currentStoreId } = useStore(useCurrentStore);
 
   const [isFilled, setIsFilled] = useState(false);
+
+  const { data: originalStoreInfo } = useQuery("storeInfo", () => getStoreInfo(currentStoreId), {
+    enabled: Boolean(query.isEdit),
+  });
 
   const goToBusinessAuth = () => {
     push(
       {
         pathname: "/owner/auth",
-        query: { accessToken: localStorage.getItem("accessToken") },
+        query: { accessToken: localStorage.getItem("accessToken"), isEdit: query.isEdit },
       },
       "owner/auth"
     );
@@ -97,6 +105,7 @@ const MyStoreSetting = () => {
         pathname: "/owner/settings/location",
         query: {
           returnPath: pathname,
+          isEdit: query.isEdit,
         },
       },
       "/owner/settings/location"
@@ -104,22 +113,15 @@ const MyStoreSetting = () => {
   };
 
   useEffect(() => {
-    if (query.address) {
-      const address = JSON.parse(query.address as string);
-      Object.keys(address).forEach((key) => setGlobalStoreInfo(key, address[key]));
-    }
-  }, [query.address]);
-
-  useEffect(() => {
     /** 현재 페이지의 각 섹션 빈칸 확인 */
     const isEachSectionFilled = [
       name,
-      category,
-      description,
-      roadAddr,
-      siNm,
-      sggNm,
-      emdNm,
+      categoryType,
+      comments,
+      newAddress,
+      sido,
+      sigungu,
+      bname1,
       detailedAddress,
       businessHours,
       tags,
@@ -138,19 +140,43 @@ const MyStoreSetting = () => {
     setIsFilled(isEachSectionFilled && isBHourFilled);
   }, [
     name,
-    category,
-    description,
-    roadAddr,
-    siNm,
-    sggNm,
-    emdNm,
+    categoryType,
+    comments,
+    newAddress,
+    sido,
+    sigungu,
+    bname1,
     detailedAddress,
     businessHours,
     tags,
   ]);
 
+  useEffect(() => {
+    const keyNameArr = [
+      "name",
+      "categoryType",
+      "comments",
+      "newAddress",
+      "sido",
+      "sigungu",
+      "bname1",
+      "detailedAddress",
+      "businessHours",
+      "tags",
+      "registerNumber",
+    ];
+
+    if (!originalStoreInfo) return;
+    if (query.isEdit && !query.address) {
+      keyNameArr.forEach((key) => setGlobalStoreInfo(key, originalStoreInfo[key]));
+    }
+  }, [originalStoreInfo]);
+
   return (
-    <Layout title="가게 정보 등록" subTitle="가게 정보 등록">
+    <Layout
+      title={query.isEdit ? "가게 정보 수정" : "가게 정보 등록"}
+      subTitle={query.isEdit ? "가게 정보 수정" : "가게 정보 등록"}
+    >
       <form css={formWrapper}>
         <FormLabel label="가게명">
           <input
@@ -163,8 +189,8 @@ const MyStoreSetting = () => {
         <FormLabel label="가게 카테고리">
           <select
             css={selectStyle}
-            onChange={(e) => setGlobalStoreInfo("category", e.target.value)}
-            value={category}
+            onChange={(e) => setGlobalStoreInfo("categoryType", e.target.value)}
+            value={categoryType}
           >
             {categories.map((category) => (
               <option key={category.id} value={category.id}>
@@ -178,8 +204,8 @@ const MyStoreSetting = () => {
             type="text"
             css={inputStyle}
             placeholder="가게 한줄 소개 입력"
-            value={description}
-            onChange={(e) => setGlobalStoreInfo("description", e.target.value)}
+            value={comments}
+            onChange={(e) => setGlobalStoreInfo("comments", e.target.value)}
           />
         </FormLabel>
         <FormLabel label="위치">
@@ -188,7 +214,8 @@ const MyStoreSetting = () => {
               type="text"
               placeholder="주소 검색"
               onFocus={getAddress}
-              defaultValue={roadAddr}
+              value={newAddress}
+              readOnly
             />
             <button onClick={getAddress} type={"button"}>
               <Search width={24} height={24} stroke={Colors.amber50} />
