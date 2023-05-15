@@ -65,7 +65,7 @@ const ServiceTags = () => {
   const onTagClick = (tag: string) => {
     if (tag === "") return;
     if (tags.length >= 2) return;
-    const deduplicatedTag = new Set<string>(tags).add(tag);
+    const deduplicatedTag = new Set<string>(tags.filter((el) => el !== "")).add(tag);
     setGlobalStoreInfo("tags", Array.from(deduplicatedTag));
   };
 
@@ -88,7 +88,9 @@ const ServiceTags = () => {
   };
 
   useEffect(() => {
-    if (tags[0] !== "") setSelectedTag(tags);
+    /** 전역변수 tags의 초기 빈 값 제거 위해 filter 필요 */
+    const fileteredTags = tags.filter((tag) => tag !== "");
+    setSelectedTag(fileteredTags);
   }, [tags]);
 
   return (
