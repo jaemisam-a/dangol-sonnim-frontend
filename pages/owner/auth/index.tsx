@@ -132,7 +132,7 @@ const Business = () => {
       push(
         {
           pathname: "/owner/auth/complete",
-          query: { accessToken: query.accessToken },
+          query: { accessToken: query.accessToken, isEdit: query.isEdit },
         },
         "/owner/auth/complete"
       );

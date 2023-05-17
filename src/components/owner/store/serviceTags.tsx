@@ -59,25 +59,26 @@ const ServiceTags = () => {
     "우선예약",
     "주류제공",
   ];
-  const [selectedTag, setSelectedTag] = useState(new Set<string>());
+  const [selectedTag, setSelectedTag] = useState<string[]>([]);
   const [inputText, setInputText] = useState("");
 
   const onTagClick = (tag: string) => {
     if (tag === "") return;
-    if (selectedTag.size >= 2) return;
-    setSelectedTag((prev) => new Set(prev.add(tag)));
+    if (tags.length >= 2) return;
+    const deduplicatedTag = new Set<string>(tags.filter((el) => el !== "")).add(tag);
+    setGlobalStoreInfo("tags", Array.from(deduplicatedTag));
   };
 
   const deleteTag = (text: string) => {
-    const copySet = new Set(selectedTag);
-    copySet.delete(text);
-    setSelectedTag(copySet);
+    const remainedTags = tags.filter((tag) => tag !== text);
+    setGlobalStoreInfo("tags", remainedTags);
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter" && inputText !== "") {
-      if (e.nativeEvent.isComposing || selectedTag.size >= 2) return;
-      setSelectedTag((prev) => new Set(prev.add(inputText.trim())));
+      if (e.nativeEvent.isComposing || tags.length >= 2) return;
+      const newTags = new Set<string>(tags).add(inputText.trim());
+      setGlobalStoreInfo("tags", Array.from(newTags));
       setInputText("");
     }
   };
@@ -87,12 +88,10 @@ const ServiceTags = () => {
   };
 
   useEffect(() => {
-    setGlobalStoreInfo("tags", Array.from(selectedTag));
-  }, [selectedTag]);
-
-  useEffect(() => {
-    tags.forEach((tag) => onTagClick(tag));
-  }, []);
+    /** 전역변수 tags의 초기 빈 값 제거 위해 filter 필요 */
+    const fileteredTags = tags.filter((tag) => tag !== "");
+    setSelectedTag(fileteredTags);
+  }, [tags]);
 
   return (
     <div>
@@ -105,9 +104,9 @@ const ServiceTags = () => {
         ))}
       </div>
       <div css={inputWrapper}>
-        {selectedTag.size !== 0 && (
+        {selectedTag.length !== 0 && (
           <div css={tagsWrapper}>
-            {Array.from(selectedTag).map((tag) => (
+            {selectedTag.map((tag) => (
               <Tag key={tag} text={tag} enableDelete={true} onDeleteBtnClick={deleteTag} />
             ))}
           </div>

@@ -4,12 +4,14 @@ import { useRouter } from "next/router";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import Layout from "common/layout";
 import SearchBar from "common/input/search";
 import LocationList, { checkedAddrType } from "common/locationList";
 import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
+import useMyStoreInfo from "src/store/storeInfo";
 
 const wrapper = css`
   display: flex;
@@ -37,14 +39,15 @@ const bottomSpinner = css`
 const SettingsLocation = () => {
   const { push, query: routerQuery } = useRouter();
   const [ref, inView] = useInView();
+  const { setGlobalStoreInfo } = useStore(useMyStoreInfo);
   const [query, setQuery] = useState("");
   const [previousQuery, setPreviousQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [checkedAddr, setCheckedAddr] = useState<checkedAddrType>({
-    roadAddr: "",
-    siNm: "",
-    sggNm: "",
-    emdNm: "",
+    newAddress: "",
+    sido: "",
+    sigungu: "",
+    bname1: "",
   });
 
   const { data, isFetching, refetch, fetchNextPage } = useInfiniteQuery(
@@ -95,6 +98,12 @@ const SettingsLocation = () => {
     }
   }, [inView]);
 
+  useEffect(() => {
+    Object.keys(checkedAddr).forEach((key) =>
+      setGlobalStoreInfo(key, checkedAddr[key as keyof checkedAddrType])
+    );
+  }, [checkedAddr]);
+
   return (
     <Layout
       title="가게 위치 등록"
@@ -103,7 +112,7 @@ const SettingsLocation = () => {
         push(
           {
             pathname: routerQuery.returnPath as string,
-            query: { address: JSON.stringify(checkedAddr) },
+            query: { address: JSON.stringify(checkedAddr), isEdit: routerQuery.isEdit },
           },
           routerQuery.returnPath as string
         )
@@ -136,10 +145,10 @@ const SettingsLocation = () => {
                       key={el.jibunAddr + el.roadAddr}
                       idx={idx}
                       jibunAddr={el.jibunAddr}
-                      siNm={el.siNm}
-                      sggNm={el.sggNm}
-                      emdNm={el.emdNm}
-                      roadAddr={el.roadAddr}
+                      sido={el.siNm}
+                      sigungu={el.sggNm}
+                      bname1={el.emdNm}
+                      newAddress={el.roadAddr}
                       checkedAddr={checkedAddr}
                       setCheckedAddr={setCheckedAddr}
                       lastRef={ref}
