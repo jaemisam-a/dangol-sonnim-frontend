@@ -23,9 +23,11 @@ const categoryBtn = (value: string, selected: string) => css`
 `;
 
 const Category = (props: CategoryPropsType) => {
+  const allCategories = [{ id: "ALL", name: "전체" }, ...categories];
+
   return (
     <div css={wrapper}>
-      {categories.map(({ id, name }) => (
+      {allCategories.map(({ id, name }) => (
         <button
           key={id}
           css={categoryBtn(id, props.selected)}

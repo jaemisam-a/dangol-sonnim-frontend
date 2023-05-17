@@ -1,5 +1,4 @@
 export const categories = [
-  { id: "ALL", name: "전체" },
   { id: "KOREAN", name: "한식" },
   { id: "BUNSIK", name: "분식" },
   { id: "CHINESE", name: "중식" },
