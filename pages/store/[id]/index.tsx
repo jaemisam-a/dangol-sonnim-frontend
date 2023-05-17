@@ -79,7 +79,7 @@ const Store = () => {
           />
           <hr css={divider} />
           {/* TODO: 메뉴 값 넣기 */}
-          <Menus />
+          <Menus menuList={storeData.menuResponseDTOList} />
           <hr css={divider} />
           <Subs storeName={storeData.name} subsList={storeData.subscribeResponseDTOList} />
           <div css={margin} />

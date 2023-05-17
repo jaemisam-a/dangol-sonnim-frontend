@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import Menu from "common/menuCard";
 
 type MenusBottomProps = {
-  menus: { id: number; name: string; price: number; img: string }[];
+  menuList: { imageUrl: string; menuId: number; name: string; price: number; storeId: number }[];
 };
 
 const wrapper = css`
@@ -21,10 +21,10 @@ const MenusBottom = (props: MenusBottomProps) => {
   return (
     <>
       <div css={wrapper}>
-        {props.menus.map((menu) => (
+        {props.menuList?.map((menu) => (
           <Menu
-            key={menu.id}
-            imgSrc={menu.img}
+            key={menu.menuId}
+            imgSrc={menu.imageUrl}
             name={menu.name}
             price={menu.price}
             isBottom={true}

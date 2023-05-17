@@ -8,6 +8,10 @@ import Menu from "common/menuCard";
 import MenusBottom from "customer/store/menu/menusBottom";
 import BottomSheet from "common/bottomSheet";
 
+type MenusPropsType = {
+  menuList: { imageUrl: string; menuId: number; name: string; price: number; storeId: number }[];
+};
+
 const menuWrapper = css`
   display: flex;
   justify-content: space-between;
@@ -27,30 +31,19 @@ const moreBtn = css`
   color: ${Colors.neutral90};
 `;
 
-const Menus = () => {
+const Menus = (props: MenusPropsType) => {
   const [open, setOpen] = useState(false);
-
-  const menuArr = [
-    { id: 1, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 2, name: "메밀막국수", price: 850000, img: "/images/dummy/pizza.png" },
-    { id: 3, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 4, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 5, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 6, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 7, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-    { id: 8, name: "메밀막국수", price: 8500, img: "/images/dummy/pizza.png" },
-  ];
 
   return (
     <>
-      <StoreSection sectionTitle="메뉴" menuCount={menuArr.length} fold={true}>
+      <StoreSection sectionTitle="메뉴" menuCount={props.menuList?.length} fold={true}>
         <div css={menuWrapper}>
-          {menuArr
-            .filter((_, idx) => idx < 3)
+          {props.menuList
+            ?.filter((_, idx) => idx < 3)
             .map((menu) => (
               <Menu
-                key={menu.id}
-                imgSrc={menu.img}
+                key={menu.menuId}
+                imgSrc={menu.imageUrl}
                 name={menu.name}
                 price={menu.price}
                 isBottom={false}
@@ -71,7 +64,7 @@ const Menus = () => {
         open={open}
         setOpen={setOpen}
         title="메뉴"
-        component={<MenusBottom menus={menuArr} />}
+        component={<MenusBottom menuList={props.menuList} />}
       />
     </>
   );

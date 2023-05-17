@@ -21,6 +21,8 @@ type StoreCouponProps = {
   isDelete?: boolean;
   editAction?: () => void;
   deleteAction?: () => void;
+  type: "MONTHLY" | "COUNT";
+  isTop: boolean;
 };
 
 const wrapper = (isOwner: boolean) => css`
@@ -95,9 +97,13 @@ const StoreCoupon = (props: StoreCouponProps) => {
         <label htmlFor={checkboxId} css={subsWrapper}>
           <div css={contentWrapper}>
             <div css={texts}>
-              <p css={storeName}>{props.storeName}</p>
+              <p css={storeName}>
+                {props.storeName}
+                {props.isTop && "(대표 구독권)"}
+              </p>
               <p css={subsName}>
-                {props.name}({props.count}회권)
+                {props.name}
+                {props.type === "COUNT" && `${props.count}회권`}
               </p>
               <p css={description}>{props.description}</p>
             </div>

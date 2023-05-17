@@ -9,7 +9,14 @@ import { Colors, Texts } from "styles/common";
 
 type SubsProps = {
   storeName: string;
-  subsList: [];
+  subsList: {
+    isTop: boolean;
+    intro: string;
+    name: string;
+    price: number;
+    useCount: number;
+    type: "MONTHLY" | "COUNT";
+  }[];
 };
 
 type isCheckedType = {
@@ -61,13 +68,15 @@ const Subs = (props: SubsProps) => {
             <StoreCoupon
               id={el.id}
               name={el.name}
-              count={el.count}
-              description={el.description}
+              count={el.useCount}
+              description={el.intro}
               price={el.price}
               storeName={props.storeName}
               key={el.id}
               checked={isChecked}
               setChecked={setIsChecked}
+              type={el.type}
+              isTop={el.isTop}
             />
           ))}
         </div>
