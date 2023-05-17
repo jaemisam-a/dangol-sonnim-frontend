@@ -1,3 +1,4 @@
+// FIXME: store api 연결 시 type any 해결
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
@@ -5,11 +6,11 @@ import { useRouter } from "next/router";
 import StoreCoupon from "common/coupon/store";
 import StoreSection from "customer/store/section";
 import { Colors, Texts } from "styles/common";
-import { subsType } from "pages/api/store";
+// import { subsType } from "pages/api/store";
 
 type SubsProps = {
   storeName: string;
-  subsList: subsType;
+  subsList: any;
 };
 
 type isCheckedType = {
@@ -57,7 +58,7 @@ const Subs = (props: SubsProps) => {
     <>
       <StoreSection sectionTitle="구독권" fold={false}>
         <div css={subsWrapper}>
-          {props.subsList.map((el) => (
+          {props.subsList.map((el: any) => (
             <StoreCoupon
               id={el.id}
               name={el.name}

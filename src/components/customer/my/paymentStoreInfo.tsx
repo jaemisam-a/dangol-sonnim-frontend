@@ -7,7 +7,8 @@ import Tag from "common/tag/tagCustomer";
 import { Colors, Texts } from "styles/common";
 
 type StoreThumbnailProps = {
-  content: ThumbnailData;
+  // FIXME: API 연결에 따라서 타입이 변화되어 추후 수정을 위해 any로 처리
+  content: any | ThumbnailData;
 };
 
 const wrapper = css`
@@ -53,7 +54,8 @@ const PaymentStoreInfo = ({ content }: StoreThumbnailProps) => {
           <span css={category}>{content.category}</span>
         </div>
         <div css={tags}>
-          {content.tags.map((tag) => (
+          {/* FIXME: 임시로 any 처리 */}
+          {content.tags.map((tag: any) => (
             <Tag text={tag} key={tag} />
           ))}
         </div>

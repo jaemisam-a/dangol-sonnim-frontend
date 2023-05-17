@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { css } from "@emotion/react";
 
 import Down from "public/icons/direction/down.svg";
@@ -6,8 +6,12 @@ import BottomSheet from "common/bottomSheet";
 import Radio from "customer/main/radio";
 import { Texts } from "styles/common";
 
+type CheckedLocation = { id: number; content: string };
+
 type LocationProps = {
   isSearchPage?: boolean;
+  checkedLocation: CheckedLocation;
+  setCheckedLocation: Dispatch<SetStateAction<CheckedLocation>>;
 };
 
 const subText = (isSearchPage: boolean) => css`
@@ -28,9 +32,8 @@ const locationName = (isSearchPage: boolean) => css`
   ${isSearchPage ? Texts.B1_13_R2 : Texts.S3_18_M}
 `;
 
-const Location = ({ isSearchPage }: LocationProps) => {
+const Location = ({ isSearchPage, checkedLocation, setCheckedLocation }: LocationProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [checkedLocation, setCheckedLocation] = useState({ id: 1, content: "강남역" });
 
   return (
     <>
@@ -52,11 +55,12 @@ const Location = ({ isSearchPage }: LocationProps) => {
             setChecked={setCheckedLocation}
             setOpenBottomSheet={setIsOpen}
             list={[
-              { id: 1, content: "강남역" },
+              { id: 0, content: "전체" },
+              { id: 1, content: "강남구" },
               { id: 2, content: "구로구" },
               { id: 3, content: "금천구" },
               { id: 4, content: "관악구" },
-              { id: 5, content: "판교" },
+              { id: 5, content: "분당구" },
             ]}
           />
         }

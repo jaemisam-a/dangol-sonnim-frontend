@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
+import { categories } from "src/utils/category";
+
+type CategoryPropsType = {
+  selected: string;
+  setSelected: Dispatch<SetStateAction<string>>;
+};
 
 const wrapper = css`
   margin: 1rem 0 0.75rem;
@@ -9,34 +15,25 @@ const wrapper = css`
   gap: 0.75rem;
 `;
 
-const categoryBtn = (id: number, selected: number) => css`
+const categoryBtn = (value: string, selected: string) => css`
   ${Texts.B3_15_R1}
   padding: 0;
-  color: ${id === selected ? Colors.black : Colors.neutral60};
-  font-weight: ${id === selected ? 500 : 400};
+  color: ${value === selected ? Colors.black : Colors.neutral60};
+  font-weight: ${value === selected ? 500 : 400};
 `;
 
-const Category = () => {
-  const [selected, setSelected] = useState(1);
-
-  useEffect(() => {
-    // TODO: 선택한 카테고리로 쿼리 요청
-  }, [selected]);
-
-  const categories = [
-    { id: 1, category: "전체" },
-    { id: 2, category: "한식" },
-    { id: 3, category: "분식" },
-    { id: 4, category: "중식" },
-    { id: 5, category: "일식" },
-    { id: 6, category: "양식" },
-  ];
+const Category = (props: CategoryPropsType) => {
+  const allCategories = [{ id: "ALL", name: "전체" }, ...categories];
 
   return (
     <div css={wrapper}>
-      {categories.map(({ id, category }) => (
-        <button key={id} css={categoryBtn(id, selected)} onClick={() => setSelected(id)}>
-          {category}
+      {allCategories.map(({ id, name }) => (
+        <button
+          key={id}
+          css={categoryBtn(id, props.selected)}
+          onClick={() => props.setSelected(id)}
+        >
+          {name}
         </button>
       ))}
     </div>

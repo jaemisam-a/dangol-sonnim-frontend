@@ -10,11 +10,13 @@ import { categoryIdToString } from "src/utils/category";
 
 export type ThumbnailData = {
   id: string;
-  store: string;
-  category: string;
+  categoryType: string;
   tags: string[];
-  shortAddress: string;
   img: string;
+  name: string;
+  sigungu: string;
+  bname1: string;
+  storeImageUrlList: string[];
 };
 
 type StoreThumbnailProps = {
@@ -62,6 +64,12 @@ const imageWrapper = css`
   position: relative;
 `;
 
+const defaultImage = css`
+  width: 9.5rem;
+  height: 9.5rem;
+  background-color: #666666;
+`;
+
 const pickBtn = (isPick: boolean | undefined) => css`
   position: absolute;
   bottom: 3px;
@@ -86,22 +94,32 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
     <>
       <div css={wrapper} onClick={() => push(`/store/${content.id}`)}>
         <div css={imageWrapper}>
-          <Image src={content.img} alt={content.store} width={152} height={152} />
+          {content.storeImageUrlList.length ? (
+            <Image src={content.storeImageUrlList[0]} alt={content.name} width={152} height={152} />
+          ) : (
+            // FIXME: 이미지가 없는 경우 기본 이미지를 설정함. 추후 디자인 나오면 수정 예정
+            <div css={defaultImage} />
+          )}
+
           <button css={pickBtn(isPick)} onClick={onPickClick}>
             <Pick />
           </button>
         </div>
         <div>
           <div css={storeInfo}>
-            <span css={store}>{content.store}</span>
-            <span css={category}>{categoryIdToString(content.category)}</span>
+            <span css={store}>{content.name}</span>
+            <span css={category}>{categoryIdToString(content.categoryType)}</span>
           </div>
           <div css={tags}>
             {content.tags.map((tag) => (
               <Tag text={tag} key={tag} />
             ))}
           </div>
-          <span css={location}>{content.shortAddress}</span>
+          <span css={location}>
+            {content.sigungu}
+            &nbsp;
+            {content.bname1}
+          </span>
         </div>
       </div>
     </>
