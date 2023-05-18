@@ -113,7 +113,7 @@ const MyInfo = (props: MyInfoProps) => {
       <section css={storeListWrapper}>
         <p>내 가게</p>
         <div css={storeList}>
-          {data.map((store: CreateStoreResDataType) => (
+          {data?.map((store: CreateStoreResDataType) => (
             // FIXME: 링크 이동 경로, 현재 클릭한 스토어 판단 로직 수정필요
             <button
               key={store.id}

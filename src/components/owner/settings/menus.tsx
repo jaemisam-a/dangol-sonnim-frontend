@@ -12,7 +12,7 @@ import Dialog from "customer/my/dialog";
 import { deleteMenu as deleteMenuApi } from "pages/api/owner/menu";
 
 type MenusProps = {
-  data: { id: number; name: string; img: string; price: number }[];
+  data: { menuId: number; name: string; imageUrl: string; price: number }[];
 };
 
 const menusWrapper = css`
@@ -51,22 +51,22 @@ const Menus = (props: MenusProps) => {
         <div css={menusWrapper}>
           {props.data.map((el) => (
             <MenuCard
-              imgSrc={el.img}
+              imgSrc={el.imageUrl}
               name={el.name}
               price={el.price}
               isBottom={false}
-              key={el.id}
+              key={el.menuId}
               isOwner={true}
               isEdit={status === "edit"}
               isDelete={status === "delete"}
               editAction={() =>
                 push(
-                  { pathname: "/owner/settings/menu", query: { menuId: el.id } },
+                  { pathname: "/owner/settings/menu", query: { menuId: el.menuId } },
                   "/owner/settings/menu"
                 )
               }
               deleteAction={() => {
-                setSelectedMenu(el.id);
+                setSelectedMenu(el.menuId);
                 setOpenModal(true);
               }}
             />

@@ -79,7 +79,6 @@ export const getStoreInfo = async (id: string) => {
 export const updateDangolStore = async ({ requestData, storeId }: UpdateStoreReqDataType) => {
   const queryKey = `/api/v1/store/update/${storeId}?_csrf=fd3ecec4-c699-442a-8463-7f8e3a024c82`;
   const accessToken = localStorage.getItem("accessToken");
-
   const response = await axios.patch(queryKey, requestData, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -87,11 +86,17 @@ export const updateDangolStore = async ({ requestData, storeId }: UpdateStoreReq
   return response.data;
 };
 
+export const findStore = async (storeId: string) => {
+  const queryKey = `/api/v1/store/find/${storeId}`;
+  const response = await axios.get(queryKey);
+  return response.data;
+};
+
 export const uploadStoreImage = async (requestData: UploadStoreImageDataType) => {
   const queryKey = "/api/v1/store/image-upload";
-
   const response = await axios.post(queryKey, requestData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+
   return response.data;
 };
