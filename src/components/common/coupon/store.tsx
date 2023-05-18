@@ -22,7 +22,7 @@ type StoreCouponProps = {
   editAction?: () => void;
   deleteAction?: () => void;
   type: "MONTHLY" | "COUNT";
-  isTop: boolean;
+  isTop?: boolean;
 };
 
 const wrapper = (isOwner: boolean) => css`
