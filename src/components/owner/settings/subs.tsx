@@ -9,11 +9,11 @@ import { statusType } from "common/popover";
 import StoreCoupon from "common/coupon/store";
 import Modal from "common/modal";
 import Dialog from "customer/my/dialog";
-import { deleteSubs } from "pages/api/owner/settings";
+import { deleteSubs } from "pages/api/owner/subs";
 
 type SubsSettingProps = {
   data: {
-    id: number;
+    subscribeId: number;
     name: string;
     count: number;
     description: string;
@@ -34,11 +34,7 @@ const subsWrapper = css`
 const SubsSetting = (props: SubsSettingProps) => {
   const { push } = useRouter();
 
-  const { mutateAsync } = useMutation(deleteSubs, {
-    onSuccess: () => {
-      // TODO: 가게 정보 불러오기 refetchQueries 추가
-    },
-  });
+  const { mutateAsync } = useMutation(deleteSubs);
 
   const [status, setStatus] = useState<statusType>("default");
   const [selectedSubs, setSelectedSubs] = useState(0);
@@ -65,7 +61,7 @@ const SubsSetting = (props: SubsSettingProps) => {
         <div css={subsWrapper}>
           {props.data.map((el) => (
             <StoreCoupon
-              id={el.id}
+              id={el.subscribeId}
               count={el.count}
               description={el.description}
               name={el.name}
@@ -73,17 +69,17 @@ const SubsSetting = (props: SubsSettingProps) => {
               storeName={`${el.storeName}${el.isMain ? "(대표 구독권)" : ""}`}
               isOwner={true}
               disable={true}
-              key={el.id}
+              key={el.subscribeId}
               isEdit={status === "edit"}
               isDelete={status === "delete"}
               editAction={() =>
                 push(
-                  { pathname: "/owner/settings/subs", query: { subsId: el.id } },
+                  { pathname: "/owner/settings/subs", query: { subsId: el.subscribeId } },
                   "/owner/settings/subs"
                 )
               }
               deleteAction={() => {
-                setSelectedSubs(el.id);
+                setSelectedSubs(el.subscribeId);
                 setOpenModal(true);
               }}
             />

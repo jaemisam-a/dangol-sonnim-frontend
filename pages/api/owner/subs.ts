@@ -19,7 +19,7 @@ export const addSubsCoupon = async ({
   isTop,
   useCount,
 }: addSubsCouponType) => {
-  const queryKey = "/api/v1/subscribe?_csrf=d3235088-26f1-419e-815b-09a208b2f8b8";
+  const queryKey = "/api/v1/subscribe?_csrf=1a67078d-a408-4c37-ac89-b6e157b6b524";
   const response = await axios.post(queryKey, {
     type,
     name,
@@ -30,5 +30,11 @@ export const addSubsCoupon = async ({
     useCount,
     benefits: [{ description: "" }],
   });
+  return response.data;
+};
+
+export const deleteSubs = async ({ subscribeId }: { subscribeId: number }) => {
+  const queryKey = `/api/v1/subscribe/${subscribeId}`;
+  const response = await axios.delete(queryKey);
   return response.data;
 };
