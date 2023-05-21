@@ -1,11 +1,11 @@
 import axios from "axios";
 
-type editOwnerAccountType = {
+type EditOwnerAccountType = {
   phoneNumber: string;
   marketingAgreement: boolean;
 };
 
-type postOwnerAccountType = {
+type PostOwnerAccountType = {
   account: string;
   accountHolder: string;
   bank: string;
@@ -23,7 +23,7 @@ export const getOwnerAccount = async () => {
 export const editOwnerAccount = async ({
   phoneNumber,
   marketingAgreement,
-}: editOwnerAccountType) => {
+}: EditOwnerAccountType) => {
   const accessToken = localStorage.getItem("accessToken");
   const queryKey = "/api/v1/boss?_csrf=ff2dba70-94b7-45b8-b924-4f974757dbfe";
   const response = await axios.patch(
@@ -34,7 +34,7 @@ export const editOwnerAccount = async ({
   return response.data;
 };
 
-export const postOwnerAccount = async ({ account, accountHolder, bank }: postOwnerAccountType) => {
+export const postOwnerAccount = async ({ account, accountHolder, bank }: PostOwnerAccountType) => {
   const accessToken = localStorage.getItem("accessToken");
   const queryKey = "/api/v1/boss/register-account?_csrf=a3e71c92-dc89-413b-b564-3c62d43f21de";
   const response = await axios.post(
@@ -42,5 +42,14 @@ export const postOwnerAccount = async ({ account, accountHolder, bank }: postOwn
     { account, accountHolder, bank },
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
+  return response.data;
+};
+
+export const deleteOwnerAccount = async () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const queryKey = "/api/v1/boss";
+  const response = await axios.delete(queryKey, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
   return response.data;
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -13,7 +13,7 @@ import AccountSection from "owner/account/section";
 import DepositAccount from "owner/account/deposit";
 import PasswordChange from "owner/account/password";
 import PhoneChange from "owner/account/phone";
-import { getOwnerAccount } from "pages/api/owner/account";
+import { deleteOwnerAccount, getOwnerAccount } from "pages/api/owner/account";
 import useOwnerLoginStore from "src/store/ownerLogin";
 
 type accountDataType = {
@@ -49,6 +49,13 @@ const OwnerAccount = () => {
     enabled: false,
   });
 
+  const { mutateAsync } = useMutation(deleteOwnerAccount, {
+    onSuccess: () => {
+      alert("탈퇴가 완료되었습니다.");
+      push("/owner");
+    },
+  });
+
   const [openModal, setOpenModal] = useState(false);
   const [openAccountBS, setOpenAccountBS] = useState(false);
   const [openPasswordBS, setOpenPasswordBS] = useState(false);
@@ -64,6 +71,7 @@ const OwnerAccount = () => {
         contents: "********",
         btnName: "변경",
         btnAction: () => setOpenPasswordBS(true),
+        // TODO: 비밀번호 변경
       },
       {
         title: "핸드폰 번호",
@@ -71,7 +79,6 @@ const OwnerAccount = () => {
         btnName: "변경",
         btnAction: () => setOpenPhoneBS(true),
       },
-      { title: "사업자등록번호", contents: "010-1234-1234" },
       { title: "대표자성명", contents: data.name },
       { title: "개업일자", contents: "2013.11.3" },
       {
@@ -110,7 +117,12 @@ const OwnerAccount = () => {
               />
             ))}
             <div css={btnWrapper}>
-              <button css={logout}>로그아웃</button>
+              <button
+                css={logout}
+                //TODO: 로그아웃
+              >
+                로그아웃
+              </button>
               <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
             </div>
           </>
@@ -120,7 +132,7 @@ const OwnerAccount = () => {
         <Dialog
           content={{ buttonText: { confirm: "취소", cancel: "탈퇴" }, usage: "ownerWithdrawal" }}
           onCancel={() => {
-            //TODO: 탈퇴기능
+            mutateAsync();
           }}
           onConfirm={() => setOpenModal(false)}
         />

@@ -14,6 +14,7 @@ import { Colors, Texts } from "styles/common";
 import { CreateStoreResDataType, getMyStoreList } from "pages/api/owner/dangolStore";
 import useCurrentStore from "src/store/currentStore";
 import useMyStoreInfo from "src/store/storeInfo";
+import { getOwnerAccount } from "pages/api/owner/account";
 
 type MyInfoProps = {
   onClose: Dispatch<SetStateAction<boolean>>;
@@ -84,13 +85,8 @@ const addButton = css`
 `;
 
 const MyInfo = (props: MyInfoProps) => {
-  //TODO: Owner 정보 API 연결
-  const owner = {
-    name: "김두말",
-    email: "owner@gmail.com",
-  };
-
   const { push } = useRouter();
+  const { data: ownerData } = useQuery("ownerAccount", getOwnerAccount);
   const { data } = useQuery("getMyStoreList", getMyStoreList);
 
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
@@ -105,7 +101,7 @@ const MyInfo = (props: MyInfoProps) => {
       </div>
       <div css={emailWrapper}>
         <Image src="/images/profile.png" width={40} height={40} alt="프로필 이미지" />
-        <p>{owner.email}</p>
+        <p>{ownerData?.email}</p>
         <Link href="/owner/account">
           <Right width={20} height={20} stroke={Colors.neutral80} />
         </Link>
@@ -114,7 +110,6 @@ const MyInfo = (props: MyInfoProps) => {
         <p>내 가게</p>
         <div css={storeList}>
           {data?.map((store: CreateStoreResDataType) => (
-            // FIXME: 링크 이동 경로, 현재 클릭한 스토어 판단 로직 수정필요
             <button
               key={store.id}
               css={storeLink(store.id === currentStoreId)}
