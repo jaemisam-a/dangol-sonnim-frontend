@@ -40,6 +40,10 @@ const buyButton = (isOkay: boolean) => css`
   ${Texts.S3_18_M}
 `;
 
+const noSubsText = css`
+  ${Texts.B3_15_M2}
+`;
+
 const Subs = (props: SubsProps) => {
   const router = useRouter();
 
@@ -63,38 +67,44 @@ const Subs = (props: SubsProps) => {
   return (
     <>
       <StoreSection sectionTitle="구독권" fold={false}>
-        <div css={subsWrapper}>
-          {props.subsList.map((el: any) => (
-            <StoreCoupon
-              id={el.id}
-              name={el.name}
-              count={el.useCount}
-              description={el.intro}
-              price={el.price}
-              storeName={props.storeName}
-              key={el.id}
-              checked={isChecked}
-              setChecked={setIsChecked}
-              type={el.type}
-              isTop={el.isTop}
-            />
-          ))}
-        </div>
-        <button
-          disabled={!isOkay}
-          onClick={() =>
-            router.push(
-              {
-                pathname: `${router.asPath}/payment`,
-                query: { selectedSubs: JSON.stringify(selectedSubs) },
-              },
-              `${router.asPath}/payment`
-            )
-          }
-          css={buyButton(isOkay)}
-        >
-          구독권 구매하기
-        </button>
+        {props.subsList.length > 0 ? (
+          <>
+            <div css={subsWrapper}>
+              {props.subsList.map((el: any) => (
+                <StoreCoupon
+                  id={el.id}
+                  name={el.name}
+                  count={el.useCount}
+                  description={el.intro}
+                  price={el.price}
+                  storeName={props.storeName}
+                  key={el.id}
+                  checked={isChecked}
+                  setChecked={setIsChecked}
+                  type={el.type}
+                  isTop={el.isTop}
+                />
+              ))}
+            </div>
+            <button
+              disabled={!isOkay}
+              onClick={() =>
+                router.push(
+                  {
+                    pathname: `${router.asPath}/payment`,
+                    query: { selectedSubs: JSON.stringify(selectedSubs) },
+                  },
+                  `${router.asPath}/payment`
+                )
+              }
+              css={buyButton(isOkay)}
+            >
+              구독권 구매하기
+            </button>
+          </>
+        ) : (
+          <p css={noSubsText}>구독권이 없습니다.</p>
+        )}
       </StoreSection>
     </>
   );

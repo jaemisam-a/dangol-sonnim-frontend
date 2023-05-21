@@ -108,11 +108,15 @@ const Info = ({
           />
         </button>
       </div>
-      <hr css={divider} />
-      <div css={menuStyle}>
-        <Tag text="대표" bgColor={Colors.green50} bold={true} />
-        <p>{mainSubsDesc}</p>
-      </div>
+      {mainSubsDesc && (
+        <>
+          <hr css={divider} />
+          <div css={menuStyle}>
+            <Tag text="대표" bgColor={Colors.green50} bold={true} />
+            <p>{mainSubsDesc}</p>
+          </div>
+        </>
+      )}
     </section>
   );
 };

@@ -27,7 +27,6 @@ const Store = () => {
 
   const [mainSubsDesc, setMainSubsDesc] = useState("");
 
-  // FIXME: id에 맞는 api 요청
   const { data: storeData, isLoading } = useQuery(
     "Stores",
     () => getStore({ storeId: Number(query.id) }),
@@ -42,15 +41,12 @@ const Store = () => {
   };
 
   useEffect(() => {
-    if (storeData) {
-      if (storeData.subscribeResponseDTOList.length > 0) {
-        const mainSubsIndex = storeData.subscribeResponseDTOList.findIndex(
-          (sub: { [index: string]: string }) => sub.isMain
-        );
-        setMainSubsDesc(storeData.subscribeResponseDTOList[mainSubsIndex]?.name);
-      } else {
-        setMainSubsDesc("구독권이 없습니다.");
-      }
+    if (!storeData) return;
+    if (storeData.subscribeResponseDTOList.length > 0) {
+      const mainSubsIndex = storeData.subscribeResponseDTOList.findIndex(
+        (sub: { [index: string]: string }) => sub.isMain
+      );
+      setMainSubsDesc(storeData.subscribeResponseDTOList[mainSubsIndex]?.name || "");
     }
   }, [storeData]);
 
@@ -78,7 +74,6 @@ const Store = () => {
             businessHours={storeData.businessHours}
           />
           <hr css={divider} />
-          {/* TODO: 메뉴 값 넣기 */}
           <Menus menuList={storeData.menuResponseDTOList} />
           <hr css={divider} />
           <Subs storeName={storeData.name} subsList={storeData.subscribeResponseDTOList} />
