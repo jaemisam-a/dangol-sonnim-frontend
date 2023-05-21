@@ -49,14 +49,16 @@ const Popover = (props: PopoverProps) => {
       style={props.style}
       {...props.attributes}
     >
-      <button
-        onClick={() => {
-          props.setStatus && props.setStatus("edit");
-          props.setIsOpen(false);
-        }}
-      >
-        수정
-      </button>
+      {props.label === "메뉴" && (
+        <button
+          onClick={() => {
+            props.setStatus && props.setStatus("edit");
+            props.setIsOpen(false);
+          }}
+        >
+          수정
+        </button>
+      )}
       <button
         onClick={() => {
           props.setStatus && props.setStatus("delete");

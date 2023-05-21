@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import Layout from "common/layout";
 import SubsForm from "owner/settings/subsForm";
 import { addSubsCoupon } from "pages/api/owner/subs";
+import useCurrentStore from "src/store/currentStore";
 
 export type subsType = {
   name: string;
@@ -17,7 +18,7 @@ export type subsType = {
 
 const Subs = () => {
   const { query, back } = useRouter();
-
+  const { currentStoreId } = useCurrentStore();
   const { mutateAsync } = useMutation(addSubsCoupon);
 
   const [subsContent, setSubsContent] = useState<subsType>({
@@ -38,8 +39,7 @@ const Subs = () => {
       isTop: subsContent.isMain,
       price: Number(subsContent.price),
       useCount: Number(subsContent.count),
-      // FIXME: 가게 id를 query로 받아 적용
-      storeId: 7,
+      storeId: Number(currentStoreId),
     })
       .then(() => {
         alert("등록되었습니다");

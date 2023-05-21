@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
 import FormLabel from "common/formLabel";
@@ -29,12 +29,6 @@ const checkboxWrapper = css`
 `;
 
 const SubsForm = (props: SubsFormProps) => {
-  useEffect(() => {
-    /**TODO: 구독권 수정일 때 구독권 내용 받아와서 state에 넣기
-     * 수정인지 신규 생성인지 props로 받거나 push query로 받기
-     **/
-  }, []);
-
   return (
     <form css={formWrapper}>
       <FormLabel label="구독권명">
