@@ -44,7 +44,7 @@ const Store = () => {
     if (!storeData) return;
     if (storeData.subscribeResponseDTOList.length > 0) {
       const mainSubsIndex = storeData.subscribeResponseDTOList.findIndex(
-        (sub: { [index: string]: string }) => sub.isMain
+        (sub: { [index: string]: string }) => sub.isTop
       );
       setMainSubsDesc(storeData.subscribeResponseDTOList[mainSubsIndex]?.name || "");
     }

@@ -72,7 +72,7 @@ const Subs = (props: SubsProps) => {
             <div css={subsWrapper}>
               {props.subsList.map((el: any) => (
                 <StoreCoupon
-                  id={el.id}
+                  id={el.subscribeId}
                   name={el.name}
                   count={el.useCount}
                   description={el.intro}
