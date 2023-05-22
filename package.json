@@ -12,7 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.11.0",
-    "@next/font": "13.4.1",
+    "@next/font": "13.4.3",
     "@popperjs/core": "^2.11.7",
     "@types/node": "20.1.4",
     "@types/react": "18.2.6",
