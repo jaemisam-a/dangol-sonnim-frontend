@@ -10,7 +10,7 @@ import { Colors, Texts } from "styles/common";
 type LocationProps = {
   address: string;
   detail: string;
-  openHour: string;
+  businessHours: { weeks: string; hours: string }[];
 };
 
 const addressWrapper = css`
@@ -40,6 +40,7 @@ const mapStyle = css`
 
 const openHourWrapper = css`
   display: flex;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-top: 1.125rem;
   margin-bottom: 1.75rem;
@@ -50,7 +51,7 @@ const openHourStyle = css`
   color:${Colors.neutral90};
 `;
 
-const Location = ({ address, detail, openHour }: LocationProps) => {
+const Location = ({ address, detail, businessHours }: LocationProps) => {
   return (
     <>
       <StoreSection sectionTitle="위치" fold={true}>
@@ -69,7 +70,15 @@ const Location = ({ address, detail, openHour }: LocationProps) => {
             <Clock />
             영업시간
           </span>
-          <span css={openHourStyle}>{openHour}</span>
+          <span css={openHourStyle}>
+            {businessHours.map((el) => (
+              <div key={el.weeks}>
+                <span>{el.weeks}</span>
+                &nbsp;
+                <span>{el.hours}</span>
+              </div>
+            ))}
+          </span>
         </div>
       </StoreSection>
     </>

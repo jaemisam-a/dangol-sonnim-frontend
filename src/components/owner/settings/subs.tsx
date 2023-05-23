@@ -14,6 +14,7 @@ import { deleteSubs } from "pages/api/owner/subs";
 type SubsSettingProps = {
   data: {
     subscribeId: number;
+    type: "MONTHLY" | "COUNT";
     name: string;
     count: number;
     description: string;
@@ -62,6 +63,7 @@ const SubsSetting = (props: SubsSettingProps) => {
           {props.data.map((el) => (
             <StoreCoupon
               id={el.subscribeId}
+              type={el.type}
               count={el.count}
               description={el.description}
               name={el.name}

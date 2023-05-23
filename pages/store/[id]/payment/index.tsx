@@ -28,6 +28,7 @@ const DUMMY_PAYMENT = {
   name: "모든 메뉴 사이즈업",
   description: "쿠폰 소지시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번당 최대 2번.",
   price: 3500,
+  type: "COUNT",
 };
 
 const couponWrapper = css`
@@ -107,6 +108,7 @@ const StorePayment = () => {
         {query.selectedSubs &&
           (JSON.parse(query.selectedSubs as string) as string[]).map((subs) => (
             <StoreCoupon
+              type={DUMMY_PAYMENT.type as "MONTHLY" | "COUNT"}
               id={DUMMY_PAYMENT.id}
               count={DUMMY_PAYMENT.count}
               description={DUMMY_PAYMENT.description}
