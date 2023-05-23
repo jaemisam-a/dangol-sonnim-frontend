@@ -12,16 +12,15 @@ import Dialog from "customer/my/dialog";
 import { deleteSubs } from "pages/api/owner/subs";
 
 type SubsSettingProps = {
+  storeName: string;
   data: {
     subscribeId: number;
     type: "MONTHLY" | "COUNT";
     name: string;
-    count: number;
-    description: string;
+    useCount: number;
+    intro: string;
     price: number;
-    isMain: boolean;
-    tags: string[];
-    storeName: string;
+    isTop: boolean;
   }[];
 };
 
@@ -64,11 +63,11 @@ const SubsSetting = (props: SubsSettingProps) => {
             <StoreCoupon
               id={el.subscribeId}
               type={el.type}
-              count={el.count}
-              description={el.description}
+              count={el.useCount}
+              description={el.intro}
               name={el.name}
               price={el.price}
-              storeName={`${el.storeName}${el.isMain ? "(대표 구독권)" : ""}`}
+              storeName={`${props.storeName}${el.isTop ? "(대표 구독권)" : ""}`}
               isOwner={true}
               disable={true}
               key={el.subscribeId}
