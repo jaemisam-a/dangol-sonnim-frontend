@@ -91,7 +91,7 @@ const Settings = () => {
           }
         />
         <Menus data={findStoreData.menuResponseDTOList} />
-        <Subs data={findStoreData.subscribeResponseDTOList} />
+        <Subs data={findStoreData.subscribeResponseDTOList} storeName={findStoreData.name} />
         <div css={bottomPadding} />
       </Layout>
     );
