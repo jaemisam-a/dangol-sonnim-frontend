@@ -75,7 +75,7 @@ const ServiceTags = () => {
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Enter" && inputText !== "") {
+    if (e.key === "Enter" && inputText.trim() !== "") {
       if (e.nativeEvent.isComposing || tags.length >= 2) return;
       const newTags = new Set<string>(tags).add(inputText.trim());
       setGlobalStoreInfo("tags", Array.from(newTags));

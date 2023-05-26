@@ -122,7 +122,6 @@ const MyStoreSetting = () => {
       sido,
       sigungu,
       bname1,
-      detailedAddress,
       businessHours,
       tags,
     ].every((el) => el !== "" && el.length !== 0);
@@ -138,18 +137,7 @@ const MyStoreSetting = () => {
       }
     });
     setIsFilled(isEachSectionFilled && isBHourFilled);
-  }, [
-    name,
-    categoryType,
-    comments,
-    newAddress,
-    sido,
-    sigungu,
-    bname1,
-    detailedAddress,
-    businessHours,
-    tags,
-  ]);
+  }, [name, categoryType, comments, newAddress, sido, sigungu, bname1, businessHours, tags]);
 
   useEffect(() => {
     const keyNameArr = [
