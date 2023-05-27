@@ -11,6 +11,11 @@ type PostOwnerAccountType = {
   bank: string;
 };
 
+type ChangeOwnerPasswordType = {
+  email: string;
+  password: string;
+};
+
 export const getOwnerAccount = async () => {
   const accessToken = localStorage.getItem("accessToken");
   const queryKey = "/api/v1/boss";
@@ -51,5 +56,11 @@ export const deleteOwnerAccount = async () => {
   const response = await axios.delete(queryKey, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
+  return response.data;
+};
+
+export const changeOwnerPassword = async ({ email, password }: ChangeOwnerPasswordType) => {
+  const queryKey = "/api/v1/boss/password?_csrf=4f7977ac-a961-4872-8b29-b640a2655c58";
+  const response = await axios.put(queryKey, { email, password });
   return response.data;
 };

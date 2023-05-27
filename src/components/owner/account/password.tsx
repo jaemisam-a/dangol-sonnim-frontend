@@ -1,11 +1,14 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { css } from "@emotion/react";
+import { useMutation } from "react-query";
 
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
+import { changeOwnerPassword } from "pages/api/owner/account";
 
 type PasswordChangeProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
+  email: string;
 };
 
 const wrapper = css`
@@ -26,14 +29,11 @@ const submitButton = (isEmpty: boolean) => css`
 `;
 
 const PasswordChange = (props: PasswordChangeProps) => {
-  const [inputData, setInputData] = useState({ current: "", change: "", changeCheck: "" });
+  const { mutateAsync } = useMutation(changeOwnerPassword);
+
+  const [inputData, setInputData] = useState({ change: "", changeCheck: "" });
 
   const inputArr: InputWithButtonType[] = [
-    {
-      type: "password",
-      label: "현재 비밀번호",
-      objectKey: "current",
-    },
     {
       type: "password",
       label: "변경할 비밀번호",
@@ -50,9 +50,14 @@ const PasswordChange = (props: PasswordChangeProps) => {
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO: 비밀번호 수정 api 요청
-    if (inputData.change !== inputData.changeCheck)
+    if (inputData.change === inputData.changeCheck) {
+      mutateAsync({
+        email: props.email,
+        password: inputData.change,
+      });
+    } else {
       return alert("재입력한 비밀번호가 일치하지 않습니다.");
+    }
     props.setOpen(false);
   };
 
@@ -63,7 +68,7 @@ const PasswordChange = (props: PasswordChangeProps) => {
           <InputWithButton
             key={el.label}
             isInBottomSheet={false}
-            state={inputData[el.objectKey as "current" | "change" | "changeCheck"]}
+            state={inputData[el.objectKey as "change" | "changeCheck"]}
             type={el.type}
             isRequired={true}
             label={el.label}

@@ -71,7 +71,6 @@ const OwnerAccount = () => {
         contents: "********",
         btnName: "변경",
         btnAction: () => setOpenPasswordBS(true),
-        // TODO: 비밀번호 변경
       },
       {
         title: "핸드폰 번호",
@@ -144,7 +143,7 @@ const OwnerAccount = () => {
         open={openPasswordBS}
         setOpen={setOpenPasswordBS}
         title="비밀번호 변경"
-        component={<PasswordChange setOpen={setOpenPasswordBS} />}
+        component={<PasswordChange setOpen={setOpenPasswordBS} email={data.email} />}
       />
       <BottomSheet
         height="23.938rem"
