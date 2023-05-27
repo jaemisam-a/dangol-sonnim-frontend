@@ -7,6 +7,7 @@ import ImageManage from "common/imageManage";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Layout from "common/layout";
 import { createMenu, getMenu, updateMenu } from "pages/api/owner/menu";
+import useCurrentStore from "src/store/currentStore";
 
 const wrapper = css`
   padding: 1.5rem 1.25rem;
@@ -30,6 +31,7 @@ const SettingsMenu = () => {
   const { mutateAsync: create } = useMutation(createMenu);
   const { mutateAsync: update } = useMutation(updateMenu);
 
+  const { currentStoreId } = useCurrentStore();
   const [inputData, setInputData] = useState({ name: "", price: "", imageUrl: "" });
   const [image, setImage] = useState<File>();
 
@@ -52,8 +54,7 @@ const SettingsMenu = () => {
         .catch((err) => alert(err.response.data.message));
     } else {
       create({
-        // TODO: storeId 값을 받아 입력
-        storeId: 1,
+        storeId: Number(currentStoreId),
         name: inputData.name,
         price: parseInt(inputData.price),
         multipartFile: image as File,
@@ -66,7 +67,11 @@ const SettingsMenu = () => {
   useEffect(() => {
     // if (isError) back();
     if (!data) return;
-    setInputData({ name: data?.name, price: data?.price, imageUrl: data?.imageUrl });
+    if (isEdit) {
+      setInputData({ name: data?.name, price: data?.price, imageUrl: data?.imageUrl });
+    } else {
+      setInputData({ name: "", price: "", imageUrl: "" });
+    }
   }, [query, data]);
 
   // 메뉴 조회에서 에러가 발생했다면 정상적인 방법으로 접근한 것이 아님

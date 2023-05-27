@@ -79,7 +79,7 @@ const OwnerAccount = () => {
         btnAction: () => setOpenPhoneBS(true),
       },
       { title: "대표자성명", contents: data.name },
-      { title: "개업일자", contents: "2013.11.3" },
+      { title: "개업일자", contents: new Date(data.createdAt).toLocaleDateString("ko-kr") },
       {
         title: "계좌번호",
         contents: `${data.bank} ${data.account}`,

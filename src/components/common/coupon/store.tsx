@@ -102,7 +102,7 @@ const StoreCoupon = (props: StoreCouponProps) => {
                 {props.isTop && "(대표 구독권)"}
               </p>
               <p css={subsName}>
-                {props.name}
+                {props.name}&nbsp;
                 {props.type === "COUNT" && `${props.count}회권`}
               </p>
               <p css={description}>{props.description}</p>
