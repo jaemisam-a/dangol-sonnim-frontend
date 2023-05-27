@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-// import axios from "axios";
-// import { useQuery } from "react-query";
+import { useQuery } from "react-query";
+import axios from "axios";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
 import Layout from "common/layout";
-// import StoreThumbnailList from "common/storeThumbnail/list";
 import Sort from "common/filter/sort";
-// import Location from "common/filter/location";
+import StoreThumbnailList from "common/storeThumbnail/list";
 import ArrowLeft from "public/icons/direction/arrowLeft.svg";
 import CloseCircle from "public/icons/close/closeCircle.svg";
+import { getStoreList } from "pages/api/store";
 
 const headerWrapper = css`
   display: flex;
@@ -61,35 +61,32 @@ const resultWrapper = css`
   padding: 0.75rem 1.25rem;
 `;
 
-// const emptyResult = css`
-//   text-align: center;
-//   margin: 20rem 0;
-//   ${Texts.S3_18_M}
-// `;
-
 const Stores = () => {
-  /** TODO: 검색 기능 API */
   const { query, push } = useRouter();
-  // TODO: 실 api 연결
-  // const { data: storeData, isLoading } = useQuery("StoreData", () =>
-  //   axios.get("/api/store").then((res) =>
-  //     res.data.map((item: StoreData) => {
-  //       let newObj: { [key: string]: any } = {};
-  //       newObj["id"] = item.id;
-  //       newObj["store"] = item.name;
-  //       newObj["category"] = item.category;
-  //       newObj["tags"] = item.subs[0].tags;
-  //       newObj["shortAddress"] = item.location.shortAddress;
-  //       newObj["img"] = item.images[0].src;
-  //       return newObj;
-  //     })
-  //   )
-  // );
+  const [storeListParams, setStoreListParams] = useState<{ kw?: string }>({});
+
+  const {
+    data: storeData,
+    isFetching: isLoading,
+    refetch,
+  } = useQuery(["storeList"], () => getStoreList(storeListParams), {
+    enabled: false,
+  });
 
   // FIXME: 로그인 시에만 유저 데이터 가져오기
-  // const { data: userPick } = useQuery("UserData", () =>
-  //   axios.get("/api/user").then((res) => res.data[0].pick)
-  // );
+  const { data: userPick } = useQuery("UserData", () =>
+    axios.get("/api/user").then((res) => res.data[0].pick)
+  );
+
+  useEffect(() => {
+    if (!query.query) return;
+    setStoreListParams({ kw: String(query.query) });
+  }, [query]);
+
+  useEffect(() => {
+    if (!storeListParams.kw) return;
+    refetch();
+  }, [storeListParams.kw]);
 
   return (
     <Layout title={`${query.query} 검색`} isNoHeader>
@@ -105,18 +102,11 @@ const Stores = () => {
         </div>
       </header>
       <div css={filterWrapper}>
-        {/* <Location isSearchPage={true} /> */}
         <div css={divider}></div>
         <Sort isSearchPage={true} />
       </div>
       <section css={resultWrapper}>
-        {/* {storeData ? (
-          <StoreThumbnailList contents={storeData} userPick={userPick} isLoading={isLoading} />
-        ) : (
-          <div css={emptyResult}>
-            <p>검색결과가 없습니다.</p>
-          </div>
-        )} */}
+        <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
       </section>
     </Layout>
   );

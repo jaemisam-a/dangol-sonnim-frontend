@@ -64,12 +64,7 @@ const SearchInput = () => {
         <ArrowLeft stroke={Colors.neutral70} />
       </button>
       <div css={inputWrapper}>
-        <input
-          type="search"
-          placeholder="음식 이름, 구독권 이름 검색"
-          ref={inputRef}
-          onKeyDown={onKeyDown}
-        />
+        <input type="search" placeholder="가게 이름 검색" ref={inputRef} onKeyDown={onKeyDown} />
         <button onClick={onClick}>
           <SearchIcon width={24} height={24} stroke={Colors.amber50} />
         </button>

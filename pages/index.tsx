@@ -105,7 +105,7 @@ const Home = () => {
   return (
     <Layout title="단골손님">
       <div css={searchBar}>
-        <SearchBar isCustomer placeholder="음식 이름, 구독권 이름 검색" />
+        <SearchBar isCustomer placeholder="가게 이름 검색" />
       </div>
       {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
       <div css={location}>
