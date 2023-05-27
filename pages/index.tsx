@@ -11,7 +11,7 @@ import Category from "customer/main/category";
 import CouponSlider from "customer/main/couponSlider";
 import useLoginStore from "src/store/login";
 import SearchBar from "common/input/search";
-import { getStoreList } from "pages/api/store";
+import { GetStoreListType, getStoreList } from "pages/api/store";
 
 const MOCK_MYCOUPON = [
   {
@@ -68,9 +68,9 @@ const Home = () => {
   const { isLogin } = useLoginStore();
   const [selected, setSelected] = useState("ALL");
   const [checkedLocation, setCheckedLocation] = useState({ id: 0, content: "전체" });
-  const [storeListParams, setStoreListParams] = useState<{ category?: string; sigungu?: string }>(
-    {}
-  );
+  const [storeListParams, setStoreListParams] = useState<GetStoreListType>({
+    sortBy: "likeNumber",
+  });
 
   const {
     data: storeData,
@@ -115,7 +115,7 @@ const Home = () => {
         <Category selected={selected} setSelected={setSelected} />
       </div>
       <section css={sort}>
-        <Sort />
+        <Sort setStoreListParams={setStoreListParams} />
       </section>
       <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
     </Layout>
