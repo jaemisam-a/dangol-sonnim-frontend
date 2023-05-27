@@ -1,17 +1,15 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Down from "public/icons/direction/down.svg";
 import BottomSheet from "common/bottomSheet";
 import Radio from "customer/main/radio";
 import { Texts } from "styles/common";
-
-type CheckedLocation = { id: number; content: string };
+import { GetStoreListType } from "pages/api/store";
 
 type LocationProps = {
+  setStoreListParams: Dispatch<SetStateAction<GetStoreListType>>;
   isSearchPage?: boolean;
-  checkedLocation: CheckedLocation;
-  setCheckedLocation: Dispatch<SetStateAction<CheckedLocation>>;
 };
 
 const subText = (isSearchPage: boolean) => css`
@@ -30,17 +28,24 @@ const locationWrapper = css`
 
 const locationName = (isSearchPage: boolean) => css`
   ${isSearchPage ? Texts.B1_13_R2 : Texts.S3_18_M}
+  color: #191919;
 `;
 
-const Location = ({ isSearchPage, checkedLocation, setCheckedLocation }: LocationProps) => {
+const Location = ({ setStoreListParams, isSearchPage }: LocationProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [checkedLocation, setCheckedLocation] = useState({ id: 0, content: "전체" });
+
+  useEffect(() => {
+    const location = checkedLocation.content === "전체" ? "" : checkedLocation.content;
+    setStoreListParams((prev) => ({ ...prev, sigungu: location }));
+  }, [checkedLocation]);
 
   return (
     <>
       <div css={subText(isSearchPage as boolean)}>지금 보고있는 지역은</div>
       <div css={locationWrapper} onClick={() => setIsOpen(true)}>
         <span css={locationName(isSearchPage as boolean)}>{checkedLocation.content}</span>
-        <Down width="14" height="14" stroke="black" />
+        <Down width="14" height="14" stroke="#14181F" />
       </div>
       <BottomSheet
         height="18.125rem"

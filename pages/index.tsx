@@ -66,8 +66,8 @@ const sort = css`
 
 const Home = () => {
   const { isLogin } = useLoginStore();
+
   const [selected, setSelected] = useState("ALL");
-  const [checkedLocation, setCheckedLocation] = useState({ id: 0, content: "전체" });
   const [storeListParams, setStoreListParams] = useState<GetStoreListType>({
     sortBy: "likeNumber",
   });
@@ -91,12 +91,7 @@ const Home = () => {
     } else {
       setStoreListParams((prev) => ({ ...prev, category: "" }));
     }
-    if (checkedLocation.id !== 0) {
-      setStoreListParams((prev) => ({ ...prev, sigungu: checkedLocation.content }));
-    } else {
-      setStoreListParams((prev) => ({ ...prev, sigungu: "" }));
-    }
-  }, [selected, checkedLocation]);
+  }, [selected]);
 
   useEffect(() => {
     refetch();
@@ -109,7 +104,7 @@ const Home = () => {
       </div>
       {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
       <div css={location}>
-        <Location checkedLocation={checkedLocation} setCheckedLocation={setCheckedLocation} />
+        <Location setStoreListParams={setStoreListParams} />
       </div>
       <div css={category}>
         <Category selected={selected} setSelected={setSelected} />

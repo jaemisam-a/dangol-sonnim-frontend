@@ -8,9 +8,10 @@ import { Colors, Texts } from "styles/common";
 import Layout from "common/layout";
 import Sort from "common/filter/sort";
 import StoreThumbnailList from "common/storeThumbnail/list";
+import Location from "common/filter/location";
 import ArrowLeft from "public/icons/direction/arrowLeft.svg";
 import CloseCircle from "public/icons/close/closeCircle.svg";
-import { getStoreList } from "pages/api/store";
+import { GetStoreListType, getStoreList } from "pages/api/store";
 
 const headerWrapper = css`
   display: flex;
@@ -63,7 +64,6 @@ const resultWrapper = css`
 
 const Stores = () => {
   const { query, push } = useRouter();
-  const [storeListParams, setStoreListParams] = useState<{ kw?: string }>({});
 
   const {
     data: storeData,
@@ -78,15 +78,19 @@ const Stores = () => {
     axios.get("/api/user").then((res) => res.data[0].pick)
   );
 
+  const [storeListParams, setStoreListParams] = useState<GetStoreListType>({
+    sortBy: "likeNumber",
+  });
+
   useEffect(() => {
     if (!query.query) return;
-    setStoreListParams({ kw: String(query.query) });
+    setStoreListParams((prev) => ({ ...prev, kw: String(query.query) }));
   }, [query]);
 
   useEffect(() => {
     if (!storeListParams.kw) return;
     refetch();
-  }, [storeListParams.kw]);
+  }, [storeListParams]);
 
   return (
     <Layout title={`${query.query} 검색`} isNoHeader>
@@ -102,8 +106,9 @@ const Stores = () => {
         </div>
       </header>
       <div css={filterWrapper}>
+        <Location isSearchPage={true} setStoreListParams={setStoreListParams} />
         <div css={divider}></div>
-        <Sort isSearchPage={true} />
+        <Sort isSearchPage={true} setStoreListParams={setStoreListParams} />
       </div>
       <section css={resultWrapper}>
         <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
