@@ -11,10 +11,10 @@ import { Texts } from "styles/common";
 
 const PAYMENT_METHODS = [
   { id: 1, name: "카드" },
-  { id: 2, name: "자동이체" },
+  // { id: 2, name: "자동이체" },
   { id: 3, name: "카카오페이" },
   { id: 4, name: "토스페이" },
-  { id: 5, name: "네이버페이" },
+  // { id: 5, name: "네이버페이" },
 ];
 
 type PaymentMethodProps = {
@@ -57,6 +57,7 @@ const PaymentMethod = (props: PaymentMethodProps) => {
           setSelectMethod={props.setSelectMethod}
         />
       </div>
+      {/* FIXME: 카드를 따로 선택할 필요 없어 주석처리, 추후 다시 사용하게 될 때 주석 해제하여 사용
       {props.selectMethod === 1 && (
         <div css={paymentSelect}>
           <Select
@@ -77,7 +78,7 @@ const PaymentMethod = (props: PaymentMethodProps) => {
             setSelected={props.setSelectedCard}
           />
         </div>
-      )}
+      )} */}
       {props.selectMethod === 2 && (
         <>
           <div css={paymentSelect}>
