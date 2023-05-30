@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
 import Down from "public/icons/direction/down.svg";
 import BottomSheet from "common/bottomSheet";
 import Radio from "customer/main/radio";
 import { Texts } from "styles/common";
+import { GetStoreListType } from "pages/api/store";
 
 type SortProps = {
   isSearchPage?: boolean;
+  setStoreListParams: Dispatch<SetStateAction<GetStoreListType>>;
 };
 
 const wrapper = css`
@@ -23,9 +25,14 @@ const sortText = (isSearchPage: boolean) => css`
   color: #191919;
 `;
 
-const Sort = ({ isSearchPage }: SortProps) => {
+const Sort = ({ isSearchPage, setStoreListParams }: SortProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [checkedSort, setCheckedSort] = useState({ id: 1, content: "인기순" });
+
+  useEffect(() => {
+    const sortBy = checkedSort.content === "인기순" ? "likeNumber" : "id";
+    setStoreListParams((prev) => ({ ...prev, sortBy: sortBy }));
+  }, [checkedSort]);
 
   return (
     <>

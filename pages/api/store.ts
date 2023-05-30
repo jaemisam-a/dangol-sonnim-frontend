@@ -1,6 +1,7 @@
 import axios from "axios";
 
-type GetStoreListType = {
+export type GetStoreListType = {
+  sortBy: "id" | "likeNumber";
   sigungu?: string;
   category?: string;
   kw?: string;
@@ -10,9 +11,11 @@ type GetStoreType = {
   storeId: number;
 };
 
-export const getStoreList = async ({ sigungu, category, kw }: GetStoreListType) => {
+export const getStoreList = async ({ sortBy, sigungu, category, kw }: GetStoreListType) => {
   const queryKey = "/api/v1/store/list";
-  const response = await axios.get(queryKey, { params: { sigungu, category, kw } });
+  const response = await axios.get(queryKey, {
+    params: { sort: `${sortBy},desc`, sigungu, category, kw },
+  });
   return response.data;
 };
 
