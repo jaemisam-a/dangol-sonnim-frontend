@@ -1,8 +1,13 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
 import AddPlusCircle from "public/icons/add/plusCircleFilled.svg";
+
+type AvatarPropsType = {
+  imageUrl?: string;
+  setImage: Dispatch<SetStateAction<File | undefined>>;
+};
 
 const profileWrapper = css`
   display: flex;
@@ -32,7 +37,7 @@ const image = css`
   border-radius: 100%;
 `;
 
-const Avatar = () => {
+const Avatar = (props: AvatarPropsType) => {
   const [profileImg, setProfileImg] = useState("");
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +48,21 @@ const Avatar = () => {
     reader.onloadend = () => {
       setProfileImg(reader.result as string);
     };
+    props.setImage(e.target.files?.[0] as File);
   };
+
+  useEffect(() => {
+    if (!props.imageUrl) return;
+    setProfileImg(props.imageUrl);
+    // 이미지 주소로 이미지 객체 생성하여 저장
+    // FIXME: axios로 적용
+    fetch(`/static${props.imageUrl.split("static").at(-1)}`)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const imageFile = new File([blob], "image.jpg", { type: "image/jpeg" });
+        props.setImage(imageFile);
+      });
+  }, [props.imageUrl]);
 
   return (
     <>
