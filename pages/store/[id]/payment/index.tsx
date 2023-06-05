@@ -65,7 +65,6 @@ const StorePayment = () => {
     data: "",
     isUse: false,
   });
-  const [selectedCard, setSelectedCard] = useState({ id: "", name: "" });
   const [selectedBank, setSelectedBank] = useState<TransferType>({
     id: "",
     name: "",
@@ -86,15 +85,13 @@ const StorePayment = () => {
         pg: paymentMethod,
         pay_method: "card",
         // FIXME: 주문번호 방식 정해지면 입력하여 적용
-        merchant_uid: "ORD20180131-911221991",
+        merchant_uid: "ORD20180131-666221991",
         name: data.name,
         amount: data.price,
         // TODO: 계정정보 적용하여 입력
         buyer_email: "gildong@gmail.com",
         buyer_name: "홍길동",
         buyer_tel: "010-4242-4242",
-        buyer_addr: "서울특별시 강남구 신사동",
-        buyer_postcode: "01181",
       },
       (rsp: any) => {
         // TODO: 결제 정보를 저장할 수 있는 페이지가 나오면 추가
@@ -112,7 +109,6 @@ const StorePayment = () => {
   };
 
   useEffect(() => {
-    setSelectedCard({ id: "", name: "" });
     setSelectedBank({ id: "", name: "", accountHolder: "", accountNumber: "" });
     setCashReceipts({ data: "", isPersonal: true, isUse: false });
   }, [selectMethod]);
@@ -183,8 +179,6 @@ const StorePayment = () => {
             setSelectMethod={setSelectMethod}
             cashReceipts={cashReceipts}
             setCashReceipts={setCashReceipts}
-            selectedCard={selectedCard}
-            setSelectedCard={setSelectedCard}
             selectedBank={selectedBank}
             setSelectedBank={setSelectedBank}
           />

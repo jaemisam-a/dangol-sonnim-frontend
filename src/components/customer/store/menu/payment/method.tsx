@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { css } from "@emotion/react";
 
-import { CashReceiptsType, SelectedType, TransferType } from "pages/store/[id]/payment";
+import { CashReceiptsType, TransferType } from "pages/store/[id]/payment";
 import StoreSection from "customer/store/section";
 import MethodButtonList from "customer/store/menu/payment/methodButtonList";
 import Select from "common/select";
@@ -22,8 +22,6 @@ type PaymentMethodProps = {
   setSelectMethod: Dispatch<SetStateAction<number>>;
   cashReceipts: CashReceiptsType;
   setCashReceipts: Dispatch<SetStateAction<CashReceiptsType>>;
-  selectedCard: SelectedType;
-  setSelectedCard: Dispatch<SetStateAction<SelectedType>>;
   selectedBank: TransferType;
   setSelectedBank: Dispatch<SetStateAction<TransferType>>;
 };
@@ -57,28 +55,6 @@ const PaymentMethod = (props: PaymentMethodProps) => {
           setSelectMethod={props.setSelectMethod}
         />
       </div>
-      {/* FIXME: 카드를 따로 선택할 필요 없어 주석처리, 추후 다시 사용하게 될 때 주석 해제하여 사용
-      {props.selectMethod === 1 && (
-        <div css={paymentSelect}>
-          <Select
-            placeholder="카드를 선택해주세요"
-            list={[
-              { id: "1", name: "우리카드" },
-              { id: "2", name: "신한카드" },
-              { id: "3", name: "현대카드" },
-              { id: "4", name: "KB국민카드" },
-              { id: "5", name: "롯데카드" },
-              { id: "6", name: "NH농협카드" },
-              { id: "7", name: "비씨카드" },
-              { id: "8", name: "하나카드" },
-              { id: "9", name: "씨티카드" },
-              { id: "10", name: "카카오뱅크카드" },
-            ]}
-            selected={props.selectedCard}
-            setSelected={props.setSelectedCard}
-          />
-        </div>
-      )} */}
       {props.selectMethod === 2 && (
         <>
           <div css={paymentSelect}>
