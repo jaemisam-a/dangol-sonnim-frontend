@@ -11,6 +11,7 @@ import PaymentInfo from "customer/store/menu/payment/info";
 import PaymentMethod from "customer/store/menu/payment/method";
 import { Colors, Texts } from "styles/common";
 import { getSubs } from "pages/api/subs";
+import { getOrderNumber } from "src/utils/getOrderNumber";
 
 export type SelectedType = {
   id: string;
@@ -84,8 +85,7 @@ const StorePayment = () => {
       {
         pg: paymentMethod,
         pay_method: "card",
-        // FIXME: 주문번호 방식 정해지면 입력하여 적용
-        merchant_uid: "ORD20180131-666221991",
+        merchant_uid: getOrderNumber(),
         name: data.name,
         amount: data.price,
         // TODO: 계정정보 적용하여 입력
