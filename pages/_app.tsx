@@ -3,14 +3,11 @@ import Head from "next/head";
 import Script from "next/script";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-import { AccessTokenAuth } from "src/utils/accessTokenAuth";
 import GlobalStyle from "styles/globals";
 
 const client = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
-  AccessTokenAuth();
-
   return (
     <>
       <QueryClientProvider client={client}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
@@ -10,6 +10,7 @@ import ArrowLeft from "public/icons/direction/arrowLeft.svg";
 import Check from "public/icons/check/check.svg";
 import { Colors, Sizes, Texts } from "styles/common";
 import SideNav from "common/layout/nav/sideNav";
+import useOwnerLoginStore from "src/store/ownerLogin";
 
 type OwnerHeaderProps = {
   isLogo?: boolean;
@@ -72,7 +73,21 @@ const hiddenItem = css`
 const OwnerHeader = (props: OwnerHeaderProps) => {
   const { pathname, back, push } = useRouter();
 
+  const { isLogin, logout } = useOwnerLoginStore();
+  const [loginState, setLoginState] = useState(false);
   const [openNav, setOpenNav] = useState(false);
+
+  const onOwnerButtonClick = () => {
+    if (isLogin) {
+      logout();
+    } else {
+      push("/owner/login");
+    }
+  };
+
+  useEffect(() => {
+    setLoginState(isLogin);
+  }, [isLogin]);
 
   return (
     <div css={container}>
@@ -86,8 +101,8 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
               </button>
               <span css={pageTitle}>{props.subTitle}</span>
               {pathname === "/owner" ? (
-                <button css={textButton} onClick={() => push("/owner/login")}>
-                  로그인/회원가입
+                <button css={textButton} onClick={onOwnerButtonClick}>
+                  {loginState ? "로그아웃" : "로그인/회원가입"}
                 </button>
               ) : (
                 <button onClick={() => setOpenNav(true)}>

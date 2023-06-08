@@ -3,10 +3,11 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import { Colors, Texts } from "styles/common";
 import Check from "public/icons/check/bannerCheck.svg";
 import Chat from "public/icons/etc/chat.svg";
+import useOwnerLoginStore from "src/store/ownerLogin";
 
 const banner = css`
   background: no-repeat center url("/images/owner/banner.jpg");
@@ -99,6 +100,7 @@ const chatStyle = css`
 
 const Owner = () => {
   const { push } = useRouter();
+  const { isLogin } = useOwnerLoginStore();
 
   const mainOthersData = [
     {
@@ -121,8 +123,16 @@ const Owner = () => {
     },
   ];
 
+  const onButtonClick = () => {
+    if (isLogin) {
+      push("/owner/settings");
+    } else {
+      push("/owner/login");
+    }
+  };
+
   return (
-    <Layout title="단골손님 | 사장님" isLogo={true}>
+    <OwnerLayout title="단골손님 | 사장님" isLogo={true}>
       <section css={banner}>
         <h1>
           우리 동네 손님들을
@@ -133,7 +143,7 @@ const Owner = () => {
           <br />
           싶다면?
         </h1>
-        <button onClick={() => push("/owner/login")}>지금 무료로 등록하기</button>
+        <button onClick={onButtonClick}>지금 무료로 등록하기</button>
       </section>
       <section css={mainWrapper}>
         <div css={mainFirst}>
@@ -175,7 +185,7 @@ const Owner = () => {
           </button>
         </article>
       </section>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

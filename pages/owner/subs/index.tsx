@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import Select from "common/select";
 import { SelectedType } from "pages/store/[id]/payment";
 import SubsSection, { SubsSectionProps } from "owner/subs/section";
@@ -105,7 +105,7 @@ const Subs = () => {
   }, []);
 
   return (
-    <Layout title="구독현황" subTitle="구독현황" isLogo={true}>
+    <OwnerLayout title="구독현황" subTitle="구독현황" isLogo={true}>
       <div css={wrapper}>
         <div css={selectWrapper}>
           <Select list={yearList} selected={selectedYear} setSelected={setSelectedYear} />
@@ -126,7 +126,7 @@ const Subs = () => {
           </div>
         ))}
       </div>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

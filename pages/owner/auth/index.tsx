@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import { useStore } from "zustand";
 
 import TextInput from "common/input/text";
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import FullPageSpinner from "common/spinner/fullPage";
 import { Colors, selectStyle, Texts } from "styles/common";
 import useMyStoreInfo from "src/store/storeInfo";
@@ -158,7 +158,7 @@ const Business = () => {
   if (!query.accessToken) return null;
 
   return (
-    <Layout title="사업자 등록" subTitle="사업자 등록">
+    <OwnerLayout title="사업자 등록" subTitle="사업자 등록">
       <section css={wrapper}>
         <h1 css={infoText}>회원님의 사업장 인증을 해주세요.</h1>
         <form css={formWrapper}>
@@ -206,7 +206,7 @@ const Business = () => {
         </button>
       </section>
       {isLoading && <FullPageSpinner />}
-    </Layout>
+    </OwnerLayout>
   );
 };
 

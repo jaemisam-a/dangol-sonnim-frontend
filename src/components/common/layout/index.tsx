@@ -1,11 +1,8 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import CustomerHeader from "common/layout/header/customer";
-import OwnerHeader from "common/layout/header/owner";
-import BottomNav from "common/layout/nav/bottomNav";
 import Toast from "common/toast";
 import { Sizes } from "styles/common";
 
@@ -15,58 +12,30 @@ type LayoutProps = {
   subTitle?: string;
   isNoHeader?: boolean;
   goHome?: boolean;
-  isXButton?: boolean;
-  checkBtnFnc?: () => void;
-  isLogo?: boolean;
 };
 
-const wrapper = (isOwner: boolean) => css`
+const wrapper = css`
   width: 100vw;
-  max-width: ${isOwner ? Sizes.owner_width : Sizes.customer_width};
-  min-height: calc(100vh - ${isOwner ? Sizes.bottom_nav_height : "0px"});
+  max-width: ${Sizes.customer_width};
+  min-height: 100vh;
   margin: auto;
-  padding-bottom: ${isOwner ? Sizes.bottom_nav_height : "0"};
-  box-shadow: rgb(130 130 130 / 15%) 0px ${isOwner ? "1.25rem" : "0"} 1.25rem;
+  padding-bottom: 0;
+  box-shadow: rgb(130 130 130 / 15%) 0px 0 1.25rem;
 `;
 
-const Layout = ({
-  children,
-  title,
-  subTitle,
-  isNoHeader,
-  goHome,
-  isXButton,
-  checkBtnFnc,
-  isLogo,
-}: LayoutProps) => {
-  const { pathname } = useRouter();
-
-  const isOwner = pathname.includes("/owner");
-
+const Layout = ({ children, title, subTitle, isNoHeader, goHome }: LayoutProps) => {
   return (
     <>
       <Head>
         <title>{title}</title>
       </Head>
-      {isOwner ? (
-        <>
-          <OwnerHeader
-            subTitle={subTitle}
-            goHome={goHome}
-            isXButton={isXButton}
-            checkBtnFnc={checkBtnFnc}
-            isLogo={isLogo}
-          />
-          <div css={wrapper(isOwner)}>{children}</div>
-        </>
-      ) : (
-        <div css={wrapper(isOwner)}>
-          {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
-          {children}
-        </div>
-      )}
+      (
+      <div css={wrapper}>
+        {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
+        {children}
+      </div>
+      )
       <Toast />
-      {isOwner && <BottomNav />}
     </>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import { QrReader } from "react-qr-reader";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import ViewFinder from "public/icons/etc/viewfinder.svg";
 import useToastStore from "src/store/toast";
 
@@ -18,7 +18,7 @@ const QR = () => {
   const { setMessage } = useToastStore();
 
   return (
-    <Layout title="QR코드" isLogo={true}>
+    <OwnerLayout title="QR코드" isLogo={true}>
       <QrReader
         ViewFinder={() => <ViewFinder css={viewfinder} />}
         scanDelay={2000}
@@ -33,7 +33,7 @@ const QR = () => {
         }}
         videoStyle={{ width: "100%", heigth: "100vh" }}
       />
-    </Layout>
+    </OwnerLayout>
   );
 };
 

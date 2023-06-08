@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 
 import ImageManage from "common/imageManage";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import { createMenu, getMenu, updateMenu } from "pages/api/owner/menu";
 import useCurrentStore from "src/store/currentStore";
 
@@ -79,7 +79,7 @@ const SettingsMenu = () => {
   // if (isError) return null;
 
   return (
-    <Layout
+    <OwnerLayout
       title="메뉴 관리"
       subTitle={isEdit ? "메뉴 수정" : "메뉴 등록"}
       isXButton={true}
@@ -106,7 +106,7 @@ const SettingsMenu = () => {
           ))}
         </div>
       </div>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

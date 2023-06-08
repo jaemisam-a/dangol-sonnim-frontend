@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useStore } from "zustand";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import FullPageSpinner from "common/spinner/fullPage";
 import Picture from "owner/settings/picture";
 import Location from "owner/settings/location";
@@ -27,14 +27,7 @@ const Settings = () => {
   const { resetStoreInfo } = useStore(useMyStoreInfo);
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
 
-  const { data: mystoreData, isLoading: isMyStoreLoading } = useQuery(
-    "getMyStore",
-    getMyStoreList,
-    {
-      // FIXME: 로그인 여부 확인하여 enable 상태 변경하도록 수정하기
-      enabled: true,
-    }
-  );
+  const { data: mystoreData, isLoading: isMyStoreLoading } = useQuery("getMyStore", getMyStoreList);
   const {
     data: findStoreData,
     isLoading: isFindStoreLoading,
@@ -42,13 +35,6 @@ const Settings = () => {
   } = useQuery("findStoreInfo", () => findStore(currentStoreId), {
     enabled: currentStoreId !== "",
   });
-
-  useEffect(() => {
-    //FIXME: 로그인 안된 상태라면 로그인 페이지로 이동
-    if (!localStorage.getItem("accessToken")) {
-      push("/owner/login");
-    }
-  }, []);
 
   useEffect(() => {
     if (mystoreData?.length > 0 && currentStoreId === "") {
@@ -68,10 +54,14 @@ const Settings = () => {
   }, [currentStoreId]);
 
   if (isMyStoreLoading || isFindStoreLoading || !findStoreData || mystoreData?.length < 1) {
-    return <FullPageSpinner />;
+    return (
+      <OwnerLayout title="가게설정" subTitle="가게 설정" isLogo={true}>
+        <FullPageSpinner />;
+      </OwnerLayout>
+    );
   } else {
     return (
-      <Layout title="가게설정" subTitle="가게 설정" isLogo={true}>
+      <OwnerLayout title="가게설정" subTitle="가게 설정" isLogo={true}>
         <Picture images={findStoreData.storeImageUrlList} />
         <Info
           name={findStoreData.name}
@@ -93,7 +83,7 @@ const Settings = () => {
         <Menus data={findStoreData.menuResponseDTOList} />
         <Subs data={findStoreData.subscribeResponseDTOList} storeName={findStoreData.name} />
         <div css={bottomPadding} />
-      </Layout>
+      </OwnerLayout>
     );
   }
 };

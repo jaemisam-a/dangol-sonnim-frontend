@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import { useStore } from "zustand";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import { Colors, Texts } from "styles/common";
 import Check from "public/icons/check/check.svg";
 import { createDangolStore, updateDangolStore } from "pages/api/owner/dangolStore";
@@ -94,7 +94,7 @@ const Complete = () => {
   if (!query.accessToken) return null;
 
   return (
-    <Layout title="사업자 등록" subTitle="사업자 등록">
+    <OwnerLayout title="사업자 등록" subTitle="사업자 등록">
       <div css={wrapper}>
         <div css={text}>
           <h1>인증이 완료되었습니다</h1>
@@ -104,7 +104,7 @@ const Complete = () => {
           가게 등록하기
         </button>
       </div>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

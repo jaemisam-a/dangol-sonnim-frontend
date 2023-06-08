@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Consent from "common/consent";
 import { Colors, Texts } from "styles/common";
@@ -154,7 +154,7 @@ const OwnerSignup = () => {
     Boolean(inputData.phoneAuth);
 
   return (
-    <Layout title="사장님 회원가입" subTitle="회원가입">
+    <OwnerLayout title="사장님 회원가입" subTitle="회원가입">
       <form onSubmit={goNext} css={wrapper}>
         <div css={inputWrapper}>
           {inputArr.map((el, idx) => (
@@ -192,7 +192,7 @@ const OwnerSignup = () => {
           </button>
         </div>
       </form>
-    </Layout>
+    </OwnerLayout>
   );
 };
 
