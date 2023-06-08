@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import InputWithButton from "common/input/withButton";
 import { Colors, Texts } from "styles/common";
 import { verifyEmailAuth } from "pages/api/owner/emailAuth";
@@ -83,7 +83,7 @@ const OwnerSignupEmail = () => {
   if (!query.email) return null;
 
   return (
-    <Layout title="사장님 회원가입" subTitle="인증번호 입력">
+    <OwnerLayout title="사장님 회원가입" subTitle="인증번호 입력">
       <form onSubmit={submitAccount} css={wrapper}>
         <div css={description}>{query.email}으로 인증번호를 보냈어요</div>
         <InputWithButton
@@ -101,7 +101,7 @@ const OwnerSignupEmail = () => {
           </button>
         </div>
       </form>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

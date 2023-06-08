@@ -6,7 +6,7 @@ import axios from "axios";
 import { css } from "@emotion/react";
 import { useStore } from "zustand";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import SearchBar from "common/input/search";
 import LocationList, { checkedAddrType } from "common/locationList";
 import Spinner from "common/spinner";
@@ -105,16 +105,16 @@ const SettingsLocation = () => {
   }, [checkedAddr]);
 
   return (
-    <Layout
+    <OwnerLayout
       title="가게 위치 등록"
       subTitle="위치 등록"
       checkBtnFnc={() =>
         push(
           {
-            pathname: routerQuery.returnPath as string,
+            pathname: "/owner/mystore",
             query: { address: JSON.stringify(checkedAddr), isEdit: routerQuery.isEdit },
           },
-          routerQuery.returnPath as string
+          "/owner/mystore"
         )
       }
     >
@@ -168,7 +168,7 @@ const SettingsLocation = () => {
           )}
         </div>
       </div>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

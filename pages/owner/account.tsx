@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "react-query";
 import { css } from "@emotion/react";
+import { useStore } from "zustand";
 
 import { Colors, Texts } from "styles/common";
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import Modal from "common/modal";
 import BottomSheet from "common/bottomSheet";
 import Spinner from "common/spinner";
@@ -36,18 +37,15 @@ const btnWrapper = css`
   }
 `;
 
-const logout = css`
+const logoutButton = css`
   padding-right: 0.25rem;
   margin-right: 0.25rem;
   border-right: 1px solid ${Colors.neutral50};
 `;
 
 const OwnerAccount = () => {
-  const { isLogin } = useOwnerLoginStore();
   const { push } = useRouter();
-  const { data, isLoading, refetch } = useQuery("ownerAccount", getOwnerAccount, {
-    enabled: false,
-  });
+  const { data, isLoading } = useQuery("ownerAccount", getOwnerAccount);
 
   const { mutateAsync } = useMutation(deleteOwnerAccount, {
     onSuccess: () => {
@@ -56,6 +54,7 @@ const OwnerAccount = () => {
     },
   });
 
+  const { logout } = useStore(useOwnerLoginStore);
   const [openModal, setOpenModal] = useState(false);
   const [openAccountBS, setOpenAccountBS] = useState(false);
   const [openPasswordBS, setOpenPasswordBS] = useState(false);
@@ -89,18 +88,8 @@ const OwnerAccount = () => {
     ]);
   }, [data]);
 
-  useEffect(() => {
-    if (!isLogin) push("/owner/login");
-  }, [isLogin]);
-
-  useEffect(() => {
-    refetch();
-  }, []);
-
-  if (!isLogin) return null;
-
   return (
-    <Layout title="계정 정보" subTitle="계정 정보">
+    <OwnerLayout title="계정 정보" subTitle="계정 정보">
       <div css={wrapper}>
         {isLoading ? (
           <Spinner />
@@ -116,10 +105,7 @@ const OwnerAccount = () => {
               />
             ))}
             <div css={btnWrapper}>
-              <button
-                css={logout}
-                //TODO: 로그아웃
-              >
+              <button css={logoutButton} onClick={() => logout()}>
                 로그아웃
               </button>
               <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
@@ -143,7 +129,7 @@ const OwnerAccount = () => {
         open={openPasswordBS}
         setOpen={setOpenPasswordBS}
         title="비밀번호 변경"
-        component={<PasswordChange setOpen={setOpenPasswordBS} email={data.email} />}
+        component={<PasswordChange setOpen={setOpenPasswordBS} email={data?.email} />}
       />
       <BottomSheet
         height="23.938rem"
@@ -163,7 +149,7 @@ const OwnerAccount = () => {
         title="입금 계좌 등록"
         component={<DepositAccount setOpen={setOpenAccountBS} />}
       />
-    </Layout>
+    </OwnerLayout>
   );
 };
 

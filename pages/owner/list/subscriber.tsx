@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import Info from "customer/my/info";
 import Check from "public/icons/check/check.svg";
 import { Colors, Texts } from "styles/common";
@@ -49,7 +49,7 @@ const Subscriber = () => {
   };
 
   return (
-    <Layout title="구독자 정보" subTitle="구독자 정보" isXButton={true}>
+    <OwnerLayout title="구독자 정보" subTitle="구독자 정보" isXButton={true}>
       <Info user={{ loginInfo: "kakao", nickname: "물고기 1234", avatar: "/images/profile.png" }} />
       <button css={visitButton(isVisited)} onClick={handleVisit}>
         <Check width={24} height={24} fill={isVisited ? Colors.neutral50 : Colors.amber50} />
@@ -63,7 +63,7 @@ const Subscriber = () => {
           contents={el.contents}
         />
       ))}
-    </Layout>
+    </OwnerLayout>
   );
 };
 

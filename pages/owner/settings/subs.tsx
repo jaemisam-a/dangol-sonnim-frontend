@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import SubsForm from "owner/settings/subsForm";
 import { addSubsCoupon } from "pages/api/owner/subs";
 import useCurrentStore from "src/store/currentStore";
@@ -49,14 +49,14 @@ const Subs = () => {
   };
 
   return (
-    <Layout
+    <OwnerLayout
       title="메뉴 관리"
       subTitle={isEdit ? "구독권 수정" : "구독권 등록"}
       isXButton={true}
       checkBtnFnc={addSubs}
     >
       <SubsForm isEdit={isEdit} subsContent={subsContent} setSubsContent={setSubsContent} />
-    </Layout>
+    </OwnerLayout>
   );
 };
 

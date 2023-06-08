@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useStore } from "zustand";
 import { useQuery } from "react-query";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import FormLabel from "common/formLabel";
 import ServiceTags from "owner/store/serviceTags";
 import BusinessHour from "owner/store/businessHour";
@@ -67,7 +67,7 @@ const buttonStyle = (isFilled: boolean) => css`
 `;
 
 const MyStoreSetting = () => {
-  const { push, pathname, query } = useRouter();
+  const { push, query } = useRouter();
   const {
     name,
     categoryType,
@@ -104,7 +104,6 @@ const MyStoreSetting = () => {
       {
         pathname: "/owner/settings/location",
         query: {
-          returnPath: pathname,
           isEdit: query.isEdit,
         },
       },
@@ -161,7 +160,7 @@ const MyStoreSetting = () => {
   }, [originalStoreInfo]);
 
   return (
-    <Layout
+    <OwnerLayout
       title={query.isEdit ? "가게 정보 수정" : "가게 정보 등록"}
       subTitle={query.isEdit ? "가게 정보 수정" : "가게 정보 등록"}
     >
@@ -231,7 +230,7 @@ const MyStoreSetting = () => {
           확인
         </button>
       </form>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

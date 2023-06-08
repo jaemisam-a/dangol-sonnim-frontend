@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
 import TextInput from "common/input/text";
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import { Colors, fullAmberButtonStyle, Texts } from "styles/common";
 
 const formWrapper = css`
@@ -46,7 +46,7 @@ const Setting = () => {
 
   /** TODO: 이메일 링크 ID 확인되지 않으면 return null */
   return (
-    <Layout title="비밀번호 재설정" subTitle="비밀번호 재설정">
+    <OwnerLayout title="비밀번호 재설정" subTitle="비밀번호 재설정">
       <form onSubmit={saveNewPw} css={formWrapper}>
         <TextInput
           type="text"
@@ -65,7 +65,7 @@ const Setting = () => {
           <Link href="/owner/signup">회원가입</Link>
         </div>
       </form>
-    </Layout>
+    </OwnerLayout>
   );
 };
 export default Setting;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 
 import TextInput from "common/input/text";
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import { Colors, fullAmberButtonStyle, Texts } from "styles/common";
 
 const formWrapper = css`
@@ -43,7 +43,7 @@ const FindPassword = () => {
   };
 
   return (
-    <Layout title="비밀번호 찾기" subTitle="비밀번호 찾기">
+    <OwnerLayout title="비밀번호 찾기" subTitle="비밀번호 찾기">
       <form onSubmit={submitEmail} css={formWrapper}>
         <h1>비밀번호 재설정을 위해 이메일 주소를 입력해주세요 (메일 발송 1~2분 소요)</h1>
         <TextInput
@@ -61,7 +61,7 @@ const FindPassword = () => {
           <Link href="/owner/signup">회원가입</Link>
         </div>
       </form>
-    </Layout>
+    </OwnerLayout>
   );
 };
 

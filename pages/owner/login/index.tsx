@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { css } from "@emotion/react";
 
-import Layout from "common/layout";
+import OwnerLayout from "common/layout/owner";
 import TextInput, { TextInputType } from "common/input/text";
 import { Colors, Texts } from "styles/common";
 import Owner from "public/images/logo/owner.svg";
@@ -65,7 +65,7 @@ const smallButtonWrapper = css`
 `;
 
 const OwnerLogin = () => {
-  const { push } = useRouter();
+  const { replace, query } = useRouter();
   const { login: onLogin } = useOwnerLoginStore();
 
   const [inputData, setInputData] = useState({ email: "", password: "" });
@@ -88,14 +88,19 @@ const OwnerLogin = () => {
       .then((res) => {
         localStorage.setItem("accessToken", res.accessToken);
         onLogin();
-        push("/owner");
+        replace(
+          {
+            pathname: (query.from as string) ?? "/owner",
+          },
+          (query.from as string) ?? "/owner"
+        );
       })
       .catch((err) => alert(err.response.data.message));
   };
 
   return (
     <>
-      <Layout title="사장님 로그인" subTitle="로그인">
+      <OwnerLayout title="사장님 로그인" subTitle="로그인">
         <div css={wrapper}>
           <div css={logoWrapper}>
             <Image src="/images/logo/logo.png" alt="로고" width={43} height={57} />
@@ -126,7 +131,7 @@ const OwnerLogin = () => {
             <Link href="/owner/login/password">비밀번호 찾기</Link>
           </div>
         </div>
-      </Layout>
+      </OwnerLayout>
     </>
   );
 };
