@@ -11,7 +11,7 @@ const Profile = () => {
   const { login } = useLoginStore();
   const { push, query } = useRouter();
 
-  const { data } = useQuery("customer", () => getUser(String(query.token)), {
+  const { data, isFetching } = useQuery("customer", () => getUser(String(query.token)), {
     enabled: Boolean(query.token),
   });
 
@@ -21,7 +21,11 @@ const Profile = () => {
     login();
   }, [query]);
 
-  if (data?.roleType === "USER") return push("/");
+  useEffect(() => {
+    if (data?.roleType === "USER") push("/");
+  }, [data]);
+
+  if (isFetching) return null;
 
   return (
     <>

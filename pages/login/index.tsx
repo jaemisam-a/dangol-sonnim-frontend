@@ -47,7 +47,7 @@ const Login = () => {
       name: "카카오",
       bgColor: "#FFE500",
       color: "black",
-      onClick: () => {},
+      onClick: () => alert("준비 중입니다."),
     },
     {
       image: "/images/loginMethod/google.png",
@@ -64,14 +64,14 @@ const Login = () => {
       name: "Apple",
       bgColor: "#000000",
       color: "white",
-      onClick: () => {},
+      onClick: () => alert("준비 중입니다."),
     },
     {
       image: "/images/loginMethod/naver.png",
       name: "네이버",
       bgColor: "#03C75A",
       color: "white",
-      onClick: () => {},
+      onClick: () => alert("준비 중입니다."),
     },
   ];
 
