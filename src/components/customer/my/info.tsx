@@ -24,10 +24,10 @@ type StateTypes = {
 
 // FIXME: apple의 경우 img가 흰색이라 imgSrc 변경 필요
 const LOGIN_TYPE: readonly StateTypes[] = [
-  { type: "kakao", socialName: "카카오", imgSrc: "/images/loginMethod/kakao.png" },
-  { type: "google", socialName: "구글", imgSrc: "/images/loginMethod/google.png" },
-  { type: "apple", socialName: "Apple", imgSrc: "/images/loginMethod/appleBlack.png" },
-  { type: "naver", socialName: "네이버", imgSrc: "/images/loginMethod/naver.png" },
+  { type: "KAKAO", socialName: "카카오", imgSrc: "/images/loginMethod/kakao.png" },
+  { type: "GOOGLE", socialName: "구글", imgSrc: "/images/loginMethod/google.png" },
+  { type: "APPLE", socialName: "Apple", imgSrc: "/images/loginMethod/appleBlack.png" },
+  { type: "NAVER", socialName: "네이버", imgSrc: "/images/loginMethod/naver.png" },
 ];
 
 const wrapper = css`
@@ -81,7 +81,7 @@ const Info = ({ user: { nickname, loginInfo, avatar }, openProfile }: InfoProps)
   return (
     <div css={wrapper}>
       <Image
-        src={avatar ?? "/images/profile.png"}
+        src={avatar || "/images/profile.png"}
         alt="avatar"
         css={avatarImg}
         width={72}

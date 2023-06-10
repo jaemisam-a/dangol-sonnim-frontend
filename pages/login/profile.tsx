@@ -5,13 +5,13 @@ import { useQuery } from "react-query";
 import Layout from "common/layout";
 import AddProfile from "customer/login/addProfile";
 import useLoginStore from "src/store/userLogin";
-import { getUser } from "pages/api/user";
+import { getUserInfo } from "pages/api/user";
 
 const Profile = () => {
   const { login } = useLoginStore();
   const { push, query } = useRouter();
 
-  const { data, isFetching } = useQuery("customer", () => getUser(String(query.token)), {
+  const { data, isFetching } = useQuery("customer", getUserInfo, {
     enabled: Boolean(query.token),
   });
 

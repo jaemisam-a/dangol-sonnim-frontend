@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
+import { useMutation, useQuery } from "react-query";
 
 import { Colors, Texts } from "styles/common";
 import Avatar from "common/avatar";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Modal from "common/modal";
 import { InputStatus } from "common/input/text";
+import Spinner from "common/spinner";
 import Dialog from "customer/my/dialog";
 import useLoginStore from "src/store/userLogin";
+import { deleteUser, getUserInfo } from "pages/api/user";
 
 const wrapper = css`
   display: flex;
@@ -57,14 +60,8 @@ const EditProfile = () => {
   const { push } = useRouter();
   const { logout } = useLoginStore();
 
-  const dialogContent = [
-    {
-      usage: "withdrawal" as const,
-      id: "aaa1234",
-      name: "물고기1234",
-      buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
-    },
-  ];
+  const { data, isFetching } = useQuery("userInf", getUserInfo);
+  const { mutateAsync } = useMutation(deleteUser);
 
   const [openModal, setOpenModal] = useState(false);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", ""]);
@@ -150,6 +147,17 @@ const EditProfile = () => {
     ]);
   }, [profileData]);
 
+  useEffect(() => {
+    if (!data) return;
+    setProfileData({
+      name: data.nickname,
+      phone: data.phoneNumber,
+      phoneAuth: "",
+    });
+  }, [data]);
+
+  if (isFetching) return <Spinner />;
+
   return (
     <>
       <div css={wrapper}>
@@ -196,11 +204,19 @@ const EditProfile = () => {
       </div>
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Dialog
-          content={dialogContent[0]}
-          onCancel={() => setOpenModal(false)}
-          onConfirm={() => {
-            //TODO: 탈퇴기능
+          content={{
+            usage: "withdrawal",
+            buttonText: { confirm: "탈퇴하기", cancel: "혜택 계속 사용하기" },
+            name: data?.nickname,
           }}
+          onCancel={() => setOpenModal(false)}
+          onConfirm={() =>
+            mutateAsync().then(() => {
+              alert("탈퇴처리되었습니다.");
+              push("/");
+              localStorage.removeItem("userAccessToken");
+            })
+          }
         />
       </Modal>
     </>

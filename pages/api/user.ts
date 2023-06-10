@@ -7,7 +7,8 @@ type UserDataType = {
   multipartFile: File;
 };
 
-export const getUser = async (accessToken: string) => {
+export const getUserInfo = async () => {
+  const accessToken = localStorage.getItem("userAccessToken");
   const queryKey = "/api/v1/customer";
   const response = await axios.get(queryKey, {
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -29,4 +30,13 @@ export const validateUserToken = async () => {
   const accessToken = localStorage.getItem("userAccessToken");
   const response = await axios.post(queryKey, { accessToken });
   return response.status;
+};
+
+export const deleteUser = async () => {
+  const accessToken = localStorage.getItem("userAccessToken");
+  const queryKey = "/api/v1/customer";
+  const response = await axios.delete(queryKey, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  return response.data;
 };
