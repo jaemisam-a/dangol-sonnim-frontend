@@ -134,6 +134,8 @@ const AddProfile = () => {
         btnAction: requestAuth,
         objectKey: "phone",
         type: "number",
+        minValue: 11,
+        maxValue: 11,
       },
       {
         btnName: "문자인증",
