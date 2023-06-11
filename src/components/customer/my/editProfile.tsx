@@ -70,6 +70,8 @@ const EditProfile = () => {
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", ""]);
   const [profileData, setProfileData] = useState({ name: "", phone: "", phoneAuth: "" });
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
+  // TODO: 이미지 정보 저장
+  const [, setImage] = useState<File>();
 
   const checkValid = () => {
     // TODO: 닉네임 중복확인 api 요청
@@ -151,7 +153,7 @@ const EditProfile = () => {
   return (
     <>
       <div css={wrapper}>
-        <Avatar />
+        <Avatar setImage={setImage} />
         <div css={inputList}>
           {inputArr.map((el, idx) => (
             <InputWithButton

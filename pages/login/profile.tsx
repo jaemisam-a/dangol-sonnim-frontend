@@ -1,18 +1,31 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
-import Layout from "src/components/common/layout";
+import Layout from "common/layout";
 import AddProfile from "customer/login/addProfile";
 import useLoginStore from "src/store/login";
+import { getUser } from "pages/api/user";
 
 const Profile = () => {
-  const { isLogin } = useLoginStore();
-  const { push } = useRouter();
+  const { login } = useLoginStore();
+  const { push, query } = useRouter();
+
+  const { data, isFetching } = useQuery("customer", () => getUser(String(query.token)), {
+    enabled: Boolean(query.token),
+  });
 
   useEffect(() => {
-    // TODO:로그인 상태 확인
-    if (!isLogin) push("/");
-  }, [isLogin]);
+    if (!query.token) return;
+    localStorage.setItem("userAccessToken", String(query.token));
+    login();
+  }, [query]);
+
+  useEffect(() => {
+    if (data?.roleType === "USER") push("/");
+  }, [data]);
+
+  if (isFetching) return null;
 
   return (
     <>

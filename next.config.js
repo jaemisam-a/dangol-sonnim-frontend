@@ -23,7 +23,7 @@ const nextConfig = {
       },
       {
         source: "/api/:path*",
-        destination: `http://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/:path*`,
+        destination: `https://${process.env.NEXT_PUBLIC_BACKEND_URL}/api/:path*`,
       },
       {
         source: "/static/:path*",

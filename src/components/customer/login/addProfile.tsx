@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useId, useState } from "react";
+import { useMutation } from "react-query";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
@@ -7,6 +8,7 @@ import Avatar from "common/avatar";
 import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Checkbox from "common/input/checkbox";
 import { InputStatus } from "common/input/text";
+import { postUser } from "pages/api/user";
 
 const wrapper = css`
   padding: 3.75rem 1.25rem 1.25rem 1.25rem;
@@ -54,6 +56,8 @@ const AddProfile = () => {
   const checkboxId = useId();
   const { push } = useRouter();
 
+  const { mutateAsync } = useMutation(postUser);
+
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", ""]);
   const [profileData, setProfileData] = useState({
@@ -61,11 +65,19 @@ const AddProfile = () => {
     phone: "",
     phoneAuth: "",
     birthday: "",
+    imageUrl: "",
   });
+  const [image, setImage] = useState<File>();
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
 
   const submitAccount = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutateAsync({
+      nickname: profileData.name,
+      phoneNumber: profileData.phone,
+      birth: profileData.birthday,
+      multipartFile: image as File,
+    });
     isPossible && push("/");
   };
 
@@ -122,6 +134,8 @@ const AddProfile = () => {
         btnAction: requestAuth,
         objectKey: "phone",
         type: "number",
+        minValue: 11,
+        maxValue: 11,
       },
       {
         btnName: "문자인증",
@@ -167,7 +181,7 @@ const AddProfile = () => {
   return (
     <>
       <form onSubmit={submitAccount} css={wrapper}>
-        <Avatar />
+        <Avatar imageUrl={profileData.imageUrl} setImage={setImage} />
         <div css={inputList}>
           {inputArr.map((el, idx) => (
             <InputWithButton

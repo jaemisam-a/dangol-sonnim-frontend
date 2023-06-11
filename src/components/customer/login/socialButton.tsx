@@ -3,13 +3,13 @@ import Image from "next/image";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import useLoginStore from "src/store/login";
 
 type SocialButtonProps = {
   image: string;
   name: string;
   bgColor: string;
   color: string;
+  onClick: () => void;
 };
 
 const wrapper = (color: string, bgColor: string, name: string) => css`
@@ -26,11 +26,8 @@ const wrapper = (color: string, bgColor: string, name: string) => css`
 `;
 
 const SocialButton = (props: SocialButtonProps) => {
-  const { login } = useLoginStore();
-
   const onLogin = () => {
-    // FIXME: 로그인 기능 연동
-    login();
+    props.onClick();
   };
   return (
     <>
