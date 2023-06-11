@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "react-query";
@@ -11,7 +11,7 @@ import { InputStatus } from "common/input/text";
 import Spinner from "common/spinner";
 import Dialog from "customer/my/dialog";
 import useLoginStore from "src/store/userLogin";
-import { deleteUser, getUserInfo } from "pages/api/user";
+import { deleteUser, getIsValidName, getUserInfo, updateUser } from "pages/api/user";
 
 const wrapper = css`
   display: flex;
@@ -56,47 +56,63 @@ const inputList = css`
   padding-bottom: 0.75rem;
 `;
 
+const submit = css`
+  width: 100%;
+  padding: 0.688rem 0;
+  background-color: ${Colors.amber50};
+  border-radius: 0.25rem;
+  cursor: ${"pointer"};
+  color: ${Colors.white};
+  ${Texts.S3_18_M}
+`;
+
 const EditProfile = () => {
-  const { push } = useRouter();
+  const { push, reload } = useRouter();
   const { logout } = useLoginStore();
 
-  const { data, isFetching } = useQuery("userInf", getUserInfo);
+  const { data, isFetching } = useQuery("userInf", getUserInfo, { refetchOnWindowFocus: false });
+  const { refetch } = useQuery("validName", () => getIsValidName(profileData.name), {
+    enabled: false,
+    refetchOnWindowFocus: false,
+  });
   const { mutateAsync } = useMutation(deleteUser);
+  const { mutateAsync: updateUserMutate } = useMutation(updateUser);
 
   const [openModal, setOpenModal] = useState(false);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", ""]);
-  const [profileData, setProfileData] = useState({ name: "", phone: "", phoneAuth: "" });
+  const [profileData, setProfileData] = useState({
+    name: "",
+    phone: "",
+    phoneAuth: "",
+    imageUrl: "",
+  });
   const [inputArr, setInputArr] = useState<InputWithButtonType[]>([]);
-  // TODO: 이미지 정보 저장
-  const [, setImage] = useState<File>();
+  const [image, setImage] = useState<File>();
 
   const checkValid = () => {
-    // TODO: 닉네임 중복확인 api 요청
     if (!profileData.name) return alert("닉네임을 입력하세요.");
-    const randomNum = Math.floor(Math.random() * 2) + 1;
-    randomNum === 1
-      ? setInputStatus((prev) => ["success", prev[1]])
-      : setInputStatus((prev) => ["error", prev[1]]);
+    refetch().then((res) => {
+      if (res.status === "error") {
+        alert((res.error as any).response.data.message);
+        setInputStatus((prev) => ["error", prev[1]]);
+      } else {
+        alert("사용가능한 닉네임입니다.");
+        setInputStatus((prev) => ["success", prev[1]]);
+      }
+    });
   };
 
-  const requestAuth = () => {
-    // TODO: 인증요청 api 요청
-    if (!profileData.phone) return alert("전화번호를 입력하세요.");
-    setInputArr((prev) => [
-      prev[0],
-      { ...prev[1], btnName: "재전송" },
-      { ...prev[2], isHidden: false },
-    ]);
-    setInputStatus((prev) => [prev[0], prev[1], "info"]);
-  };
-
-  const checkAuth = () => {
-    // TODO: 문자인증 api 요청
-    if (!profileData.phoneAuth) return alert("인증번호를 입력하세요.");
-    const randomNum = Math.floor(Math.random() * 2) + 1;
-    randomNum === 1
-      ? setInputStatus((prev) => [prev[0], prev[1], "success"])
-      : setInputStatus((prev) => [prev[0], prev[1], "error"]);
+  const updateInfo = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (inputStatus[0] === "error") return alert("사용가능한 닉네임을 입력해주세요.");
+    updateUserMutate({
+      nickname: profileData.name,
+      phoneNumber: profileData.phone,
+      multipartFile: image,
+    }).then(() => {
+      alert("저장되었습니다.");
+      reload();
+    });
   };
 
   useEffect(() => {
@@ -116,35 +132,17 @@ const EditProfile = () => {
       {
         label: "휴대폰 번호",
         placeholder: "휴대폰 번호 입력('-'제외)",
-        btnName: "인증요청",
         isRequired: false,
-        btnAction: requestAuth,
         objectKey: "phone",
         type: "number",
-      },
-      {
-        btnName: "문자인증",
-        btnAction: checkAuth,
-        inputStatusMessage: {
-          success: "인증되었습니다.",
-          info: "문자로 전송된 숫자를 입력해주세요.",
-          error: "인증번호가 맞지 않습니다.",
-        },
-        objectKey: "phoneAuth",
-        isHidden: true,
-        type: "number",
-        minValue: 6,
-        maxValue: 6,
+        minValue: 11,
+        maxValue: 11,
       },
     ]);
   }, []);
 
   useEffect(() => {
-    setInputArr((prev) => [
-      { ...prev[0], btnAction: checkValid },
-      { ...prev[1], btnAction: requestAuth },
-      { ...prev[2], btnAction: checkAuth },
-    ]);
+    setInputArr((prev) => [{ ...prev[0], btnAction: checkValid }, prev[1]]);
   }, [profileData]);
 
   useEffect(() => {
@@ -153,6 +151,7 @@ const EditProfile = () => {
       name: data.nickname,
       phone: data.phoneNumber,
       phoneAuth: "",
+      imageUrl: "",
     });
   }, [data]);
 
@@ -160,8 +159,8 @@ const EditProfile = () => {
 
   return (
     <>
-      <div css={wrapper}>
-        <Avatar setImage={setImage} />
+      <form onSubmit={updateInfo} css={wrapper}>
+        <Avatar imageUrl={data?.profileImageUrl} setImage={setImage} />
         <div css={inputList}>
           {inputArr.map((el, idx) => (
             <InputWithButton
@@ -184,9 +183,13 @@ const EditProfile = () => {
             />
           ))}
         </div>
+        <button type="submit" css={submit}>
+          저장
+        </button>
         <div css={btnWrapper}>
           <div>
             <button
+              type="button"
               onClick={() => {
                 logout();
                 push("/");
@@ -195,13 +198,15 @@ const EditProfile = () => {
               로그아웃
             </button>
             <span css={btnDivider}>|</span>
-            <button onClick={() => setOpenModal(true)}>회원탈퇴</button>
+            <button type="button" onClick={() => setOpenModal(true)}>
+              회원탈퇴
+            </button>
           </div>
-          <button css={iconInfo} onClick={() => push("/source")}>
+          <button type="button" css={iconInfo} onClick={() => push("/source")}>
             아이콘 디자인 소스 정보
           </button>
         </div>
-      </div>
+      </form>
       <Modal onClose={() => setOpenModal(false)} open={openModal}>
         <Dialog
           content={{

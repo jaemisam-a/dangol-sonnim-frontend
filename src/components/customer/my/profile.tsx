@@ -13,7 +13,7 @@ const Profile = () => {
 
   const { push } = useRouter();
 
-  const { data, isFetching } = useQuery("userInfo", getUserInfo);
+  const { data, isFetching } = useQuery("userInfo", getUserInfo, { refetchOnWindowFocus: false });
 
   useEffect(() => {
     if (!data) return;
