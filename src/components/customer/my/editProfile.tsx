@@ -61,7 +61,7 @@ const submit = css`
   padding: 0.688rem 0;
   background-color: ${Colors.amber50};
   border-radius: 0.25rem;
-  cursor: ${"pointer"};
+  cursor: pointer;
   color: ${Colors.white};
   ${Texts.S3_18_M}
 `;
