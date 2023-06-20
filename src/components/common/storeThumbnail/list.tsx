@@ -41,8 +41,7 @@ const StoreThumbnailList = (props: StoreThumbnailListProps) => {
     return (
       <div css={thumbnails}>
         {props.contents?.content.map((el) => {
-          const isPick = props.userPick && props.userPick.includes(el.id);
-          return <StoreThumbnail content={el} key={el.id} isPick={isPick} />;
+          return <StoreThumbnail content={el} key={el.id} />;
         })}
       </div>
     );

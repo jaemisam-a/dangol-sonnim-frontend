@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
+import { useQuery } from "react-query";
 
 import MyCoupon, { MyCouponProps } from "common/coupon/my";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
 import { Colors, Texts } from "styles/common";
+import { getLikeList } from "pages/api/user/storeLike";
 
 type TabContentType = {
   selectedTab: number;
@@ -26,41 +28,6 @@ const dummyMyCoupon = [
     useCount: "4/5",
     couponDescription: "쿠폰 소지시 최대 5회까지 양고기추가 가능. 방문 1번당 최대 1번.",
     isDetail: true,
-  },
-];
-
-const dummyPickStores: any = [
-  {
-    id: "abc",
-    store: "정갈한솥",
-    category: "한식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/pizza.png",
-  },
-  {
-    id: "cdf",
-    store: "정갈한솥",
-    category: "한식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
-  },
-  {
-    id: "asdsd",
-    store: "정갈한솥",
-    category: "한식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/pizza.png",
-  },
-  {
-    id: "cdsddf",
-    store: "정갈한솥",
-    category: "한식",
-    tags: ["사이드 디쉬 추가", "사이즈업"],
-    shortAddress: "구로구 구로동",
-    img: "/images/dummy/cheetah.jpg",
   },
 ];
 
@@ -102,15 +69,17 @@ const TabContent = ({ selectedTab }: TabContentType) => {
   const { push } = useRouter();
 
   const [myCoupons, setMyCoupons] = useState<MyCouponProps[] | null>();
-  const [myPick, setMyPick] = useState<ThumbnailData[] | null>(null);
+
+  const { data, refetch } = useQuery("getLikeList", getLikeList, {
+    enabled: false,
+  });
 
   useEffect(() => {
     if (selectedTab === 0) {
       //TODO: my coupon api 요청
       setMyCoupons(dummyMyCoupon);
     } else if (selectedTab === 1) {
-      //TODO: my pick api 요청
-      setMyPick(dummyPickStores);
+      refetch();
     }
   }, [selectedTab]);
 
@@ -143,11 +112,11 @@ const TabContent = ({ selectedTab }: TabContentType) => {
       </div>
     );
   } else {
-    if (myPick) {
+    if (data?.length) {
       return (
         <div css={myPickWrapper}>
-          {myPick.map((store) => (
-            <StoreThumbnail key={store.id} content={store} isPick={true} />
+          {data.map((store: ThumbnailData) => (
+            <StoreThumbnail key={store.id} content={store} />
           ))}
         </div>
       );

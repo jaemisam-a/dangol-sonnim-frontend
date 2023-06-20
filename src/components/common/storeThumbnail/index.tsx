@@ -2,11 +2,13 @@ import React, { MouseEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
+import { useMutation, useQuery } from "react-query";
 
 import { Colors, Texts } from "styles/common";
 import Tag from "common/tag/tagCustomer";
 import Pick from "public/icons/etc/pick.svg";
 import { categoryIdToString } from "src/utils/category";
+import { isLike, toggleLikeStore } from "pages/api/user/storeLike";
 
 export type ThumbnailData = {
   id: string;
@@ -21,7 +23,6 @@ export type ThumbnailData = {
 
 type StoreThumbnailProps = {
   content: ThumbnailData;
-  isPick?: boolean;
 };
 
 const wrapper = css`
@@ -70,24 +71,34 @@ const defaultImage = css`
   background-color: #666666;
 `;
 
-const pickBtn = (isPick: boolean | undefined) => css`
+const pickBtn = (isLike: boolean | undefined) => css`
   position: absolute;
   bottom: 3px;
   right: 0.25rem;
 
   svg {
-    stroke: ${isPick ? Colors.red40 : Colors.white};
-    fill: ${isPick ? Colors.red40 : ""};
+    stroke: ${isLike ? Colors.red40 : Colors.white};
+    fill: ${isLike ? Colors.red40 : ""};
   }
 `;
 
-const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
+const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
   const { push } = useRouter();
+  const { mutateAsync } = useMutation(toggleLikeStore, {
+    onSuccess: () => refetch(),
+  });
+
+  const { data: isLikeStore, refetch } = useQuery(
+    `isLike ${content.id}`,
+    () => isLike(content.id),
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const onPickClick = (e: MouseEvent) => {
-    // TODO: 찜하기 기능
     e.stopPropagation();
-    alert("찜하기");
+    mutateAsync(content.id);
   };
 
   return (
@@ -101,7 +112,7 @@ const StoreThumbnail = ({ content, isPick }: StoreThumbnailProps) => {
             <div css={defaultImage} />
           )}
 
-          <button css={pickBtn(isPick)} onClick={onPickClick}>
+          <button css={pickBtn(isLikeStore?.isLike)} onClick={onPickClick}>
             <Pick />
           </button>
         </div>

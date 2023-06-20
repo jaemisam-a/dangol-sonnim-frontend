@@ -16,7 +16,7 @@ type InfoProps = {
     description: string;
     menu: string;
     mainSubsDesc: string;
-    isPick: boolean;
+    isLike: boolean;
   };
   onPick: () => void;
 };
@@ -78,7 +78,7 @@ const menuStyle = css`
 `;
 
 const Info = ({
-  infoContent: { name, category, images, mainSubsDesc, description, isPick },
+  infoContent: { name, category, images, mainSubsDesc, description, isLike },
   onPick,
 }: InfoProps) => {
   return (
@@ -103,8 +103,8 @@ const Info = ({
           <Pick
             width={24}
             height={24}
-            stroke={isPick ? Colors.red40 : Colors.neutral60}
-            fill={isPick ? Colors.red40 : "white"}
+            stroke={isLike ? Colors.red40 : Colors.neutral60}
+            fill={isLike ? Colors.red40 : "white"}
           />
         </button>
       </div>
