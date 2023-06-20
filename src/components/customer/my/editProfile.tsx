@@ -56,13 +56,13 @@ const inputList = css`
   padding-bottom: 0.75rem;
 `;
 
-const submit = css`
+const submit = (isOkay: boolean) => css`
   width: 100%;
   padding: 0.688rem 0;
-  background-color: ${Colors.amber50};
+  background-color: ${isOkay ? Colors.amber50 : Colors.neutral20};
   border-radius: 0.25rem;
-  cursor: pointer;
-  color: ${Colors.white};
+  cursor: ${isOkay ? "pointer" : "not-allowed"};
+  color: ${isOkay ? Colors.white : Colors.neutral50};
   ${Texts.S3_18_M}
 `;
 
@@ -71,10 +71,11 @@ const EditProfile = () => {
   const { logout } = useLoginStore();
 
   const { data, isFetching } = useQuery("userInf", getUserInfo, { refetchOnWindowFocus: false });
-  const { refetch } = useQuery("validName", () => getIsValidName(profileData.name), {
-    enabled: false,
-    refetchOnWindowFocus: false,
-  });
+  const { mutateAsync: checkValidName } = useMutation(
+    "validName",
+    () => getIsValidName(profileData.name),
+    {}
+  );
   const { mutateAsync } = useMutation(deleteUser);
   const { mutateAsync: updateUserMutate } = useMutation(updateUser);
 
@@ -91,15 +92,14 @@ const EditProfile = () => {
 
   const checkValid = () => {
     if (!profileData.name) return alert("닉네임을 입력하세요.");
-    refetch().then((res) => {
-      if (res.status === "error") {
-        alert((res.error as any).response.data.message);
-        setInputStatus((prev) => ["error", prev[1]]);
-      } else {
-        alert("사용가능한 닉네임입니다.");
+    checkValidName()
+      .then(() => {
         setInputStatus((prev) => ["success", prev[1]]);
-      }
-    });
+      })
+      .catch((err) => {
+        alert(err?.response?.data.message);
+        setInputStatus((prev) => ["error", prev[1]]);
+      });
   };
 
   const updateInfo = (e: FormEvent<HTMLFormElement>) => {
@@ -183,7 +183,11 @@ const EditProfile = () => {
             />
           ))}
         </div>
-        <button type="submit" css={submit}>
+        <button
+          type="submit"
+          css={submit(inputStatus[0] === "success")}
+          disabled={inputStatus[0] !== "success"}
+        >
           저장
         </button>
         <div css={btnWrapper}>

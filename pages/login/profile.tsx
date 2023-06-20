@@ -13,6 +13,7 @@ const Profile = () => {
 
   const { data, isFetching } = useQuery("customer", getUserInfo, {
     enabled: Boolean(query.token),
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
