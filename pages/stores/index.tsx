@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
@@ -73,11 +72,6 @@ const Stores = () => {
     enabled: false,
   });
 
-  // FIXME: 로그인 시에만 유저 데이터 가져오기
-  const { data: userPick } = useQuery("UserData", () =>
-    axios.get("/api/user").then((res) => res.data[0].pick)
-  );
-
   const [storeListParams, setStoreListParams] = useState<GetStoreListType>({
     sortBy: "likeNumber",
   });
@@ -111,7 +105,7 @@ const Stores = () => {
         <Sort isSearchPage={true} setStoreListParams={setStoreListParams} />
       </div>
       <section css={resultWrapper}>
-        <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
+        <StoreThumbnailList contents={storeData} isLoading={isLoading} />
       </section>
     </Layout>
   );
