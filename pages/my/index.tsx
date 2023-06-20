@@ -6,9 +6,6 @@ import Profile from "customer/my/profile";
 import TabContent from "customer/my/tabContent";
 
 const My = () => {
-  useEffect(() => {
-    // TODO: 로그인 상태가 아니라면 로그인 페이지로 이동
-  }, []);
   const [selectedTab, setSelectedTab] = useState(0);
 
   return (

@@ -13,7 +13,7 @@ export const login = async (loginData: loginDataType) => {
 
 export const validateOwnerToken = async () => {
   const queryKey = "/api/v1/boss/token-validate";
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const response = await axios.post(queryKey, { accessToken });
   return response.status;
 };

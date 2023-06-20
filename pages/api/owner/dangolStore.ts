@@ -51,7 +51,7 @@ type UpdateStoreReqDataType = {
 
 export const createDangolStore = async (requestData: CreateStoreReqDataType) => {
   const queryKey = "/api/v1/store/create?_csrf=957d8df2-0107-4a0e-b71e-faff75331ee0";
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const response = await axios.post(queryKey, requestData, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -61,7 +61,7 @@ export const createDangolStore = async (requestData: CreateStoreReqDataType) => 
 
 export const getMyStoreList = async () => {
   const queryKey = "/api/v1/store/my-store";
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const response = await axios.get(queryKey, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -78,7 +78,7 @@ export const getStoreInfo = async (id: string) => {
 
 export const updateDangolStore = async ({ requestData, storeId }: UpdateStoreReqDataType) => {
   const queryKey = `/api/v1/store/update/${storeId}?_csrf=fd3ecec4-c699-442a-8463-7f8e3a024c82`;
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const response = await axios.patch(queryKey, requestData, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });

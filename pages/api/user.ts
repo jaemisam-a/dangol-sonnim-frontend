@@ -23,3 +23,10 @@ export const postUser = async (userData: UserDataType) => {
   });
   return response.data;
 };
+
+export const validateUserToken = async () => {
+  const queryKey = "/api/v1/customer/token-validate";
+  const accessToken = localStorage.getItem("userAccessToken");
+  const response = await axios.post(queryKey, { accessToken });
+  return response.status;
+};

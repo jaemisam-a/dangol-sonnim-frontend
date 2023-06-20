@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "common/layout";
 import SearchInput from "customer/search/searchInput";
 import SearchList from "customer/search/searchList";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 
 const SUGGESTED_QUERIES = ["사이드 디쉬", "카페", "사이즈업", "한식", "할인"];
 const RECENT_QUERIES = ["사이드 디쉬", "파스타", "김밥"];

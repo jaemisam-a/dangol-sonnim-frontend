@@ -7,7 +7,7 @@ import { Colors, Sizes, Texts } from "styles/common";
 import Share from "public/icons/etc/share.svg";
 import ArrowLeft from "public/icons/direction/arrowLeft.svg";
 import Kebab from "public/icons/menu/kebab.svg";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 
 type HeaderProps = {
   subTitle?: string;

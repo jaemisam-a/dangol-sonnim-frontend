@@ -6,7 +6,7 @@ import { css } from "@emotion/react";
 import Layout from "common/layout";
 import SocialButton from "customer/login/socialButton";
 import { Colors, Texts } from "styles/common";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 
 const logoWrapper = css`
   display: flex;
@@ -81,10 +81,6 @@ const Login = () => {
      * 가입 후 최초로그인 시에만 /profile로 이동
      * 로그인 된 상태에서 이 페이지 접속 시 /로 이동
      *  */
-
-    if (isLogin) {
-      push("/login/profile");
-    }
   }, [isLogin]);
 
   return (

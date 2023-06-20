@@ -6,7 +6,7 @@ import OwnerHeader from "common/layout/header/owner";
 import BottomNav from "common/layout/nav/bottomNav";
 import Toast from "common/toast";
 import { Sizes } from "styles/common";
-import withAuth from "src/utils/withAuth";
+import OwnerWithAuth from "src/utils/ownerWithAuth";
 
 type LayoutProps = {
   children: ReactNode;
@@ -55,4 +55,4 @@ const OwnerLayout = ({
   );
 };
 
-export default withAuth(OwnerLayout);
+export default OwnerWithAuth(OwnerLayout);

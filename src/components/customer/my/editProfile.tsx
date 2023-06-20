@@ -8,7 +8,7 @@ import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Modal from "common/modal";
 import { InputStatus } from "common/input/text";
 import Dialog from "customer/my/dialog";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 
 const wrapper = css`
   display: flex;
@@ -180,7 +180,6 @@ const EditProfile = () => {
           <div>
             <button
               onClick={() => {
-                //TODO: 로그아웃
                 logout();
                 push("/");
               }}

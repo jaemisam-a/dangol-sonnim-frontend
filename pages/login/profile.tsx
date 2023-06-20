@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 
 import Layout from "common/layout";
 import AddProfile from "customer/login/addProfile";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 import { getUser } from "pages/api/user";
 
 const Profile = () => {
