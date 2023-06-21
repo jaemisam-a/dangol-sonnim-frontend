@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 
@@ -11,6 +11,7 @@ import Location from "customer/store/location";
 import Info from "customer/store/info";
 import { Colors } from "styles/common";
 import { getStore } from "pages/api/store";
+import { isLike, toggleLikeStore } from "pages/api/user/storeLike";
 
 const divider = css`
   height: 0.5rem;
@@ -35,10 +36,18 @@ const Store = () => {
     }
   );
 
-  // TODO: 찜하기 기능
-  const pickStore = () => {
-    alert("찜하기!");
-  };
+  const { data: isLikeStore, refetch } = useQuery(
+    `isLike ${storeData?.id}`,
+    () => isLike(storeData?.id),
+    {
+      refetchOnWindowFocus: false,
+      enabled: Boolean(storeData?.id),
+    }
+  );
+
+  const { mutateAsync } = useMutation(toggleLikeStore, {
+    onSuccess: () => refetch(),
+  });
 
   useEffect(() => {
     if (!storeData) return;
@@ -62,10 +71,10 @@ const Store = () => {
               images: storeData.storeImageUrlList,
               description: storeData.comments,
               menu: storeData.menuResponseDTOList,
-              isPick: false, // FIXME: 다른 user api에서 가져오기
+              isLike: isLikeStore.isLike,
               mainSubsDesc: mainSubsDesc,
             }}
-            onPick={pickStore}
+            onPick={() => mutateAsync(storeData.id)}
           />
           <hr css={divider} />
           <Location

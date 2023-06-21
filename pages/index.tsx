@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useQuery } from "react-query";
-import axios from "axios";
 
 import Layout from "common/layout";
 import StoreThumbnailList from "common/storeThumbnail/list";
@@ -81,10 +80,6 @@ const Home = () => {
   });
 
   // FIXME: 로그인 시에만 유저 데이터 가져오기
-  const { data: userPick } = useQuery("UserData", () =>
-    axios.get("/api/user").then((res) => res.data[0].pick)
-  );
-
   useEffect(() => {
     if (selected !== "ALL") {
       setStoreListParams((prev) => ({ ...prev, category: selected }));
@@ -112,7 +107,7 @@ const Home = () => {
       <section css={sort}>
         <Sort setStoreListParams={setStoreListParams} />
       </section>
-      <StoreThumbnailList contents={storeData} isLoading={isLoading} userPick={userPick} />
+      <StoreThumbnailList contents={storeData} isLoading={isLoading} />
     </Layout>
   );
 };
