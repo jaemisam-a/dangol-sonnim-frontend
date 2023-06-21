@@ -41,6 +41,7 @@ const Store = () => {
     () => isLike(storeData?.id),
     {
       refetchOnWindowFocus: false,
+      enabled: Boolean(storeData?.id),
     }
   );
 

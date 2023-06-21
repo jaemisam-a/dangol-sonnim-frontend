@@ -71,7 +71,7 @@ const defaultImage = css`
   background-color: #666666;
 `;
 
-const pickBtn = (isLike: boolean | undefined) => css`
+const pickBtn = (isLike?: boolean) => css`
   position: absolute;
   bottom: 3px;
   right: 0.25rem;
@@ -84,9 +84,6 @@ const pickBtn = (isLike: boolean | undefined) => css`
 
 const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
   const { push } = useRouter();
-  const { mutateAsync } = useMutation(toggleLikeStore, {
-    onSuccess: () => refetch(),
-  });
 
   const { data: isLikeStore, refetch } = useQuery(
     `isLike ${content.id}`,
@@ -95,6 +92,9 @@ const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
       refetchOnWindowFocus: false,
     }
   );
+  const { mutateAsync } = useMutation(toggleLikeStore, {
+    onSuccess: () => refetch(),
+  });
 
   const onPickClick = (e: MouseEvent) => {
     e.stopPropagation();
