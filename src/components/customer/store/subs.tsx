@@ -8,7 +8,6 @@ import StoreSection from "customer/store/section";
 import { Colors, Texts } from "styles/common";
 
 type SubsProps = {
-  storeName: string;
   subsList: {
     isTop: boolean;
     intro: string;
@@ -77,8 +76,8 @@ const Subs = (props: SubsProps) => {
                   count={el.useCount}
                   description={el.intro}
                   price={el.price}
-                  storeName={props.storeName}
-                  key={el.id}
+                  storeName={el.storeName}
+                  key={el.subscribeId}
                   checked={isChecked}
                   setChecked={setIsChecked}
                   type={el.type}

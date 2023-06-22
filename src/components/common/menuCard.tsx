@@ -54,7 +54,8 @@ const MenuCard = (props: MenuProps) => {
         <div css={imageWrapper}>
           <Image
             css={menuImage(props.isBottom)}
-            src={props.imgSrc}
+            // FIXME: 이미지 없는 경우 기본 이미지로 설정. 추후 디자인 나오면 수정
+            src={props.imgSrc || "/images/logo/logo.png"}
             alt={props.name}
             width={props.isBottom ? 152 : 96}
             height={props.isBottom ? 152 : 96}

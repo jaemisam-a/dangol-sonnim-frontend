@@ -71,7 +71,7 @@ const Store = () => {
               images: storeData.storeImageUrlList,
               description: storeData.comments,
               menu: storeData.menuResponseDTOList,
-              isLike: isLikeStore.isLike,
+              isLike: isLikeStore?.isLike,
               mainSubsDesc: mainSubsDesc,
             }}
             onPick={() => mutateAsync(storeData.id)}
@@ -85,7 +85,7 @@ const Store = () => {
           <hr css={divider} />
           <Menus menuList={storeData.menuResponseDTOList} />
           <hr css={divider} />
-          <Subs storeName={storeData.name} subsList={storeData.subscribeResponseDTOList} />
+          <Subs subsList={storeData.subscribeResponseDTOList} />
           <div css={margin} />
         </>
       )}

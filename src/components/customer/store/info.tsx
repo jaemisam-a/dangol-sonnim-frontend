@@ -86,7 +86,15 @@ const Info = ({
       <div css={sliderWrapper}>
         <Slider gap="0.25rem">
           {images.map((image) => (
-            <Image key={image} src={image} alt={image} width={148} height={148} css={imgStyle} />
+            <Image
+              key={image}
+              src={image}
+              alt={image}
+              width={148}
+              height={148}
+              css={imgStyle}
+              priority={true}
+            />
           ))}
         </Slider>
       </div>
