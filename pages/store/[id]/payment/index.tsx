@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import Layout from "common/layout";
 import StoreCoupon from "common/coupon/store";
@@ -11,6 +11,7 @@ import PaymentInfo from "customer/store/menu/payment/info";
 import PaymentMethod from "customer/store/menu/payment/method";
 import { Colors, Texts } from "styles/common";
 import { getSubs } from "pages/api/subs";
+import { purchaseSubs } from "pages/api/user/payment";
 import { getOrderNumber } from "src/utils/getOrderNumber";
 
 export type SelectedType = {
@@ -59,6 +60,7 @@ const StorePayment = () => {
       enabled: Boolean(query.selectedSubs),
     }
   );
+  const { mutateAsync } = useMutation(purchaseSubs);
 
   const [selectMethod, setSelectMethod] = useState(1);
   const [cashReceipts, setCashReceipts] = useState<CashReceiptsType>({
@@ -94,16 +96,20 @@ const StorePayment = () => {
         buyer_tel: "010-4242-4242",
       },
       (rsp: any) => {
-        // TODO: 결제 정보를 저장할 수 있는 페이지가 나오면 추가
-        rsp.success
-          ? push(
-              {
-                pathname: `${asPath}/complete`,
-                query: { price: data.price },
-              },
-              `${asPath}/complete`
-            )
-          : alert("결제에 실패하였습니다. 다시 시도해주세요.");
+        if (rsp.success) {
+          mutateAsync({
+            merchantUid: rsp.merchant_uid,
+            subscribeId: Number(query.id),
+            subscribeType: data.type,
+          });
+          push(
+            {
+              pathname: `${asPath}/complete`,
+              query: { price: data.price },
+            },
+            `${asPath}/complete`
+          );
+        } else alert("결제에 실패하였습니다. 다시 시도해주세요.");
       }
     );
   };
