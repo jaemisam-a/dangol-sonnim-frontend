@@ -17,7 +17,7 @@ type ChangeOwnerPasswordType = {
 };
 
 export const getOwnerAccount = async () => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const queryKey = "/api/v1/boss";
   const response = await axios.get(queryKey, {
     headers: { Authorization: `Bearer ${accessToken}` },
@@ -29,7 +29,7 @@ export const editOwnerAccount = async ({
   phoneNumber,
   marketingAgreement,
 }: EditOwnerAccountType) => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const queryKey = "/api/v1/boss?_csrf=ff2dba70-94b7-45b8-b924-4f974757dbfe";
   const response = await axios.patch(
     queryKey,
@@ -40,7 +40,7 @@ export const editOwnerAccount = async ({
 };
 
 export const postOwnerAccount = async ({ account, accountHolder, bank }: PostOwnerAccountType) => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const queryKey = "/api/v1/boss/register-account?_csrf=a3e71c92-dc89-413b-b564-3c62d43f21de";
   const response = await axios.post(
     queryKey,
@@ -51,7 +51,7 @@ export const postOwnerAccount = async ({ account, accountHolder, bank }: PostOwn
 };
 
 export const deleteOwnerAccount = async () => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("ownerAccessToken");
   const queryKey = "/api/v1/boss";
   const response = await axios.delete(queryKey, {
     headers: { Authorization: `Bearer ${accessToken}` },

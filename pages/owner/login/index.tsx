@@ -86,7 +86,7 @@ const OwnerLogin = () => {
     e.preventDefault();
     await mutateAsync({ email: inputData.email, password: inputData.password })
       .then((res) => {
-        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("ownerAccessToken", res.accessToken);
         onLogin();
         replace(
           {

@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import CustomerHeader from "common/layout/header/customer";
 import Toast from "common/toast";
 import { Sizes } from "styles/common";
+import UserWithAuth from "src/utils/userWithAuth";
 
 type LayoutProps = {
   children: ReactNode;
@@ -29,15 +30,13 @@ const Layout = ({ children, title, subTitle, isNoHeader, goHome }: LayoutProps) 
       <Head>
         <title>{title}</title>
       </Head>
-      (
       <div css={wrapper}>
         {!isNoHeader && <CustomerHeader subTitle={subTitle} goHome={goHome} />}
         {children}
       </div>
-      )
       <Toast />
     </>
   );
 };
 
-export default Layout;
+export default UserWithAuth(Layout);

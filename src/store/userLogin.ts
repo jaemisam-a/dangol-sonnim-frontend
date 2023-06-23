@@ -10,25 +10,25 @@ interface StoreState {
 
 const getInitialIsLogin = () => {
   if (typeof window !== "undefined") {
-    const storedIsLogin = window.localStorage.getItem("isOwnerLogin");
+    const storedIsLogin = window.localStorage.getItem("isUserLogin");
     return storedIsLogin === "true";
   }
   return false;
 };
 
 const store = (set: any) => ({
-  isLogin: getInitialIsLogin(),
+  isLogin: getInitialIsLogin,
   login: () => {
-    window.localStorage.setItem("isOwnerLogin", "true");
+    window.localStorage.setItem("isUserLogin", "true");
     set(() => ({ isLogin: true }));
   },
   logout: () => {
-    window.localStorage.setItem("isOwnerLogin", "false");
-    window.localStorage.setItem("ownerAccessToken", "");
+    window.localStorage.setItem("isUserLogin", "false");
+    window.localStorage.setItem("userAccessToken", "");
     set(() => ({ isLogin: false }));
   },
 });
 
-const useOwnerLoginStore = create<StoreState>()(addDevtools(store));
+const useLoginStore = create<StoreState>()(addDevtools(store));
 
-export default useOwnerLoginStore;
+export default useLoginStore;

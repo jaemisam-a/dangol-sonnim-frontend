@@ -93,7 +93,7 @@ const MyStoreSetting = () => {
     push(
       {
         pathname: "/owner/auth",
-        query: { accessToken: localStorage.getItem("accessToken"), isEdit: query.isEdit },
+        query: { accessToken: localStorage.getItem("ownerAccessToken"), isEdit: query.isEdit },
       },
       "owner/auth"
     );

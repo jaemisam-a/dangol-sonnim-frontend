@@ -8,7 +8,7 @@ import Location from "common/filter/location";
 import Sort from "common/filter/sort";
 import Category from "customer/main/category";
 import CouponSlider from "customer/main/couponSlider";
-import useLoginStore from "src/store/login";
+import useLoginStore from "src/store/userLogin";
 import SearchBar from "common/input/search";
 import { GetStoreListType, getStoreList } from "pages/api/store";
 

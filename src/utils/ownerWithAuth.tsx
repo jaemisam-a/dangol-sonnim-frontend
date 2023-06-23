@@ -12,7 +12,7 @@ type Authority = "all" | "loginOnly" | "guestOnly";
 const HOME_ROUTE = "/owner";
 const LOGIN_ROUTE = "/owner/login";
 
-const withAuth = (WrappedComponent: (props: any) => JSX.Element) => {
+const OwnerWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
   const ComponentWithAuth = (props: any) => {
     const { pathname, back, replace } = useRouter();
     const { mutateAsync } = useMutation(validateOwnerToken);
@@ -45,7 +45,7 @@ const withAuth = (WrappedComponent: (props: any) => JSX.Element) => {
 
     /** 로그인 상태 유지, 토큰 유효성 검사 */
     useEffect(() => {
-      const token = window.localStorage.getItem("accessToken");
+      const token = window.localStorage.getItem("ownerAccessToken");
       if (token) {
         login();
       } else {
@@ -82,4 +82,4 @@ const withAuth = (WrappedComponent: (props: any) => JSX.Element) => {
   return ComponentWithAuth;
 };
 
-export default withAuth;
+export default OwnerWithAuth;
