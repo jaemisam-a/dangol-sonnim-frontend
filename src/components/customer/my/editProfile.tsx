@@ -71,10 +71,8 @@ const EditProfile = () => {
   const { logout } = useLoginStore();
 
   const { data, isFetching } = useQuery("userInf", getUserInfo, { refetchOnWindowFocus: false });
-  const { mutateAsync: checkValidName } = useMutation(
-    "validName",
-    () => getIsValidName(profileData.name),
-    {}
+  const { mutateAsync: checkValidName } = useMutation("validName", () =>
+    getIsValidName(profileData.name)
   );
   const { mutateAsync } = useMutation(deleteUser);
   const { mutateAsync: updateUserMutate } = useMutation(updateUser);
@@ -104,6 +102,8 @@ const EditProfile = () => {
 
   const updateInfo = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (profileData.name !== data?.nickname && inputStatus[0] !== "success")
+      return alert("닉네임 중복확인을 해주세요.");
     if (inputStatus[0] === "error") return alert("사용가능한 닉네임을 입력해주세요.");
     updateUserMutate({
       nickname: profileData.name,
@@ -146,6 +146,10 @@ const EditProfile = () => {
   }, [profileData]);
 
   useEffect(() => {
+    setInputStatus((prev) => ["", prev[1]]);
+  }, [profileData.name]);
+
+  useEffect(() => {
     if (!data) return;
     setProfileData({
       name: data.nickname,
@@ -185,8 +189,8 @@ const EditProfile = () => {
         </div>
         <button
           type="submit"
-          css={submit(inputStatus[0] === "success")}
-          disabled={inputStatus[0] !== "success"}
+          css={submit(profileData.name !== data?.nickname ? inputStatus[0] === "success" : true)}
+          disabled={!(profileData.name !== data?.nickname ? inputStatus[0] === "success" : true)}
         >
           저장
         </button>

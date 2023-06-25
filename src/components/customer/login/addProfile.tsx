@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useId, useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
@@ -57,10 +57,9 @@ const AddProfile = () => {
   const { push } = useRouter();
 
   const { mutateAsync } = useMutation(postUser);
-  const { refetch } = useQuery("validName", () => getIsValidName(profileData.name), {
-    enabled: false,
-    refetchOnWindowFocus: false,
-  });
+  const { mutateAsync: checkValidName } = useMutation("validName", () =>
+    getIsValidName(profileData.name)
+  );
 
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
   const [inputStatus, setInputStatus] = useState<InputStatus[]>(["", "", ""]);
@@ -87,16 +86,15 @@ const AddProfile = () => {
   };
 
   const checkValid = () => {
-    // TODO: 닉네임 중복확인 api 요청
     if (!profileData.name) return alert("닉네임을 입력하세요.");
-    refetch().then((res) => {
-      if (res.status === "error") {
-        alert((res.error as any).response.data.message);
-        setInputStatus((prev) => ["error", prev[1]]);
-      } else {
+    checkValidName()
+      .then(() => {
         setInputStatus((prev) => ["success", prev[1]]);
-      }
-    });
+      })
+      .catch((err) => {
+        alert(err?.response?.data.message);
+        setInputStatus((prev) => ["error", prev[1]]);
+      });
   };
 
   useEffect(() => {
@@ -138,6 +136,10 @@ const AddProfile = () => {
   useEffect(() => {
     setInputArr((prev) => [{ ...prev[0], btnAction: checkValid }, { ...prev[1] }, { ...prev[2] }]);
   }, [profileData]);
+
+  useEffect(() => {
+    setInputStatus((prev) => ["", prev[1]]);
+  }, [profileData.name]);
 
   const isPossible =
     isCheckedConsent && inputStatus[0] === "success" && Boolean(profileData.birthday);
