@@ -81,7 +81,7 @@ const StorePayment = () => {
       selectMethod === 1
         ? process.env.NEXT_PUBLIC_PG_KCP
         : selectMethod === 3
-        ? process.env.NEXT_PUBLIC_PG_KAKOPAY
+        ? process.env.NEXT_PUBLIC_PG_KAKAOPAY
         : selectMethod == 4 && process.env.NEXT_PUBLIC_PG_TOSSPAY;
     window.IMP.request_pay(
       {
