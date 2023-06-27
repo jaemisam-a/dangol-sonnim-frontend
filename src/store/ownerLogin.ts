@@ -24,7 +24,7 @@ const store = (set: any) => ({
   },
   logout: () => {
     window.localStorage.setItem("isOwnerLogin", "false");
-    window.localStorage.setItem("ownerAccessToken", "");
+    window.localStorage.removeItem("ownerAccessToken");
     set(() => ({ isLogin: false }));
   },
 });

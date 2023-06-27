@@ -9,6 +9,7 @@ import { validateUserToken } from "pages/api/user";
 
 type Authority = "all" | "loginOnly" | "guestOnly";
 
+const HOME_ROUTE = "/";
 const LOGIN_ROUTE = "/login";
 
 const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
@@ -18,18 +19,6 @@ const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
 
     const { isLogin, login, logout } = useStore(useLoginStore);
     const [authority, setAuthority] = useState<Authority>();
-
-    const goToLoginRoute = () => {
-      replace(
-        {
-          pathname: LOGIN_ROUTE,
-          query: {
-            from: pathname,
-          },
-        },
-        LOGIN_ROUTE
-      );
-    };
 
     /** 페이지 별 권한 설정 */
     useEffect(() => {
@@ -54,7 +43,7 @@ const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
       if (token && isLogin) {
         mutateAsync().catch(() => {
           logout();
-          goToLoginRoute();
+          replace(HOME_ROUTE);
         });
       }
     }, []);
@@ -64,10 +53,10 @@ const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
       window.localStorage.setItem("isUserLogin", isLogin.toString());
 
       if (!isLogin && authority === "loginOnly") {
-        goToLoginRoute();
+        replace(HOME_ROUTE);
       }
       if (isLogin && authority === "guestOnly") {
-        replace("/");
+        replace(HOME_ROUTE);
       }
     }, [isLogin, authority]);
 
