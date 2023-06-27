@@ -9,6 +9,7 @@ import Tag from "common/tag/tagCustomer";
 import Pick from "public/icons/etc/pick.svg";
 import { categoryIdToString } from "src/utils/category";
 import { isLike, toggleLikeStore } from "pages/api/user/storeLike";
+import useLoginStore from "src/store/userLogin";
 
 export type ThumbnailData = {
   id: string;
@@ -84,12 +85,14 @@ const pickBtn = (isLike?: boolean) => css`
 
 const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
   const { push } = useRouter();
+  const { isLogin } = useLoginStore();
 
   const { data: isLikeStore, refetch } = useQuery(
     `isLike ${content.id}`,
     () => isLike(content.id),
     {
       refetchOnWindowFocus: false,
+      enabled: isLogin,
     }
   );
   const { mutateAsync } = useMutation(toggleLikeStore, {
@@ -98,6 +101,9 @@ const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
 
   const onPickClick = (e: MouseEvent) => {
     e.stopPropagation();
+    if (!isLogin) {
+      return alert("로그인이 필요합니다!");
+    }
     mutateAsync(content.id);
   };
 
