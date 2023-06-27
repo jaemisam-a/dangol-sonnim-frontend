@@ -79,6 +79,11 @@ const CustomerHeader = (props: HeaderProps) => {
   const { pathname, back, push } = useRouter();
   const { isLogin } = useLoginStore();
 
+  const onShare = () => {
+    const currentUrl = window.document.URL;
+    navigator.clipboard.writeText(currentUrl).then(() => alert("주소가 복사되었습니다!"));
+  };
+
   return (
     <div css={container}>
       <header css={wrapper(pathname)}>
@@ -127,7 +132,7 @@ const CustomerHeader = (props: HeaderProps) => {
                   <Kebab />
                 </div>
               ) : pathname === "/store/[id]" ? (
-                <div css={pointerButton}>
+                <div css={pointerButton} onClick={onShare}>
                   <Share />
                 </div>
               ) : (

@@ -12,6 +12,7 @@ import Info from "customer/store/info";
 import { Colors } from "styles/common";
 import { getStore } from "pages/api/store";
 import { isLike, toggleLikeStore } from "pages/api/user/storeLike";
+import useLoginStore from "src/store/userLogin";
 
 const divider = css`
   height: 0.5rem;
@@ -26,6 +27,7 @@ const margin = css`
 const Store = () => {
   const { query } = useRouter();
 
+  const { isLogin } = useLoginStore();
   const [mainSubsDesc, setMainSubsDesc] = useState("");
 
   const { data: storeData, isLoading } = useQuery(
@@ -41,7 +43,7 @@ const Store = () => {
     () => isLike(storeData?.id),
     {
       refetchOnWindowFocus: false,
-      enabled: Boolean(storeData?.id),
+      enabled: Boolean(storeData?.id) && Boolean(isLogin),
     }
   );
 
@@ -74,7 +76,7 @@ const Store = () => {
               isLike: isLikeStore?.isLike,
               mainSubsDesc: mainSubsDesc,
             }}
-            onPick={() => mutateAsync(storeData.id)}
+            onPick={isLogin ? () => mutateAsync(storeData.id) : () => alert("로그인이 필요합니다!")}
           />
           <hr css={divider} />
           <Location

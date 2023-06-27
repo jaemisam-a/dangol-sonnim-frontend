@@ -20,18 +20,6 @@ const OwnerWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
     const { isLogin, login, logout } = useStore(useOwnerLoginStore);
     const [authority, setAuthority] = useState<Authority>();
 
-    const goToLoginRoute = () => {
-      replace(
-        {
-          pathname: LOGIN_ROUTE,
-          query: {
-            from: pathname,
-          },
-        },
-        LOGIN_ROUTE
-      );
-    };
-
     /** 페이지 별 권한 설정 */
     useEffect(() => {
       if (pathname.includes(LOGIN_ROUTE) || pathname.includes("/owner/signup")) {
@@ -55,7 +43,7 @@ const OwnerWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
       if (isLogin) {
         mutateAsync().catch(() => {
           logout();
-          goToLoginRoute();
+          replace(HOME_ROUTE);
         });
       }
     }, []);
@@ -65,7 +53,7 @@ const OwnerWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
       window.localStorage.setItem("isLogin", isLogin.toString());
 
       if (!isLogin && authority === "loginOnly") {
-        goToLoginRoute();
+        replace(HOME_ROUTE);
       }
       if (isLogin && authority === "guestOnly") {
         back();

@@ -3,21 +3,21 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 
 import { Colors, Texts } from "styles/common";
-import Close from "public/icons/close/close.svg";
+// import Close from "public/icons/close/close.svg";
 
 const wrapper = css`
   padding: 0 1rem;
 `;
 
-const subjectWrapper = css`
-  display: flex;
-  justify-content: space-between;
+// const subjectWrapper = css`
+//   display: flex;
+//   justify-content: space-between;
 
-  button {
-    ${Texts.B1_13_R2}
-    color:${Colors.neutral50}
-  }
-`;
+//   button {
+//     ${Texts.B1_13_R2}
+//     color:${Colors.neutral50}
+//   }
+// `;
 
 const subject = css`
   ${Texts.B2_14_R2}
@@ -30,10 +30,10 @@ const queryList = css`
   padding: 0.938rem 0;
 `;
 
-const recentQueries = css`
-  display: flex;
-  justify-content: space-between;
-`;
+// const recentQueries = css`
+//   display: flex;
+//   justify-content: space-between;
+// `;
 
 const link = css`
   width: 100%;
@@ -57,43 +57,42 @@ type SearchListProps = {
 };
 
 const SearchList = (props: SearchListProps) => {
-  const deleteAll = () => {
-    // TODO: 모든 쿼리 삭제
-  };
+  // const deleteAll = () => {
+  //   // TODO: 모든 쿼리 삭제
+  // };
 
-  const deleteRecentQuery = () => {
-    // TODO: 개별 쿼리 삭제
-  };
+  // const deleteRecentQuery = () => {
+  //   // TODO: 개별 쿼리 삭제
+  // };
 
-  const offAutoSave = () => {
-    // TODO: 자동저장기능 끄기
-  };
+  // const offAutoSave = () => {
+  //   // TODO: 자동저장기능 끄기
+  // };
 
-  return props.isLoggedIn ? (
-    <>
-      <section css={wrapper}>
-        <div css={[subject, subjectWrapper]}>
-          <div>최근 검색어</div>
-          <button onClick={deleteAll}>전체삭제</button>
-        </div>
-        <ul>
-          {props.queries.map((query) => (
-            <li key={query} css={[queryList, recentQueries]}>
-              <Link css={link} href={{ pathname: "/stores", query: { query } }}>
-                {query}
-              </Link>
-              <button onClick={deleteRecentQuery}>
-                <Close width={24} height={24} stroke={Colors.neutral60} />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <div css={margin}>
-        <button onClick={offAutoSave}>자동저장 끄기</button>
-      </div>
-    </>
-  ) : (
+  // <>
+  //   <section css={wrapper}>
+  //     <div css={[subject, subjectWrapper]}>
+  //       <div>최근 검색어</div>
+  //       <button onClick={deleteAll}>전체삭제</button>
+  //     </div>
+  //     <ul>
+  //       {props.queries.map((query) => (
+  //         <li key={query} css={[queryList, recentQueries]}>
+  //           <Link css={link} href={{ pathname: "/stores", query: { query } }}>
+  //             {query}
+  //           </Link>
+  //           <button onClick={deleteRecentQuery}>
+  //             <Close width={24} height={24} stroke={Colors.neutral60} />
+  //           </button>
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   </section>
+  //   <div css={margin}>
+  //     <button onClick={offAutoSave}>자동저장 끄기</button>
+  //   </div>
+  // </>
+  return (
     <>
       <section css={wrapper}>
         <div css={subject}>추천 검색어</div>
