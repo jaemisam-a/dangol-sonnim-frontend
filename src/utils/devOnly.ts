@@ -1,14 +1,15 @@
 const devOnly = () => {
-  if (process.env.NODE_ENV === "production") {
+  const isProd = process.env.NODE_ENV === "production";
+
+  if (isProd) {
     return {
-      redirct: {
-        permanent: false,
-        destination: "/404",
-      },
+      notFound: true,
     };
   }
 
-  return { props: {} };
+  return {
+    props: {},
+  };
 };
 
 export default devOnly;
