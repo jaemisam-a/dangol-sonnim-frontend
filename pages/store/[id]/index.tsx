@@ -61,13 +61,6 @@ const Store = () => {
     }
   }, [storeData]);
 
-  const onPickClick = () => {
-    if (!isLogin) {
-      return alert("로그인이 필요합니다!");
-    }
-    mutateAsync(storeData.id);
-  };
-
   return (
     <Layout title={storeData?.name ?? "단골손님"}>
       {isLoading && <FullPageSpinner />}
@@ -83,7 +76,7 @@ const Store = () => {
               isLike: isLikeStore?.isLike,
               mainSubsDesc: mainSubsDesc,
             }}
-            onPick={onPickClick}
+            onPick={isLogin ? () => mutateAsync(storeData.id) : () => alert("로그인이 필요합니다!")}
           />
           <hr css={divider} />
           <Location
