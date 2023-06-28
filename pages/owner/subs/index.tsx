@@ -6,6 +6,9 @@ import Select from "common/select";
 import { SelectedType } from "pages/store/[id]/payment";
 import SubsSection, { SubsSectionProps } from "owner/subs/section";
 import { Colors } from "styles/common";
+import devOnly from "src/utils/devOnly";
+
+// TODO: 구독현황 구현
 
 const DUMMY_DATA: SubsSectionProps[] = [
   {
@@ -131,3 +134,4 @@ const Subs = () => {
 };
 
 export default Subs;
+export const getServerSideProps = devOnly;

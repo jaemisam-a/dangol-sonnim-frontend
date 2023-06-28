@@ -6,6 +6,7 @@ import Info from "customer/my/info";
 import Check from "public/icons/check/check.svg";
 import { Colors, Texts } from "styles/common";
 import SubscriberSection from "owner/list/section";
+import devOnly from "src/utils/devOnly";
 
 const visitButton = (isVisited: boolean) => css`
   display: flex;
@@ -68,3 +69,4 @@ const Subscriber = () => {
 };
 
 export default Subscriber;
+export const getServerSideProps = devOnly;

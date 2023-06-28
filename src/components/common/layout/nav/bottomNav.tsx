@@ -64,9 +64,10 @@ const getIcon = (path: string, isChecked: boolean) => {
 const BottomNav = () => {
   const router = useRouter();
 
+  // TODO: 구독현황, 회원리스트 구현
   const navArr = [
-    { label: "구독현황", path: "/owner/subs" },
-    { label: "회원리스트", path: "/owner/list" },
+    // { label: "구독현황", path: "/owner/subs" },
+    // { label: "회원리스트", path: "/owner/list" },
     { label: "QR코드", path: "/owner/qr" },
     { label: "가게설정", path: "/owner/settings" },
   ];
