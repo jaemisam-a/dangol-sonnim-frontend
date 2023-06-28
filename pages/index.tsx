@@ -83,6 +83,7 @@ const Home = () => {
   const { data: subsData } = useQuery("getSubs", () => getMySubs, {
     enabled: Boolean(isLogin),
   });
+  subsData;
 
   // FIXME: 로그인 시에만 유저 데이터 가져오기
   useEffect(() => {
