@@ -11,6 +11,7 @@ import CouponSlider from "customer/main/couponSlider";
 import useLoginStore from "src/store/userLogin";
 import SearchBar from "common/input/search";
 import { GetStoreListType, getStoreList } from "pages/api/store";
+import { getMySubs } from "./api/user/mySubs";
 
 const MOCK_MYCOUPON = [
   {
@@ -77,6 +78,10 @@ const Home = () => {
     refetch,
   } = useQuery(["storeList", selected], () => getStoreList(storeListParams), {
     enabled: false,
+  });
+
+  const { data: subsData } = useQuery("getSubs", () => getMySubs, {
+    enabled: Boolean(isLogin),
   });
 
   // FIXME: 로그인 시에만 유저 데이터 가져오기
