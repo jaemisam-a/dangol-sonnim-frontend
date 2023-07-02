@@ -33,7 +33,8 @@ const QRCheck = (props: QRCheckProps) => {
     <div css={wrapper}>
       <h1 css={title}>{props.storeName}</h1>
       <Image src={props.qrImg} alt="QR코드이미지" width={320} height={320} css={imgStyle} />
-      <CountTag useCount={props.useCount} prefix="구독권" />
+      {/* FIXME: 임시로 COUNT로만 설정 */}
+      <CountTag subsribeType="COUNT" useCount={props.useCount} prefix="구독권" />
     </div>
   );
 };

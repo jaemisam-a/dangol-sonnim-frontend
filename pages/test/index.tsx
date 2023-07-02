@@ -5,7 +5,6 @@ import { Texts, Colors } from "styles/common";
 import Banner from "customer/banner";
 import BottomSheet from "common/bottomSheet";
 import Layout from "common/layout";
-import MyCouponWithQR from "customer/main/myCouponWithQR";
 import MyCoupon from "common/coupon/my";
 import SearchBar from "customer/main/searchBar";
 import Spinner from "common/spinner";
@@ -42,14 +41,6 @@ const Test = () => {
         isXButton={true}
         height="300px"
         component={<div>바텀시트 테스트</div>}
-      />
-      <MyCouponWithQR
-        couponName="아메리카노 주문 시 사이즈업"
-        qrImage="/images/dummy/Mob-QR.png"
-        storeLocation="구로구 구로동"
-        storeName="메이비카페"
-        useCount="4/5"
-        validDate="2023.01.20~2023.02.20"
       />
       <br />
       <MyCoupon
