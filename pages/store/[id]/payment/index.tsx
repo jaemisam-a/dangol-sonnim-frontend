@@ -99,7 +99,7 @@ const StorePayment = () => {
         if (rsp.success) {
           mutateAsync({
             merchantUid: rsp.merchant_uid,
-            subscribeId: Number(query.id),
+            subscribeId: data?.subscribeId,
             subscribeType: data.type,
           });
           push(

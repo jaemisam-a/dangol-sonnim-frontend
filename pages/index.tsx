@@ -12,33 +12,6 @@ import useLoginStore from "src/store/userLogin";
 import SearchBar from "common/input/search";
 import { GetStoreListType, getStoreList } from "pages/api/store";
 
-const MOCK_MYCOUPON = [
-  {
-    storeName: "아이비카페",
-    couponName: "아메리카노 주문시 사이즈업",
-    useCount: "3/5",
-    validDate: "2023-01-20~2023.02.20",
-    storeLocation: "구로구 구로동",
-    qrImage: "/images/dummy/Mob-QR.png",
-  },
-  {
-    storeName: "정갈한솥",
-    couponName: "아메리카노 주문시 사이즈",
-    useCount: "3/5",
-    validDate: "2023-01-20~2023.02.20",
-    storeLocation: "구로구 구로동",
-    qrImage: "/images/dummy/Mob-QR.png",
-  },
-  {
-    storeName: "더본즈피자",
-    couponName: "아메리카노 주문시 사이즈",
-    useCount: "3/5",
-    validDate: "2023-01-20~2023.02.20",
-    storeLocation: "구로구 구로동",
-    qrImage: "/images/dummy/Mob-QR.png",
-  },
-];
-
 const searchBar = css`
   display: flex;
   justify-content: center;
@@ -97,7 +70,7 @@ const Home = () => {
       <div css={searchBar}>
         <SearchBar isCustomer placeholder="가게 이름 검색" />
       </div>
-      {isLogin && <CouponSlider coupons={MOCK_MYCOUPON} />}
+      {isLogin && <CouponSlider />}
       <div css={location}>
         <Location setStoreListParams={setStoreListParams} />
       </div>

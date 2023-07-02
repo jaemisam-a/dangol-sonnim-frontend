@@ -55,3 +55,12 @@ export const updateUser = async (userData: UserDataType) => {
   });
   return response.data;
 };
+
+export const getUserSubs = async () => {
+  const accessToken = localStorage.getItem("userAccessToken");
+  const queryKey = "/api/v1/subscribe/subscribe-list";
+  const response = await axios.get(queryKey, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  return response.data;
+};
