@@ -10,6 +10,7 @@ import MyCoupon from "common/coupon/my";
 import SearchBar from "customer/main/searchBar";
 import Spinner from "common/spinner";
 import useToastStore from "src/store/toast";
+import devOnly from "src/utils/devOnly";
 
 const Test = () => {
   const TestDiv = styled.div`
@@ -77,3 +78,4 @@ const Test = () => {
 };
 
 export default Test;
+export const getServerSideProps = devOnly;
