@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation } from "react-query";
-import QrReader from "react-qr-reader";
+import dynamic from "next/dynamic";
+const QrReader = dynamic(() => import("react-qr-reader"), { ssr: false });
 
 import OwnerLayout from "common/layout/owner";
 import useToastStore from "src/store/toast";
