@@ -69,22 +69,21 @@ const TabContent = ({ selectedTab }: TabContentType) => {
         totalCount: el.totalCount,
         couponPrice: el.price,
         couponDescription: el.intro,
-      })) as ({ couponPrice: number; couponDescription: string } & CouponType)[],
+        id: el.purchasedSubscribeId,
+      })) as ({ id: number; couponPrice: number; couponDescription: string } & CouponType)[],
   });
 
   useEffect(() => {
-    if (selectedTab === 1) {
-      refetch();
-    }
+    if (selectedTab === 1) refetch();
   }, [selectedTab]);
 
   if (selectedTab === 0) {
-    if (userSubs && userSubs.length) {
+    if (userSubs && userSubs.length)
       return (
         <div css={couponWrapper}>
           {userSubs.map((coupon) => (
             <MyCoupon
-              key={coupon.storeName}
+              key={coupon.id}
               couponName={coupon.couponName}
               couponPrice={coupon.couponPrice || 0}
               couponDescription={coupon.couponDescription}
@@ -96,7 +95,6 @@ const TabContent = ({ selectedTab }: TabContentType) => {
           ))}
         </div>
       );
-    }
     return (
       <div css={emptyState}>
         <p>
