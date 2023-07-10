@@ -14,7 +14,6 @@ jobs:
           node-version: 18.12.1
 
       - name: Install dependencies
-        run: yarn install --ignore-engines
-
+        run: yarn install
       - name: Build
         run: yarn build
