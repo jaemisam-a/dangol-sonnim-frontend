@@ -13,6 +13,7 @@ export type MyCouponProps = {
   useCount: string;
   couponDescription: string;
   isDetail: boolean;
+  subscribeType: "COUNT" | "MONTHLY";
 };
 
 const wrapper = css`
@@ -78,7 +79,7 @@ const MyCoupon = (props: MyCouponProps) => {
         <div css={couponPrice}>월 {props.couponPrice.toLocaleString("ko-KR")}원</div>
         <div css={couponExplainWrapper}>
           <div css={couponName}>{props.couponName}</div>
-          <CountTag useCount={props.useCount} />
+          <CountTag subsribeType={props.subscribeType} useCount={props.useCount} />
           <div css={couponDescription}>{props.couponDescription}</div>
         </div>
       </div>

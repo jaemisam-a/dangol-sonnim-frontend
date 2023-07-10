@@ -2,20 +2,24 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { css } from "@emotion/react";
 
-import CountTag from "common/countTag";
-import { Colors, Texts } from "styles/common";
 import Search from "public/icons/etc/search.svg";
+import { Colors, Texts } from "styles/common";
+import CountTag from "common/countTag";
 import BottomSheet from "common/bottomSheet";
 import QRCheck from "customer/main/qrCheck";
 
-export type MainCouponProps = {
+export type CouponType = {
   qrImage: string;
   storeName: string;
   storeLocation: string;
   couponName: string;
-  useCount: string;
   validDate: string;
+  subscribeType: "MONTHLY" | "COUNT";
+  remainingCount: number;
+  totalCount: number;
 };
+
+type MainCouponPropsType = { coupon: CouponType };
 
 const wrapper = css`
   box-shadow: 2px 3px 8px #f1ebe2;
@@ -83,14 +87,14 @@ const BottomSheetWrapper = css`
   cursor: default;
 `;
 
-const MyCouponWithQR = (props: MainCouponProps) => {
+const MyCouponWithQR = (props: MainCouponPropsType) => {
   const [open, setOpen] = useState(false);
 
   return (
     <>
       <div css={wrapper}>
         <div css={qrWrapper}>
-          <Image src={props.qrImage} alt="qr" width="74" height="74" />
+          <Image src={props.coupon.qrImage} alt="qr" width="74" height="74" />
           <button css={qrButton} onClick={() => setOpen(true)}>
             <Search stroke={Colors.neutral90} width={14} height={14} />
             <span css={qrButtonText}>QR 확대</span>
@@ -98,19 +102,22 @@ const MyCouponWithQR = (props: MainCouponProps) => {
         </div>
         <div css={contentsWrapper}>
           <div css={storeWrapper}>
-            <span css={storeName}>{props.storeName}</span>
-            <span css={storeLocation}>{props.storeLocation}</span>
+            <span css={storeName}>{props.coupon.storeName}</span>
+            <span css={storeLocation}>{props.coupon.storeLocation}</span>
           </div>
-          <div css={couponName}>{props.couponName}</div>
-          <CountTag useCount={props.useCount} />
-          <div css={validDate}>{props.validDate}</div>
+          <div css={couponName}>{props.coupon.couponName}</div>
+          <CountTag
+            subsribeType={props.coupon.subscribeType}
+            useCount={`${props.coupon.remainingCount}/${props.coupon.totalCount}`}
+          />
+          <div css={validDate}>{props.coupon.validDate}</div>
           <div css={BottomSheetWrapper}>
             <BottomSheet
               component={
                 <QRCheck
-                  qrImg={props.qrImage}
-                  storeName={props.storeName}
-                  useCount={props.useCount}
+                  qrImg={props.coupon.qrImage}
+                  storeName={props.coupon.storeName}
+                  useCount={`${props.coupon.remainingCount}/${props.coupon.totalCount}`}
                 />
               }
               height={"42.25rem"}

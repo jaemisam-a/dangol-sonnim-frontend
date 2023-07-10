@@ -82,6 +82,7 @@ const Payment = () => {
         <h2 css={title}>구독 쿠폰 정보</h2>
         <div css={couponWrapper}>
           <MyCoupon
+            subscribeType={"COUNT"}
             storeName={dummyCouponInfo.storeName}
             couponPrice={dummyCouponInfo.couponPrice}
             couponName={dummyCouponInfo.couponName}
