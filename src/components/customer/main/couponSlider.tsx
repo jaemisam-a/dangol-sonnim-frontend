@@ -39,7 +39,7 @@ const CouponSlider = () => {
       })) as CouponType[],
   });
 
-  if (!data || data.length) return null;
+  if (!data || !data.length) return null;
 
   return (
     <section css={wrapper}>
