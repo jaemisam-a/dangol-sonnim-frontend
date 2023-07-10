@@ -7,6 +7,7 @@ import { Colors, Texts } from "styles/common";
 import Slider from "common/slider";
 import MyCouponWithQR, { CouponType } from "customer/main/myCouponWithQR";
 import { getUserSubs } from "pages/api/user";
+import useLoginStore from "src/store/userLogin";
 
 const wrapper = css`
   padding: 1.25rem 0 0 1.25rem;
@@ -20,8 +21,11 @@ const title = css`
 `;
 
 const CouponSlider = () => {
+  const { isLogin } = useLoginStore();
+
   const { data } = useQuery("userSubs", getUserSubs, {
     refetchOnWindowFocus: false,
+    enabled: isLogin,
     select: (res) =>
       res.map((el: any) => ({
         storeName: el.storeTitle,
@@ -34,6 +38,8 @@ const CouponSlider = () => {
         totalCount: el.totalCount,
       })) as CouponType[],
   });
+
+  if (!data || data.length) return null;
 
   return (
     <section css={wrapper}>

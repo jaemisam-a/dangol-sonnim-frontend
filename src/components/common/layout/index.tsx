@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Head from "next/head";
 import { css } from "@emotion/react";
 
@@ -25,6 +25,14 @@ const wrapper = css`
 `;
 
 const Layout = ({ children, title, subTitle, isNoHeader, goHome }: LayoutProps) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
     <>
       <Head>

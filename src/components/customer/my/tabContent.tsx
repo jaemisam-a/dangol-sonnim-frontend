@@ -1,35 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { css } from "@emotion/react";
 import { useQuery } from "react-query";
+import moment from "moment";
 
-import MyCoupon, { MyCouponProps } from "common/coupon/my";
+import MyCoupon from "common/coupon/my";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
 import { Colors, Texts } from "styles/common";
 import { getLikeList } from "pages/api/user/storeLike";
+import { getUserSubs } from "pages/api/user";
+import { CouponType } from "customer/main/myCouponWithQR";
 
 type TabContentType = {
   selectedTab: number;
 };
-
-const dummyMyCoupon = [
-  {
-    storeName: "정갈한솥",
-    couponPrice: 3500,
-    couponName: "모든 메뉴 사이즈업(5회권)",
-    useCount: "4/5",
-    couponDescription: "쿠폰 소지 시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번 당 최대 1번 가능",
-    isDetail: true,
-  },
-  {
-    storeName: "마라향",
-    couponPrice: 5500,
-    couponName: "양고기 추가(5회권)",
-    useCount: "4/5",
-    couponDescription: "쿠폰 소지시 최대 5회까지 양고기추가 가능. 방문 1번당 최대 1번.",
-    isDetail: true,
-  },
-];
 
 const couponWrapper = css`
   display: flex;
@@ -68,34 +52,46 @@ const emptyState = css`
 const TabContent = ({ selectedTab }: TabContentType) => {
   const { push } = useRouter();
 
-  const [myCoupons, setMyCoupons] = useState<MyCouponProps[] | null>();
-
   const { data, refetch } = useQuery("getLikeList", getLikeList, {
     enabled: false,
   });
+  const { data: userSubs } = useQuery("userSubs", getUserSubs, {
+    refetchOnWindowFocus: false,
+    select: (res) =>
+      res.map((el: any) => ({
+        storeName: el.storeTitle,
+        storeLocation: `${el.sigungu} ${el.bname1}`,
+        couponName: el.subscribeName,
+        qrImage: el.qrimageUrl,
+        validDate: moment(el.expiredAt).add("9", "h").format("YYYY-MM-DD HH:mm:ss"),
+        subscribeType: el.subscribeType,
+        remainingCount: el.remainingCount,
+        totalCount: el.totalCount,
+        couponPrice: el.price,
+        couponDescription: el.intro,
+      })) as ({ couponPrice: number; couponDescription: string } & CouponType)[],
+  });
 
   useEffect(() => {
-    if (selectedTab === 0) {
-      //TODO: my coupon api 요청
-      setMyCoupons(dummyMyCoupon);
-    } else if (selectedTab === 1) {
+    if (selectedTab === 1) {
       refetch();
     }
   }, [selectedTab]);
 
   if (selectedTab === 0) {
-    if (myCoupons) {
+    if (userSubs && userSubs.length) {
       return (
         <div css={couponWrapper}>
-          {myCoupons.map((coupon) => (
+          {userSubs.map((coupon) => (
             <MyCoupon
               key={coupon.storeName}
               couponName={coupon.couponName}
-              couponPrice={coupon.couponPrice}
+              couponPrice={coupon.couponPrice || 0}
               couponDescription={coupon.couponDescription}
               storeName={coupon.storeName}
-              isDetail={coupon.isDetail}
-              useCount={coupon.useCount}
+              isDetail={false}
+              subscribeType={coupon.subscribeType}
+              useCount={`${coupon.remainingCount}/${coupon.totalCount}`}
             />
           ))}
         </div>

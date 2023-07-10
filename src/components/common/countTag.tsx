@@ -33,7 +33,7 @@ const CountTag = (props: CountTagProps) => {
           {props.subsribeType === "COUNT" ? (
             <>
               {props.prefix && props.prefix}&nbsp;
-              {props.useCount}회 사용가능
+              {props.useCount}회 사용 가능
             </>
           ) : (
             <div>횟수 제한 없음</div>

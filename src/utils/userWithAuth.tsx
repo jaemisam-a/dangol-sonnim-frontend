@@ -12,7 +12,7 @@ type Authority = "all" | "loginOnly" | "guestOnly";
 const HOME_ROUTE = "/";
 const LOGIN_ROUTE = "/login";
 
-const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element) => {
+const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element | null) => {
   const ComponentWithAuth = (props: any) => {
     const { pathname, replace } = useRouter();
     const { mutateAsync } = useMutation(validateUserToken);

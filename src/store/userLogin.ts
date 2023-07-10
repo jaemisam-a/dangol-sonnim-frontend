@@ -17,7 +17,7 @@ const getInitialIsLogin = () => {
 };
 
 const store = (set: any) => ({
-  isLogin: getInitialIsLogin,
+  isLogin: getInitialIsLogin(),
   login: () => {
     window.localStorage.setItem("isUserLogin", "true");
     set(() => ({ isLogin: true }));
