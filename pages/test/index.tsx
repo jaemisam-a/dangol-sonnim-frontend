@@ -5,7 +5,6 @@ import { Texts, Colors } from "styles/common";
 import Banner from "customer/banner";
 import BottomSheet from "common/bottomSheet";
 import Layout from "common/layout";
-import MyCoupon from "common/coupon/my";
 import SearchBar from "customer/main/searchBar";
 import Spinner from "common/spinner";
 import useToastStore from "src/store/toast";
@@ -43,14 +42,6 @@ const Test = () => {
         component={<div>바텀시트 테스트</div>}
       />
       <br />
-      <MyCoupon
-        storeName="정갈한솥"
-        couponPrice={3500}
-        couponName="모든 메뉴 사이즈업(5회권)"
-        useCount="4/5"
-        couponDescription="쿠폰 소지 시 최대 5회까지 전 메뉴 사이즈업 가능. 방문 1번 당 최대 1번 가능"
-        isDetail={true}
-      />
       <Spinner />
       <br />
       <button onClick={() => setMessage("방문이 등록되었습니다.", false, "info")}>

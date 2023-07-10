@@ -79,7 +79,6 @@ const MyCoupon = (props: MyCouponProps) => {
         <div css={couponPrice}>월 {props.couponPrice.toLocaleString("ko-KR")}원</div>
         <div css={couponExplainWrapper}>
           <div css={couponName}>{props.couponName}</div>
-          {/* FIXME: 임시로 COUNT로만 설정 */}
           <CountTag subsribeType={props.subscribeType} useCount={props.useCount} />
           <div css={couponDescription}>{props.couponDescription}</div>
         </div>
