@@ -1,37 +1,41 @@
 import React from "react";
-import { css } from "@emotion/react";
-import { QrReader } from "react-qr-reader";
+import { useMutation } from "react-query";
+import QrReader from "react-qr-reader";
 
 import OwnerLayout from "common/layout/owner";
-import ViewFinder from "public/icons/etc/viewfinder.svg";
 import useToastStore from "src/store/toast";
-
-const viewfinder = css`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-`;
+import { useSubsCoupon } from "pages/api/user/useSubs";
 
 const QR = () => {
   const { setMessage } = useToastStore();
 
+  const { mutateAsync } = useMutation(useSubsCoupon);
+
   return (
     <OwnerLayout title="QR코드" isLogo={true}>
       <QrReader
-        ViewFinder={() => <ViewFinder css={viewfinder} />}
-        scanDelay={2000}
-        constraints={{ facingMode: "environment" }}
-        onResult={(result, error) => {
-          if (!!result) {
-            /** TODO: 방문 확인 API */
-            setMessage("방문이 확인되었습니다.", false, "info");
-          } else if (!!error) {
-            setMessage("QR코드 인증에 실패했습니다.\n다시 한번 확인해주세요.", false, "warning");
+        showViewFinder={true}
+        delay={1000}
+        onScan={(data) => {
+          if (data) {
+            if (confirm("방문 확인을 하시겠습니까?")) {
+              return mutateAsync(data)
+                .then((res) => {
+                  res.remainCount > 0
+                    ? setMessage("방문이 확인되었습니다.", false, "info")
+                    : setMessage("사용 완료된 구독권입니다.", false, "warning");
+                })
+                .catch((err) => {
+                  setMessage("사용 완료된 구독권입니다.", false, "warning");
+                });
+            }
           }
         }}
-        videoStyle={{ width: "100%", heigth: "100vh" }}
+        onError={() => {
+          setMessage("QR코드 인증에 실패했습니다.\n다시 한번 확인해주세요.", false, "warning");
+        }}
+        facingMode="environment"
+        style={{ width: "100%", heigth: "100vh" }}
       />
     </OwnerLayout>
   );
