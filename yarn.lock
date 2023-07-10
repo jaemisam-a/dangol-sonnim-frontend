@@ -2789,8 +2789,7 @@ chokidar@^3.5.3:
     is-glob "~4.0.1"
     normalize-path "~3.0.0"
     readdirp "~3.6.0"
-  optionalDependencies:
-    fsevents "~2.3.2"
+
 
 chownr@^1.1.1:
   version "1.1.4"
@@ -3821,18 +3820,6 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
-fsevents@^1.2.7:
-  version "1.2.13"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.13.tgz#f325cb0455592428bcf11b383370ef70e3bfcc38"
-  integrity sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==
-  dependencies:
-    bindings "^1.5.0"
-    nan "^2.12.1"
-
-fsevents@^2.3.2, fsevents@~2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
-  integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -4657,8 +4644,7 @@ jest-haste-map@^29.5.0:
     jest-worker "^29.5.0"
     micromatch "^4.0.4"
     walker "^1.0.8"
-  optionalDependencies:
-    fsevents "^2.3.2"
+
 
 jest-leak-detector@^29.5.0:
   version "29.5.0"
@@ -5900,8 +5886,7 @@ react-qr-reader@2.2.0:
   resolved "https://registry.yarnpkg.com/react-qr-reader/-/react-qr-reader-2.2.0.tgz#9953e808b59e7e5924894b768b30a1ba1ec1e0f4"
   integrity sha512-2U57ETFLn1yGEzzZ1a3hOUHTtPU3yAc0QdPJdaViK+ev/I9bA3Wa9KqOWWw8JcRFMFJeS3t30usUxIKV3eNEKg==
   dependencies:
-    fsevents "^1.2.7"
-    jsqr "^1.2.0"
+     jsqr "^1.2.0"
     prop-types "^15.7.2"
     webrtc-adapter "^7.2.1"
 
