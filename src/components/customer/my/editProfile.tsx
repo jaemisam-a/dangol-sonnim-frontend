@@ -105,14 +105,17 @@ const EditProfile = () => {
     if (profileData.name !== data?.nickname && inputStatus[0] !== "success")
       return alert("닉네임 중복확인을 해주세요.");
     if (inputStatus[0] === "error") return alert("사용가능한 닉네임을 입력해주세요.");
+
     updateUserMutate({
       nickname: profileData.name,
       phoneNumber: profileData.phone,
       multipartFile: image,
-    }).then(() => {
-      alert("저장되었습니다.");
-      reload();
-    });
+    })
+      .then(() => {
+        alert("저장되었습니다.");
+        reload();
+      })
+      .catch(() => alert("이미지는 1MB까지 가능합니다."));
   };
 
   useEffect(() => {

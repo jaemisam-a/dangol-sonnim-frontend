@@ -52,7 +52,6 @@ const margin = css`
 `;
 
 type SearchListProps = {
-  isLoggedIn: boolean;
   queries: string[];
 };
 

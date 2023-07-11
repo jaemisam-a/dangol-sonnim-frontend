@@ -212,6 +212,7 @@ const MyStoreSetting = () => {
             type="text"
             css={inputStyle}
             value={detailedAddress}
+            placeholder="상세 주소 입력"
             onChange={(e) => setGlobalStoreInfo("detailedAddress", e.target.value)}
           />
         </FormLabel>

@@ -125,7 +125,7 @@ const Owner = () => {
 
   const onButtonClick = () => {
     if (isLogin) {
-      push("/owner/settings");
+      push("/owner/mystore");
     } else {
       push("/owner/login");
     }

@@ -49,7 +49,7 @@ const KakaoMap = ({ address }: KakaoMapProp) => {
   useEffect(() => {
     if (!window.kakao) return;
     onLoadKakaoMap();
-  }, []);
+  }, [address]);
 
   return (
     <>

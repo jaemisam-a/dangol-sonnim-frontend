@@ -31,31 +31,43 @@ const moreBtn = css`
   color: ${Colors.neutral90};
 `;
 
+const noSubsText = css`
+  margin-bottom: 2rem;
+  ${Texts.B3_15_M2}
+`;
+
 const Menus = (props: MenusPropsType) => {
   const [open, setOpen] = useState(false);
 
+  const hasMenus = props.menuList.length > 0;
   return (
     <>
-      <StoreSection sectionTitle="메뉴" menuCount={props.menuList?.length} fold={true}>
-        <div css={menuWrapper}>
-          {props.menuList
-            ?.filter((_, idx) => idx < 3)
-            .map((menu) => (
-              <Menu
-                key={menu.menuId}
-                imgSrc={menu.imageUrl}
-                name={menu.name}
-                price={menu.price}
-                isBottom={false}
-              />
-            ))}
-        </div>
-        <div css={moreBtnWrapper}>
-          <button onClick={() => setOpen(true)} css={moreBtn}>
-            <span>더보기</span>
-            <RightIcon width={14} height={14} stroke={Colors.neutral90} />
-          </button>
-        </div>
+      <StoreSection sectionTitle="메뉴" menuCount={props.menuList?.length} fold={hasMenus}>
+        {hasMenus ? (
+          <>
+            <div css={menuWrapper}>
+              {props.menuList
+                ?.filter((_, idx) => idx < 3)
+                .map((menu) => (
+                  <Menu
+                    key={menu.menuId}
+                    imgSrc={menu.imageUrl}
+                    name={menu.name}
+                    price={menu.price}
+                    isBottom={false}
+                  />
+                ))}
+            </div>
+            <div css={moreBtnWrapper}>
+              <button onClick={() => setOpen(true)} css={moreBtn}>
+                <span>더보기</span>
+                <RightIcon width={14} height={14} stroke={Colors.neutral90} />
+              </button>
+            </div>
+          </>
+        ) : (
+          <p css={noSubsText}>메뉴가 없습니다.</p>
+        )}
       </StoreSection>
       <BottomSheet
         height="40.125rem"

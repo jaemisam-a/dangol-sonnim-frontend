@@ -6,7 +6,6 @@ import { css } from "@emotion/react";
 import { Colors, Sizes, Texts } from "styles/common";
 import Share from "public/icons/etc/share.svg";
 import ArrowLeft from "public/icons/direction/arrowLeft.svg";
-import Kebab from "public/icons/menu/kebab.svg";
 import useLoginStore from "src/store/userLogin";
 
 type HeaderProps = {
@@ -127,11 +126,7 @@ const CustomerHeader = (props: HeaderProps) => {
                 <ArrowLeft stroke={Colors.amber50} />
               </button>
               <span css={pageTitle}>{props.subTitle}</span>
-              {pathname === "/my" ? (
-                <div css={pointerButton}>
-                  <Kebab />
-                </div>
-              ) : pathname === "/store/[id]" ? (
+              {pathname === "/store/[id]" ? (
                 <div css={pointerButton} onClick={onShare}>
                   <Share />
                 </div>

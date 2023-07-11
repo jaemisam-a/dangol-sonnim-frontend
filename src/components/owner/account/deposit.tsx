@@ -8,7 +8,7 @@ import InputWithButton, { InputWithButtonType } from "common/input/withButton";
 import Select from "common/select";
 import { Colors, Texts } from "styles/common";
 
-type DepositAccount = {
+type DepositAccountType = {
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
@@ -34,7 +34,7 @@ const submitButton = (isEmpty: boolean) => css`
   ${Texts.S1_16_M};
 `;
 
-const DepositAccount = (props: DepositAccount) => {
+const DepositAccount = (props: DepositAccountType) => {
   const queryClient = useQueryClient();
 
   const [selectedBank, setSelectedBank] = useState<TransferType>({
@@ -86,7 +86,7 @@ const DepositAccount = (props: DepositAccount) => {
           isBold={true}
         />
         <div>
-          <label css={bankLabel}>은행선택</label>
+          <div css={bankLabel}>은행선택</div>
           <Select
             placeholder="은행을 선택해주세요"
             list={[
