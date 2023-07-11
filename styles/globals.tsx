@@ -9,7 +9,7 @@ const global = css`
     src: url("/fonts/pretendard-Regular.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Regular.subset.woff") format("woff");
     font-weight: 400;
-    font-display: auto;
+    font-display: swap;
   }
 
   @font-face {
@@ -17,7 +17,7 @@ const global = css`
     src: url("/fonts/pretendard-Medium.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Medium.subset.woff") format("woff");
     font-weight: 500;
-    font-display: auto;
+    font-display: swap;
   }
 
   @font-face {
@@ -25,14 +25,14 @@ const global = css`
     src: url("/fonts/pretendard-Bold.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Bold.subset.woff") format("woff");
     font-weight: 700;
-    font-display: auto;
+    font-display: swap;
   }
 
   @font-face {
     font-family: "blackHanSans";
     src: url("/fonts/blackHanSans.ttf") format("truetype");
     font-weight: 400;
-    font-display: auto;
+    font-display: swap;
   }
 
   * {
