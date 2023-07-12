@@ -31,7 +31,7 @@ const wrapper = css`
   flex-direction: column;
   gap: 0.375rem;
   cursor: pointer;
-  width: 152px;
+  width: 9.5rem;
 
   img {
     border-radius: 0.25rem;

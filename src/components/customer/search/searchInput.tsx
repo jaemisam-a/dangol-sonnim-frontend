@@ -30,7 +30,7 @@ const inputWrapper = css`
   }
 
   button {
-    height: 24px;
+    height: 1.5rem;
   }
 `;
 
