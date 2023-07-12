@@ -43,13 +43,6 @@ const Login = () => {
 
   const socialArr = [
     {
-      image: "/images/loginMethod/kakao.png",
-      name: "카카오",
-      bgColor: "#FFE500",
-      color: "black",
-      onClick: () => alert("준비 중입니다."),
-    },
-    {
       image: "/images/loginMethod/google.png",
       name: "구글",
       bgColor: "#FFFFFF",
@@ -58,20 +51,31 @@ const Login = () => {
         const GOOGLE_AUTH_URL = `https://${process.env.NEXT_PUBLIC_BACKEND_URL}/oauth2/authorization/google?redirect_uri=${OAUTH2_REDIRECT_URI}/login/profile`;
         push(GOOGLE_AUTH_URL);
       },
+      disabled: false,
     },
     {
-      image: "/images/loginMethod/apple.png",
-      name: "Apple",
-      bgColor: "#000000",
-      color: "white",
-      onClick: () => alert("준비 중입니다."),
+      image: "/images/loginMethod/kakao.png",
+      name: "카카오",
+      bgColor: "#FFE500",
+      color: "black",
+      onClick: () => {},
+      disabled: true,
     },
     {
       image: "/images/loginMethod/naver.png",
       name: "네이버",
       bgColor: "#03C75A",
       color: "white",
-      onClick: () => alert("준비 중입니다."),
+      onClick: () => {},
+      disabled: true,
+    },
+    {
+      image: "/images/loginMethod/apple.png",
+      name: "Apple",
+      bgColor: "#000000",
+      color: "white",
+      onClick: () => {},
+      disabled: true,
     },
   ];
 
@@ -103,6 +107,7 @@ const Login = () => {
               name={content.name}
               key={content.name}
               onClick={content.onClick}
+              disabled={content.disabled}
             />
           ))}
         </div>

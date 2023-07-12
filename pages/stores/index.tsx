@@ -40,6 +40,10 @@ const queryWrapper = css`
     width: 100%;
     ${Texts.B3_15_R2}
   }
+
+  button {
+    height: 1.5rem;
+  }
 `;
 
 const filterWrapper = css`

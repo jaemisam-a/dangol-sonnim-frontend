@@ -18,6 +18,7 @@ type LayoutProps = {
 const wrapper = css`
   width: 100vw;
   max-width: ${Sizes.customer_width};
+  min-width: 345px;
   min-height: 100vh;
   margin: auto;
   padding-bottom: 0;

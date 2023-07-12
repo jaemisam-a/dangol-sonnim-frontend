@@ -12,6 +12,10 @@ import useLoginStore from "src/store/userLogin";
 import SearchBar from "common/input/search";
 import { GetStoreListType, getStoreList } from "pages/api/store";
 
+const wrapper = css`
+  padding-bottom: 2rem;
+`;
+
 const searchBar = css`
   display: flex;
   justify-content: center;
@@ -67,20 +71,22 @@ const Home = () => {
 
   return (
     <Layout title="단골손님">
-      <div css={searchBar}>
-        <SearchBar isCustomer placeholder="가게 이름 검색" />
+      <div css={wrapper}>
+        <div css={searchBar}>
+          <SearchBar isCustomer placeholder="가게 이름 검색" />
+        </div>
+        {isLogin && <CouponSlider />}
+        <div css={location}>
+          <Location setStoreListParams={setStoreListParams} />
+        </div>
+        <div css={category}>
+          <Category selected={selected} setSelected={setSelected} />
+        </div>
+        <section css={sort}>
+          <Sort setStoreListParams={setStoreListParams} />
+        </section>
+        <StoreThumbnailList contents={storeData} isLoading={isLoading} />
       </div>
-      {isLogin && <CouponSlider />}
-      <div css={location}>
-        <Location setStoreListParams={setStoreListParams} />
-      </div>
-      <div css={category}>
-        <Category selected={selected} setSelected={setSelected} />
-      </div>
-      <section css={sort}>
-        <Sort setStoreListParams={setStoreListParams} />
-      </section>
-      <StoreThumbnailList contents={storeData} isLoading={isLoading} />
     </Layout>
   );
 };

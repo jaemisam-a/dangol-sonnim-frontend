@@ -1,4 +1,3 @@
-// FIXME: store api 연결 시 type any 해결
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";

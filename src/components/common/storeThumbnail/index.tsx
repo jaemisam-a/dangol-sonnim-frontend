@@ -31,6 +31,7 @@ const wrapper = css`
   flex-direction: column;
   gap: 0.375rem;
   cursor: pointer;
+  width: 9.5rem;
 
   img {
     border-radius: 0.25rem;
@@ -44,12 +45,16 @@ const storeInfo = css`
 `;
 
 const store = css`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   ${Texts.B3_15_R2}
 `;
 
 const category = css`
   ${Texts.C2_12_R}
   color: ${Colors.neutral60};
+  white-space: nowrap;
 `;
 
 const location = css`
@@ -64,12 +69,6 @@ const tags = css`
 
 const imageWrapper = css`
   position: relative;
-`;
-
-const defaultImage = css`
-  width: 9.5rem;
-  height: 9.5rem;
-  background-color: #666666;
 `;
 
 const pickBtn = (isLike?: boolean) => css`
@@ -111,12 +110,15 @@ const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
     <>
       <div css={wrapper} onClick={() => push(`/store/${content.id}`)}>
         <div css={imageWrapper}>
-          {content.storeImageUrlList.length ? (
-            <Image src={content.storeImageUrlList[0]} alt={content.name} width={152} height={152} />
-          ) : (
-            // FIXME: 이미지가 없는 경우 기본 이미지를 설정함. 추후 디자인 나오면 수정 예정
-            <div css={defaultImage} />
-          )}
+          <Image
+            src={
+              content.storeImageUrlList.length ? content.storeImageUrlList[0] : "/images/empty.png"
+            }
+            priority={true}
+            alt={content.name}
+            width={152}
+            height={152}
+          />
 
           <button css={pickBtn(isLikeStore?.isLike)} onClick={onPickClick}>
             <Pick />

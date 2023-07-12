@@ -69,7 +69,6 @@ const TextInput = (props: TextInputProps) => {
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     if (!props.setState) return;
     if (props.type === "number" && isNaN(Number(e.target.value))) return;
-    if (e.target.value.includes(" ")) return;
     if (props.objectKey) {
       props.setState((prev: any) => {
         return { ...prev, [props.objectKey as string]: e.target.value };

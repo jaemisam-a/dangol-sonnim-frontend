@@ -28,6 +28,10 @@ const inputWrapper = css`
     height: 2.5rem;
     ${Texts.B3_15_R1}
   }
+
+  button {
+    height: 1.5rem;
+  }
 `;
 
 const arrowLeft = css`

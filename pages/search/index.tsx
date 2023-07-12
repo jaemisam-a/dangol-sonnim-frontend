@@ -1,31 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import Layout from "common/layout";
 import SearchInput from "customer/search/searchInput";
 import SearchList from "customer/search/searchList";
-import useLoginStore from "src/store/userLogin";
 
-const SUGGESTED_QUERIES = ["사이드 디쉬", "카페", "사이즈업", "한식", "할인"];
-const RECENT_QUERIES = ["사이드 디쉬", "파스타", "김밥"];
+const QUERIES = ["냉면", "초밥", "김밥", "감자탕"];
 
 const Search = () => {
-  const { isLogin } = useLoginStore();
-
-  // TODO: 로그인 상태 확인, 로그인 된 상태라면 최근 검색어 데이터 받아오기
-  const [queries, setQueries] = useState(SUGGESTED_QUERIES);
-
-  useEffect(() => {
-    if (isLogin) {
-      setQueries(RECENT_QUERIES);
-    } else {
-      setQueries(SUGGESTED_QUERIES);
-    }
-  }, [isLogin]);
-
   return (
     <Layout title="검색" isNoHeader={true}>
       <SearchInput />
-      <SearchList isLoggedIn={isLogin} queries={queries} />
+      <SearchList queries={QUERIES} />
     </Layout>
   );
 };
