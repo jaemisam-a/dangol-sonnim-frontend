@@ -76,7 +76,7 @@ const SubsSetting = (props: SubsSettingProps) => {
               editAction={() =>
                 push(
                   { pathname: "/owner/settings/subs", query: { subsId: el.subscribeId } },
-                  "/owner/settings/subs"
+                  "/owner/settings/subs",
                 )
               }
               deleteAction={() => {

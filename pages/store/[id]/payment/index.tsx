@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "react-query";
 import Layout from "common/layout";
 import StoreCoupon from "common/coupon/store";
 import Consent from "common/consent";
-import Spinner from "common/spinner";
+import FullPageSpinner from "common/spinner/fullPage";
 import PaymentInfo from "customer/store/menu/payment/info";
 import PaymentMethod from "customer/store/menu/payment/method";
 import { Colors, Texts } from "styles/common";
@@ -58,7 +58,7 @@ const StorePayment = () => {
     () => getSubs({ subscribeId: Number(JSON.parse(query.selectedSubs as string)[0]) }),
     {
       enabled: Boolean(query.selectedSubs),
-    }
+    },
   );
   const { mutateAsync } = useMutation(purchaseSubs);
 
@@ -107,10 +107,10 @@ const StorePayment = () => {
               pathname: `${asPath}/complete`,
               query: { price: data.price },
             },
-            `${asPath}/complete`
+            `${asPath}/complete`,
           );
         } else alert("결제에 실패하였습니다. 다시 시도해주세요.");
-      }
+      },
     );
   };
 
@@ -159,7 +159,7 @@ const StorePayment = () => {
   return (
     <Layout title="결제" subTitle="결제화면">
       {!data ? (
-        <Spinner />
+        <FullPageSpinner />
       ) : (
         <>
           <div css={couponWrapper}>

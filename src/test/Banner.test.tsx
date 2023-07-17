@@ -10,7 +10,7 @@ describe("Banner", () => {
         images={[
           { src: "https://aware.brownbag.one/images/aware/aware-logo.png", alt: "aware-logo" },
         ]}
-      />
+      />,
     );
 
     const image = document.querySelector("img") as HTMLImageElement;

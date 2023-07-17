@@ -79,7 +79,7 @@ const EditProfile = () => {
 
   const { data, isFetching } = useQuery("userInf", getUserInfo, { refetchOnWindowFocus: false });
   const { mutateAsync: checkValidName } = useMutation("validName", () =>
-    getIsValidName(profileData.name)
+    getIsValidName(profileData.name),
   );
   const { mutateAsync } = useMutation(deleteUser);
   const { mutateAsync: updateUserMutate } = useMutation(updateUser);

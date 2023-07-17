@@ -79,14 +79,14 @@ const Business = () => {
               p_nm: name,
             },
           ],
-        }
+        },
       )
       .then((res) => res.data.data[0]);
   });
 
   const yearsArray = Array.from(
     { length: currentYear - START_YEAR + 1 },
-    (_, index) => currentYear - index
+    (_, index) => currentYear - index,
   );
   const monthsArray = Array.from({ length: 12 }, (_, index) => index + 1);
   const daysArray = Array.from({ length: 31 }, (_, index) => index + 1);
@@ -134,7 +134,7 @@ const Business = () => {
           pathname: "/owner/auth/complete",
           query: { accessToken: query.accessToken, isEdit: query.isEdit },
         },
-        "/owner/auth/complete"
+        "/owner/auth/complete",
       );
     }
 

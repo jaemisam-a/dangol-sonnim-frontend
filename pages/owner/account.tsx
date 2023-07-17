@@ -8,7 +8,7 @@ import { Colors, Texts } from "styles/common";
 import OwnerLayout from "common/layout/owner";
 import Modal from "common/modal";
 import BottomSheet from "common/bottomSheet";
-import Spinner from "common/spinner";
+import FullPageSpinner from "common/spinner/fullPage";
 import Dialog from "customer/my/dialog";
 import AccountSection from "owner/account/section";
 import DepositAccount from "owner/account/deposit";
@@ -92,7 +92,7 @@ const OwnerAccount = () => {
     <OwnerLayout title="계정 정보" subTitle="계정 정보">
       <div css={wrapper}>
         {isLoading ? (
-          <Spinner />
+          <FullPageSpinner />
         ) : (
           <>
             {accountData.map((el) => (

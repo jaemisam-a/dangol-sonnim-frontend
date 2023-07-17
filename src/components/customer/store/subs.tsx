@@ -92,7 +92,7 @@ const Subs = (props: SubsProps) => {
                     pathname: `${router.asPath}/payment`,
                     query: { selectedSubs: JSON.stringify(selectedSubs) },
                   },
-                  `${router.asPath}/payment`
+                  `${router.asPath}/payment`,
                 )
               }
               css={buyButton(isOkay)}

@@ -68,7 +68,7 @@ const OwnerSignup = () => {
           phone: inputData.phone,
         },
       },
-      "/owner/signup/email"
+      "/owner/signup/email",
     );
   };
 

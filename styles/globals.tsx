@@ -6,7 +6,8 @@ import { Colors } from "styles/common";
 const global = css`
   @font-face {
     font-family: "pretendard";
-    src: url("/fonts/pretendard-Regular.subset.woff2") format("woff2"),
+    src:
+      url("/fonts/pretendard-Regular.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Regular.subset.woff") format("woff");
     font-weight: 400;
     font-display: swap;
@@ -14,7 +15,8 @@ const global = css`
 
   @font-face {
     font-family: "pretendard";
-    src: url("/fonts/pretendard-Medium.subset.woff2") format("woff2"),
+    src:
+      url("/fonts/pretendard-Medium.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Medium.subset.woff") format("woff");
     font-weight: 500;
     font-display: swap;
@@ -22,7 +24,8 @@ const global = css`
 
   @font-face {
     font-family: "pretendard";
-    src: url("/fonts/pretendard-Bold.subset.woff2") format("woff2"),
+    src:
+      url("/fonts/pretendard-Bold.subset.woff2") format("woff2"),
       url("/fonts/pretendard-Bold.subset.woff") format("woff");
     font-weight: 700;
     font-display: swap;
@@ -37,9 +40,21 @@ const global = css`
 
   * {
     box-sizing: border-box;
-    font-family: pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
-      "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-      "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-family:
+      pretendard,
+      -apple-system,
+      BlinkMacSystemFont,
+      system-ui,
+      Roboto,
+      "Helvetica Neue",
+      "Segoe UI",
+      "Apple SD Gothic Neo",
+      "Noto Sans KR",
+      "Malgun Gothic",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      sans-serif;
   }
 
   body {

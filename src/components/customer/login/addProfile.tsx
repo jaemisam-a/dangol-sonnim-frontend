@@ -58,7 +58,7 @@ const AddProfile = () => {
 
   const { mutateAsync } = useMutation(postUser);
   const { mutateAsync: checkValidName } = useMutation("validName", () =>
-    getIsValidName(profileData.name)
+    getIsValidName(profileData.name),
   );
 
   const [isCheckedConsent, setIsCheckedConsent] = useState(false);
