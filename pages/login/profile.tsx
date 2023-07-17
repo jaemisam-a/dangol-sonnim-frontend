@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
@@ -8,11 +8,13 @@ import useLoginStore from "src/store/userLogin";
 import { getUserInfo } from "pages/api/user";
 
 const Profile = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const { login } = useLoginStore();
   const { push, query } = useRouter();
 
   const { data, isFetching } = useQuery("customer", getUserInfo, {
-    enabled: Boolean(query.token),
+    enabled: Boolean(query.token && localStorage.getItem("userAccessToken")),
     refetchOnWindowFocus: false,
   });
 
@@ -23,10 +25,12 @@ const Profile = () => {
   }, [query]);
 
   useEffect(() => {
+    if (!data) return;
     if (data?.roleType === "USER") push("/");
+    else setIsLoading(false);
   }, [data]);
 
-  if (isFetching) return null;
+  if (isFetching || isLoading) return null;
 
   return (
     <>

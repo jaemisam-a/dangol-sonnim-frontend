@@ -22,7 +22,7 @@ const UserWithAuth = (WrappedComponent: (props: any) => JSX.Element | null) => {
 
     /** 페이지 별 권한 설정 */
     useEffect(() => {
-      if (pathname.includes(LOGIN_ROUTE)) {
+      if (pathname === LOGIN_ROUTE) {
         setAuthority("guestOnly");
       } else if (pathname.includes("/my") || pathname.includes("/payment")) {
         setAuthority("loginOnly");

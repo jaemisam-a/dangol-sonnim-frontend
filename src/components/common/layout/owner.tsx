@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import Head from "next/head";
+import { useStore } from "zustand";
 import { css } from "@emotion/react";
 
 import OwnerHeader from "common/layout/header/owner";
@@ -7,6 +8,7 @@ import BottomNav from "common/layout/nav/bottomNav";
 import Toast from "common/toast";
 import { Sizes } from "styles/common";
 import OwnerWithAuth from "src/utils/ownerWithAuth";
+import useOwnerLoginStore from "src/store/ownerLogin";
 
 type LayoutProps = {
   children: ReactNode;
@@ -36,6 +38,13 @@ const OwnerLayout = ({
   checkBtnFnc,
   isLogo,
 }: LayoutProps) => {
+  const [isLogin, setIsLogin] = useState(false);
+  const { isLogin: isLoginStore } = useStore(useOwnerLoginStore);
+
+  useEffect(() => {
+    setIsLogin(isLoginStore);
+  }, [isLoginStore]);
+
   return (
     <>
       <Head>
@@ -50,7 +59,7 @@ const OwnerLayout = ({
       />
       <div css={wrapper}>{children}</div>
       <Toast />
-      <BottomNav />
+      {isLogin && <BottomNav />}
     </>
   );
 };
