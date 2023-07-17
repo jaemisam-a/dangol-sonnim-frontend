@@ -35,7 +35,7 @@ const Store = () => {
     () => getStore({ storeId: Number(query.id) }),
     {
       enabled: Boolean(query.id),
-    }
+    },
   );
 
   const { data: isLikeStore, refetch } = useQuery(
@@ -44,7 +44,7 @@ const Store = () => {
     {
       refetchOnWindowFocus: false,
       enabled: Boolean(storeData?.id) && Boolean(isLogin),
-    }
+    },
   );
 
   const { mutateAsync } = useMutation(toggleLikeStore, {
@@ -55,7 +55,7 @@ const Store = () => {
     if (!storeData) return;
     if (storeData.subscribeResponseDTOList.length > 0) {
       const mainSubsIndex = storeData.subscribeResponseDTOList.findIndex(
-        (sub: { [index: string]: string }) => sub.isTop
+        (sub: { [index: string]: string }) => sub.isTop,
       );
       setMainSubsDesc(storeData.subscribeResponseDTOList[mainSubsIndex]?.name || "");
     }

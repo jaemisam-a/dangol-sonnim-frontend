@@ -95,7 +95,7 @@ const MyStoreSetting = () => {
         pathname: "/owner/auth",
         query: { accessToken: localStorage.getItem("ownerAccessToken"), isEdit: query.isEdit },
       },
-      "owner/auth"
+      "owner/auth",
     );
   };
 
@@ -107,7 +107,7 @@ const MyStoreSetting = () => {
           isEdit: query.isEdit,
         },
       },
-      "/owner/settings/location"
+      "/owner/settings/location",
     );
   };
 

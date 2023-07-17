@@ -92,7 +92,7 @@ const OwnerLogin = () => {
           {
             pathname: (query.from as string) ?? "/owner",
           },
-          (query.from as string) ?? "/owner"
+          (query.from as string) ?? "/owner",
         );
       })
       .catch((err) => alert(err.response.data.message));

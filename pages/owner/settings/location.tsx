@@ -63,14 +63,14 @@ const SettingsLocation = () => {
             countPerPage: 20,
             currentPage: pageParam,
           },
-          { headers: { "content-type": "application/x-www-form-urlencoded" } }
+          { headers: { "content-type": "application/x-www-form-urlencoded" } },
         )
         .then((res) => res),
     {
       getNextPageParam: (lastPage: any) =>
         Number(JSON.parse(lastPage.data.slice(1, -1)).results.common.currentPage) + 1,
       enabled: isSearching,
-    }
+    },
   );
 
   const locationListData = data && JSON.parse(data?.pages.at(-1)?.data.slice(1, -1)).results;
@@ -100,7 +100,7 @@ const SettingsLocation = () => {
 
   useEffect(() => {
     Object.keys(checkedAddr).forEach((key) =>
-      setGlobalStoreInfo(key, checkedAddr[key as keyof checkedAddrType])
+      setGlobalStoreInfo(key, checkedAddr[key as keyof checkedAddrType]),
     );
   }, [checkedAddr]);
 
@@ -114,7 +114,7 @@ const SettingsLocation = () => {
             pathname: "/owner/mystore",
             query: { address: JSON.stringify(checkedAddr), isEdit: routerQuery.isEdit },
           },
-          "/owner/mystore"
+          "/owner/mystore",
         )
       }
     >

@@ -34,7 +34,7 @@ export const editOwnerAccount = async ({
   const response = await axios.patch(
     queryKey,
     { phoneNumber, marketingAgreement },
-    { headers: { Authorization: `Bearer ${accessToken}` } }
+    { headers: { Authorization: `Bearer ${accessToken}` } },
   );
   return response.data;
 };
@@ -45,7 +45,7 @@ export const postOwnerAccount = async ({ account, accountHolder, bank }: PostOwn
   const response = await axios.post(
     queryKey,
     { account, accountHolder, bank },
-    { headers: { Authorization: `Bearer ${accessToken}` } }
+    { headers: { Authorization: `Bearer ${accessToken}` } },
   );
   return response.data;
 };

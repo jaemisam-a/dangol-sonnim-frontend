@@ -62,7 +62,7 @@ const Menus = (props: MenusProps) => {
               editAction={() =>
                 push(
                   { pathname: "/owner/settings/menu", query: { menuId: el.menuId } },
-                  "/owner/settings/menu"
+                  "/owner/settings/menu",
                 )
               }
               deleteAction={() => {

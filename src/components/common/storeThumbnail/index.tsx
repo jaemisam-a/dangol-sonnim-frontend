@@ -92,7 +92,7 @@ const StoreThumbnail = ({ content }: StoreThumbnailProps) => {
     {
       refetchOnWindowFocus: false,
       enabled: isLogin,
-    }
+    },
   );
   const { mutateAsync } = useMutation(toggleLikeStore, {
     onSuccess: () => refetch(),

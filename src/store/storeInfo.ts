@@ -20,7 +20,7 @@ interface StoreState {
 
   setGlobalStoreInfo: (
     key: string,
-    value: string | string[] | { weeks: string; hours: string }[]
+    value: string | string[] | { weeks: string; hours: string }[],
   ) => void;
 
   resetStoreInfo: () => void;
@@ -46,7 +46,7 @@ const store = (set: any) => ({
 
   setGlobalStoreInfo: (
     key: string,
-    value: string | string[] | { weeks: string; hours: string }[]
+    value: string | string[] | { weeks: string; hours: string }[],
   ) => set(() => ({ [key]: value })),
 
   resetStoreInfo: () =>

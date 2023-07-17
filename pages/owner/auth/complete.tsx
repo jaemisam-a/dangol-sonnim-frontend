@@ -48,7 +48,7 @@ const Complete = () => {
 
   const onSubmit = async () => {
     const trimmedBHourArr = globalState.businessHours.filter(
-      (el) => el.weeks !== "" && el.hours !== ""
+      (el) => el.weeks !== "" && el.hours !== "",
     );
     const requestData = {
       name: globalState.name,
