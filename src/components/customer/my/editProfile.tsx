@@ -13,6 +13,13 @@ import Dialog from "customer/my/dialog";
 import useLoginStore from "src/store/userLogin";
 import { deleteUser, getIsValidName, getUserInfo, updateUser } from "pages/api/user";
 
+const spinnerWrapper = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
 const wrapper = css`
   display: flex;
   flex-direction: column;
@@ -162,7 +169,12 @@ const EditProfile = () => {
     });
   }, [data]);
 
-  if (isFetching) return <Spinner />;
+  if (isFetching)
+    return (
+      <div css={spinnerWrapper}>
+        <Spinner />
+      </div>
+    );
 
   return (
     <>
