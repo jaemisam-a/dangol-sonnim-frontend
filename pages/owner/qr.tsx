@@ -20,10 +20,10 @@ const QR = () => {
         onScan={(data) => {
           if (data) {
             const isDangolQR = data?.substring(data.length - 7) === "-dangol";
-            const id = data.replace("-dangol", "");
+            const id = data.slice(0, -7);
             if (!isDangolQR) return alert("단골손님 QR이 아닙니다.");
             if (confirm("방문 확인을 하시겠습니까?")) {
-              return mutateAsync(id)
+              mutateAsync(id)
                 .then((res) => setMessage("방문이 확인되었습니다.", false, "info"))
                 .catch((err) => setMessage("사용 완료된 구독권입니다.", false, "warning"));
             }
