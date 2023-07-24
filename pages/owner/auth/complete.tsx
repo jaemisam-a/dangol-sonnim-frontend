@@ -71,7 +71,7 @@ const Complete = () => {
         .then(() => {
           alert("가게 수정 완료!");
           resetStoreInfo();
-          push("/owner/settings");
+          push({ pathname: "/owner/settings", query: { currentStoreId } }, "/owner/settings");
         })
         .catch((err) => alert(err.response.data.message));
     } else {
@@ -79,7 +79,7 @@ const Complete = () => {
         .then(() => {
           alert("가게 등록 완료!");
           resetStoreInfo();
-          push("/owner/settings");
+          push({ pathname: "/owner/settings", query: { currentStoreId } }, "/owner/settings");
         })
         .catch((err) => alert(err.response.data.message));
     }
