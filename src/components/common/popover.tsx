@@ -7,7 +7,6 @@ export type statusType = "edit" | "delete" | "default";
 
 type PopoverProps = {
   isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
   popoverRef: MutableRefObject<null>;
   style: CSSProperties;
   attributes: any;
@@ -50,23 +49,9 @@ const Popover = (props: PopoverProps) => {
       {...props.attributes}
     >
       {props.label === "메뉴" && (
-        <button
-          onClick={() => {
-            props.setStatus && props.setStatus("edit");
-            props.setIsOpen(false);
-          }}
-        >
-          수정
-        </button>
+        <button onClick={() => props.setStatus && props.setStatus("edit")}>수정</button>
       )}
-      <button
-        onClick={() => {
-          props.setStatus && props.setStatus("delete");
-          props.setIsOpen(false);
-        }}
-      >
-        삭제
-      </button>
+      <button onClick={() => props.setStatus && props.setStatus("delete")}>삭제</button>
       <button onClick={props.btnAction} css={colored}>
         {props.label} 등록
       </button>

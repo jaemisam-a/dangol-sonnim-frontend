@@ -70,6 +70,16 @@ const hiddenItem = css`
   height: 1.75rem;
 `;
 
+const buttons = css`
+  display: flex;
+  gap: 0.25rem;
+  color: ${Colors.neutral90};
+`;
+
+const buttonDot = css`
+  ${Texts.B2_14_R1}
+`;
+
 const OwnerHeader = (props: OwnerHeaderProps) => {
   const { pathname, back, push } = useRouter();
 
@@ -101,9 +111,15 @@ const OwnerHeader = (props: OwnerHeaderProps) => {
               </button>
               <span css={pageTitle}>{props.subTitle}</span>
               {pathname === "/owner" ? (
-                <button css={textButton} onClick={onOwnerButtonClick}>
-                  {loginState ? "로그아웃" : "로그인/회원가입"}
-                </button>
+                <div css={buttons}>
+                  <button css={textButton} onClick={() => push("/")}>
+                    손님 페이지
+                  </button>
+                  <span css={buttonDot}>•</span>
+                  <button css={textButton} onClick={onOwnerButtonClick}>
+                    {loginState ? "로그아웃" : "로그인/회원가입"}
+                  </button>
+                </div>
               ) : (
                 <button onClick={() => setOpenNav(true)}>
                   <Hamburger />
