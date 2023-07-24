@@ -54,7 +54,8 @@ const smallButtonWrapper = css`
   align-items: center;
   gap: 0.5rem;
 
-  button {
+  button,
+  a {
     ${Texts.B3_15_R2};
     color: ${Colors.neutral70};
   }
@@ -128,7 +129,7 @@ const OwnerLogin = () => {
           <div css={smallButtonWrapper}>
             <Link href="/owner/signup">회원가입</Link>
             <span>|</span>
-            <Link href="/owner/login/password">비밀번호 찾기</Link>
+            <button onClick={() => alert("관리자에게 문의해주세요.")}>비밀번호 찾기</button>
           </div>
         </div>
       </OwnerLayout>

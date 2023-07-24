@@ -12,8 +12,11 @@ type MenusPropsType = {
   menuList: { imageUrl: string; menuId: number; name: string; price: number; storeId: number }[];
 };
 
+export const MENU_SIZE_PX = 96;
+
 const menuWrapper = css`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, ${MENU_SIZE_PX}px);
   justify-content: space-between;
   margin-bottom: 0.25rem;
 `;

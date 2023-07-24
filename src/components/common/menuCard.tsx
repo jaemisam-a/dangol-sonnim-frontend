@@ -5,6 +5,7 @@ import { css } from "@emotion/react";
 import { Colors, Texts } from "styles/common";
 import Close from "public/icons/close/close.svg";
 import Pencil from "public/icons/etc/pencil.svg";
+import { MENU_SIZE_PX } from "customer/store/menu/menus";
 
 type MenuProps = {
   imgSrc: string;
@@ -50,15 +51,15 @@ const btnOnImg = css`
 const MenuCard = (props: MenuProps) => {
   return (
     <>
-      <div>
+      <div style={{ width: "fit-content" }}>
         <div css={imageWrapper}>
           <Image
             css={menuImage(props.isBottom)}
             // FIXME: 이미지 없는 경우 기본 이미지로 설정. 추후 디자인 나오면 수정
             src={props.imgSrc || "/images/logo/logo.png"}
             alt={props.name}
-            width={props.isBottom ? 152 : 96}
-            height={props.isBottom ? 152 : 96}
+            width={props.isBottom ? 152 : MENU_SIZE_PX}
+            height={props.isBottom ? 152 : MENU_SIZE_PX}
           />
           {props.isEdit && (
             <button css={btnOnImg} onClick={props.editAction}>

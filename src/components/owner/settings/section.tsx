@@ -1,10 +1,11 @@
-import React, { Dispatch, ReactNode, SetStateAction, useRef, useState } from "react";
+import React, { Dispatch, ReactNode, SetStateAction, useRef } from "react";
 import { usePopper } from "react-popper";
 import { css } from "@emotion/react";
 
 import Kebab from "public/icons/menu/kebab.svg";
 import { Colors, Texts } from "styles/common";
 import Popover, { statusType } from "common/popover";
+import useDropdown from "src/utils/useDropdown";
 
 type StoreSectionProps = {
   children: ReactNode;
@@ -47,9 +48,10 @@ const registrationButton = css`
 `;
 
 const StoreSection = (props: StoreSectionProps) => {
-  const [openPopover, setOpenPopover] = useState(false);
   const kebabRef = useRef(null);
   const popoverRef = useRef(null);
+
+  const [openPopover, setOpenPopover] = useDropdown(kebabRef);
 
   const { styles, attributes } = usePopper(kebabRef.current, popoverRef.current, {
     placement: "bottom-end",
@@ -78,7 +80,6 @@ const StoreSection = (props: StoreSectionProps) => {
                     btnAction={props.btnAction}
                     label={props.sectionTitle}
                     isOpen={openPopover}
-                    setIsOpen={setOpenPopover}
                     popoverRef={popoverRef}
                     style={styles.popper}
                     attributes={attributes.popper}
