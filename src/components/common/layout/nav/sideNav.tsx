@@ -77,6 +77,7 @@ const content = (open: boolean) => css`
   top: 0;
   right: 0;
   width: 19rem;
+  max-width: 100%;
   height: 100%;
   background-color: white;
   animation: ${open ? fadeInSide : fadeOutSide} 0.3s ease-in;

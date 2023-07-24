@@ -23,7 +23,7 @@ const bottomPadding = css`
 `;
 
 const Settings = () => {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
   const { resetStoreInfo } = useStore(useMyStoreInfo);
   const { currentStoreId, setCurrentStoreId } = useStore(useCurrentStore);
 
@@ -37,7 +37,7 @@ const Settings = () => {
   });
 
   useEffect(() => {
-    if (mystoreData?.length > 0 && currentStoreId === "") {
+    if (mystoreData?.length > 0 && currentStoreId === "" && !query.currentStoreId) {
       /** 등록한 가게가 있으면 내 가게 목록 중 첫번째 스토어를 currentStore로 설정 */
       setCurrentStoreId(mystoreData[0].id);
     } else if (mystoreData?.length < 1) {
