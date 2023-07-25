@@ -65,7 +65,7 @@ const TabContent = ({ selectedTab }: TabContentType) => {
         qrImage: el.qrimageUrl,
         validDate: moment(el.expiredAt).add("9", "h").format("YYYY-MM-DD HH:mm:ss"),
         subscribeType: el.subscribeType,
-        remainingCount: el.remainingCount,
+        remainingCount: el.remainingCount >= 0 ? el.remainingCount : 0,
         totalCount: el.totalCount,
         couponPrice: el.price,
         couponDescription: el.intro,
