@@ -8,6 +8,7 @@ import CountTag from "common/countTag";
 type QRCheckProps = {
   qrImg: string;
   storeName: string;
+  subscribeType: "MONTHLY" | "COUNT";
   useCount: string;
 };
 
@@ -33,8 +34,7 @@ const QRCheck = (props: QRCheckProps) => {
     <div css={wrapper}>
       <h1 css={title}>{props.storeName}</h1>
       <Image src={props.qrImg} alt="QR코드이미지" width={320} height={320} css={imgStyle} />
-      {/* FIXME: 임시로 COUNT로만 설정 */}
-      <CountTag subsribeType="COUNT" useCount={props.useCount} prefix="구독권" />
+      <CountTag subsribeType={props.subscribeType} useCount={props.useCount} prefix="구독권" />
     </div>
   );
 };
