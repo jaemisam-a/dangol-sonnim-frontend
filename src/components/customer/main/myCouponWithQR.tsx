@@ -117,6 +117,7 @@ const MyCouponWithQR = (props: MainCouponPropsType) => {
                 <QRCheck
                   qrImg={props.coupon.qrImage}
                   storeName={props.coupon.storeName}
+                  subscribeType={props.coupon.subscribeType}
                   useCount={`${props.coupon.remainingCount}/${props.coupon.totalCount}`}
                 />
               }
