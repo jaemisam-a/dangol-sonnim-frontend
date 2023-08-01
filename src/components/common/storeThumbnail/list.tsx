@@ -25,7 +25,6 @@ const thumbnails = css`
   place-items: center;
   grid-template-columns: 1fr 1fr;
   row-gap: 1.875rem;
-  column-gap: 1rem;
 `;
 
 const StoreThumbnailList = (props: StoreThumbnailListProps) => {

@@ -31,10 +31,17 @@ const imgStyle = css`
   flex-shrink: 0;
 `;
 
-const titleWrapper = css`
+const titleButtonWrapper = css`
   display: flex;
   justify-content: space-between;
   padding: 0 1.25rem;
+`;
+
+const tittleWrapper = css`
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const titleStyle = css`
@@ -98,9 +105,9 @@ const Info = ({
           ))}
         </Slider>
       </div>
-      <div css={titleWrapper}>
+      <div css={titleButtonWrapper}>
         <div />
-        <div>
+        <div css={tittleWrapper}>
           <div css={titleStyle}>
             <h1>{name}</h1>
             <span>{categoryIdToString(category)}</span>
