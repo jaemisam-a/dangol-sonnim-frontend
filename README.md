@@ -18,7 +18,8 @@
 
 ## 플로우 차트
 
-<플로우차트 넣기>
+![플로우차트_배경추가](https://github.com/jaemisam-a/dangol-sonnim-frontend/assets/74632731/8091ea26-339e-4aad-989d-a7b00de9c6f7)
+
 
 ## 시연 애니메이션
 #### 손님 구독권 구매
