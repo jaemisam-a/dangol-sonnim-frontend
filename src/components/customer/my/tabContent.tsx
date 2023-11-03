@@ -6,6 +6,7 @@ import moment from "moment";
 
 import MyCoupon from "common/coupon/my";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
+import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 import { getLikeList } from "pages/api/user/storeLike";
 import { getUserSubs } from "pages/api/user";
@@ -49,10 +50,17 @@ const emptyState = css`
   }
 `;
 
+const loadingState = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+`;
+
 const TabContent = ({ selectedTab }: TabContentType) => {
   const { push } = useRouter();
 
-  const { data, refetch } = useQuery("getLikeList", getLikeList, {
+  const { data, refetch, isLoading } = useQuery("getLikeList", getLikeList, {
     enabled: false,
   });
   const { data: userSubs } = useQuery("userSubs", getUserSubs, {
@@ -95,17 +103,14 @@ const TabContent = ({ selectedTab }: TabContentType) => {
           ))}
         </div>
       );
-    return (
-      <div css={emptyState}>
-        <p>
-          아직 구독한 쿠폰이 없어요
-          <br />
-          다양한 구독 혜택을 누려보세요!
-        </p>
-        <button onClick={() => push("/")}>가게 보러가기</button>
-      </div>
-    );
   } else {
+    if (isLoading) {
+      return (
+        <div css={loadingState}>
+          <Spinner />
+        </div>
+      );
+    }
     if (data?.length) {
       return (
         <div css={myPickWrapper}>
@@ -115,17 +120,25 @@ const TabContent = ({ selectedTab }: TabContentType) => {
         </div>
       );
     }
-    return (
-      <div css={emptyState}>
+  }
+  return (
+    <div css={emptyState}>
+      {selectedTab === 0 ? (
+        <p>
+          아직 구독한 쿠폰이 없어요
+          <br />
+          다양한 구독 혜택을 누려보세요!
+        </p>
+      ) : (
         <p>
           아직 좋아요 누른 가게가 없어요
           <br />
           관심있는 가게에 ♡를 눌러보세요!
         </p>
-        <button onClick={() => push("/")}>가게 보러가기</button>
-      </div>
-    );
-  }
+      )}
+      <button onClick={() => push("/")}>가게 보러가기</button>
+    </div>
+  );
 };
 
 export default TabContent;
