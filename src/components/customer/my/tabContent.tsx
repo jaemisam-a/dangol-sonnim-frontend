@@ -6,7 +6,6 @@ import moment from "moment";
 
 import MyCoupon from "common/coupon/my";
 import StoreThumbnail, { ThumbnailData } from "common/storeThumbnail";
-import Spinner from "common/spinner";
 import { Colors, Texts } from "styles/common";
 import { getLikeList } from "pages/api/user/storeLike";
 import { getUserSubs } from "pages/api/user";
@@ -32,13 +31,14 @@ const myPickWrapper = css`
   padding: 1rem 1.25rem;
 `;
 
-const emptyState = css`
+const emptyStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.75rem;
   margin-top: 8.5rem;
   text-align: center;
+  white-space: pre-line;
   ${Texts.S1_16_M}
 
   button {
@@ -50,21 +50,16 @@ const emptyState = css`
   }
 `;
 
-const loadingState = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 25rem;
-`;
-
 const TabContent = ({ selectedTab }: TabContentType) => {
   const { push } = useRouter();
 
-  const { data, refetch, isLoading } = useQuery("getLikeList", getLikeList, {
+  const { data, refetch } = useQuery("getLikeList", getLikeList, {
     enabled: false,
+    suspense: true,
   });
   const { data: userSubs } = useQuery("userSubs", getUserSubs, {
     refetchOnWindowFocus: false,
+    suspense: true,
     select: (res) =>
       res.map((el: any) => ({
         storeName: el.storeTitle,
@@ -85,8 +80,17 @@ const TabContent = ({ selectedTab }: TabContentType) => {
     if (selectedTab === 1) refetch();
   }, [selectedTab]);
 
+  const getEmptyMessage = () => {
+    switch (selectedTab) {
+      case 0:
+        return "아직 구독한 쿠폰이 없어요\n다양한 구독 혜택을 누려보세요!";
+      case 1:
+        return "아직 좋아요 누른 가게가 없어요\n관심있는 가게에 ♡를 눌러보세요!";
+    }
+  };
+
   if (selectedTab === 0) {
-    if (userSubs && userSubs.length)
+    if (userSubs?.length)
       return (
         <div css={couponWrapper}>
           {userSubs.map((coupon) => (
@@ -104,14 +108,7 @@ const TabContent = ({ selectedTab }: TabContentType) => {
         </div>
       );
   } else {
-    if (isLoading) {
-      return (
-        <div css={loadingState}>
-          <Spinner />
-        </div>
-      );
-    }
-    if (data?.length) {
+    if (data?.length)
       return (
         <div css={myPickWrapper}>
           {data.map((store: ThumbnailData) => (
@@ -119,23 +116,10 @@ const TabContent = ({ selectedTab }: TabContentType) => {
           ))}
         </div>
       );
-    }
   }
   return (
-    <div css={emptyState}>
-      {selectedTab === 0 ? (
-        <p>
-          아직 구독한 쿠폰이 없어요
-          <br />
-          다양한 구독 혜택을 누려보세요!
-        </p>
-      ) : (
-        <p>
-          아직 좋아요 누른 가게가 없어요
-          <br />
-          관심있는 가게에 ♡를 눌러보세요!
-        </p>
-      )}
+    <div css={emptyStyle}>
+      <p>{getEmptyMessage()}</p>
       <button onClick={() => push("/")}>가게 보러가기</button>
     </div>
   );
