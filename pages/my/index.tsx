@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 import Layout from "common/layout";
 import Tab from "common/tab";
 import Profile from "customer/my/profile";
 import TabContent from "customer/my/tabContent";
+import SmallSpinner from "common/spinner/small";
 
 const My = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -17,7 +18,9 @@ const My = () => {
           selectedTab={selectedTab}
           setSelectedTab={setSelectedTab}
         >
-          <TabContent selectedTab={selectedTab} />
+          <Suspense fallback={<SmallSpinner />}>
+            <TabContent selectedTab={selectedTab} />
+          </Suspense>
         </Tab>
       </Layout>
     </>
